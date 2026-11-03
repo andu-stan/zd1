@@ -39,9 +39,15 @@ let
     preBuild = "unset NIX_CFLAGS_LINK";
   }
   # build scripts link with nixpkgs' linker, as on the other build machines: on x86_64-linux rustc's default is its own
-  # rust-lld, which stops at the module's compiler-rt on the search path where GNU ld skips the ARM archive
+  # rust-lld, which stops at the module's compiler-rt on the search path where GNU ld skips the ARM archive. With
+  # --target, cargo gives build scripts no [target.<host>] rustflags, only its [host] table (nightly's host-config),
+  # which then needs the host's linker too.
   // lib.optionalAttrs (stdenv.buildPlatform.system == "x86_64-linux") {
-    CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_RUSTFLAGS = "-Clinker-features=-lld";
+    CARGO_UNSTABLE_HOST_CONFIG = "true";
+    CARGO_UNSTABLE_TARGET_APPLIES_TO_HOST = "true";
+    CARGO_TARGET_APPLIES_TO_HOST = "false";
+    CARGO_HOST_LINKER = "${buildPackages.stdenv.cc}/bin/cc";
+    CARGO_HOST_RUSTFLAGS = "-Clinker-features=-lld";
   };
   deps = craneLib.buildDepsOnly common;
 in
