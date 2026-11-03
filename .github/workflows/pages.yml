@@ -1,5 +1,5 @@
 # The web page on GitHub Pages with the releases (docs/web.md, Releases). The repo's Pages source is "GitHub
-# Actions". Nix on the runner builds the MCU firmware with Microchip's x86_64 toolchain, the OS
+# Actions", and its github-pages environment lets the tags v* deploy besides main (a release's run is on its tag). Nix on the runner builds the MCU firmware with Microchip's x86_64 toolchain, the OS
 # image and the page, and pushes what it builds to the Cachix cache (vars.CACHIX_NAME, pawlowskialex-zd1; the token in
 # secrets.CACHIX_AUTH_TOKEN), so later runs fetch what hasn't changed.
 #
