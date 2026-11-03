@@ -175,7 +175,7 @@ See section 3.1. The MCU sets ISP_FORCE and reboots into its DFU bootloader.
 | 0x24 | – | Polled: stored, not ready. | RE |
 | 0x25 | ev 0x10000002 → notify 7 | Observer #1 default case: clears the "AirPlay playing" flag; no other action. | RE |
 | 0x26 | ev 0x10000008 → notify 0x29 | Ignored by both observers. | RE |
-| **0x27** | ev 0x10000004 → notify 8 | **Only on board variant 2** (ADC2 ID ≥ 0x200): set GP fuse bit 31 (**ISP_FORCE**) via 0x8001be0c/0x8001bd94, set GPLP flag 0x1000000, amp mute (PB16 low), hard-off the module, wait 200 ms, **watchdog reset → MCU enters the USB-DFU bootloader**. Variant 1: no action. This is how a network-initiated update relays firmware through the bootloader. | RE / INF |
+| **0x27** | ev 0x10000004 → notify 8 | **Only on board variant 2** (ADC2 ID ≥ 0x200): set GP fuse bit 31 (**ISP_FORCE**) via 0x8001be0c/0x8001bd94, set GPLP flag 0x1000000, amp mute (PB16 low), hard-off the module, wait 200 ms, **watchdog reset → MCU enters the USB-DFU bootloader**. Variant 1: no action. The bootloader then waits for a USB host: it never reads the GPLP flag (the app clears it at boot, unread), it doesn't touch USART1, and its SPI relay code doesn't call the flash-write routines (`docs/mcu/bootloader-dfu.md`). | RE |
 
 ### 3.2 0x32 NetStatus (F, two ASCII characters; MCU reads and is notified)
 

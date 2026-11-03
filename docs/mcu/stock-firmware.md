@@ -9,6 +9,19 @@ running the binary in the emulator, and where our firmware reproduces it and wor
 The same binary prints "2.04.05" on board variant 1 (model FP30570, ours) and "2.04.35" on variant 2 (FP35548);
 the variant is ADC2 (PA23) at boot. Also embedded: DSP release v05.09, factory protocol v01.06, EEPROM version 0x0204.
 
+Variant 2 is almost certainly the Zeppelin Air with Lightning connector (ZD1L), whose last release B&W calls 2.04.35
+(March 2015, OTA `zd1lv20435.fw`, md5 d71a10be…; the file itself is lost: `downloads/bw-zeppelin-air-software/
+zeppelin-air-lightning/SOURCES.md`). On variant 2 the binary reports model FP35548 and no video out over iAP (variant 1:
+FP30570, video on), and only variant 2 honours the module's request to enter DFU (`docs/protocol/spi-registers.md`,
+0x27). That doesn't bring the image over the network: the MCU then waits in USB DFU for a computer on the rear port
+(`docs/mcu/bootloader-dfu.md`). So the ZD1L's MCU app 2.04.35 is most likely this same binary. The archive.org module NAND (item `20230115_20230115_1916`, a ZZ34088 board)
+supports this. Its module app and resources are byte-identical to the 2.04.05 `app_DMP.bcd` sections 0 and 2, and its
+user settings record HostVersion "2.04.05" and "2.04.35" alternately (19 records, last one 2.04.05). So one module image
+ran under MCUs that reported both versions. Unconfirmed: the `.fw` could still carry a different module build.
+The A7's 2.04.77 (also lost) is the same March 2015 release: B&W's notes for 2.04.05 (`release_id=81`), 2.04.35 and
+2.04.77 have the same text. This binary has no A7 variant (both variants are Zeppelins with a dock), so the A7's MCU
+app is another build.
+
 ## Image layout
 
 | Address | Content |

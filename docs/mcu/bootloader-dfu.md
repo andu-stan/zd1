@@ -40,7 +40,11 @@ else (BOD, other warm reset):
 2. **Self-DFU from the app** [HW]: set ISP_FORCE (EGPB, bit 31), then a watchdog reset with a period long enough for
    the bootloader to disable the WDT. Our firmware's `Dfu` request (`zd1 bootloader`) does it with PSEL 16 (~1.1 s) and is in DFU ~3 s
    later. A minimum-period watchdog (ASF `wdt_reset_mcu`) resets in a loop, because an armed WDT survives a WDT
-   reset. Stock does it when the module reports status 0x27, on variant-2 boards only [RE].
+   reset. Stock does it when the module reports status 0x27, on variant-2 boards only, with the module powered off
+   first [RE]. Since ISP_FORCE wins on every reset, that speaker stays in DFU, power cycles included, until a USB host
+   starts the app. The bootloader has no other way to take an MCU image: its MCU-flash writes are reached only from
+   the DFU request handler (0x80002310), not from the SPI relay (0x80002500-0x80002c00); it never touches USART1 and
+   never reads GPLP [RE `bl.dis`, direct calls; the relay code has no indirect ones].
 3. **Any DFU session** sets ISP_FORCE itself (the DNLOAD handler, so a reset mid-programming comes back to DFU); the
    start-app commands clear it [RE]. A unit that was left in a DFU session boots into DFU again.
 
