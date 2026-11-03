@@ -37,6 +37,11 @@ let
     # don't link ("library not found for -lcrt0.o"). rustc links the module's binaries statically by itself (musl,
     # crt-static), so it goes.
     preBuild = "unset NIX_CFLAGS_LINK";
+  }
+  # build scripts link with nixpkgs' linker, as on the other build machines: on x86_64-linux rustc's default is its own
+  # rust-lld, which stops at the module's compiler-rt on the search path where GNU ld skips the ARM archive
+  // lib.optionalAttrs (stdenv.buildPlatform.system == "x86_64-linux") {
+    CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_RUSTFLAGS = "-Clinker-features=-lld";
   };
   deps = craneLib.buildDepsOnly common;
 in
