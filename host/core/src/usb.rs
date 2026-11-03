@@ -108,7 +108,9 @@ pub trait Bus {
 }
 
 /// Wait up to `ms` of the bus's time for vid:pid to come, then open it. `ev` hears once that the device is wanted
-/// (WebUSB: a device the page hasn't been granted yet; the person picks it in the browser's chooser).
+/// (WebUSB: a device the page hasn't been granted yet; the person picks it in the browser's chooser). A device that
+/// has just come may refuse the open for a moment while the host OS sets it up (WebUSB's open fails then): that is
+/// tried again, and only the last refusal is the error, once the time is up.
 pub async fn wait_open<B: Bus>(
     bus: &B,
     vid: u16,
@@ -119,14 +121,16 @@ pub async fn wait_open<B: Bus>(
     what: &str,
 ) -> Result<Option<B::Dev>> {
     const STEP: u32 = 200;
-    let (mut waited, mut asked) = (STEP, false);
+    let (mut waited, mut asked, mut refused) = (STEP, false, None);
     bus.sleep(STEP).await; // what we wait for has just left, or is about to come
     loop {
-        if let Some(d) = bus.open(vid, pid, iface).await? {
-            return Ok(Some(d));
+        match bus.open(vid, pid, iface).await {
+            Ok(Some(d)) => return Ok(Some(d)),
+            Ok(None) => {}
+            Err(e) => refused = Some(e),
         }
         if waited >= ms {
-            return Ok(None);
+            return refused.map_or(Ok(None), Err);
         }
         if waited >= 1500 && !asked {
             ev.wants_device(vid, pid, what);
@@ -443,6 +447,60 @@ mod emu {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::cell::Cell;
+
+    /// A device that is there but refuses the open `refusals` times, as a just-enumerated one in a browser can.
+    struct Refusing {
+        refusals: Cell<u32>,
+    }
+    struct NoDev;
+    impl Usb for NoDev {
+        fn iface(&self) -> u8 {
+            0
+        }
+        async fn control_in(&self, _: Setup, _: u16, _: u32) -> std::result::Result<Vec<u8>, UsbError> {
+            Err(UsbError::Gone)
+        }
+        async fn control_out(&self, _: Setup, _: &[u8], _: u32) -> std::result::Result<(), UsbError> {
+            Err(UsbError::Gone)
+        }
+        async fn bulk_out(&self, _: u8, _: &[u8], _: u32) -> std::result::Result<usize, UsbError> {
+            Err(UsbError::Gone)
+        }
+    }
+    impl Bus for Refusing {
+        type Dev = NoDev;
+        async fn open(&self, _: u16, _: u16, _: Iface) -> Result<Option<NoDev>> {
+            match self.refusals.get() {
+                0 => Ok(Some(NoDev)),
+                n => {
+                    self.refusals.set(n - 1);
+                    Err(Error::Device("WebUSB error".into()))
+                }
+            }
+        }
+        async fn present(&self, _: u16, _: u16) -> Result<bool> {
+            Ok(true)
+        }
+        async fn sleep(&self, _: u32) {}
+    }
+    /// The futures here never wait (the sleeps are no-ops): one poll finishes them.
+    fn now<F: Future>(f: F) -> F::Output {
+        let mut cx = std::task::Context::from_waker(std::task::Waker::noop());
+        match std::pin::pin!(f).poll(&mut cx) {
+            std::task::Poll::Ready(r) => r,
+            std::task::Poll::Pending => panic!("waited"),
+        }
+    }
+
+    #[test]
+    fn a_refused_open_is_tried_again_until_the_time_is_up() {
+        let open = |refusals, ms| {
+            now(wait_open(&Refusing { refusals: Cell::new(refusals) }, 1, 2, Iface::Number(0), ms, &crate::Quiet, "x"))
+        };
+        assert!(matches!(open(2, 15_000), Ok(Some(_))));
+        assert!(matches!(open(1000, 1_000), Err(Error::Device(_))));
+    }
 
     #[test]
     fn find_class_walks_the_descriptors() {
