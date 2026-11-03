@@ -17,7 +17,7 @@ export const events = {
     appendLog(s);
   },
   prompt() {
-    $("press").showModal();
+    if (!$("press").open) $("press").showModal(); // asked again while it waits (a person away: no deadline)
   },
   step(s) {
     if (!jobRunning) return;
@@ -47,7 +47,7 @@ export const events = {
       `The speaker restarted into ${what}: it is a USB device of its own (${hex4(vid)}:${hex4(pid)}).`;
     $("grant").dataset.vid = vid;
     $("grant").dataset.pid = pid;
-    $("grant").showModal();
+    if (!$("grant").open) $("grant").showModal(); // asked again each minute until it is granted
   },
   backup(tar, name, holds) {
     return keepBackup(tar, name, holds);
@@ -116,6 +116,7 @@ export function show(what) {
 
 /// One operation at a time from the page's side (the WebAssembly queues them too); the press dialog closes after.
 export async function op(f) {
+  app.cancel = false;
   app.busy++;
   document.body.classList.add("busy");
   try {

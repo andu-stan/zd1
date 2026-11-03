@@ -224,15 +224,80 @@ export async function fetchImage(img) {
 /// order), -1 for a build the list doesn't have.
 export const position = (running, kind) => (running ? releases.findIndex((r) => r[kind]?.version === running) : -1);
 
+/// The banner on top: what there is to do, with the one button.
+function banner(title, text, label, f, notes) {
+  const u = el("button", { className: "primary", textContent: label });
+  u.onclick = f;
+  $("update").replaceChildren(
+    el("i", { className: "lamp on" }),
+    el(
+      "div",
+      { className: "banner-text" },
+      el("strong", { textContent: title }),
+      el("span", { className: "small", textContent: text }),
+      notes
+        ? el(
+            "details",
+            {},
+            el("summary", { textContent: "What's new" }),
+            el("p", { className: "small notes", textContent: notes }),
+          )
+        : null,
+    ),
+    u,
+  );
+  $("update").hidden = false;
+}
+
+/// An install that stopped on the way (the person away, the page closed): the state it left, picked up from there.
+/// Our firmware with the module on the stock software (the boot image never went on): the whole install again. The
+/// module on its rescue: it has no system yet (or none that starts): the system.
+function unfinished(rel) {
+  const ms = names(app.S.ModState)[app.info.mod_state];
+  if (ms === "stock" && rel.mcu && rel.system && rel.bcd) {
+    banner(
+      "The install isn't finished",
+      "The module still runs B&W's software: its boot image, then the system go on (about 5 minutes).",
+      `Finish: install ${rel.version}`,
+      () => finishAll(rel),
+    );
+    return true;
+  }
+  if (ms === "ready" && app.info.mod_os?.split(" ")[2] === "rescue" && rel.system) {
+    banner(
+      "The install isn't finished",
+      "The module runs its rescue: it has no system yet. The system goes on (about 2 minutes).",
+      `Finish: install ${rel.version}'s system`,
+      () => updateTo(rel, ["system"], true),
+    );
+    return true;
+  }
+  return false;
+}
+
+async function finishAll(rel) {
+  const r = await job(`Install release ${rel.version}`, false, async () => {
+    const [mcu, system, bcd] = [await fetchImage(rel.mcu), await fetchImage(rel.system), await fetchImage(rel.bcd)];
+    const sp = app.sp;
+    app.sp = null; // the install takes the speaker into its bootloader: this connection ends
+    const r = await sp.install(bcd, rel.mcu.file, mcu, system);
+    return `Done: MCU firmware ${r.fw}, system ${r.os} in slot ${r.slot.toUpperCase()}.`;
+  });
+  await connect(false);
+  if (r && app.sp) document.querySelector("#known").scrollIntoView({ behavior: "smooth" });
+}
+
 export function drawReleases() {
   const fw = app.info?.fw,
     os = app.info?.mod_os?.split(" ")[1];
-  app.drawnFor = `${app.info?.fw}|${app.info?.mod_os}`;
+  app.drawnFor = `${app.info?.fw}|${app.info?.mod_os}|${app.info?.mod_state}`;
   const v = $("verdict");
   v.replaceChildren();
   $("update").hidden = true;
   const rel = releases[0];
-  if (!rel) {
+  if (rel && unfinished(rel)) {
+    v.append(el("p", { textContent: "The install stopped on the way: the banner on top finishes it." }));
+  } else if (!rel) {
     v.append(
       el("p", { className: "small", textContent: "No release is offered to this page (installs from a file below)." }),
     );
@@ -252,29 +317,14 @@ export function drawReleases() {
     v.append(el("p", { textContent: needs.length ? `Latest ${named}: ${where}` : `Up to date: ${named}.` }));
     if (rel.notes) v.append(el("p", { className: "small notes", textContent: rel.notes }));
     // behind: the banner on top of the page says so, with the one button
-    if (needs.length) {
-      const u = el("button", { className: "primary", textContent: `Update to ${rel.version}` });
-      u.onclick = () => updateTo(rel, needs);
-      $("update").replaceChildren(
-        el("i", { className: "lamp on" }),
-        el(
-          "div",
-          { className: "banner-text" },
-          el("strong", { textContent: `Release ${rel.version} is available` }),
-          el("span", { className: "small", textContent: where[0].toUpperCase() + where.slice(1) }),
-          rel.notes
-            ? el(
-                "details",
-                {},
-                el("summary", { textContent: "What's new" }),
-                el("p", { className: "small notes", textContent: rel.notes }),
-              )
-            : null,
-        ),
-        u,
+    if (needs.length)
+      banner(
+        `Release ${rel.version} is available`,
+        where[0].toUpperCase() + where.slice(1),
+        `Update to ${rel.version}`,
+        () => updateTo(rel, needs),
+        rel.notes,
       );
-      $("update").hidden = false;
-    }
   }
   const rows = releases.slice(1).map((r) => {
     const row = el(
@@ -307,8 +357,9 @@ export function drawReleases() {
 
 /// Both boards to a release: the system, then the MCU firmware (either order works; this one keeps the page
 /// connected longest), each only if it isn't there already.
-export async function updateTo(rel, needs) {
+export async function updateTo(rel, needs, finishing = false) {
   if (
+    !finishing &&
     !(await ask(
       `Update to ${rel.version}?`,
       `${needs.includes("system") ? "The module's system goes into the slot that doesn't run (the old one stays as the way back)" : ""}` +

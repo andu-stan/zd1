@@ -107,16 +107,13 @@ pub trait Bus {
     }
 }
 
-/// How long a person gets to grant a device the program asked for (the browser's chooser).
-pub const GRANT_MS: u32 = 120_000;
-
 /// Wait up to `ms` of the bus's time for vid:pid to come, then open it. `ev` hears once that the device is wanted
 /// (WebUSB: a device the page hasn't been granted yet; the person picks it in the browser's chooser). A device that
 /// has just come may refuse the open for a moment while the host OS sets it up (WebUSB's open fails then): that is
-/// tried again, and only the last refusal is the error, once the time is up. Once a person was asked for the device
-/// (`Events::wants_device`), the wait gives them [`GRANT_MS`] from then: the browser's chooser takes a person's time,
-/// and while it is open the browser holds the device (an open fails: "an operation that changes interface state is
-/// in progress").
+/// tried again, and only the last refusal is the error, once the time is up. A patient program (`Events::patient`:
+/// the page, a person at it) has no deadline once it asked for the device: the browser's chooser takes a person's
+/// time, and while it is open the browser holds the device (an open fails: "an operation that changes interface state
+/// is in progress"); it asks again each minute (a chooser closed without a pick), and stopping ends the wait.
 pub async fn wait_open<B: Bus>(
     bus: &B,
     vid: u16,
@@ -127,7 +124,8 @@ pub async fn wait_open<B: Bus>(
     what: &str,
 ) -> Result<Option<B::Dev>> {
     const STEP: u32 = 200;
-    let (mut waited, mut asked, mut refused, mut ms) = (STEP, false, None, ms);
+    const ASK_AGAIN: u32 = 60_000;
+    let (mut waited, mut asked_at, mut refused) = (STEP, None::<u32>, None);
     bus.sleep(STEP).await; // what we wait for has just left, or is about to come
     loop {
         match bus.open(vid, pid, iface).await {
@@ -135,14 +133,15 @@ pub async fn wait_open<B: Bus>(
             Ok(None) => {}
             Err(e) => refused = Some(e),
         }
-        if waited >= ms {
+        if ev.cancelled() {
+            return Err(Error::Cancelled);
+        }
+        if waited >= ms && !(asked_at.is_some() && ev.patient()) {
             return refused.map_or(Ok(None), Err);
         }
-        if waited >= 1500 && !asked {
-            if ev.wants_device(vid, pid, what) {
-                ms = ms.max(waited + GRANT_MS);
-            }
-            asked = true;
+        if waited >= 1500 && asked_at.is_none_or(|t| waited - t >= ASK_AGAIN) {
+            ev.wants_device(vid, pid, what);
+            asked_at = Some(waited);
         }
         bus.sleep(STEP).await; // in the bus's time: the emulator's runs at its own pace
         waited += STEP;
@@ -510,21 +509,28 @@ mod tests {
         assert!(matches!(open(1000, 1_000), Err(Error::Device(_))));
     }
 
-    /// A page that asked the person for the device: the browser's chooser holds it meanwhile.
-    struct Asks;
-    impl crate::Events for Asks {
-        fn wants_device(&self, _: u16, _: u16, _: &str) -> bool {
+    /// The page: a person at it, asked for the device (the browser's chooser holds it meanwhile), counted.
+    struct Person {
+        asked: Cell<u32>,
+    }
+    impl crate::Events for Person {
+        fn wants_device(&self, _: u16, _: u16, _: &str) {
+            self.asked.set(self.asked.get() + 1);
+        }
+        fn patient(&self) -> bool {
             true
         }
     }
 
     #[test]
-    fn a_person_asked_for_the_device_gets_time_to_grant_it() {
-        // refused for 40 s of 200 ms steps: past the 15 s, within the grant's time
+    fn a_person_asked_for_the_device_has_no_deadline() {
+        // refused for 10 minutes of 200 ms steps: far past the 15 s
         let bus = |n| Refusing { refusals: Cell::new(n) };
         let open = |n, ev: &dyn crate::Events| now(wait_open(&bus(n), 1, 2, Iface::Number(0), 15_000, ev, "x"));
-        assert!(matches!(open(200, &Asks), Ok(Some(_))));
-        assert!(matches!(open(200, &crate::Quiet), Err(Error::Device(_))));
+        let p = Person { asked: Cell::new(0) };
+        assert!(matches!(open(3000, &p), Ok(Some(_))));
+        assert_eq!(p.asked.get(), 10, "asked at 1.5 s, then once a minute");
+        assert!(matches!(open(3000, &crate::Quiet), Err(Error::Device(_))));
     }
 
     #[test]

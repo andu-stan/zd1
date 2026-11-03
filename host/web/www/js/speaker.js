@@ -98,11 +98,11 @@ export function draw() {
   const ms = names(app.S.ModState)[i.mod_state];
   $("os").textContent =
     ms === "stock"
-      ? "B&W's software (not ours): the module is no source. Install ours below, or restore the main board's backup."
+      ? "B&W's software (not ours): the module is no source. The banner on top installs ours, or restore the main board's backup."
       : ms === "mismatch"
         ? `${i.mod_os}: its link protocol is ${i.mod_proto}, this firmware's ${i.link_proto}: update one of them`
         : i.mod_os || `not running our OS (${ms})`;
-  if (app.drawnFor !== `${i.fw}|${i.mod_os}`) drawReleases();
+  if (app.drawnFor !== `${i.fw}|${i.mod_os}|${i.mod_state}`) drawReleases();
 }
 // ---- behaviour and advanced ---------------------------------------------------------------------------------------
 

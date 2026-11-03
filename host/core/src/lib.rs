@@ -127,9 +127,12 @@ pub trait Events {
     fn cancelled(&self) -> bool {
         false
     }
-    /// A device the program may not use yet (WebUSB: the person grants it in the browser's chooser): ask for it. True
-    /// when a person was asked: the wait for the device then gives them time (`usb::wait_open`).
-    fn wants_device(&self, _vid: u16, _pid: u16, _what: &str) -> bool {
+    /// A device the program may not use yet (WebUSB: the person grants it in the browser's chooser): ask for it.
+    fn wants_device(&self, _vid: u16, _pid: u16, _what: &str) {}
+    /// A person is at this program and waits as long as the speaker needs them (the web page): asking for a press or a
+    /// device then has no deadline, only [`Events::cancelled`] ends it. A program others drive (zd1) asks once and
+    /// keeps its timeouts.
+    fn patient(&self) -> bool {
         false
     }
 }

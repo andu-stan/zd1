@@ -153,12 +153,22 @@ impl<U: Usb> Mcu<U> {
             Err(Error::Mcu(Err::Locked, _)) if unlock => {}
             r => return r,
         }
-        self.ev.prompt(&format!(
-            "{name} changes the speaker: press ON/OFF on it within 30 s to allow it (its LED \
-                                 flashes purple)"
-        ));
-        self.call_once("Unlock", &encode_msg(&msg::Unlock)?).await?;
-        self.call_once(name, request).await
+        // the firmware waits 30 s for the press; a patient program (a person at it) asks again until they press or
+        // stop it
+        loop {
+            self.ev.prompt(&format!(
+                "{name} changes the speaker: press ON/OFF on it within 30 s to allow it (its LED \
+                                     flashes purple)"
+            ));
+            match self.call_once("Unlock", &encode_msg(&msg::Unlock)?).await {
+                Err(Error::Mcu(Err::Denied, _)) if self.ev.patient() && !self.ev.cancelled() => continue,
+                Err(Error::Mcu(Err::Denied, _)) if self.ev.cancelled() => return Err(Error::Cancelled),
+                r => {
+                    r?;
+                }
+            }
+            return self.call_once(name, request).await;
+        }
     }
 
     async fn call_once(&mut self, name: &str, request: &[u8]) -> Result<Msg> {

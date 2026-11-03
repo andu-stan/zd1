@@ -80,8 +80,10 @@ impl Events for Ev {
     fn cancelled(&self) -> bool {
         self.0.cancelled()
     }
-    fn wants_device(&self, vid: u16, pid: u16, what: &str) -> bool {
-        self.0.wants_device(vid, pid, what);
+    fn wants_device(&self, vid: u16, pid: u16, what: &str) {
+        self.0.wants_device(vid, pid, what)
+    }
+    fn patient(&self) -> bool {
         true
     }
 }
@@ -489,6 +491,43 @@ impl Speaker {
     }
 }
 
+#[wasm_bindgen]
+impl Speaker {
+    /// The whole install from here (`Bootloader.install`, which gets into the bootloader by itself): for a speaker
+    /// whose install stopped with the module on the stock software. This connection ends: connect again afterwards.
+    pub async fn install(
+        &self,
+        bcd: Option<Vec<u8>>,
+        mcu_name: String,
+        mcu: Vec<u8>,
+        system: Vec<u8>,
+    ) -> Result<JsValue, JsValue> {
+        let m = self.take().await?;
+        self.closed.set(true);
+        drop(m); // the install opens it again, to ask for the bootloader
+        install_js(bcd, &mcu_name, &mcu, &system, &self.ev, &self.js).await
+    }
+}
+
+/// `install::install` (the backup to events.backup): { fw, slot, os }.
+async fn install_js(
+    bcd: Option<Vec<u8>>,
+    mcu_name: &str,
+    mcu: &[u8],
+    system: &[u8],
+    ev: &Rc<dyn Events>,
+    js: &JsEvents,
+) -> Result<JsValue, JsValue> {
+    let img = McuImage::parse(mcu_name, mcu).map_err(js_err)?;
+    let images = install::Images { bcd: bcd.as_deref(), mcu: &img, system };
+    let r = install::install(&NusbBus, &images, ev.clone(), async |b| keep(js, b).await).await.map_err(js_err)?;
+    let o = Object::new();
+    set(&o, "fw", r.firmware.fw);
+    set(&o, "slot", r.slot.to_string());
+    set(&o, "os", r.os);
+    Ok(o.into())
+}
+
 /// `flash::firmware`, the backup to events.backup; the report as { fw, built, rcause, stages, matches }.
 async fn flash_js(
     m: Option<Mcu<NusbDev>>,
@@ -588,16 +627,7 @@ impl Bootloader {
         mcu: Vec<u8>,
         system: Vec<u8>,
     ) -> Result<JsValue, JsValue> {
-        let img = McuImage::parse(&mcu_name, &mcu).map_err(js_err)?;
-        let images = install::Images { bcd: bcd.as_deref(), mcu: &img, system: &system };
-        let r = install::install(&NusbBus, &images, self.ev.clone(), async |b| keep(&self.js, b).await)
-            .await
-            .map_err(js_err)?;
-        let o = Object::new();
-        set(&o, "fw", r.firmware.fw);
-        set(&o, "slot", r.slot.to_string());
-        set(&o, "os", r.os);
-        Ok(o.into())
+        install_js(bcd, &mcu_name, &mcu, &system, &self.ev, &self.js).await
     }
 
     /// The stock firmware back on both boards (host/core's `rollback`): the stock `.bcd` through the relay, then the
