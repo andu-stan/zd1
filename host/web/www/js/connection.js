@@ -12,6 +12,11 @@ import { $, failed, hex4, notice } from "./ui.js";
 // ---- what the flows tell the page -------------------------------------------------------------------------------
 
 export let jobRunning = false;
+/// The press arrived (or the flow went on without one): its dialog goes, whatever comes next says so.
+function pressDone() {
+  if ($("press").open) $("press").close();
+}
+
 export const events = {
   text(s) {
     appendLog(s);
@@ -20,21 +25,25 @@ export const events = {
     if (!$("press").open) $("press").showModal(); // asked again while it waits (a person away: no deadline)
   },
   step(s) {
+    pressDone();
     if (!jobRunning) return;
     $("job-log").textContent += `${s}\n`;
     $("job-now").textContent = s;
   },
   phase(n, of, what) {
+    pressDone();
     if (!jobRunning) return;
     $("job-log").textContent += `\n[${n}/${of}] ${what}\n`;
     $("job-phase").textContent = `${n} of ${of}: ${what}`;
   },
   progress(_what, done, total) {
+    pressDone();
     $("job-bar").value = total ? done / total : 0;
     if (jobRunning) heroProgress($("job-bar").value);
   },
   /// a wait with nothing to measure: the bar runs without a value (the browser animates it), the line says how long
   wait(what, secs) {
+    pressDone();
     if (!jobRunning) return;
     $("job-bar").removeAttribute("value");
     $("job-now").textContent = `${what}: ${secs} s`;

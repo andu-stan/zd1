@@ -167,6 +167,7 @@ impl<U: Usb> Mcu<U> {
                     r?;
                 }
             }
+            self.ev.step("allowed: ON/OFF pressed on the speaker");
             return self.call_once(name, request).await;
         }
     }
