@@ -1,0 +1,91 @@
+$ os q
+ n                          name peak  inQ free   threads
+ 1      CneCacheFlushTimer_Queue    0    0   10 CneCacheFlushTimer 
+ 2          CuEngineUpdate_Queue    0    0   10 CuEngineUpdate 
+ 3      PowerManagerThread_Queue    1    0   20 PowerManagerThread 
+ 4      AutoIPStateMachine_Queue    0    0   10 AutoIPStateMachine 
+ 5      WpaSupplicantWlConnectio    6    0   20 WpaSupplicantWlConnectio 
+ 6      StreamDeviceMgrImpl_Queu    3    0   10 StreamDeviceMgrImpl 
+ 7      StreamDeviceObserver_Que    1    0   10 StreamDeviceObserver 
+ 8       SharedTimerThread_Queue    1    0   20 SharedTimerThread 
+ 9        UsbBusDrv LocalRxQueue    0    0    8     -    
+10        UsbBusDrv LocalTxQueue    0    0    8     -    
+11           RDMFS Functor_Queue    4    0   20 RDMFS Functor 
+12            USBStackImpl_Queue    0    0   50 USBStackImpl 
+13       USBHostController_Queue    0    0   20 USBHostController 
+14      UPnP activation thread_Q    0    0   40 UPnP activation thread 
+15          ReceiverThread_Queue    0    0   20 ReceiverThread 
+16               PSMThread_Queue    1    0   10 PSMThread 
+17            CardeaThread_Queue    0    0   64 CardeaThread 
+18        USBAdaptionLayer_Queue    0    0   20 USBAdaptionLayer 
+19           RDMFS_TestApp_Queue    0    0   20 RDMFS_TestApp 
+20          FramebufferPoolQueue    3    1    2     -    
+21                 VideoOutput_1    0    0    3     -    
+22      PicturePlayerWorkerThrea    0    0   20 PicturePlayerWorkerThrea 
+23              GenaThread_Queue    0    0   20 GenaThread 
+24      UpnpContentBrowser_Queue    0    0   20 UpnpContentBrowser 
+25      NapContentManagerThread_    0    0   20 NapContentManagerThread 
+26           NapCoreThread_Queue    1    0   64 NapCoreThread 
+27        NapManagerThread_Queue    0    0  128 NapManagerThread 
+28         NapOutputThread_Queue    5    0   20     -    
+29                AudioOutput_44  512  512    0 NapOutputThread 
+30         Radea Processor_Queue    0    0    5 Radea Processor 
+31         RolloverManager_Queue    0    0   20 RolloverManager 
+32       RtspSessionThread_Queue    0    0   20     -    
+33         RDMFS Processor_Queue    0    0   20 RDMFS Processor 
+34           ROM Processor_Queue    0    0   20 ROM Processor 
+35      SearchFwUrlHandler_Queue    0    0   24 SearchFwUrlHandler 
+36        AVRPlayerService_Queue    1    0   32 AVRPlayerService 
+37             Ipodioscomm_Queue    0    0  128 Ipodioscomm 
+38      NewSelectedIpProfile_IpS    0    0   60 NewSelectedIpProfile_IpS 
+39      Remote wifi test mode_Qu    0    0    4 Remote wifi test mode 
+40         Wr2_Application_Queue    3    0  224 Wr2_Application 
+41      UIRemoteControlOnlyModeH    0    0  128 UIRemoteControlOnlyModeH 
+42      UIRemoteControlOnlyModeH    0    0  128 UIRemoteControlOnlyModeH 
+43          SPI Command Th_Queue    0    0   20 SPI Command Th 
+44        RemoteCmdHandler_Queue    0    0   20 RemoteCmdHandler 
+45      UPnPMrServerThread_Queue    0    0   16 UPnPMrServerThread 
+46           NtpReqHandler_Queue    0    0   16 NtpReqHandler 
+47           USBPlayDirect_Queue    0    0   16 USBPlayDirect 
+48        StreamStatusInfo_Queue    0    0   16 StreamStatusInfo 
+49                    qRxLltdPkt    0    0   32 LltdMainLoop 
+50            LltdMainLoop_Queue    1    0   20     -    
+51      RhapsodySessionManagerTh    0    0   20 RhapsodySessionManagerTh 
+52      RhapsodyTrackInfoRetriev    0    0   32 RhapsodyTrackInfoRetriev 
+53         IpodSimpleEntry_Queue    0    0  128 IpodSimpleEntry 
+54                   iPodTelAppQ    0    0  100     -    
+55                   iPodTelRecQ    0    0  100     -    
+56         iPodTelegramRec_Queue    0    0   20 iPodTelegramRec 
+57             Ipodioscomm_Queue    0    0   20 Ipodioscomm 
+58             iPodControl_Queue    1    0   20     -    
+59               iPodCBSvc_Queue    0    0   32 iPodCBSvc 
+60               iPodCBSvc_Queue    0    0   32 iPodCBSvc 
+61           NetworkStatus_Queue    0    0   20 NetworkStatus 
+62            ipodObserver_Queue    0    0   20 ipodObserver 
+63            JBLinkThread_Queue    1    0   20     -    
+64      LastfmImpl functor threa    0    0    4 LastfmImpl functor threa 
+65           NtpReqHandler_Queue    0    0   16 NtpReqHandler 
+66      RemoteRegCtrldFileTransf    0    0   20 RemoteRegCtrldFileTransf 
+67      AlbumArtFunctorThread_Qu    0    0   50 AlbumArtFunctorThread 
+68         DeviceDiscovery_Queue    1    0   20 DeviceDiscovery 
+69          JBRServiceInit_Queue    0    0   10 JBRServiceInit 
+70                testipod_Queue    1    1   19     -    
+71         ConfigureiTunes_Queue    0    0   10 ConfigureiTunes 
+72          JBRJSONService_Queue   15    0   20 JBRJSONService 
+73             JBRPairInit_Queue    1    0   10 JBRPairInit 
+74               JBRCSInit_Queue    2    0   10 JBRCSInit 
+75      JBR_XML_Parser_thread_Qu    0    0   20 JBR_XML_Parser_thread 
+76           JBRGetHandler_Queue    0    0   10 JBRGetHandler 
+77            ipodOBServer_Queue    0    0   20     -    
+78      ClosedCaptionMetainfoSer    0    0   20 ClosedCaptionMetainfoSer 
+79          EthernetDetect_Queue    1    0   10     -    
+80                       WlanTxQ    0    0  200     -    
+81                       WlanTxQ    0    0  200     -    
+82                       WlanTxQ    1    0  200     -    
+83                       WlanTxQ    0    0  200     -    
+84                         Queue    1    0   64     -    
+85          ConfigureTunes_Queue    1    0   20 ConfigureTunes 
+86              UPnP Evnt Sender    0    0  128 UPnP Evnt Sender 
+87      UPnP Adapter Event Queue    0    0    5 UPnP Adapter 
+88      UPnP Adapter Event Queue    0    0    5 UPnP Adapter 
+89          iOSServiceInit_Queue    0    0   10 iOSServiceInit 

@@ -1,0 +1,10 @@
+$ sys av
+---- OVERVIEW ----
+sys av               - show the status of AV ports
+---- DESCRIPTION ----
+  port             show port registers
+  port <nr>        show port register number nr
+  port <nr> reset  reset port register number nr
+  ptu              show ptu registers
+  ctr              Show Ctr registers
+       <-dx> at the end = reset and waits x [s] (default=1) before error printed

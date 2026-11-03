@@ -1,0 +1,129 @@
+# All the Rust, one workspace: the host side (the MCU link protocol: its spec, the generator of the MCU's C, the host
+# link; the host tools), the module's userspace (module/os/apps, ARMv5 musl), its boot stub
+# (module/boot, bare metal) and the libraries they share. Internal crates are named once, below, and used as
+# `NAME.workspace = true`. `cargo test` runs the host crates (default-members); the module's builds: `cargo module`
+# and `cargo boot` (.cargo/config.toml), as nix runs them (nix/module/apps.nix, nix/boot.nix).
+[workspace]
+resolver = "2"
+members = [
+  "protocol/spi",
+  "protocol/host",
+  "protocol/gen",
+  "host/core",
+  "host/cli",
+  "host/web",
+  "module/dm870",
+  "module/link",
+  "module/boot",
+  "module/codecs/aac/rust",
+  "module/codecs/dsp/rust",
+  "module/codecs/vorbis/rust",
+  "module/codecs/flac/rust",
+  "module/warp0/rust",
+  "module/os/apps/*",
+  "tools/zeppelin/lab/ap2send",
+]
+default-members = [
+  "protocol/spi",
+  "protocol/host",
+  "protocol/gen",
+  "host/core",
+  "host/cli",
+  "module/dm870",
+  "module/link",
+  "module/codecs/aac/rust",
+  "module/codecs/dsp/rust",
+  "module/codecs/vorbis/rust",
+  "module/codecs/flac/rust",
+  "tools/zeppelin/lab/ap2send",
+]
+
+# MIT (LICENSE); a crate that builds third-party-derived code in says so in its own `license` (NOTICE.md)
+[workspace.package]
+edition = "2024"
+license = "MIT"
+
+[workspace.dependencies]
+# shared: the board, the link protocol, the codecs
+dm870 = { path = "module/dm870" }
+zd1-spi = { path = "protocol/spi" }
+zd1-hostlink = { path = "protocol/host" }
+zd1-host = { path = "host/core" }
+zd1-link = { path = "module/link" }
+zd1-aac = { path = "module/codecs/aac/rust" }
+zd1-dsp = { path = "module/codecs/dsp/rust" }
+zd1-vorbis = { path = "module/codecs/vorbis/rust" }
+zd1-flac = { path = "module/codecs/flac/rust" }
+zd1-warp0 = { path = "module/warp0/rust", default-features = false }
+# the module's userspace (module/os/apps): libraries, and the programs the multicall (zd1) links
+zd1-audio = { path = "module/os/apps/zd1-audio" }
+zd1-board = { path = "module/os/apps/zd1-board" }
+zd1-ctl = { path = "module/os/apps/zd1-ctl" }
+zd1-compat = { path = "module/os/apps/zd1-compat" }
+zd1-entropy = { path = "module/os/apps/zd1-entropy" }
+zd1-init = { path = "module/os/apps/zd1-init", default-features = false }
+zd1-linkd = { path = "module/os/apps/zd1-linkd" }
+zd1-mdns = { path = "module/os/apps/zd1-mdns" }
+zd1-memsh = { path = "module/os/apps/zd1-memsh" }
+zd1-net = { path = "module/os/apps/zd1-net" }
+zd1-persparam = { path = "module/os/apps/zd1-persparam" }
+zd1-selftest = { path = "module/os/apps/zd1-selftest" }
+zd1-settings = { path = "module/os/apps/zd1-settings" }
+zd1-slot = { path = "module/os/apps/zd1-slot" }
+zd1-snapcast = { path = "module/os/apps/zd1-snapcast" }
+zd1-spotify = { path = "module/os/apps/zd1-spotify" }
+zd1-svc = { path = "module/os/apps/zd1-svc" }
+zd1-sys = { path = "module/os/apps/zd1-sys" }
+zd1-update = { path = "module/os/apps/zd1-update" }
+zd1-airplay = { path = "module/os/apps/zd1-airplay" }
+
+# our forks (module/os/forks.md)
+shairplay = { git = "https://github.com/pawlowskialex/shairplay-rust", rev = "dfa3fea41254c8e5fadc10522a31cf07e2477889", default-features = false }
+
+# librespot (upstream dev) and libmdns 0.10.1 with our changes: the zeppelin branches of our forks (module/os/forks.md). Every
+# librespot crate comes from the fork, so the changed ones and the rest are one workspace.
+[patch.crates-io]
+librespot-audio = { git = "https://github.com/pawlowskialex/librespot", rev = "e188a633758efeee3fe2531e50966210c40a3d6e" }
+librespot-connect = { git = "https://github.com/pawlowskialex/librespot", rev = "e188a633758efeee3fe2531e50966210c40a3d6e" }
+librespot-core = { git = "https://github.com/pawlowskialex/librespot", rev = "e188a633758efeee3fe2531e50966210c40a3d6e" }
+librespot-discovery = { git = "https://github.com/pawlowskialex/librespot", rev = "e188a633758efeee3fe2531e50966210c40a3d6e" }
+librespot-metadata = { git = "https://github.com/pawlowskialex/librespot", rev = "e188a633758efeee3fe2531e50966210c40a3d6e" }
+librespot-oauth = { git = "https://github.com/pawlowskialex/librespot", rev = "e188a633758efeee3fe2531e50966210c40a3d6e" }
+librespot-playback = { git = "https://github.com/pawlowskialex/librespot", rev = "e188a633758efeee3fe2531e50966210c40a3d6e" }
+librespot-protocol = { git = "https://github.com/pawlowskialex/librespot", rev = "e188a633758efeee3fe2531e50966210c40a3d6e" }
+libmdns = { git = "https://github.com/pawlowskialex/libmdns", rev = "6da01928f2d8502988d93f8dbaecfc30e6c034a1" }
+
+# The module's userspace: small (the root filesystem is RAM), one codegen unit, LTO across std (built from rust-src
+# with this profile: `cargo module`), panics abort. The audio hot paths at full speed: our AAC decoder, the ALAC
+# decoder in shairplay, the AirPlay ciphers (zd1-airplay); our Vorbis decoder, the IMDCT both decoders share,
+# Spotify's AES-CTR (zd1-spotify).
+[profile.module]
+inherits = "release"
+opt-level = "z"
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
+[profile.module.package.zd1-aac]
+opt-level = 3
+[profile.module.package.shairplay]
+opt-level = 3
+[profile.module.package.aes]
+opt-level = 3
+[profile.module.package.chacha20]
+opt-level = 3
+[profile.module.package.poly1305]
+opt-level = 3
+[profile.module.package.zd1-vorbis]
+opt-level = 3
+[profile.module.package.zd1-flac]
+opt-level = 3
+[profile.module.package.zd1-dsp]
+opt-level = 3
+
+# The boot stub and the test image (module/boot): bare metal, `cargo boot`.
+[profile.boot]
+inherits = "release"
+opt-level = "s"
+lto = true
+panic = "abort"

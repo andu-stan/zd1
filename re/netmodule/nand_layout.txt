@@ -1,0 +1,31 @@
+== MetaInfo partitions
+0x0040000 type=4 CnE Factory (attr)             date=20140929082157 model=0x69 swver=9112 part_len=0x20000 data@0x40080 len=0x10de8 crc32=0xb09e632e ok=True flag=0x7f
+0x00a0000 type=1 BL2 (Bootloader Second Level)  date=20100927140429 model=0x0 swver=0 part_len=0x160000 data@0xa0080 len=0xc273c crc32=0x7c2904e0 ok=False flag=0x7f
+     boot hdr: stage1 -> SRAM 0x40da00 len=1014*8 crc32 ok=True; stage2 -> 0x60008000 from NAND 0xa2080 len 0xc073c chk 0xdd4f10e3 ok=False
+0x0240000 type=2 Application                    date=20140929082157 model=0x69 swver=9112 part_len=0xa00000 data@0x240080 len=0x64be14 crc32=0x4213ebdf ok=True flag=0x7f
+     boot hdr: stage1 -> SRAM 0x40da00 len=1007*8 crc32 ok=True; stage2 -> 0x60008000 from NAND 0x242080 len 0x649e14 chk 0x21a783d9 ok=True
+0x0c40000 type=7 Resources (FFS)                date=20140929082157 model=0x69 swver=9112 part_len=0x400000 data@0xc40080 len=0x2ae58 crc32=0x1fbca66f ok=True flag=0x7f
+== PersParam (block 1)
+  0x02001c live CnEU = 00000600
+  0x020038 live CnES = 00000200
+  0x020054 live CnEA = 80000400
+  0x020070 live BLDb = 00000000
+  0x02008c live HWID = bd000000
+  0x0200a8 live HWVS = 00000000
+  0x0200c4 live GUID = 0000000000000000
+  0x0200e4 old  MAC0 = 00:00:00:xx:xx:xx
+  0x020104 live MAC1 = 00:00:00:xx:xx:xx
+  0x020124 live BLDF = 081008
+  0x020144 live MAC0 = ec:66:d1:xx:xx:xx
+  0x020164 live DTCV = 01000000
+  0x020180 old  SAFE = 01000000
+  0x02019c old  SAFE = 00000000
+  0x0201b8 old  SAFE = 01000000
+  0x0201d4 old  SAFE = 00000000
+  0x0201f0 old  SAFE = 01000000
+  0x02020c old  SAFE = 00000000
+  0x020228 old  SAFE = 01000000
+  0x020244 old  SAFE = 00000000
+  0x020260 old  SAFE = 01000000
+  0x02027c old  SAFE = 00000000
+  0x020298 live SAFE = 01000000

@@ -1,0 +1,11 @@
+# The module's FLAC decoder (../flacdec.c) for Rust (zd1-snapcast; Warp0 runs the same C: module/warp0).
+[package]
+name = "zd1-flac"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+publish = false
+links = "zd1flac"
+
+[build-dependencies]
+cc = "1"

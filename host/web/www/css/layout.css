@@ -1,0 +1,41 @@
+/* Layout primitives: a row of things (`.row`), a column (`.stack`), a spacer (`.grow`), a label column (`.row >
+ * label:first-child`, `.cap`), the small print (`.small`) and the tones of text (`.ok`, `.warn`). */
+.row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin: var(--space-3) 0;
+}
+.stack {
+  display: grid;
+  gap: var(--space-1);
+}
+.grow {
+  flex: 1;
+}
+.row > label:first-child,
+.row > .cap:first-child {
+  width: var(--label-width);
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+}
+.small {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+.ok {
+  color: var(--state-ok-text);
+}
+.warn {
+  color: var(--state-warn-text);
+}
+.notes {
+  white-space: pre-wrap;
+}
+@media (max-width: 640px) {
+  .row > label:first-child,
+  .row > .cap:first-child {
+    width: 100%;
+  }
+}

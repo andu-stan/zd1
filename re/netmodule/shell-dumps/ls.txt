@@ -1,0 +1,3 @@
+$ ls
+  d. static
+  d. cne

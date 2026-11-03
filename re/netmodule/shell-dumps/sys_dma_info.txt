@@ -1,0 +1,5 @@
+$ sys dma info
+---- OVERVIEW ----
+sys dma info         - displays an overview of a dma
+---- DESCRIPTION ----
+<nr>                    context number

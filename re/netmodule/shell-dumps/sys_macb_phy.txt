@@ -1,0 +1,6 @@
+$ sys macb phy
+---- OVERVIEW ----
+sys macb phy         - phy register commands
+---- DESCRIPTION ----
+  rd <addr_list>      read phy registers (comma separated)
+  wr <addr> <value>   write <value> to phy register

@@ -1,0 +1,15 @@
+[package]
+name = "zd1-airplay"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+description = "AirPlay 1/2 receiver for the module (shairplay-rust, integer audio path), controlled by the speaker (zd1-linkd)"
+
+[dependencies]
+shairplay = { workspace = true, default-features = false, features = ["ap2-core", "ptp-timestamps"] }
+tokio = { version = "1", features = ["rt", "macros", "signal"] }
+tracing = "0.1"
+zd1-compat.workspace = true
+zd1-sys.workspace = true
+zd1-warp0 = { workspace = true, features = ["airplay"] }
+zd1-audio.workspace = true

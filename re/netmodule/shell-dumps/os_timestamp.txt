@@ -1,0 +1,2 @@
+$ os timestamp
+uptime = 1289411 ms delta = 42780 ms

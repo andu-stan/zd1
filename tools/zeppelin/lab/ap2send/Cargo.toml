@@ -1,0 +1,18 @@
+# A test sender for AirPlay 2 buffered audio (type 103, AAC), the mode iPhones use for music; the Mac-side test
+# client for zd1-airplay. Runs on the host: cargo run --release -p ap2send -- 169.254.1.1:5000 FILE.frames --lead 10
+# (frames from module/codecs/aac/tools/m4a2frames.py). AirPlay 1 and AirPlay 2 realtime ALAC: nix run .#airplay2-rs.
+[package]
+name = "ap2send"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+publish = false
+
+[dependencies]
+num-bigint = { version = "0.4", features = ["rand"] }
+sha2 = "0.10"
+chacha20poly1305 = "0.10"
+hkdf = "0.12"
+plist = "1.6"
+rand = "0.8"
+libc = "0.2"

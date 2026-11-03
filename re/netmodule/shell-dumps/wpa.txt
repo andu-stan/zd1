@@ -1,0 +1,38 @@
+$ wpa
+---- OVERVIEW ----
+wpa                  - wpa_supplicant cli
+---- DESCRIPTION ----
+commands:
+  status [verbose] = get current WPA/EAPOL/EAP status
+  help = show this usage help
+  level <debug level> = change debug level
+  logoff = IEEE 802.1X EAPOL state machine logoff
+  logon = IEEE 802.1X EAPOL state machine logon
+  set = set variables (shows list of variables when run without arguments)
+  pmksa = show PMKSA cache
+  reassociate = force reassociation
+  reconfigure = force wpa_supplicant to re-read its configuration file
+  preauthenticate <BSSID> = force preauthentication
+  list_networks = list configured networks
+  add_network = add a network
+  remove_network <network id> = remove a network
+  set_network <network id> <variable> <value> = set network variables (shows
+    list of variables when run without arguments)
+  get_network <network id> <variable> = get network variables
+  disconnect = disconnect and wait for reassociate/reconnect command before
+     connecting
+  reconnect = like reassociate, but only takes effect if already disconnected
+  scan = request new BSS scan
+  scan_results = get latest scan results
+  wps_pbc = start WPS push-button method
+  wps_pin <bssid> <pin> = start WPS pin method against given AP
+  wps_pin SSID <ssid_as_hex|"<ssid_as_text"> <pin> = start WPS pin method against given AP
+  wps_cancel = cancel pending WPS method
+  wps_scan_results = show WPS-enabled APs found in previous scan
+miscellaneous:
+  service = test WlControlService service
+  debug_level [level] = get/set debug level
+  sta_mode [0/1] = disable / enable sta mode
+  auth_type [value] = set auth type in M1
+  enc_type [value] = set enc type in M1
+  config_methods [value] = set config methods in M1

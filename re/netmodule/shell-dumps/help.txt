@@ -1,0 +1,78 @@
+$ help
+### Available Commands ###
+help                 - displays all available commands
+JBRemote             -  JB REMOTE COMMANDS
+apple                - apple commands
+ave                  - ave shell commands
+avr                  - avr test command
+bat                  - bat <batch-name>   executes commands written in <batch-name>
+btb                  - btb test commands
+cardeaDiscovery      - UPnP Cardea discovery
+cd                   - cd <dir> - changes current directory to <dir>
+clear                - clear shell history
+dbgprt               - debug print commands
+drc                  - drc [verbose | lines n | refresh n | spi [on|off] ]
+drcTst               - remote control over drc
+fburn                - flash burn commands
+filetransfer         - File Transfer
+flashtest            - flashtest
+flickr               - Flickr Service Access
+flickrcb             - Flickr Content Browse Service
+get                  - get [-e] <attributename> - reads value and type of <attributename>
+guard                - guard test
+icb                  - ipod content browser
+iperf                - The TCP/UDP Bandwidth Measurement Tool
+ipod                 - Serial iPod access
+ipodauth             - ipod authentication coprocessor
+lastfm               - Last.fm shell
+lltd                 - Lltd responder. Options: -enable -disable -tracelevel <n>
+ls                   - ls [-r|-n|-e|-v] - shows content of (current) directory
+lui                  - LocalUi
+nap                  - [help|verbose|..]
+napster              - napster service test connect
+napsterApiWrapper    - test napster API wrapper service
+napsterTst           - connect to napster service
+nc                   - nc[play|stop|pause|stat|show]
+net                  - networking (TCP/IP)
+netcfg               - print network settings
+netgen               - network generation (dynamic configuration)
+ntp                  - Ntp
+os                   - KnOS commands
+pandora              - pandora service api
+pandoraCB            - connect to napster service
+persparam            - persparam rd <name>             : read integer (name = 4 characters)
+          rds <name>            : read string (name = 4 characters)
+          rdss <name>           : read string (name = string)
+          wr <name> <value>     : write integer (name = 4 characters)
+          wrs <name> <value>    : write string (name = 4 characters)
+          wrss <name> <value>   : write string (name = string)
+          wrb <name> <hex-str>  : write binary string (name = 4 characters, hex-string eg. 0xafc9f0)
+          wrbs <name> <hex-str> : write binary string (name = string, hex-string eg. 0xafc9f0)
+          clr <name>            : clear integer (name = 4 characters)
+          clrs <name>           : clear string (name = 4 characters)
+          check                 : check and update default parameters
+          reset                 : reset parameters to default
+
+pictureplayer        - pictureplayer [cmd]
+ping                 - ping <ip-address>
+probe                - probe <ip-address>
+pwd                  - pwd - shows the complete currently used path
+rd                   - rd <addr> <count> [b|h] - reads <count> values starting at <addr> (b=8bit, h=16bit)
+rdm                  - Execute RDM FileSystem test command
+reg                  - reg test command
+rm                   - Resource Manager commands: [help, all]
+rtp                  - rtp commands
+set                  - set <attributename> <attributevalue> - writes <attributevalue> to config <attributename>
+shell                - shell [-b|-i|-o|-s] - shell configuration
+spilist              - print spi list
+spilog               - print spi log
+ssdp                 - UPNP/SSDP client control [enable, disable, send, setVerbose(x)]
+st                   - connect to sirius service
+sys                  - System commands
+test                 - Test commands
+tv                   - tv out test command
+upnp                 - UPNP control point [help]
+usb                  - commands related to USB
+usbd                 -  usbd
+wpa                  - wpa_supplicant cli
+wr                   - wr <addr> <value> [b|h] - writes <value> to <addr> (b=8bit, h=16bit)

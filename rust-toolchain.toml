@@ -1,0 +1,7 @@
+# The one toolchain, for the whole workspace (Cargo.toml): rustup reads it, nix too (`nix develop`, the builds). A
+# nightly: the module's builds compile std and core from rust-src (`cargo module`, `cargo boot`: .cargo/config.toml).
+[toolchain]
+channel = "nightly-2026-10-20"
+components = ["rust-src", "clippy", "rustfmt"]
+targets = ["armv5te-unknown-linux-musleabi", "wasm32-unknown-unknown"]
+profile = "minimal"

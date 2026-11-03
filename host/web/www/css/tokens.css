@@ -1,0 +1,127 @@
+/* Tokens: every colour, size, font and timing the page uses, named once. Two tiers: primitives (the grey ramp, the
+ * LED's palette, the scales) and roles (what a surface, a line or a text is for). Components use roles only; a
+ * primitive in a component is a missing role.
+ *
+ * The page is black and white. Colour is the speaker's LED and nothing else: its palette (mcu/src/led.c, as a screen
+ * shows it) marks sources, states and outcomes, in small doses: a lamp, a glow, a line. */
+:root {
+  color-scheme: dark;
+
+  /* ---- primitives: greys, black to white ---- */
+  --grey-0: #000;
+  --grey-50: #080809;
+  --grey-100: #0f0f10;
+  --grey-150: #161618;
+  --grey-200: #1d1d1f;
+  --grey-250: #242427;
+  --grey-300: #2e2e31;
+  --grey-400: #3d3d41;
+  --grey-500: #58585d;
+  --grey-600: #86868b;
+  --grey-700: #a1a1a6;
+  --grey-800: #d2d2d7;
+  --grey-900: #f5f5f7;
+  --grey-1000: #fff;
+
+  /* ---- primitives: the LED (led.c's colours on a screen; its white is warm) ---- */
+  --led-red: #ff3b2f;
+  --led-white: #f4efe2;
+  --led-usb: #2bb5ff;
+  --led-aux: #ffa524;
+  --led-ipod: #ff2fae;
+  --led-spotify: #84ff2f;
+  --led-snapcast: #2fff96;
+  --led-green: #3dff5c;
+  --led-purple: #a855ff;
+
+  /* ---- primitives: type ---- */
+  --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --text-xs: 11px;
+  --text-sm: 12.5px;
+  --text-md: 14px;
+  --text-lg: 17px;
+  --text-xl: 24px;
+  --text-2xl: 34px;
+  --text-3xl: 52px;
+  --weight-thin: 200;
+  --weight-light: 300;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --leading: 1.5;
+  --tracking-display: -0.015em;
+  --tracking-caps: 0.12em;
+
+  /* ---- primitives: space, radii, motion ---- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 72px;
+  --radius-sm: 4px;
+  --radius-md: 7px;
+  --radius-lg: 12px;
+  --radius-pill: 999px;
+  --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --fast: 120ms;
+  --medium: 240ms;
+  --slow: 600ms;
+
+  /* ---- roles: surfaces ---- */
+  --surface-page: var(--grey-0);
+  --surface-raised: var(--grey-100);
+  --surface-sunken: var(--grey-50);
+  --surface-overlay: rgb(0 0 0 / 0.72);
+  --surface-hover: rgb(255 255 255 / 0.04);
+
+  /* ---- roles: text ---- */
+  --text-strong: var(--grey-900);
+  --text-body: var(--grey-800);
+  --text-muted: var(--grey-600);
+  --text-faint: var(--grey-500);
+  --text-link: var(--grey-700);
+  --text-link-hover: var(--grey-1000);
+
+  /* ---- roles: lines ---- */
+  --line-hair: var(--grey-200);
+  --line-soft: var(--grey-300);
+  --line-strong: var(--grey-400);
+  --line-focus: rgb(255 255 255 / 0.45);
+  --ring-focus: 0 0 0 3px rgb(255 255 255 / 0.22);
+
+  /* ---- roles: states, all from the LED ---- */
+  --state-ok: var(--led-green);
+  --state-warn: var(--led-red);
+  --state-wait: var(--led-purple);
+  --state-info: var(--led-white);
+  --state-ok-text: color-mix(in srgb, var(--led-green) 55%, var(--grey-900));
+  --state-warn-text: color-mix(in srgb, var(--led-red) 75%, var(--grey-900));
+
+  /* ---- roles: controls, three tiers: primary filled (white, or a choice's LED colour) with black ink; secondary an
+   * outline with ink of the same colour; tertiary a link. Disabled fades the same drawing. ---- */
+  --control-height: 30px;
+  --control-radius: var(--radius-pill);
+  --control-ink: var(--grey-800);
+  --control-ink-hover: var(--grey-1000);
+  --control-fill-hover: rgb(255 255 255 / 0.07);
+  --control-fill-active: rgb(255 255 255 / 0.14);
+  --control-strong: var(--grey-900);
+  --control-strong-hover: var(--grey-1000);
+  --control-strong-ink: var(--grey-0);
+  --control-danger: var(--state-warn-text);
+  --control-faded: 0.32;
+  --control-focus: 0 0 0 3px rgb(255 255 255 / 0.22);
+
+  /* ---- roles: wells (inputs, logs, slider grooves) ---- */
+  --well: var(--grey-100);
+  --well-edge: var(--grey-400);
+
+  /* ---- layout ---- */
+  --measure: 940px;
+  --gutter: var(--space-5);
+  --label-width: 120px;
+}

@@ -1,0 +1,8 @@
+$ wpa status
+bssid=02:00:00:00:00:0a
+ssid=Home
+id=0
+pairwise_cipher=CCMP
+group_cipher=CCMP
+key_mgmt=WPA2-PSK
+wpa_state=COMPLETED

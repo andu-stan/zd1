@@ -1,0 +1,6 @@
+{
+"C810 wait u0 wrap, 2 loads via window 4":{"tries":0,"stored":"10000800","ctrl20":"00020034","after each window load (tries, +20)":[[2000,"0002004c"],[2000,"0002004c"],[2000,"0002004c"],[2000,"0002004c"]],"released_after_loads":1},
+"C814 wait u1 wrap, 2 loads via window 5":{"tries":0,"stored":"10000600","ctrl20":"00020034","after each window load (tries, +20)":[[2000,"0002004c"],[2000,"0002004c"],[2000,"0002004c"],[2000,"0002004c"]],"released_after_loads":1},
+"C810 wait u0 wrap, window 5 (wrong unit)":{"tries":0,"stored":"10000800","ctrl20":"00020034","after each window load (tries, +20)":[[0,"00020034"],[0,"00020034"],[0,"00020034"],[0,"00020034"]],"released_after_loads":null},
+"C810 wait u0 wrap, mod 4: 2 loads then 2 more":{"tries":0,"stored":"10000800","ctrl20":"00020034","after each window load (tries, +20)":[[0,"00020034"],[0,"00020034"],[2000,"0002004c"],[2000,"0002004c"]],"released_after_loads":3}
+}

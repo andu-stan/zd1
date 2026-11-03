@@ -1,0 +1,17 @@
+[package]
+name = "zd1-snapcast"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+description = "Snapcast client for the module: plays a snapserver stream in sync through ALSA, controlled by the speaker (zd1-linkd)"
+
+[dependencies]
+libc = "0.2"
+tracing = "0.1"
+zd1-audio.workspace = true
+zd1-compat.workspace = true
+zd1-flac.workspace = true
+zd1-mdns.workspace = true
+zd1-net.workspace = true
+zd1-sys.workspace = true
+zd1-warp0 = { workspace = true, default-features = false }

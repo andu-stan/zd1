@@ -1,0 +1,16 @@
+# ruff, for every Python file in the repo (`nix fmt`: lint with fixes, then format)
+line-length = 120
+target-version = "py311"
+
+[lint]
+select = ["E", "F", "W", "B", "I", "UP"]
+ignore = [
+  "E501",  # long lines: the formatter wraps code; long strings and comments stay
+  "E701",  # statements after a colon or a semicolon: the formatter splits them
+  "E702",
+  "E741",  # `l`, `I`, `O` as names: register and bit names from the datasheets
+  "UP031", # printf-style formatting: hex dumps read better as '%08x'
+  "E731",  # a lambda bound to a name: small local helpers
+  "B905",  # zip() without strict=
+  "B023",  # a closure over the loop variable: here they all run within their iteration
+]

@@ -1,0 +1,22 @@
+[package]
+name = "zd1-init"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+description = "PID 1 of the module OS and its rescue: the early start, then the services from one table, supervised"
+
+[dependencies]
+libc = "0.2"
+dm870 = { workspace = true, features = ["linux"] }
+zd1-board.workspace = true
+zd1-net = { workspace = true, optional = true }
+zd1-persparam.workspace = true
+zd1-settings.workspace = true
+zd1-slot.workspace = true
+zd1-svc.workspace = true
+zd1-sys.workspace = true
+
+[features]
+# the system (services.rs: SYSTEM, its early start); the rescue's build (zd1 --no-default-features) leaves it out
+default = ["full"]
+full = ["dep:zd1-net"]

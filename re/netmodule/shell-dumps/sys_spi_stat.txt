@@ -1,0 +1,2 @@
+$ sys spi stat
+device 0 ioctl returned -1

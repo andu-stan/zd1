@@ -1,0 +1,5 @@
+$ os free
+---- OVERVIEW ----
+os free              - do free
+---- DESCRIPTION ----
+  <ptr>                 free memory pointer ptr

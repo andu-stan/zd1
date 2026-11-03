@@ -1,0 +1,21 @@
+# Warp0 for the module's Rust programs: the client (boot, the job ring, the hang diagnosis) with the firmware images
+# built into the binary, and the stream decoders on them (../README.md): realtime ALAC and AAC for zd1-airplay (feature airplay), Vorbis
+# for zd1-spotify.
+[package]
+name = "zd1-warp0"
+version = "0.1.0"
+edition.workspace = true
+license = "MIT AND LGPL-2.1-or-later AND LGPL-3.0-or-later" # the firmware images: aac_tables.c, alac.c (NOTICE.md)
+publish = false
+
+[features]
+default = ["airplay"]
+airplay = ["dep:shairplay", "dep:zd1-aac"]
+
+[dependencies]
+dm870 = { workspace = true, features = ["linux"] }
+libc = "0.2"
+shairplay = { workspace = true, default-features = false, features = ["ap2-core"], optional = true }
+zd1-aac = { workspace = true, optional = true }
+zd1-vorbis.workspace = true
+tracing = "0.1"

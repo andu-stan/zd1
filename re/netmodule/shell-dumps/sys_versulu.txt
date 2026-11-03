@@ -1,0 +1,13 @@
+$ sys versulu
+arm                    926/rev 5
+uart1           2006-11-08/rev 1
+av ptu          2006-11-17/rev 1
+av common       2006-11-17/rev 1
+av0             2006-11-17/rev 1
+av2             2006-11-17/rev 1
+av3             2006-11-17/rev 1
+av4             2006-11-17/rev 1
+uart0           2006-11-08/rev 1
+spi0            2006-11-08/rev 1
+nfh             2006-11-08/rev 1
+dma             2006-11-08/rev 1

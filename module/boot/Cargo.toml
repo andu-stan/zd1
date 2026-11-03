@@ -1,0 +1,18 @@
+[package]
+name = "zd1-boot"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+description = "Bare-metal DM870 images: the Linux boot stub and the minimal test image"
+
+# one linker script per binary (build.rs)
+[[bin]]
+name = "linuxboot"
+[[bin]]
+name = "mini"
+
+[dependencies]
+dm870.workspace = true
+zd1-link.workspace = true
+# the kernel stored as raw deflate (module/os/mkpayload.py --deflate-kernel); no_std, no allocation
+miniz_oxide = { version = "0.8", default-features = false }

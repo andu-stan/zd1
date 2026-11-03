@@ -1,0 +1,19 @@
+$ sys clock
+Xtali input                     24000000 Hz ( 24.000 MHz)
+System clock PLL                24000000 Hz x (40 / 2) / 1 = 480000000 Hz
+Clock source selection          Sys PLL
+AHB clock                       80000000 Hz ( 80.000 MHz)
+ARM clock                      240000000 Hz (240.000 MHz)
+Warp0 clock                    160000000 Hz (160.000 MHz)
+SDRAM clock                    160000000 Hz (160.000 MHz)
+AV system clock                 80000000 Hz ( 80.000 MHz)
+HV system clock                160000000 Hz (160.000 MHz)
+AV oversampling clock          160000000 Hz (160.000 MHz)
+Warp1 clock                    160000000 Hz (160.000 MHz)
+Sol clock                      160000000 Hz (160.000 MHz)
+
+PLL 0                           22579274 Hz ( 22.579 MHz)
+PLL 1                                  0 Hz (  0.000 MHz)
+PLL 2                           50000040 Hz ( 50.000 MHz)
+PLL 3                           12000006 Hz ( 12.000 MHz)
+PLL 4                           27000024 Hz ( 27.000 MHz)

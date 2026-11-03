@@ -1,0 +1,19 @@
+$ sys wlan ctrl
+---- OVERVIEW ----
+sys wlan ctrl        - Low level control wireless commands
+---- DESCRIPTION ----
+  scan [ssidstring] [-a|-p]           scan, optional SSID argument, active or passive
+                                      default: no SSID, passive, SSID of "-a" or "-p" not allowed
+  ssid <ssidstring>                   connect to given ssid
+  infra <1(BSS)|2(IBSS)|3(ANY)>       set infrastructure mode
+  disassoc                            disassociate from current BSS
+  channelPowerSetting					dump Channel and Power Table
+  populatePowerSetting				Populate Channel and Power Table
+  reset <0(no mib rest)|1(mib reset)> reset mac
+  setSensitivity [value]              set the receiving sensitivity
+  ssidadv                             This will adverstise the ssid stored in cne(for AD-HOC wireless)
+  startAp <ssidstring>                Start AP with given ssid
+  stopAp                              Stop AP
+  dump_stats                          Dump HD Stats
+  enable_reset						<0(no wifi reset)|1(wifi reset)> reset wifi
+  reset_wifi							Reset the wifi stack

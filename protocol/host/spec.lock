@@ -1,0 +1,373 @@
+# protocol/host/spec.lock: every message and field the host link has had (protocol/gen keeps it).
+# Lines may be added; a changed or missing one is a break (docs/protocol/host.md, Compatibility).
+version 3
+msg 0x7E reply Ok
+msg 0x7F reply Error
+field 0x7F 0 enum:Err code
+field 0x7F 1 str:64 text
+msg 0x7D reply Data
+field 0x7D 0 bytes:248 data
+msg 0x01 request Hello
+msg 0x41 reply HelloReply
+field 0x41 0 u16 proto
+field 0x41 1 str:40 fw
+field 0x41 2 str:24 built
+field 0x41 3 str:16 board
+field 0x41 4 u32 uptime_ms
+field 0x41 5 bytes:32 requests
+msg 0x02 request Info
+msg 0x42 reply InfoReply
+field 0x42 0 str:40 fw
+field 0x42 1 str:24 built
+field 0x42 2 u32 uptime_ms
+field 0x42 3 u8 rcause
+field 0x42 4 enum:SysState state
+field 0x42 5 enum:Source source
+field 0x42 6 u8 volume
+field 0x42 7 u8 bass
+field 0x42 8 bool amp_allowed
+field 0x42 9 bool amp_on
+field 0x42 10 enum:Debug debug
+field 0x42 11 enum:ModState mod_state
+field 0x42 12 u16 mod_status
+field 0x42 13 str:64 mod_os
+field 0x42 14 str:16 mod_ip
+field 0x42 15 str:64 mod_name
+field 0x42 16 bool modcon_open
+field 0x42 17 enum:Gate gate
+field 0x42 18 u16 gate_s
+field 0x42 19 bool amp_auto
+field 0x42 20 bool amp_asleep
+field 0x42 21 enum:Player player
+field 0x42 22 enum:PlayerState player_state
+field 0x42 23 bool auto_switch
+field 0x42 24 u8 players_on
+field 0x42 25 u8 mod_proto
+field 0x42 26 u8 link_proto
+field 0x42 27 u16 amp_idle_s
+field 0x42 28 u8 volume_cap
+field 0x42 29 bool console_open
+msg 0x0E request Unlock
+msg 0x0F request Lock
+field 0x0F 0 bool open
+msg 0x04 request Peek
+field 0x04 0 u32 addr
+field 0x04 1 u16 len
+field 0x04 2 bool words
+msg 0x05 request Poke
+field 0x05 0 u32 addr
+field 0x05 1 bytes:240 data
+field 0x05 2 bool words
+msg 0x06 request Dfu
+msg 0x07 request Reboot
+msg 0x08 request Module
+field 0x08 0 enum:ModOp op
+field 0x08 1 u16 timeout_s
+msg 0x48 reply ModuleReply
+field 0x48 0 bool ok
+field 0x48 1 enum:ModState state
+field 0x48 2 u16 status
+msg 0x1E request ModRecord
+field 0x1E 0 enum:Record record
+field 0x1E 1 u16 offset
+msg 0x5E reply RecordReply
+field 0x5E 0 u16 total
+field 0x5E 1 bytes:240 data
+msg 0x60 record State
+field 0x60 0 str:63 name
+field 0x60 1 enum:NetMode eth_mode
+field 0x60 2 str:18 eth_address
+field 0x60 3 str:15 eth_gateway
+field 0x60 4 str:15 eth_dns
+field 0x60 5 enum:NetMode wifi_mode
+field 0x60 6 str:18 wifi_address
+field 0x60 7 str:15 wifi_gateway
+field 0x60 8 str:15 wifi_dns
+field 0x60 9 str:32 wifi_ssid
+field 0x60 10 str:64 wifi_psk
+field 0x60 11 bool airplay
+field 0x60 12 bool spotify
+field 0x60 13 bool snapcast
+field 0x60 14 str:64 snapcast_server
+field 0x60 15 str:64 os
+field 0x60 16 enum:Slot slot
+field 0x60 17 enum:Slot good
+field 0x60 18 str:40 mcu
+field 0x60 19 bool eth_link
+field 0x60 20 str:15 eth_ip
+field 0x60 21 str:15 wifi_ip
+field 0x60 22 enum:WifiState wifi
+field 0x60 23 str:17 bssid
+field 0x60 24 u8 signal
+field 0x60 25 bool input
+field 0x60 26 u8 volume
+field 0x60 27 enum:Player front
+field 0x60 28 enum:PlayerState front_state
+field 0x60 29 u8 senders
+field 0x60 30 str:4 airplay_pin
+field 0x60 31 u16 snapcast_latency
+field 0x60 32 u16 spotify_bitrate
+field 0x60 33 str:64 stamp_a
+field 0x60 34 str:64 stamp_b
+msg 0x61 record ScanEntry
+field 0x61 0 str:32 ssid
+field 0x61 1 u8 signal
+field 0x61 2 enum:WifiSecurity security
+msg 0x62 record KnownNetwork
+field 0x62 0 str:32 ssid
+field 0x62 1 enum:WifiSecurity security
+msg 0x63 record Snapserver
+field 0x63 0 str:63 name
+field 0x63 1 str:15 host
+field 0x63 2 u16 port
+msg 0x64 record Pairing
+field 0x64 0 str:63 id
+field 0x64 1 bool admin
+msg 0x65 record Actions
+field 0x65 0 str:102 wifi_add
+field 0x65 1 str:32 wifi_forget
+field 0x65 2 str:32 wifi_first
+field 0x65 3 str:8 airplay_forget
+field 0x65 4 str:8 reset
+msg 0x09 request ModRead
+field 0x09 0 u8 reg
+field 0x09 1 bool v
+msg 0x0A request ModWrite
+field 0x0A 0 u8 reg
+field 0x0A 1 bool v
+field 0x0A 2 bytes:128 data
+msg 0x0B request GetSetting
+field 0x0B 0 str:32 key
+msg 0x10 request SetSetting
+field 0x10 0 str:32 key
+field 0x10 1 str:128 value
+msg 0x4B reply SettingReply
+field 0x4B 0 str:128 value
+msg 0x0C request Amp
+field 0x0C 0 bool allow
+field 0x0C 1 bool keep
+msg 0x0D request Debug
+field 0x0D 0 enum:Debug mode
+msg 0x11 request Key
+field 0x11 0 enum:Key key
+msg 0x12 request Select
+field 0x12 0 enum:Source source
+field 0x12 1 enum:Player player
+msg 0x13 request Volume
+field 0x13 0 u8 volume
+field 0x13 1 u8 bass
+msg 0x15 request XmFrame
+field 0x15 0 u16 offset
+field 0x15 1 bytes:240 data
+field 0x15 2 bool send
+field 0x15 3 u16 wait_ms
+msg 0x55 reply XmReply
+field 0x55 0 bytes:32 answers
+field 0x55 1 u32 wire_us
+field 0x55 2 u32 wait_us
+field 0x55 3 u32 read_us
+msg 0x16 request Pipe
+field 0x16 0 enum:Sink sink
+field 0x16 1 bool reset
+msg 0x56 reply PipeReply
+field 0x56 0 enum:Sink sink
+field 0x56 1 u32 bytes
+field 0x56 2 u32 crc32
+field 0x56 3 u32 packets
+field 0x56 4 u32 full
+msg 0x17 request BootState
+msg 0x18 request Boot
+field 0x18 0 enum:BootOp op
+field 0x18 1 enum:Slot slot
+field 0x18 2 bool restart
+msg 0x19 request Update
+field 0x19 0 enum:UpdateOp op
+field 0x19 1 u32 size
+field 0x19 2 bytes:32 sha256
+field 0x19 3 str:64 id
+field 0x19 4 u32 baud
+msg 0x1A request UpdateStatus
+msg 0x59 reply UpdateReply
+field 0x59 0 enum:UpdateState state
+field 0x59 1 u32 sent
+field 0x59 2 u32 on_wire
+field 0x59 3 u32 size
+field 0x59 4 enum:Slot slot
+field 0x59 5 str:96 text
+msg 0x1D request Console
+field 0x1D 0 bool open
+msg 0x1F request ConsoleWrite
+field 0x1F 0 bytes:240 data
+msg 0x5D reply ConsoleReply
+field 0x5D 0 bool open
+field 0x5D 1 u16 taken
+field 0x5D 2 u32 lost
+msg 0x1B request PipeData
+field 0x1B 0 bytes:240 data
+msg 0x57 reply BootReply
+field 0x57 0 enum:Slot good
+field 0x57 1 enum:Slot next
+field 0x57 2 enum:Slot last
+field 0x57 3 bool trial
+field 0x57 4 u8 failed
+msg 0x1C request Prefs
+field 0x1C 0 u8 change
+field 0x1C 1 bool auto_switch
+field 0x1C 2 u16 amp_idle_s
+field 0x1C 3 u8 volume_cap
+msg 0x5C reply PrefsReply
+field 0x5C 0 bool auto_switch
+field 0x5C 1 bool amp_auto
+field 0x5C 2 u16 amp_idle_s
+field 0x5C 3 u8 volume_cap
+msg 0x14 request Diag
+msg 0x54 reply DiagReply
+field 0x54 0 u16 adc4
+field 0x54 1 u16 adc5
+field 0x54 2 u16 adc6
+field 0x54 3 bool fault
+field 0x54 4 bool amp_fault
+field 0x54 5 u8 n_temp
+field 0x54 6 u8 n_adc4
+field 0x54 7 u8 n_fault
+field 0x54 8 u8 error
+field 0x54 9 bool amp_unmuted
+field 0x54 10 bool dsp_running
+field 0x54 11 enum:DspIn dsp_in
+field 0x54 12 bool spdif_locked
+field 0x54 13 u8 dsp_volume
+field 0x54 14 bool aux_jack
+field 0x54 15 bool usb_vbus
+field 0x54 16 u8 led
+field 0x54 17 u16 ir_frames
+field 0x54 18 u8 ir_addr
+field 0x54 19 u8 ir_cmd
+field 0x54 20 bool ir_toggle
+field 0x54 21 u32 ir_ms
+field 0x54 22 bool usb_streaming
+field 0x54 23 u32 usb_rate
+field 0x54 24 bool usb_mute
+field 0x54 25 u8 usb_step
+field 0x54 26 u32 usb_packets
+field 0x54 27 bool hid
+field 0x54 28 bool engine
+field 0x54 29 bool clock_ok
+field 0x54 30 u16 fill
+field 0x54 31 bool primed
+field 0x54 32 u32 underruns
+field 0x54 33 u32 overruns
+field 0x54 34 u32 dropped
+field 0x54 35 u32 play_fps
+field 0x54 36 u32 host_fps
+field 0x54 37 u32 ratio
+field 0x54 38 u32 nominal
+field 0x54 39 bool net
+field 0x54 40 enum:Play play
+field 0x54 41 u8 pending_volume
+field 0x54 42 u32 modcon_overruns
+field 0x54 43 u32 amp_on_s
+field 0x54 44 u32 amp_run_s
+field 0x54 45 u8 heat_cap
+field 0x54 46 bool usb_audible
+field 0x54 47 u16 silent_s
+field 0x54 48 u32 level
+field 0x54 49 u32 level_floor
+enum Err 1 UNKNOWN
+enum Err 2 MALFORMED
+enum Err 3 BUSY
+enum Err 4 MODULE
+enum Err 5 ARG
+enum Err 6 LOCKED
+enum Err 7 DENIED
+enum SysState 0 BOOT
+enum SysState 1 STANDBY
+enum SysState 2 RUN
+enum SysState 3 ERROR
+enum Source 0 NONE
+enum Source 1 USB
+enum Source 2 AUX
+enum Source 3 WIFI
+enum Source 4 IPOD
+enum NetMode 0 OFF
+enum NetMode 1 DHCP
+enum NetMode 2 STATIC
+enum WifiState 0 OFF
+enum WifiState 1 SCANNING
+enum WifiState 2 CONNECTING
+enum WifiState 3 CONNECTED
+enum WifiState 4 WRONGKEY
+enum WifiState 5 NOTFOUND
+enum WifiState 6 FAILED
+enum WifiState 7 IDLE
+enum WifiSecurity 0 OPEN
+enum WifiSecurity 1 PSK
+enum WifiSecurity 2 SAE
+enum WifiSecurity 3 OTHER
+enum Record 0 STATE
+enum Record 1 SCAN
+enum Record 2 NETWORKS
+enum Record 3 SERVERS
+enum Record 4 PAIRINGS
+enum ModState 0 OFF
+enum ModState 1 RESET
+enum ModState 2 BOOTING
+enum ModState 3 READY
+enum ModState 4 UP
+enum ModState 5 STOCK
+enum ModState 6 MISMATCH
+enum ModState 7 BL2
+enum ModOp 0 OFF
+enum ModOp 1 START
+enum ModOp 2 POWER
+enum ModOp 3 BL2
+enum ModOp 4 HOLD
+enum ModOp 5 RESTART
+enum ModOp 6 ESC
+enum Debug 0 DEFAULT
+enum Debug 1 ON
+enum Debug 2 OFF
+enum Slot 0 NONE
+enum Slot 1 A
+enum Slot 2 B
+enum Slot 3 RESCUE
+enum BootOp 1 TRY
+enum BootOp 2 GOOD
+enum BootOp 3 CLEAR
+enum Sink 0 DISCARD
+enum Sink 1 MODULE
+enum UpdateOp 1 BEGIN
+enum UpdateOp 2 ABORT
+enum UpdateState 0 IDLE
+enum UpdateState 1 STARTING
+enum UpdateState 2 STREAMING
+enum UpdateState 3 FINISHING
+enum UpdateState 4 DONE
+enum UpdateState 5 FAILED
+enum Key 0 ONOFF
+enum Key 1 HOLD
+enum Key 2 STANDBY
+enum Key 3 VOLUP
+enum Key 4 VOLDN
+enum Key 5 PLAY
+enum Key 6 NEXT
+enum Key 7 PREV
+enum Play 0 UNKNOWN
+enum Play 1 EMPTY
+enum Play 2 PLAYING
+enum Play 3 PAUSED
+enum Player 0 NONE
+enum Player 1 AIRPLAY
+enum Player 2 SPOTIFY
+enum Player 3 SNAPCAST
+enum Player 4 OTHER
+enum PlayerState 0 STOPPED
+enum PlayerState 1 PAUSED
+enum PlayerState 2 PLAYING
+enum DspIn 0 NONE
+enum DspIn 1 USB
+enum DspIn 2 MODULE
+enum DspIn 3 AUX
+enum DspIn 4 OPTICAL
+enum Gate 0 LOCKED
+enum Gate 1 UNLOCKED
+enum Gate 2 OPEN

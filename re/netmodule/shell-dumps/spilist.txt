@@ -1,0 +1,2 @@
+$ spilist
+Spi List empty

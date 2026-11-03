@@ -1,0 +1,51 @@
+/* The tag: a word about a row (WPA2, joined), outlined; `.ok` lights its lamp. The signal bars: four, lit up to the
+ * strength. */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 1px 8px;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-pill);
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+}
+.tag.ok {
+  --lamp: var(--state-ok);
+  color: var(--text-body);
+}
+.tag.ok::before {
+  width: 5px;
+  height: 5px;
+}
+.bars {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 12px;
+  margin-left: var(--space-2);
+  vertical-align: middle;
+}
+.bars i {
+  width: 3px;
+  border-radius: 1px;
+  background: var(--grey-400);
+}
+.bars i:nth-child(1) {
+  height: 4px;
+}
+.bars i:nth-child(2) {
+  height: 6px;
+}
+.bars i:nth-child(3) {
+  height: 9px;
+}
+.bars i:nth-child(4) {
+  height: 12px;
+}
+.bars i.on {
+  background: var(--grey-900);
+}

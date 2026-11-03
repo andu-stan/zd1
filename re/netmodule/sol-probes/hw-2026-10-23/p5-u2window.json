@@ -1,0 +1,16 @@
+{
+"baseline":[0,1,2,3,4,5,6,7],
+"window 6":{"ctrl before/after":["74737271 540e00e0","74737271 540e00e0"],"read after CC05":[0,5,10,15,20,25,30,35],"read after restore":[0,1,2,3,4,5,6,7],"counters after imm c0:=5a via window":"74737271 then 74737271","ka":true},
+"window 7":{"ctrl before/after":["12345678 540e00e0","12345678 540e00e0"],"read after CC05":[0,1,2,3,4,5,6,7],"read after restore":[0,1,2,3,4,5,6,7],"counters after imm c0:=5a via window":"12345678 then 12345678","ka":true},
+"window 0":{"ctrl before/after":["12345678 540e00e0","12345678 540e00e0"],"read after CC05":[0,1,2,3,4,5,6,7],"read after restore":[0,1,2,3,4,5,6,7],"counters after imm c0:=5a via window":"12345678 then 12345678","ka":true},
+"window 1":{"ctrl before/after":["12345678 540e00e0","12345678 540e00e0"],"read after CC05":[0,1,2,3,4,5,6,7],"read after restore":[0,1,2,3,4,5,6,7],"counters after imm c0:=5a via window":"12345678 then 12345678","ka":true},
+"window 2":{"ctrl before/after":["12345678 540e00e0","12345678 540e00e0"],"read after CC05":[0,1,2,3,4,5,6,7],"read after restore":[0,1,2,3,4,5,6,7],"counters after imm c0:=5a via window":"12345678 then 12345678","ka":true},
+"window 8":{"ctrl before/after":["12345678 540e00e0","12345678 540e00e0"],"read after CC05":[0,1,2,3,4,5,6,7],"read after restore":[0,1,2,3,4,5,6,7],"ka":true},
+"window 9":{"ctrl before/after":["12345678 540e00e0","12345678 540e00e0"],"read after CC05":[0,1,2,3,4,5,6,7],"read after restore":[0,1,2,3,4,5,6,7],"ka":true},
+"window 10":{"ctrl before/after":["12345678 540e00e0","12345678 540e00e0"],"read after CC05":[0,1,2,3,4,5,6,7],"read after restore":[0,1,2,3,4,5,6,7],"ka":true},
+"window 11":{"ctrl before/after":["12345678 540e00e0","12345678 540e00e0"],"read after CC05":[0,1,2,3,4,5,6,7],"read after restore":[0,1,2,3,4,5,6,7],"ka":true},
+"window 12":{"ctrl before/after":["12345678 540e00e0","12345678 540e00e0"],"read after CC05":[0,1,2,3,4,5,6,7],"read after restore":[0,1,2,3,4,5,6,7],"ka":true},
+"window 13":{"ctrl before/after":["12345678 540e00e0","12345678 540e00e0"],"read after CC05":[0,1,2,3,4,5,6,7],"read after restore":[0,1,2,3,4,5,6,7],"ka":true},
+"window 14":{"ctrl before/after":["12345678 540e00e0","12345678 540e00e0"],"read after CC05":[0,1,2,3,4,5,6,7],"read after restore":[0,1,2,3,4,5,6,7],"ka":true},
+"window 15":{"ctrl before/after":["12345678 540e00e0","12345678 540e00e0"],"read after CC05":[0,1,2,3,4,5,6,7],"read after restore":[0,1,2,3,4,5,6,7],"ka":true}
+}

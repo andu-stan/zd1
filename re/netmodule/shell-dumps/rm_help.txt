@@ -1,0 +1,4 @@
+$ rm help
+rm [get set] - resource manager commands
+    get [all lang langs uilangs iso ver] - get info from RM
+    set [lang defchar]                   - set values for RM

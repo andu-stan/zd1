@@ -1,0 +1,21 @@
+[package]
+name = "zd1-host"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+description = "The computer's side of the Zeppelin Air over USB, once: the host link to our MCU firmware, settings, the module's system update, the B&W DFU (MCU firmware, the module relay); run natively by the CLI (host/cli) and as WebAssembly by the web page (host/web)"
+
+[dependencies]
+zd1-hostlink.workspace = true
+nusb = "0.2.9"
+sha2 = "0.10"
+sha1 = { version = "0.10", default-features = false }
+pbkdf2 = { version = "0.12", default-features = false, features = ["hmac"] }
+miniz_oxide = "0.8"
+crc32fast = "1.5"
+serde_json = "1"
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+js-sys = "0.3"
+wasm-bindgen = "0.2"
+wasm-bindgen-futures = "0.4"

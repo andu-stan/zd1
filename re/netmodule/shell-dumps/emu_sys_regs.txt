@@ -1,0 +1,872 @@
+# Register names and offsets printed by the stock app's shell, captured in the emulator [EMU] (zemu run stock, 2026-10-23).
+# The NAMES and ADDRESSES are the app's own tables and apply to the hardware; the VALUES are the emulator's models, not the unit's.
+# Live values from the unit: re/netmodule/jtag/ (JTAG dumps) and the shell dumps in this directory.
+s sy sys sys  sys s sys sw sys swm sys swmt sys swmtx sys swmtx  sys swmtx s sys swmtx sh sys swmtx sho sys swmtx show 
+Switch Matrix registers:
+------------------------
+0xe0013000: MtxGpioGroupA    = 0x00000102
+0xe0013004: MtxGpioGroupB    = 0x00000703
+0xe0013008: MtxGpioGroupC    = 0x00000f01
+0xe001300c: MtxGpioGroupD    = 0x00000706
+0xe0013010: MtxGpioGroupE    = 0x00000103
+0xe0013014: MtxGpioGroupF    = 0x00000307
+0xe0013020: MtxUSB           = 0x00000020
+0xe0013024: MtxEthernet      = 0x00000001
+0xe0013028: MtxWild          = 0x00000001
+0xe001302c: MtxOthers        = 0x00000000
+0xe0013030: MtxAllIns        = 0x00000000
+0xe0013034: MtxAvLoop        = 0x00000000
+0xe0013040: MtxTestBusSel    = 0x00000000
+0xe0013044: MtxTestBusEnable = 0x00000000
+Clearing out hash address register
+Clearing out hash address register
+Clearing out hash address register
+s sy sys sys  sys u sys um sys umr sys umr  sys umr s sys umr sh sys umr sho sys umr show 
+DMA0       : Prio:  +0, Rise: 0, Fall: 0
+DMA1       : Prio:  +0, Rise: 0, Fall: 0
+ARM9I      : Prio:  +0, Rise: 0, Fall: 0
+ARM9D      : Prio:  +0, Rise: 0, Fall: 0
+SECWARPI   : Prio:  +0, Rise: 0, Fall: 0
+SECWARPD   : Prio:  +0, Rise: 0, Fall: 0
+ETH        : Prio:  +0, Rise: 0, Fall: 0
+WILD       : Prio:  +0, Rise: 0, Fall: 0
+SOLWARP    : Prio:  +0, Rise: 0, Fall: 0
+s sy sys sys  sys s sys sd sys sdr sys sdra sys sdram sys sdram  sys sdram r sys sdram re sys sdram reg 
+SDRAM settings:
+---------------
+AhbProtCfg     [0xe001d000] = 0x00000000
+S/SDRamCfg     [0xe001d004] = 0x00000000
+RefreshTHD     [0xe001d008] = 0x00000000
+SDRamCfgSet    [0xe001d00c] = 0x00000000
+Status         [0xe001d014] = 0x00000000
+TestBusAddr    [0xe001d018] = 0x00000000
+SelfRefreshTHD [0xe001d01c] = 0x00000000
+RdWSBank0      [0xe001d020] = 0x00000000
+RdWSBank2      [0xe001d024] = 0x00000000
+RdWSBank3      [0xe001d028] = 0x00000000
+RdWSBank1      [0xe001d030] = 0x00000000
+WrWSBank0      [0xe001d034] = 0x00000000
+WrWSBank2      [0xe001d038] = 0x00000000
+WrWSBank3      [0xe001d03c] = 0x00000000
+WrWSBank1      [0xe001d044] = 0x00000000
+WrActBank0     [0xe001d048] = 0x00000000
+WrActBank2     [0xe001d04c] = 0x00000000
+WrActBank3     [0xe001d050] = 0x00000000
+WrActBank1     [0xe001d058] = 0x00000000
+WrDctBank0     [0xe001d05c] = 0x00000000
+WrDctBank2     [0xe001d060] = 0x00000000
+WrDctBank3     [0xe001d064] = 0x00000000
+WrDctBank1     [0xe001d06c] = 0x00000000
+RdActBank0     [0xe001d070] = 0x00000000
+RdActBank2     [0xe001d074] = 0x00000000
+RdActBank3     [0xe001d078] = 0x00000000
+RdActBank1     [0xe001d080] = 0x00000000
+RdDctBank0     [0xe001d084] = 0x00000000
+RdDctBank2     [0xe001d088] = 0x00000000
+RdDctBank3     [0xe001d08c] = 0x00000000
+RdDctBank1     [0xe001d094] = 0x00000000
+SupCfg         [0xe001d100] = 0x00000000
+SupCnt         [0xe001d104] = 0x00000000
+SupRefCnt      [0xe001d108] = 0x00000000
+s sy sys sys  sys s sys sw sys swx sys swx  sys swx r sys swx re sys swx reg 
+0xe0019000: iAddressMask        : 0x00000000
+0xe0019004: iAddress            : 0x00000000
+0xe001900c: iIrqClr             : 0x00000000
+0xe0019014: iIrqMaskClr         : 0x00000000
+0xe001901c: iErrMaskClr         : 0x00000000
+0xe0019024: iAuthClr            : 0x00000000
+0xe0019040: iAddressMask        : 0x00000000
+0xe0019044: iAddress            : 0x00000000
+0xe001904c: iIrqClr             : 0x00000000
+0xe0019054: iIrqMaskClr         : 0x00000000
+0xe001905c: iErrMaskClr         : 0x00000000
+0xe0019064: iAuthClr            : 0x00000000
+0xe0019080: iAddressMask        : 0x00000000
+0xe0019084: iAddress            : 0x00000000
+0xe001908c: iIrqClr             : 0x00000000
+0xe0019094: iIrqMaskClr         : 0x00000000
+0xe001909c: iErrMaskClr         : 0x00000000
+0xe00190a4: iAuthClr            : 0x00000000
+0xe00190c0: iAddressMask        : 0x00000000
+0xe00190c4: iAddress            : 0x00000000
+0xe00190cc: iIrqClr             : 0x00000000
+0xe00190d4: iIrqMaskClr         : 0x00000000
+0xe00190dc: iErrMaskClr         : 0x00000000
+0xe00190e4: iAuthClr            : 0x00000000
+0xe0019100: iAddressMask        : 0x00000000
+0xe0019104: iAddress            : 0x00000000
+0xe001910c: iIrqClr             : 0x00000000
+0xe0019114: iIrqMaskClr         : 0x00000000
+0xe001911c: iErrMaskClr         : 0x00000000
+0xe0019124: iAuthClr            : 0x00000000
+0xe0019c00: iIrqSummary         : 0x00000000
+0xe0019c14: iMasterIrqClr       : 0x00000000
+0xe0019c1c: iSlaveIrqClr        : 0x00000000
+0xe0019ff4: iTestBus            : 0x01ff01ff
+0xe0019ff8: iVersion            : 0x05112900
+s sy sys sys  sys d sys dm sys dma sys dma  sys dma r sys dma re sys dma reg 
+---- OVERVIEW ----
+sys dma reg          - displays registers
+---- DESCRIPTION ----
+  cfg      config registers
+  stat     status registers
+  irq      interrupt registers
+  fast     fast access registers
+  misc     miscellaneous registers
+s sy sys sys  sys i sys ir sys irq sys irq  sys irq r sys irq re sys irq reg 
+Registers:
+0xffff0080: cfgSet               = 0x00100000
+0xffff0084: cfgClr               = 0x00100000
+0xffff0088: hpIrqMaskSet         = 0x00000087
+0xffff008c: hpIrqMaskClr         = 0x00000087
+0xffff0090: irqOffset            = 0xdeadbeef
+0xffff0094: irqRunClr            = 0x00000000
+0xffff0098: irqSelClr            = 0x00000000
+0xffff00a0: irqPolling           = 0x00000000
+0xffff00a4: irqStatus            = 0x00000000
+0xffff0100: irqHighPrioIrq[0]    = 0x7f161504
+0xffff0104: irqHighPrioIrq[1]    = 0x017f7f7f
+0xffff0120: irqSet[0]            = 0x00000000
+0xffff0124: irqSet[1]            = 0x00000000
+0xffff0128: irqSet[2]            = 0x00000000
+0xffff012c: irqSet[3]            = 0x00000000
+0xffff0140: irqClr[0]            = 0x00000000
+0xffff0144: irqClr[1]            = 0x00000000
+0xffff0148: irqClr[2]            = 0x00000000
+0xffff014c: irqClr[3]            = 0x00000000
+0xffff0160: irqTrgCfg[0]         = 0x00000000
+0xffff0164: irqTrgCfg[1]         = 0x00000000
+0xffff0168: irqTrgCfg[2]         = 0x10000002
+0xffff016c: irqTrgCfg[3]         = 0x00000000
+0xffff0170: irqTrgCfg[4]         = 0x00000000
+0xffff0174: irqTrgCfg[5]         = 0x00000000
+0xffff0178: irqTrgCfg[6]         = 0x00000000
+0xffff017c: irqTrgCfg[7]         = 0x00000000
+0xffff0180: irqMaskSet[0]        = 0x02143740
+0xffff0184: irqMaskSet[1]        = 0x00004001
+0xffff0188: irqMaskSet[2]        = 0x00000000
+0xffff018c: irqMaskSet[3]        = 0x00000000
+0xffff0190: irqMaskClr[0]        = 0x02143740
+0xffff0194: irqMaskClr[1]        = 0x00004001
+0xffff0198: irqMaskClr[2]        = 0x00000000
+0xffff019c: irqMaskClr[3]        = 0x00000000
+0xffff0200: timerCfgSet          = 0x00001002
+0xffff0204: timerCfgClr          = 0x00001002
+0xffff0210: timer[0]             = 0x00000000
+0xffff0214: timer[1]             = 0x00009044
+0xffff0218: timer[2]             = 0x00000000
+0xffff0220: timerThd[0]          = 0x00000000
+0xffff0224: timerThd[1]          = 0x00013880
+0xffff0228: timerThd[2]          = 0x00000000
+0xffff0ff4: version              = 0x00000000
+0xffff0ff8: chipVersion          = 0x06110801
+0xffff0ffc: chipTag              = 0x00000000
+s sy sys sys  sys c sys cl sys clo sys cloc sys clock 
+Xtali input                     24000000 Hz ( 24.000 MHz)
+System clock PLL                24000000 Hz x (40 / 2) / 1 = 480000000 Hz
+Clock source selection          Sys PLL
+AHB clock                       80000000 Hz ( 80.000 MHz)
+ARM clock                      240000000 Hz (240.000 MHz)
+Warp0 clock                    160000000 Hz (160.000 MHz)
+SDRAM clock                    160000000 Hz (160.000 MHz)
+AV system clock                160000000 Hz (160.000 MHz)
+HV system clock                 80000000 Hz ( 80.000 MHz)
+AV oversampling clock          160000000 Hz (160.000 MHz)
+Warp1 clock                    160000000 Hz (160.000 MHz)
+Sol clock                      160000000 Hz (160.000 MHz)
+PLL 0                           22579934 Hz ( 22.579 MHz)
+PLL 1                                  0 Hz (  0.000 MHz)
+PLL 2                           50002036 Hz ( 50.002 MHz)
+PLL 3                           12000294 Hz ( 12.000 MHz)
+PLL 4                           27000660 Hz ( 27.000 MHz)
+s sy sys sys  sys a sys av sys av  sys av p sys av po sys av por sys av port sys av port  sys av port 2 
+AV common registers:
+--------------------
+0xe0010000: avActivate      = 0x00000005
+0xe0010004: avCUUnitOn      = 0x00000002
+0xe0010010: avComConfig0    = 0x02011302
+0xe0010020: avCUConfig[0]   = 0x00000000
+0xe0010024: avCUConfig[1]   = 0x00000011
+0xe0010100: avAllAvOn       = 0x00000101
+0xe0010800: prtIsAvPort     = 0x00000001
+0xe0010804: prtIsPresent    = 0x0000001d
+0xe0010808: prtHasAdat      = 0x00000010
+0xe001080c: prtHasPwm       = 0x00000000
+0xe0010810: prtHasAes       = 0x00000018
+0xe0010c00: avIntSet        = 0x00000000
+0xe0010c04: avIntClr        = 0x00000000
+0xe0010c08: avIntMaskSet    = 0x00000000
+0xe0010c0c: avIntMaskClr    = 0x00000000
+AV port 2 registers:
+--------------------
+AV Control reg      [0xe000a000]
+UpAndRunning         0x00
+AvFmSrcSel           0x00
+OsCntSel             0x00
+OsCntType            0x00
+Mute                 0x00
+On                   0x00
+AV Flag reg         [0xe000a004]
+avFlag               0x00
+AV Kind reg         [0xe000a008]
+TrailEdgeSmplAvSlv   0x00
+SpikeFilter          0x00
+TrailEdgeSmpl        0x00
+TsValidRange         0x00
+Interf. format       0x00 I2S
+Interf. config       0x22 I2S AM824_24 LeftJustified LeftHigh 
+AV Config0 reg      [0xe000a00c]
+AvMuteNonAudio       0x00
+AvMuteV              0x00
+AvMuteP              0x00
+SYT sync Sel         0x00
+SYT interval         0x01 SYT = 8
+Ext WS               0x00
+AV Config1 reg      [0xe000a010]
+AES/ADAT OSmpl ticks 0x00000000
+AV Interface #       0            1            2            3           
+AV Interface reg    [0xe000a020] [0xe000a024] [0xe000a028] [0xe000a02c] 
+Direction            0x01         0x00         0x00         0x00        
+AES Conversion       0x00         0x00         0x00         0x00        
+CU Select            0x00         0x00         0x00         0x00        
+CU Insertion         0x00         0x00         0x00         0x00        
+DAC Mute             0x00
+AV IF Status reg    [0xe000a820] [0xe000a824] [0xe000a828] [0xe000a82c] 
+AES Sig Avail        0x00         0x00         0x00         0x00        
+ADAT Sig Avail       0x00         0x00         0x00         0x00        
+Parity Error         0x00         0x00         0x00         0x00        
+Invalid Data         0x00         0x00         0x00         0x00        
+Non-Audio Data       0x00         0x00         0x00         0x00        
+AV Status regs      [0xe000a800] to [0xe000a814]
+Data flow error      0x00
+TS error             0x00
+In sync              0x01
+AES/ADAT error       0x00
+OS count             0x716
+ADAT user bits       0x00
+AV Interrupt regs   [0xe000ac00] to [0xe000ac0c]
+InterruptSet         0x0000 
+InterruptClear       0x0000
+InterruptMaskSet     0x0000
+InterruptMaskClr     0x0000
+s sy sys sys  sys a sys av sys av  sys av p sys av pt sys av ptu 
+AvPtu registers:
+----------------
+0xe0012000: avPtuCtrl0           = 0x00000022
+0xe0012004: avPtuCtrl1           = 0x00000000
+0xe0012008: avPtuCtrl2           = 0x00000000
+0xe0012010: fifoLuTable[0]       = 0x3e3e3e3d
+0xe0012018: fifoLuTable[2]       = 0x3e3e3e3a
+0xe001201c: fifoLuTable[3]       = 0x3e3e3e3e
+0xe0012020: fifoLuTable[4]       = 0x3e3e3e3e
+0xe0012800: ptuFifoEmpty         = 0x00000000
+0xe0012804: ptuFifoFull          = 0x00000000
+0xe0012810: ptuFillLevel[0]      = 0x00000000
+0xe0012818: ptuFillLevel[2]      = 0x00000000
+0xe001281c: ptuFillLevel[3]      = 0x00000000
+0xe0012820: ptuFillLevel[4]      = 0x00000000
+0xe0012c00: ptuAvBndEmptyIntSet  = 0x00000000
+0xe0012c04: ptuAvBndEmptyIntClr  = 0x00000000
+0xe0012c10: ptuBusBndFullIntSet  = 0x00000000
+0xe0012c14: ptuBusBndFullIntClr  = 0x00000100
+0xe0012c20: ptuDMAAbortIntSet    = 0x00000000
+0xe0012c24: ptuDMAAbortIntClr    = 0x00000000
+0xe0012ff8: ptuVersion           = 0x06111701
+0xe0012ffc: ptuReset             = 0x00000000
+s sy sys sys  sys s sys sp sys spi sys spi  sys spi r sys spi re sys spi reg 
+0xb1002000: iSpiCfgSet               = 0x00000001
+0xb1002008: iSpiDiv                  = 0x0001387e
+0xb100200c: iSpiNop                  = 0x000000ff
+0xb1002010: iSpiWd                   = 0x00000000
+0xb1002020: iSpiStatSet              = 0x00000000
+0xb1002030: iSpiIrqMaskSet           = 0x00000000
+0xb1002f10: iFifoFillLevelThdRx      = 0x00000004
+0xb1002f14: iFifoEmptyLevelThdTx     = 0x0000003b
+0xb1002f18: iFifoFillLevelRx         = 0x00000000
+0xb1002f1c: iFifoEmptyLevelTx        = 0x0000003f
+0xb1002f20: iFifoTimer               = 0x00000000
+0xb1002f24: iFifoTimerThd            = 0x00000010
+0xb1002f30: iFifoCfgSet              = 0x00000001
+0xb1002f40: iFifoStatSet             = 0x00000000
+0xb1002f50: iFifoIrqMaskSet          = 0x00000300
+s sy sys sys  sys m sys ma sys mac sys macb sys macb  sys macb r sys macb re sys macb reg 
+Registers starting at Address 0xe0017000
+Control, Configuration and Status Registers (p.31)
+               Network Control [00]: 0000001c
+         Network Configuration [04]: 000088c1
+                Network Status [08]: 00000006
+                      Revision [fc]: 0001010d
+               Transmit Status [14]: 00000000
+ Transmit Buffer Queue Pointer [1c]: 00506e40
+  Receive Buffer Queue Pointer [18]: 005063a0
+                Receive Status [20]: 00000002
+              Interrupt Status [24]: 00000000
+              Interrupt Enable [28]: 00000000
+             Interrupt Disable [2c]: 00000000
+                Interrupt Mask [30]: 00003309
+               PHY Maintenance [34]: 6006782d
+                    Pause Time [38]: 00000000
+        Transmit Pause Quantum [bc]: 00000000
+                   Wake-on LAN [c4]: 00000000
+Address Matching Registers (p.40)
+     Specific Address 1 Bottom [98]: 00d166ec
+        Specific Address 1 Top [9c]: 00004200
+     Specific Address 2 Bottom [a0]: 00000000
+        Specific Address 2 Top [a4]: 00000000
+     Specific Address 3 Bottom [a8]: 00000000
+        Specific Address 3 Top [ac]: 00000000
+     Specific Address 4 Bottom [b0]: 00000000
+        Specific Address 4 Top [b4]: 00000000
+              Type ID Checking [b8]: 00000000
+                   Hash Bottom [90]: 00000000
+                      Hash Top [94]: 00000000
+Statistics Registers (p.42)
+         Pause Frames Received [3c]: 00000000
+         Frames Transmitted OK [40]: 00000000
+       Single Collision Frames [44]: 00000000
+     Multiple Collision Frames [48]: 00000000
+            Frames Received OK [4c]: 00000000
+   Frame Check Sequence Errors [50]: 00000000
+              Alignment Errors [54]: 00000000
+  Dererred Transmission Frames [58]: 00000000
+               Late Collisions [5c]: 00000000
+          Excessive Collisions [60]: 00000000
+      Transmit Underrun Errors [64]: 00000000
+          Carrier Sense Errors [68]: 00000000
+       Receive Resource Errors [6c]: 00000000
+        Receive Overrun Errors [70]: 00000000
+         Receive Symbol Errors [74]: 00000000
+       Excessive Length Errors [78]: 00000000
+               Receive Jabbers [7c]: 00000000
+              Undersize Frames [80]: 00000000
+               SQE Test Errors [84]: 00000000
+Received Length Field Mismatch [88]: 00000000
+      Transmitted Pause Frames [8c]: 00000000
+s sy sys sys  sys m sys ma sys mac sys macb sys macb  sys macb p sys macb ph sys macb phy 
+---- OVERVIEW ----
+sys macb phy         - phy register commands
+---- DESCRIPTION ----
+  rd <addr_list>      read phy registers (comma separated)
+  wr <addr> <value>   write <value> to phy register
+s sy sys sys  sys a sys av sys avf sys avfi sys avfif sys avfifo 
+---- OVERVIEW ----
+sys avfifo           - avfifo shell command
+---- DESCRIPTION ----
+  <id> <dmactx> <maxpacketsize> <buffersize>
+s sy sys sys  sys a sys av sys av  sys av c sys av ct sys av ctr 
+0xe001b000: ctr          = 0x678180dc
+0xe001b004: lin25        = 0x01212b1a
+0xe001b008: config       = 0x00000001
+0xe001b00c: adjust       = 0x00000000
+0xe001b010: drift        = 0x00000000
+0xe001b014: driftAccu    = 0x00000000
+-------------------------------------
+0xe001b020: ctr          = 0x00000000
+0xe001b024: lin25        = 0x00000000
+0xe001b028: config       = 0x00000000
+0xe001b02c: adjust       = 0x00000000
+0xe001b030: drift        = 0x00000000
+0xe001b034: driftAccu    = 0x00000000
+-------------------------------------
+0xe001b100: latchCtrl    = 0x00000000
+0xe001b104: latchValue   = 0x00000000
+0xe001b200: trigCtrl     = 0x00000000
+0xe001b300: n            = 0x000000c0
+0xe001b304: m            = 0x000001b1
+0xe001b308: lsb          = 0x00000000
+0xe001bff0: testBus      = 0x00000000
+0xe001bff4: revision     = 0x00000000
+s sy sys sys  sys s sys sd sys sdr sys sdra sys sdram sys sdram  sys sdram p sys sdram pe sys sdram per sys sdram perf 
+---- OVERVIEW ----
+sys sdram perf       - monitor AHB/SDRAM performance
+sys sdram perf ahb   - monitor ahb
+sys sdram perf sdram - monitor sdram
+---- DESCRIPTION ----
+executes 'perf' command
+s sy sys sys  sys w sys wl sys wla sys wlan sys wlan  sys wlan c sys wlan ct sys wlan ctr sys wlan ctrl 
+---- OVERVIEW ----
+sys wlan ctrl        - Low level control wireless commands
+---- DESCRIPTION ----
+  scan [ssidstring] [-a|-p]           scan, optional SSID argument, active or passive
+                                      default: no SSID, passive, SSID of "-a" or "-p" not allowed
+  ssid <ssidstring>                   connect to given ssid
+  infra <1(BSS)|2(IBSS)|3(ANY)>       set infrastructure mode
+  disassoc                            disassociate from current BSS
+  channelPowerSetting					dump Channel and Power Table
+  populatePowerSetting				Populate Channel and Power Table
+  reset <0(no mib rest)|1(mib reset)> reset mac
+  setSensitivity [value]              set the receiving sensitivity
+  ssidadv                             This will adverstise the ssid stored in cne(for AD-HOC wireless)
+  startAp <ssidstring>                Start AP with given ssid
+  stopAp                              Stop AP
+  dump_stats                          Dump HD Stats
+  enable_reset						<0(no wifi reset)|1(wifi reset)> reset wifi
+  reset_wifi							Reset the wifi stack
+s sy sys sys  sys s sys sd sys sds 
+---- OVERVIEW ----
+sys sds              - accesses the System Data Service
+sys sds showtree     - displays the tree
+---- DESCRIPTION ----
+s sy sys sys  sys d sys dm sys dma sys dma  sys dma r sys dma re sys dma reg sys dma reg  sys dma reg c sys dma reg cf sys dma reg cfg 
+Configuration registers:
+0xb5000000: blockMvSet           = 0x00000000
+0xb5000004: blockMvClr           = 0x00000000
+0xb5000008: blockMvID            = 0x00000000
+0xb5000080: blockMvCtx[0]        = 0x00000000
+0xb5000084: blockMvCtx[1]        = 0x00000000
+0xb5000088: blockMvCtx[2]        = 0x00000000
+0xb500008c: blockMvCtx[3]        = 0x00000000
+0xb5000090: blockMvCtx[4]        = 0x00000000
+0xb5000094: blockMvCtx[5]        = 0x00000000
+0xb5000098: blockMvCtx[6]        = 0x00000000
+0xb500009c: blockMvCtx[7]        = 0x00000000
+0xb50000a0: blockMvCtx[8]        = 0x00000000
+0xb50000a4: blockMvCtx[9]        = 0x00000000
+0xb50000a8: blockMvCtx[10]       = 0x00000000
+0xb50000ac: blockMvCtx[11]       = 0x00000000
+0xb50000b0: blockMvCtx[12]       = 0x00000000
+0xb50000b4: blockMvCtx[13]       = 0x00000000
+0xb50000b8: blockMvCtx[14]       = 0x00000000
+0xb50000bc: blockMvCtx[15]       = 0x00000000
+0xb500100c: genCtxSwitch         = 0x00000000
+0xb5001010: ctrlGeneralSet       = 0x00000005
+0xb5001014: ctrlGeneralClr       = 0x00000000
+0xb5001018: irqGenSet            = 0x00000000
+0xb500101c: irqGenClr            = 0x00000000
+0xb5001020: bmExcl0              = 0x00000000
+0xb5001024: bmExcl1              = 0x00000000
+0xb5001200: lockEngine           = 0x00000000
+0xb5001204: highPriority         = 0x00000000
+0xb5001220: bmClientDma[0]       = 0x00000000
+0xb5001224: bmClientDma[1]       = 0x00000000
+0xb5001228: bmClientDma[2]       = 0x00000000
+0xb500122c: bmClientDma[3]       = 0x00000000
+0xb5001230: bmClientDma[4]       = 0x00000000
+0xb5001234: bmClientDma[5]       = 0x00000000
+0xb5001238: bmClientDma[6]       = 0x00000000
+0xb500123c: bmClientDma[7]       = 0x00000000
+0xb5001240: bmClientDma[8]       = 0x00000000
+0xb5001244: bmClientDma[9]       = 0x00000000
+0xb5001248: bmClientDma[10]      = 0x00000000
+0xb500124c: bmClientDma[11]      = 0x00000000
+0xb5001250: bmClientDma[12]      = 0x00000000
+0xb5001254: bmClientDma[13]      = 0x00000000
+0xb5001258: bmClientDma[14]      = 0x00000000
+0xb500125c: bmClientDma[15]      = 0x00000000
+0xb5001260: hwClientDma[0]       = 0x00000000
+0xb5001264: hwClientDma[1]       = 0x00000000
+0xb5001268: hwClientDma[2]       = 0x00000000
+0xb500126c: hwClientDma[3]       = 0x00000000
+0xb5001270: hwClientDma[4]       = 0x00000000
+Clearing out hash address register
+Clearing out hash address register
+Clearing out hash address register
+s sy sys sys  sys d sys dm sys dma sys dma  sys dma r sys dma re sys dma reg sys dma reg  sys dma reg s sys dma reg st sys dma reg sta sys dma reg stat 
+Status registers:
+0xb5002800: emptyFlagSet[0]      = 0x00000000
+0xb5002804: emptyFlagSet[1]      = 0x04000000
+0xb5002808: emptyFlagSet[2]      = 0x00000000
+0xb5002810: emptyFlagClr[0]      = 0x00000000
+0xb5002814: emptyFlagClr[1]      = 0x00000000
+0xb5002818: emptyFlagClr[2]      = 0x00000000
+0xb5002820: fullFlagSet[0]       = 0x00000000
+0xb5002824: fullFlagSet[1]       = 0x04000000
+0xb5002828: fullFlagSet[2]       = 0x00000000
+0xb5002830: fullFlagClr[0]       = 0x00000000
+0xb5002834: fullFlagClr[1]       = 0x04000000
+0xb5002838: fullFlagClr[2]       = 0x00000000
+0xb5001900: hsErrorClr           = 0x00000000
+0xb5001920: irqStatusWrSet[0]    = 0x00000000
+0xb5001924: irqStatusWrSet[1]    = 0x00000000
+0xb5001928: irqStatusWrSet[2]    = 0x00000000
+0xb5001930: irqStatusWrClr[0]    = 0x00000000
+0xb5001934: irqStatusWrClr[1]    = 0x00000000
+0xb5001938: irqStatusWrClr[2]    = 0x00000000
+0xb5001940: irqStatusRdSet[0]    = 0x00000000
+0xb5001944: irqStatusRdSet[1]    = 0x00000000
+0xb5001948: irqStatusRdSet[2]    = 0x00000000
+0xb5001950: irqStatusRdClr[0]    = 0x00000000
+0xb5001954: irqStatusRdClr[1]    = 0x10000000
+0xb5001958: irqStatusRdClr[2]    = 0x00000000
+s sy sys sys  sys d sys dm sys dma sys dma  sys dma r sys dma re sys dma reg sys dma reg  sys dma reg i sys dma reg ir sys dma reg irq 
+Interrupt registers:
+0xb5001c00: irqGrp0Set           = 0x00000000
+0xb5001c04: irqGrp0Clr           = 0x00000000
+0xb5001c08: irqGrp0MaskSet       = 0x00000001
+0xb5001c0c: irqGrp0MaskClr       = 0x00000000
+0xb5001c10: irqGrp1Set           = 0x00000000
+0xb5001c14: irqGrp1Clr           = 0x00000000
+0xb5001c18: irqGrp1MaskSet       = 0x00000001
+0xb5001c1c: irqGrp1MaskClr       = 0x00000000
+0xb5001c20: irqGrp2Set           = 0x00000000
+0xb5001c24: irqGrp2Clr           = 0x00000000
+0xb5001c28: irqGrp2MaskSet       = 0x00000001
+0xb5001c2c: irqGrp2MaskClr       = 0x00000000
+0xb5001c30: irqGrp3Set           = 0x00000000
+0xb5001c34: irqGrp3Clr           = 0x00000000
+0xb5001c38: irqGrp3MaskSet       = 0x00000001
+0xb5001c3c: irqGrp3MaskClr       = 0x00000000
+0xb5001c40: irqGrpID[0]          = 0x00000000
+0xb5001c44: irqGrpID[1]          = 0x0000003f
+0xb5001c48: irqGrpID[2]          = 0x0000003f
+0xb5001c4c: irqGrpID[3]          = 0x0000003f
+s sy sys sys  sys d sys dm sys dma sys dma  sys dma r sys dma re sys dma reg sys dma reg  sys dma reg f sys dma reg fa sys dma reg fas sys dma reg fast 
+Fast registers:
+0xb5008000: ctxBmFastRd[0]       = 0x00000000
+0xb5008200: ctxBmFastWr[0]       = 0x00000000
+0xb5009000: ctxPktFastRd[0]      = 0x00000000
+0xb5009200: ctxPktFastWr[0]      = 0x00000000
+s sy sys sys  sys d sys dm sys dma sys dma  sys dma r sys dma re sys dma reg sys dma reg  sys dma reg m sys dma reg mi sys dma reg mis sys dma reg misc 
+Misc registers:
+0xb50010b0: ctxReleaseID         = 0x00000000
+0xb50010c0: clientRelease        = 0x00000000
+0xb50010c4: stallSet             = 0x00000000
+0xb50010c8: stallClr             = 0x00000000
+0xb50010cc: ctxSup               = 0x00000000
+0xb50010d0: testBusAddr          = 0x00000000
+0xb5001320: bmClientStat[0]      = 0x00000000
+0xb5001324: bmClientStat[1]      = 0x00000000
+0xb5001328: bmClientStat[2]      = 0x00000000
+0xb500132c: bmClientStat[3]      = 0x00000000
+0xb5001330: bmClientStat[4]      = 0x00000000
+0xb5001334: bmClientStat[5]      = 0x00000000
+0xb5001338: bmClientStat[6]      = 0x00000000
+0xb500133c: bmClientStat[7]      = 0x00000000
+0xb5001340: bmClientStat[8]      = 0x00000000
+0xb5001344: bmClientStat[9]      = 0x00000000
+0xb5001348: bmClientStat[10]     = 0x00000000
+0xb500134c: bmClientStat[11]     = 0x00000000
+0xb5001350: bmClientStat[12]     = 0x00000000
+0xb5001354: bmClientStat[13]     = 0x00000000
+0xb5001358: bmClientStat[14]     = 0x00000000
+0xb500135c: bmClientStat[15]     = 0x00000000
+0xb5001390: hwClientStat[0]      = 0x00000000
+0xb5001394: hwClientStat[1]      = 0x00000000
+0xb5001398: hwClientStat[2]      = 0x00000000
+0xb500139c: hwClientStat[3]      = 0x00000000
+0xb50013a0: hwClientStat[4]      = 0x00000000
+0xb5001960: mismatchStatus       = 0x00000000
+0xb5001970: supCfg               = 0x00000000
+0xb5001974: supRefCnt            = 0x00000000
+0xb5001978: supCnt               = 0x00000000
+0xb5001980: discardCtx           = 0x00000000
+0xb5001990: actSup               = 0x00000000
+0xb5001a00: dmaStatus[0]         = 0x00000000
+0xb5001a04: dmaStatus[1]         = 0x00000000
+0xb5001ff8: version              = 0x06110801
+0xb5003100: keepArb              = 0x00000000
+0xb5003104: vClientFlush         = 0x00000000
+0xb5003108: vClientID            = 0x00000000
+0xb5003800: errorSet             = 0x00000000
+0xb5003804: errorClr             = 0x00000000
+0xb5003808: errorMaskSet         = 0x00000000
+0xb500380c: errorMaskClr         = 0x00000000
+0xb5003c00: irqSet               = 0x00000000
+0xb5003c04: irqClr               = 0x00000000
+0xb5003c08: irqMaskSet           = 0x00000000
+0xb5003c0c: irqMaskClr           = 0x00000000
+0xb5004000: ctxQuadAccess[0]     = 0x00000000
+0xb5006000: luAccess[0]          = 0x00000000
+0xb5009800: ctxSwitchCfg[0]      = 0x00000000
+0xb500a000: vFifoInit[0]         = 0x00000000
+0xb500a100: vFifoAdd[0]          = 0x00000000
+0xb500a200: vFifoFlush[0]        = 0x00000000
+s sy sys sys  sys a sys av sys av  sys av p sys av po sys av por sys av port sys av port  sys av port 0 
+AV common registers:
+--------------------
+0xe0010000: avActivate      = 0x00000005
+0xe0010004: avCUUnitOn      = 0x00000002
+0xe0010010: avComConfig0    = 0x02011302
+0xe0010020: avCUConfig[0]   = 0x00000000
+0xe0010024: avCUConfig[1]   = 0x00000011
+0xe0010100: avAllAvOn       = 0x00000101
+0xe0010800: prtIsAvPort     = 0x00000001
+0xe0010804: prtIsPresent    = 0x0000001d
+0xe0010808: prtHasAdat      = 0x00000010
+0xe001080c: prtHasPwm       = 0x00000000
+0xe0010810: prtHasAes       = 0x00000018
+0xe0010c00: avIntSet        = 0x00000000
+0xe0010c04: avIntClr        = 0x00000000
+0xe0010c08: avIntMaskSet    = 0x00000000
+0xe0010c0c: avIntMaskClr    = 0x00000000
+AV port 0 registers:
+--------------------
+AV Control reg      [0xe0008000]
+UpAndRunning         0x00
+AvFmSrcSel           0x00
+OsCntSel             0x00
+OsCntType            0x00
+Mute                 0x00
+On                   0x00
+AV Flag reg         [0xe0008004]
+avFlag               0x00
+AV Kind reg         [0xe0008008]
+TrailEdgeSmplAvSlv   0x00
+SpikeFilter          0x00
+TrailEdgeSmpl        0x00
+TsValidRange         0x03
+Interf. format       0x0e Video 8 bit
+Interf. config       0x10 Video 8 bit V8B_PAL 
+AV Config0 reg      [0xe000800c]
+AvMuteNonAudio       0x00
+AvMuteV              0x00
+AvMuteP              0x00
+SYT sync Sel         0x00
+SYT interval         0x01 SYT = 8
+Ext WS               0x00
+AV Config1 reg      [0xe0008010]
+AES/ADAT OSmpl ticks 0x00000000
+AV Interface #       0            1            2            3           
+AV Interface reg    [0xe0008020] [0xe0008024] [0xe0008028] [0xe000802c] 
+Direction            0x01         0x00         0x00         0x00        
+AES Conversion       0x00         0x00         0x00         0x00        
+CU Select            0x00         0x00         0x00         0x00        
+CU Insertion         0x00         0x00         0x00         0x00        
+DAC Mute             0x00
+AV IF Status reg    [0xe0008820] [0xe0008824] [0xe0008828] [0xe000882c] 
+AES Sig Avail        0x00         0x00         0x00         0x00        
+ADAT Sig Avail       0x00         0x00         0x00         0x00        
+Parity Error         0x00         0x00         0x00         0x00        
+Invalid Data         0x00         0x00         0x00         0x00        
+Non-Audio Data       0x00         0x00         0x00         0x00        
+AV Status regs      [0xe0008800] to [0xe0008814]
+Data flow error      0x00
+TS error             0x00
+In sync              0x01
+AES/ADAT error       0x00
+OS count             0x716
+ADAT user bits       0x00
+AV Interrupt regs   [0xe0008c00] to [0xe0008c0c]
+InterruptSet         0x0000 
+InterruptClear       0x0000
+InterruptMaskSet     0x0000
+InterruptMaskClr     0x0000
+s sy sys sys  sys a sys av sys av  sys av p sys av po sys av por sys av port sys av port  sys av port 3 
+AV common registers:
+--------------------
+0xe0010000: avActivate      = 0x00000005
+0xe0010004: avCUUnitOn      = 0x00000002
+0xe0010010: avComConfig0    = 0x02011302
+0xe0010020: avCUConfig[0]   = 0x00000000
+0xe0010024: avCUConfig[1]   = 0x00000011
+0xe0010100: avAllAvOn       = 0x00000101
+0xe0010800: prtIsAvPort     = 0x00000001
+0xe0010804: prtIsPresent    = 0x0000001d
+0xe0010808: prtHasAdat      = 0x00000010
+0xe001080c: prtHasPwm       = 0x00000000
+0xe0010810: prtHasAes       = 0x00000018
+0xe0010c00: avIntSet        = 0x00000000
+0xe0010c04: avIntClr        = 0x00000000
+0xe0010c08: avIntMaskSet    = 0x00000000
+0xe0010c0c: avIntMaskClr    = 0x00000000
+AV port 3 registers:
+--------------------
+AV Control reg      [0xe000b000]
+UpAndRunning         0x00
+AvFmSrcSel           0x00
+OsCntSel             0x00
+OsCntType            0x00
+Mute                 0x00
+On                   0x00
+AV Flag reg         [0xe000b004]
+avFlag               0x00
+AV Kind reg         [0xe000b008]
+TrailEdgeSmplAvSlv   0x00
+SpikeFilter          0x00
+TrailEdgeSmpl        0x00
+TsValidRange         0x00
+Interf. format       0x00 I2S
+Interf. config       0x02 I2S AM824_24 I2SCompatible LeftHigh 
+AV Config0 reg      [0xe000b00c]
+AvMuteNonAudio       0x00
+AvMuteV              0x00
+AvMuteP              0x00
+SYT sync Sel         0x00
+SYT interval         0x00 SYT = 4
+Ext WS               0x00
+AV Config1 reg      [0xe000b010]
+AES/ADAT OSmpl ticks 0x00000000
+AV Interface #       0            1            2            3           
+AV Interface reg    [0xe000b020] [0xe000b024] [0xe000b028] [0xe000b02c] 
+Direction            0x00         0x00         0x00         0x00        
+AES Conversion       0x00         0x00         0x00         0x00        
+CU Select            0x00         0x00         0x00         0x00        
+CU Insertion         0x00         0x00         0x00         0x00        
+DAC Mute             0x00
+AV IF Status reg    [0xe000b820] [0xe000b824] [0xe000b828] [0xe000b82c] 
+AES Sig Avail        0x00         0x00         0x00         0x00        
+ADAT Sig Avail       0x00         0x00         0x00         0x00        
+Parity Error         0x00         0x00         0x00         0x00        
+Invalid Data         0x00         0x00         0x00         0x00        
+Non-Audio Data       0x00         0x00         0x00         0x00        
+AV Status regs      [0xe000b800] to [0xe000b814]
+Data flow error      0x00
+TS error             0x00
+In sync              0x01
+AES/ADAT error       0x00
+OS count             0x716
+ADAT user bits       0x00
+AV Interrupt regs   [0xe000bc00] to [0xe000bc0c]
+InterruptSet         0x0000 
+InterruptClear       0x0000
+InterruptMaskSet     0x0000
+InterruptMaskClr     0x0000
+s sy sys sys  sys a sys av sys av  sys av p sys av po sys av por sys av port sys av port  sys av port 4 
+AV common registers:
+--------------------
+0xe0010000: avActivate      = 0x00000005
+0xe0010004: avCUUnitOn      = 0x00000002
+0xe0010010: avComConfig0    = 0x02011302
+0xe0010020: avCUConfig[0]   = 0x00000000
+0xe0010024: avCUConfig[1]   = 0x00000011
+0xe0010100: avAllAvOn       = 0x00000101
+0xe0010800: prtIsAvPort     = 0x00000001
+0xe0010804: prtIsPresent    = 0x0000001d
+0xe0010808: prtHasAdat      = 0x00000010
+0xe001080c: prtHasPwm       = 0x00000000
+0xe0010810: prtHasAes       = 0x00000018
+0xe0010c00: avIntSet        = 0x00000000
+0xe0010c04: avIntClr        = 0x00000000
+0xe0010c08: avIntMaskSet    = 0x00000000
+0xe0010c0c: avIntMaskClr    = 0x00000000
+AV port 4 registers:
+--------------------
+AV Control reg      [0xe000c000]
+UpAndRunning         0x00
+AvFmSrcSel           0x00
+OsCntSel             0x00
+OsCntType            0x00
+Mute                 0x00
+On                   0x00
+AV Flag reg         [0xe000c004]
+avFlag               0x00
+AV Kind reg         [0xe000c008]
+TrailEdgeSmplAvSlv   0x00
+SpikeFilter          0x00
+TrailEdgeSmpl        0x00
+TsValidRange         0x00
+Interf. format       0x06 AES
+Interf. config       0x00 AES AES 
+AV Config0 reg      [0xe000c00c]
+AvMuteNonAudio       0x00
+AvMuteV              0x00
+AvMuteP              0x00
+SYT sync Sel         0x00
+SYT interval         0x00 SYT = 4
+Ext WS               0x00
+AV Config1 reg      [0xe000c010]
+AES/ADAT OSmpl ticks 0x00000000
+AV Interface #       0            1            2            3           
+AV Interface reg    [0xe000c020] [0xe000c024] [0xe000c028] [0xe000c02c] 
+Direction            0x00         0x00         0x00         0x00        
+AES Conversion       0x00         0x01         0x00         0x00        
+CU Select            0x00         0x01         0x00         0x00        
+CU Insertion         0x00         0x01         0x00         0x00        
+DAC Mute             0x00
+AV IF Status reg    [0xe000c820] [0xe000c824] [0xe000c828] [0xe000c82c] 
+AES Sig Avail        0x00         0x00         0x00         0x00        
+ADAT Sig Avail       0x00         0x00         0x00         0x00        
+Parity Error         0x00         0x00         0x00         0x00        
+Invalid Data         0x00         0x00         0x00         0x00        
+Non-Audio Data       0x00         0x00         0x00         0x00        
+AV Status regs      [0xe000c800] to [0xe000c814]
+Data flow error      0x00
+TS error             0x00
+In sync              0x01
+AES/ADAT error       0x00
+OS count             0x716
+ADAT user bits       0x00
+AV Interrupt regs   [0xe000cc00] to [0xe000cc0c]
+InterruptSet         0x0000 
+InterruptClear       0x0000
+InterruptMaskSet     0x0000
+InterruptMaskClr     0x0000
+s sy sys sys  sys a sys av sys av  sys av c sys av ct sys av ctr 
+0xe001b000: ctr          = 0x4957808f
+0xe001b004: lin25        = 0x0101aace
+0xe001b008: config       = 0x00000001
+0xe001b00c: adjust       = 0x00000000
+0xe001b010: drift        = 0x00000000
+0xe001b014: driftAccu    = 0x00000000
+-------------------------------------
+0xe001b020: ctr          = 0x00000000
+0xe001b024: lin25        = 0x00000000
+0xe001b028: config       = 0x00000000
+0xe001b02c: adjust       = 0x00000000
+0xe001b030: drift        = 0x00000000
+0xe001b034: driftAccu    = 0x00000000
+-------------------------------------
+0xe001b100: latchCtrl    = 0x00000000
+0xe001b104: latchValue   = 0x00000000
+0xe001b200: trigCtrl     = 0x00000000
+0xe001b300: n            = 0x000000c0
+0xe001b304: m            = 0x000001b1
+0xe001b308: lsb          = 0x00000000
+0xe001bff0: testBus      = 0x00000000
+0xe001bff4: revision     = 0x00000000
+s sy sys sys  sys a sys av sys avf sys avfi sys avfif sys avfifo 
+---- OVERVIEW ----
+sys avfifo           - avfifo shell command
+---- DESCRIPTION ----
+  <id> <dmactx> <maxpacketsize> <buffersize>
+s sy sys sys  sys i sys ir sys irq sys irq  sys irq i sys irq in sys irq inf sys irq info 
+s sy sys sys  sys w sys wl sys wla sys wlan sys wlan  sys wlan p sys wlan pc sys wlan pci 
+---- OVERVIEW ----
+sys wlan pci         - Test PCI interface
+---- DESCRIPTION ----
+  ahb                                 test ahb access to sram
+  dma                                 test sulu dma access to sram
+  irq                                 test irq
+  clk                                 set wlan sys clock to 240 mhz
+s sy sys sys  sys v sys ve sys ver sys vers sys versu sys versul sys versulu 
+arm                    926/rev 5
+uart1           2006-11-08/rev 1
+av ptu          2006-11-17/rev 1
+av common       2006-11-17/rev 1
+av0             2006-11-17/rev 1
+av2             2006-11-17/rev 1
+av3             2006-11-17/rev 1
+av4             2006-11-17/rev 1
+uart0           2006-11-08/rev 1
+spi0            2006-11-08/rev 1
+dma             2006-11-08/rev 1
+s sy sys sys  sys i sys if 
+---- OVERVIEW ----
+sys if               - show interface status/statistics
+---- DESCRIPTION ----
+  <interface> stat      [uart0|uart1|spi0]
+o os os  os u os ua os uar os uart os uartc os uartcf os uartcfg 
+---- OVERVIEW ----
+os uartcfg           - uart control command
+---- DESCRIPTION ----
+  <device> <nr>         device = [uart0|uart1...]
+                        nr = baudrate (e.g. 115200)
+s sy sys sys  sys s sys sd sys sds 
+---- OVERVIEW ----
+sys sds              - accesses the System Data Service
+sys sds showtree     - displays the tree
+---- DESCRIPTION ----
+s sy sys sys  sys l sys ll sys llc 
+s sy sys sys  sys m sys ma sys mac sys macb sys macb  sys macb p sys macb ph sys macb phy 
+---- OVERVIEW ----
+sys macb phy         - phy register commands
+---- DESCRIPTION ----
+  rd <addr_list>      read phy registers (comma separated)
+  wr <addr> <value>   write <value> to phy register
+s sy sys sys  sys s sys sd sys sdr sys sdra sys sdram sys sdram  sys sdram p sys sdram pe sys sdram per sys sdram perf 
+---- OVERVIEW ----
+sys sdram perf       - monitor AHB/SDRAM performance
+sys sdram perf ahb   - monitor ahb
+sys sdram perf sdram - monitor sdram
+---- DESCRIPTION ----
+executes 'perf' command
+s sy sys sys  sys u sys um sys umr sys umr  sys umr s sys umr sh sys umr sho sys umr show 
+DMA0       : Prio:  +0, Rise: 0, Fall: 0
+DMA1       : Prio:  +0, Rise: 0, Fall: 0
+ARM9I      : Prio:  +0, Rise: 0, Fall: 0
+ARM9D      : Prio:  +0, Rise: 0, Fall: 0
+SECWARPI   : Prio:  +0, Rise: 0, Fall: 0
+SECWARPD   : Prio:  +0, Rise: 0, Fall: 0
+ETH        : Prio:  +0, Rise: 0, Fall: 0
+WILD       : Prio:  +0, Rise: 0, Fall: 0
+SOLWARP    : Prio:  +0, Rise: 0, Fall: 0

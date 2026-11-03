@@ -1,0 +1,5 @@
+{
+"label":"warp1 uncached spin",
+"warp1_spin":true,
+"runs":[{"seconds":2.858448028564453,"cycles_per_load":22.867584228515625},{"seconds":2.8481180667877197,"cycles_per_load":22.784944534301758},{"seconds":2.8384900093078613,"cycles_per_load":22.70792007446289}]
+}

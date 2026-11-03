@@ -1,0 +1,29 @@
+$ os timer
+ n                     name remaining [ms]    reInit [ms]
+ 1             FunctorTimer              0              0
+ 2        PowerManagerTimer           4901              0
+ 3           RTPTimeService            228            900
+ 4                ip_cticks            100            100
+ 5WpaSupplicantWlConnectionService_ConnectionTimeout           6429              0
+ 6      StreamDeviceAvTimer             36            100
+ 7              PllObserver             68            100
+ 8           IsPresentTimer              0              0
+ 9          SampleRateTimer              0              0
+10    USB Hub Manager Timer              0              0
+11                 PSMTimer              0              0
+12         FastForwardTimer              0              0
+13             NapCoreTimer              0              0
+14           DelayedNapStop              0              0
+15              PostFsDelay              0              0
+16          OverloadMonitor              0              0
+17            ViewCtrlTimer           3999              0
+18     PlayModeHandlerTimer              0              0
+19PlayModeHandler_FastForwardTimer              0              0
+20             FunctorTimer             72           1000
+21            UISimpleTimer              0              0
+22 ConnectionReattemptTimer              0              0
+23             AVTTRansport              0              0
+24    RhapsodySessionKiller              0              0
+25           IdpsRetryTimer              0              0
+26               umac_check          28240          30000
+27Subscriber Log Alarm Timer          27072          60000

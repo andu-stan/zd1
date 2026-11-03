@@ -1,0 +1,186 @@
+// BridgeCo CR870 network module (DM870 SoC, ARM926EJ-S). Models: emu/renode/cr870/*.cs.
+cpu: CPU.ARMv7A @ sysbus
+    cpuType: "arm926ej-s"
+    PerformanceInMips: 240
+    init:
+        ExceptionVectorAddress 0xFFFF0000
+
+// the on-chip SRAM "UMR0" at 0x00400000, its uncached alias 0x00500000, and after boot repeated through
+// 0x00000000-0x003FFFFF (the boot ROM isn't visible; the Nokia kernel's "USB FIFO memory" 0x40-0x3FFF is this too):
+// a word written at 0xFFF0 reads back at 0x40FFF0, 0x1FFF0, 0x3FFFF0 and 0x50FFF0 [HW, JTAG 2026-10-25]
+sram: Memory.MappedMemory @ {
+        sysbus 0x00400000;
+        sysbus 0x00500000;
+        sysbus 0x00000000;
+        sysbus 0x00010000;
+        sysbus 0x00020000;
+        sysbus 0x00030000;
+        sysbus 0x00040000;
+        sysbus 0x00050000;
+        sysbus 0x00060000;
+        sysbus 0x00070000;
+        sysbus 0x00080000;
+        sysbus 0x00090000;
+        sysbus 0x000A0000;
+        sysbus 0x000B0000;
+        sysbus 0x000C0000;
+        sysbus 0x000D0000;
+        sysbus 0x000E0000;
+        sysbus 0x000F0000;
+        sysbus 0x00100000;
+        sysbus 0x00110000;
+        sysbus 0x00120000;
+        sysbus 0x00130000;
+        sysbus 0x00140000;
+        sysbus 0x00150000;
+        sysbus 0x00160000;
+        sysbus 0x00170000;
+        sysbus 0x00180000;
+        sysbus 0x00190000;
+        sysbus 0x001A0000;
+        sysbus 0x001B0000;
+        sysbus 0x001C0000;
+        sysbus 0x001D0000;
+        sysbus 0x001E0000;
+        sysbus 0x001F0000;
+        sysbus 0x00200000;
+        sysbus 0x00210000;
+        sysbus 0x00220000;
+        sysbus 0x00230000;
+        sysbus 0x00240000;
+        sysbus 0x00250000;
+        sysbus 0x00260000;
+        sysbus 0x00270000;
+        sysbus 0x00280000;
+        sysbus 0x00290000;
+        sysbus 0x002A0000;
+        sysbus 0x002B0000;
+        sysbus 0x002C0000;
+        sysbus 0x002D0000;
+        sysbus 0x002E0000;
+        sysbus 0x002F0000;
+        sysbus 0x00300000;
+        sysbus 0x00310000;
+        sysbus 0x00320000;
+        sysbus 0x00330000;
+        sysbus 0x00340000;
+        sysbus 0x00350000;
+        sysbus 0x00360000;
+        sysbus 0x00370000;
+        sysbus 0x00380000;
+        sysbus 0x00390000;
+        sysbus 0x003A0000;
+        sysbus 0x003B0000;
+        sysbus 0x003C0000;
+        sysbus 0x003D0000;
+        sysbus 0x003E0000;
+        sysbus 0x003F0000
+    }
+    size: 0x10000
+
+// Warp0's local RAM (48 KB, the ARM's window 0xAC000000) [HW]; Warp1's (Sol's data memory, 0xA8000000) is in the
+// catch-all, where the Sol model keeps its banks
+warp0ram: Memory.MappedMemory @ sysbus 0xAC000000
+    size: 0xC000
+
+// the Wi-Fi (WILD) core's SRAM, 128 KB, repeated through its 2 MB window [HW]; its registers at 0x30200000 are in
+// the catch-all (no WILD core: sulu_wlan's firmware never starts)
+wildram: Memory.MappedMemory @ {
+        sysbus 0x30000000;
+        sysbus 0x30020000;
+        sysbus 0x30040000;
+        sysbus 0x30060000;
+        sysbus 0x30080000;
+        sysbus 0x300A0000;
+        sysbus 0x300C0000;
+        sysbus 0x300E0000;
+        sysbus 0x30100000;
+        sysbus 0x30120000;
+        sysbus 0x30140000;
+        sysbus 0x30160000;
+        sysbus 0x30180000;
+        sysbus 0x301A0000;
+        sysbus 0x301C0000;
+        sysbus 0x301E0000
+    }
+    size: 0x20000
+
+sdram: Memory.MappedMemory @ {
+        sysbus 0x60000000;
+        sysbus 0x70000000
+    }
+    size: 0x2000000
+
+nand: CR870.CR870_NAND @ sysbus 0xB1003000
+
+core: CR870.CR870_Core @ sysbus 0xFFFF0000
+    nand: nand
+    0 -> cpu@0
+
+uart0: CR870.CR870_UART @ sysbus 0xB1000000
+    core: core
+    index: 0
+    0 -> core@21
+
+uart1: CR870.CR870_UART @ sysbus 0xB1001000
+    core: core
+    index: 1
+    0 -> core@22
+
+spis: CR870.CR870_SPISlave @ sysbus 0xB1002000
+    core: core
+    0 -> core@20
+
+// the rest of the address space: the catch-all (sticky registers), as in the QEMU model
+io_b1: CR870.CR870_Window @ sysbus <0xB1004000, +0x0EFFC000>
+    core: core
+    baseAddress: 0xB1004000
+    size: 0x0EFFC000
+
+macb: CR870.CR870_MACB @ sysbus 0xE0017000
+    core: core
+    0 -> core@9
+
+// QEMU's -netdev user (slirp) equivalent; on the bus only so the monitor reaches it
+usernet: CR870.CR870_UserNet @ sysbus 0xE0016FF0
+    macb: macb
+
+io_c0: CR870.CR870_Window @ sysbus <0xC0000000, +0x20016FF0>
+    core: core
+    baseAddress: 0xC0000000
+    size: 0x20016FF0
+
+io_e1: CR870.CR870_Window @ sysbus <0xE0018000, +0x1FFD8000>
+    core: core
+    baseAddress: 0xE0018000
+    size: 0x1FFD8000
+
+io_lo2: CR870.CR870_Window @ sysbus <0x00410000, +0x000F0000>
+    core: core
+    baseAddress: 0x00410000
+    size: 0x000F0000
+
+io_lo3: CR870.CR870_Window @ sysbus <0x00510000, +0x2FAF0000>
+    core: core
+    baseAddress: 0x00510000
+    size: 0x2FAF0000
+
+io_lo4: CR870.CR870_Window @ sysbus <0x30200000, +0x2FE00000>
+    core: core
+    baseAddress: 0x30200000
+    size: 0x2FE00000
+
+io_mid1: CR870.CR870_Window @ sysbus <0x62000000, +0x0E000000>
+    core: core
+    baseAddress: 0x62000000
+    size: 0x0E000000
+
+io_mid2: CR870.CR870_Window @ sysbus <0x72000000, +0x3A000000>
+    core: core
+    baseAddress: 0x72000000
+    size: 0x3A000000
+
+io_mid3: CR870.CR870_Window @ sysbus <0xAC00C000, +0x04FF4000>
+    core: core
+    baseAddress: 0xAC00C000
+    size: 0x04FF4000

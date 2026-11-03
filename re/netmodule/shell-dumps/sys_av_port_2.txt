@@ -1,0 +1,80 @@
+$ sys av port 2
+AV common registers:
+--------------------
+0xe0010000: avActivate      = 0x00000005
+0xe0010004: avCUUnitOn      = 0x00000002
+0xe0010010: avComConfig0    = 0x02011302
+0xe0010020: avCUConfig[0]   = 0x00000000
+0xe0010024: avCUConfig[1]   = 0x00000011
+0xe0010100: avAllAvOn       = 0x00000101
+0xe0010800: prtIsAvPort     = 0x00000001
+0xe0010804: prtIsPresent    = 0x0000001d
+0xe0010808: prtHasAdat      = 0x00000010
+0xe001080c: prtHasPwm       = 0x00000000
+0xe0010810: prtHasAes       = 0x00000018
+0xe0010c00: avIntSet        = 0x00000000
+0xe0010c04: avIntClr        = 0x00000000
+0xe0010c08: avIntMaskSet    = 0x00000000
+0xe0010c0c: avIntMaskClr    = 0x00000000
+
+AV port 2 registers:
+--------------------
+AV Control reg      [0xe000a000]
+UpAndRunning         0x01
+AvFmSrcSel           0x00
+OsCntSel             0x00
+OsCntType            0x00
+Mute                 0x00
+On                   0x01
+
+AV Flag reg         [0xe000a004]
+avFlag               0x00
+
+AV Kind reg         [0xe000a008]
+TrailEdgeSmplAvSlv   0x00
+SpikeFilter          0x00
+TrailEdgeSmpl        0x00
+TsValidRange         0x00
+
+Interf. format       0x00 I2S
+Interf. config       0x22 I2S AM824_24 LeftJustified LeftHigh 
+
+AV Config0 reg      [0xe000a00c]
+AvMuteNonAudio       0x00
+AvMuteV              0x00
+AvMuteP              0x00
+SYT sync Sel         0x00
+SYT interval         0x01 SYT = 8
+Ext WS               0x00
+
+AV Config1 reg      [0xe000a010]
+AES/ADAT OSmpl ticks 0x00000000
+
+AV Interface #       0            1            2            3           
+AV Interface reg    [0xe000a020] [0xe000a024] [0xe000a028] [0xe000a02c] 
+Direction            0x01         0x00         0x00         0x00        
+AES Conversion       0x00         0x00         0x00         0x00        
+CU Select            0x00         0x00         0x00         0x00        
+CU Insertion         0x00         0x00         0x00         0x00        
+DAC Mute             0x00
+
+AV IF Status reg    [0xe000a820] [0xe000a824] [0xe000a828] [0xe000a82c] 
+AES Sig Avail        0x00         0x00         0x00         0x00        
+ADAT Sig Avail       0x00         0x00         0x00         0x00        
+Parity Error         0x00         0x00         0x00         0x00        
+Invalid Data         0x00         0x00         0x00         0x00        
+Non-Audio Data       0x00         0x00         0x00         0x00        
+
+AV Status regs      [0xe000a800] to [0xe000a814]
+Data flow error      0x00
+TS error             0x00
+In sync              0x01
+AES/ADAT error       0x00
+OS count             0x716
+ADAT user bits       0x00
+
+AV Interrupt regs   [0xe000ac00] to [0xe000ac0c]
+InterruptSet         0x0006 TsErr SyncWarn 
+InterruptClear       0x0000
+InterruptMaskSet     0x0000
+InterruptMaskClr     0x0000

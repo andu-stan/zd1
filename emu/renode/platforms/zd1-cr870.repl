@@ -1,0 +1,6 @@
+// The main board with the J2 link to a CR870 machine in the same emulation (zemu run --mcu).
+using "zd1.repl"
+
+j2: CR870.J2HostPort @ spi0 2
+    gpio: gpio
+    Dsp: dsp

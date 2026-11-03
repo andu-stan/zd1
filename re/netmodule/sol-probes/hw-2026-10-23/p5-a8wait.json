@@ -1,0 +1,20 @@
+{
+"A861 (m=3,k=1), c3=0 c1=5":"H",
+"A861, c3=5 c1=0":"H",
+"A861, c3=0 c1=0":"H",
+"A861, c3=1 c1=1":"H",
+"A800, c0=0":"H",
+"A800, c0=1":"H",
+"F403 (k=3), c3=0":"H",
+"F403, c3=1":"H",
+"F400, c0=0 c1=0":"H",
+"F400, c0=1":"H",
+"F4FB (bits 9:3 set, k=3), c3=0":"H",
+"A8E3 (m=7,k=3) c7=0 c3=0":"H",
+"A8E3 c7=1 c3=0":"H",
+"A8E3 c7=0 c3=1":"H",
+"A861 stalled (c3=5, c1=5)":{"tries":0,"release polls":[0,0]},
+"A861 stalled (c3=5, c1=5), c1 first":{"tries":0,"release polls":[0,0]},
+"F403 stalled (c3=5)":{"tries":0,"release polls":[0,0]},
+"A800 stalled (c0=5)":{"tries":0,"release polls":[0,0]}
+}

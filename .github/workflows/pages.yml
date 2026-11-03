@@ -1,0 +1,85 @@
+# The web page on GitHub Pages with the releases (docs/web.md, Releases). Its steps have run locally (actionlint; the
+# builds and `zd1 image` as below; the site's script against a stand-in `gh`), not yet on GitHub. The repo's Pages
+# source must be "GitHub Actions". Nix on the runner builds the MCU firmware with Microchip's x86_64 toolchain, the OS
+# image and the page; without a binary cache (CACHIX_NAME) a run builds LLVM too: hours.
+#
+# A release (a tag v*, published on GitHub) gets its three images and a `manifest.json` (from `zd1 image`) as
+# assets. Then, and on every push to main, the site is rebuilt from EVERY published release: the page beside
+# images/<version>/... and images/index.json, newest release first. Same origin: the page fetches nothing from the
+# GitHub API and no image until it installs it.
+name: pages
+on:
+  release: { types: [published] }
+  push: { branches: [main] }
+  workflow_dispatch:
+permissions: { contents: write, pages: write, id-token: write }
+concurrency: { group: pages, cancel-in-progress: false }
+
+jobs:
+  assets:
+    if: github.event_name == 'release'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/nix-installer-action@v16
+      - uses: cachix/cachix-action@v15
+        if: ${{ vars.CACHIX_NAME != '' }}
+        with: { name: "${{ vars.CACHIX_NAME }}", authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}" }
+      - name: build the images
+        run: |
+          set -eu
+          v="${GITHUB_REF_NAME#v}"
+          mkdir out
+          cp "$(nix build .#mcu --print-out-paths)/zd1.hex" "out/zd1-$v.hex"
+          os="$(nix build .#os-image --print-out-paths)"
+          cp "$os/system.cpio.gz" "out/system-$v.cpio.gz"
+          cp "$os/os.bcd" "out/os-$v.bcd"
+          nix run .#zd1 -- image out/* > out/manifest.json
+          cat out/manifest.json
+      - name: attach them to the release
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: gh release upload "$GITHUB_REF_NAME" out/* --clobber
+
+  site:
+    needs: [assets]
+    if: always() && (needs.assets.result == 'success' || needs.assets.result == 'skipped')
+    runs-on: ubuntu-latest
+    environment: { name: github-pages, url: "${{ steps.deploy.outputs.page_url }}" }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/nix-installer-action@v16
+      - uses: cachix/cachix-action@v15
+        if: ${{ vars.CACHIX_NAME != '' }}
+        with: { name: "${{ vars.CACHIX_NAME }}", authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}" }
+      - name: the page
+        run: |
+          mkdir site
+          cp -r "$(nix build .#web --print-out-paths)/." site/
+          chmod -R u+w site
+      - name: the releases' images and the manifest
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: |
+          set -eu
+          mkdir -p site/images
+          python3 - <<'PY'
+          import json, os, subprocess
+          rel = json.loads(subprocess.check_output(["gh", "release", "list", "--exclude-drafts", "--exclude-pre-releases",
+                                                    "--json", "tagName,name,publishedAt,isLatest", "--limit", "50"]))
+          rel.sort(key=lambda r: r["publishedAt"], reverse=True)
+          out = []
+          for r in rel:
+              tag = r["tagName"]; v = tag.removeprefix("v"); d = os.path.join("site/images", v)
+              subprocess.check_call(["gh", "release", "download", tag, "--dir", d, "--clobber"])
+              if not os.path.exists(os.path.join(d, "manifest.json")): continue
+              notes = subprocess.check_output(["gh", "release", "view", tag, "--json", "body", "--jq", ".body"], text=True).strip()
+              e = {"version": v, "date": r["publishedAt"][:10], "notes": notes}
+              for line in open(os.path.join(d, "manifest.json")):
+                  j = json.loads(line); j["file"] = f"{v}/{j['file']}"; e[j.pop("kind")] = j
+              out.append(e)
+          json.dump({"releases": out}, open("site/images/index.json", "w"), indent=1)
+          print(json.dumps(out, indent=1))
+          PY
+      - uses: actions/upload-pages-artifact@v3
+        with: { path: site }
+      - id: deploy
+        uses: actions/deploy-pages@v4

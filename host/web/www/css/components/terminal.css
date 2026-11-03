@@ -1,0 +1,28 @@
+/* The terminal: what the speaker prints (its log, a flow's steps) and what to type (`pre.copy`, with its prompt),
+ * monospace in a well. */
+pre {
+  margin: var(--space-2) 0 0;
+  white-space: pre-wrap;
+  font-size: var(--text-xs);
+  line-height: 1.6;
+}
+.log,
+pre.copy {
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--well-edge);
+  border-radius: var(--radius-md);
+  background: var(--well);
+  color: var(--grey-700);
+}
+.log {
+  max-height: 340px;
+  overflow: auto;
+}
+.log:empty::before {
+  content: "—";
+  color: var(--text-faint);
+}
+pre.copy {
+  user-select: all;
+  color: var(--text-strong);
+}

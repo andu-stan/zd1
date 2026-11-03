@@ -1,0 +1,4 @@
+$ fburn listFlashAddr
+FlashId		Start Address	End Address
+0		0x00000000	0x07fdffff
+1		0x00000000	0xffffffff

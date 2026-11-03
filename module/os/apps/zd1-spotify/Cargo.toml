@@ -1,0 +1,25 @@
+[package]
+name = "zd1-spotify"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+description = "Spotify Connect receiver for the module (librespot, Vorbis on Warp0 or the ARM in fixed point), controlled by the speaker (zd1-linkd)"
+
+[dependencies]
+# librespot 0.8; playback, audio, discovery and libmdns changed in our forks (the workspace's [patch.crates-io], module/os/forks.md)
+librespot-core = { version = "0.8", default-features = false, features = ["rustls-tls-webpki-roots"] }
+librespot-connect = { version = "0.8", default-features = false, features = ["rustls-tls-webpki-roots"] }
+librespot-discovery = { version = "0.8", default-features = false, features = [
+  "with-libmdns",
+  "rustls-tls-webpki-roots",
+] }
+librespot-playback = { version = "0.8", default-features = false, features = ["rustls-tls-webpki-roots"] }
+librespot-audio = { version = "0.8", default-features = false, features = ["rustls-tls-webpki-roots"] }
+librespot-metadata = { version = "0.8", default-features = false, features = ["rustls-tls-webpki-roots"] }
+ogg = "0.9"
+futures-util = { version = "0.3", default-features = false }
+tokio = { version = "1", features = ["rt", "macros", "signal", "time"] }
+tracing = "0.1"
+zd1-compat.workspace = true
+zd1-audio.workspace = true
+zd1-warp0 = { workspace = true, default-features = false }

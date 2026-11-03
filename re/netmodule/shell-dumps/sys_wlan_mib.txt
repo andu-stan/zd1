@@ -1,0 +1,20 @@
+$ sys wlan mib
+---- OVERVIEW ----
+sys wlan mib         - Management Information Base related commands
+---- DESCRIPTION ----
+  get <mibidx> <elemidx> <extraidx>               show mib element <mibidx> <elemidx> <extraidx>
+  setstr <mibidx> <elemidx> <extraidx> <string>   set mib element <mibidx> <elemidx> <extraidx>
+  setu8  <mibidx> <elemidx> <extraidx> u8         set mib element <mibidx> <elemidx> <extraidx>
+  setu16 <mibidx> <elemidx> <extraidx> u16        set mib element <mibidx> <elemidx> <extraidx>
+  setu32 <mibidx> <elemidx> <extraidx> u32        set mib element <mibidx> <elemidx> <extraidx>
+  setmacrateset <mibidx> <elemidx> <extraidx> rateset   set mib element <mibidx> <elemidx> <extraidx>
+              rateset is a sequence of rates, numbers preceded by a * designate base rates
+              examle: 5.5 *11 24 36 54
+              allowed g-rates are: 1 2 5.5 6 9 11 12 18 24 36 48 54
+              allowed b-rates are: 1 2 5.5 11
+              allowed a-rates are: 6 9 12 18 24 36 48 54
+  setmacstarateset <mibidx> <elemidx> <extraidx> rateset   set mib element <mibidx> <elemidx> <extraidx>
+              rateset is a sequence of 8 rates
+  setumacchanneldomain <mibidx> <elemidx> <extraidx> channelset   set mib element <mibidx> <elemidx> <extraidx>
+              channelset is a sequence of channels
+  show [mibidx]                                   show mib, default: all entries

@@ -1,0 +1,23 @@
+/* The page's styles: the design system (docs/web.md, "Design system"), in cascade layers so that order, not
+ * specificity, decides: tokens < base < layout < components < page. design.html shows every component. */
+@layer tokens, base, layout, components, page;
+
+@import url("css/tokens.css") layer(tokens);
+@import url("css/base.css") layer(base);
+@import url("css/layout.css") layer(layout);
+@import url("css/components/lamp.css") layer(components);
+@import url("css/components/button.css") layer(components);
+@import url("css/components/segmented.css") layer(components);
+@import url("css/components/switch.css") layer(components);
+@import url("css/components/field.css") layer(components);
+@import url("css/components/slider.css") layer(components);
+@import url("css/components/panel.css") layer(components);
+@import url("css/components/list.css") layer(components);
+@import url("css/components/tag.css") layer(components);
+@import url("css/components/notice.css") layer(components);
+@import url("css/components/banner.css") layer(components);
+@import url("css/components/progress.css") layer(components);
+@import url("css/components/dialog.css") layer(components);
+@import url("css/components/terminal.css") layer(components);
+@import url("css/components/disclosure.css") layer(components);
+@import url("css/page.css") layer(page);

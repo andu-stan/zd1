@@ -1,0 +1,163 @@
+$ sys stream cfg
+ISO streaming configuration
+===========================
+
+HAL settings:
+-------------
+
+port extClkInv          Master MClkRatio format
+0    FallingEdgeAligned 1      128FS     Video 8 bit V8B_PAL 
+2    FallingEdgeAligned 1      512FS     I2S AM824_24 LeftJustified LeftHigh 
+3    FallingEdgeAligned 1      512FS     I2S AM824_24 I2SCompatible LeftHigh 
+4    RaisingEdgeAligned 1      128FS     AES AES 
+
+interface  location  #chan  input  pll-id  obsrv s.rate state     if-sync   cur-sync  extCompAvP muted
+0            0.0     1      0      4       0     0      normal    CSP       --        none        0
+1            0.1     1      0      4       0     0      normal    CSP       --        none        0
+2            0.2     1      0      4       0     0      normal    CSP       --        none        0
+3            0.3     1      0      4       0     0      normal    CSP       --        none        0
+8            2.0     2      0      0       0     44100  normal    CSP       CSP       none        0
+9            2.1     2      0      0       0     0      normal    CSP       --        none        0
+10           2.2     2      1      0       0     0      normal    CSP       --        none        0
+11           2.3     2      1      0       0     0      normal    CSP       --        none        0
+12           3.0     2      0      0       0     0      normal    CSP       --        none        0
+13           3.1     2      1      0       0     0      normal    CSP       --        none        0
+16           4.0     2      1      0       0     0      normal    CSP       --        none        0
+17           4.1     2      0      0       0     0      normal    CSP       --        none        0
+
+aes conversion engine 0
+  mode:           read
+  status:         disabled
+  insertion mode: NoInsertion
+  L-status: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ........................
+  R-status: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ........................
+  L-data:   00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ........................
+  R-data:   00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ........................
+
+aes conversion engine 1
+  mode:           write
+  status:         enabled
+  insertion mode: InsertC
+  write-if:      17
+  L-status: 00 00 00 01 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ........................
+  R-status: 00 00 00 01 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ........................
+  L-data:   00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ........................
+  R-data:   00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ........................
+
+-------------------------------
+Sync Domain Statistics
+-------------------------------
+
+	PLL Info
+	---------
+	Pll id        :  no PLL
+	Sync Interface:  No Clockdomain
+	PLL in lock   :  0
+	Sync state    :  AlwaysRunningState
+
+	Sync Stream: no sync stream
+
+	Config Info List
+	----------------
+		Config type   :  Image
+		Identification:  Channel 1, Sync Interface -2
+		Queue         :  3 elements in memory 1
+		Path          :  armDevice -> avDevice
+		Run State     :  Started
+		State indep.  :  No
+
+		Output format: Video
+			Dimension     : 720 x 480
+			Colorspace    : YCBCR
+			DAR           : 4x3
+			PAR           : 11x10
+			Graphic mode  : Interlaced
+			Graphic orientation: Normal
+		Framebuffer Mem Type:  Heap_NC
+		Framebuffer format:
+			Dimension     : 720 x 480
+			Colorspace    : YCBCR
+			DAR           : 4x3
+			PAR           : 11x10
+			Graphic mode  : Interlaced
+			Graphic orientation: Normal
+		Stream Path Info
+		----------------
+			Subpath info:
+			-------------
+			No of channels: 0
+			Device configuration:
+			---------------------
+			Source:
+			Destination:
+			video configuration
+			-------------------
+				Used AV DMAs                   (packet)  : 61 60 
+				Used line transfer DMAs        (block)   : 59
+				Linebuffer size                (quadlets): 431
+				Frame line width               (pixels)  : 720
+				Frame blank line width         (pixels)  : 138
+				Frame extra blank line width   (pixels)  : 0
+				Frame height                   (lines)   : 480
+				Framebuffer height             (lines*2) : 240
+				Framebuffer width              (pixels)  : 720
+				Framebuffer is interlaced                : 1
+				No of total lines                        : 525
+				No of extra blank lines                  : 0
+			Subpath info  :            from(id)              to(id)  #
+			----------------------------------------------------------------
+			                      armDevice( 4)        avDevice(31)  0
+				Datalink info:
+				-------------
+				used dma's: 61 60 59 
+	------------------
+	PLL Info
+	---------
+	Pll id        :  0
+	Sync Interface:  8
+	PLL in lock   :  1
+	Sync state    :  RunningState
+
+	Sync Stream: channel 44, interface 8
+
+	Config Info List
+	----------------
+		Config type   :  Audio
+		Identification:  Channel 44, Sync Interface 8
+		Queue         :  512 elements in memory 1
+		No of channels:  2
+		Path          :  armDevice -> avDevice
+		Frequency     :  1
+		Interfaces    :  8 (2:0) 
+		Sync Mode     :  CSP
+		ExtSyncIn Type:  0
+		Bus Speed     :  0
+		Block Mem Type:  Heap(1)
+		PlayoutSytOffs:  0.500000(600)
+		Packet Delay  :  0.000000(0)
+		HW Pkt Delay  :  0.500000(600)
+		Used DMA CTXs :  58 
+		Run State     :  Started
+		State indep.  :  No
+		Payload Type  :  Iso Raw Data
+		Stream Path Info
+		----------------
+			Subpath info:
+			-------------
+			No of channels: 2
+			Device configuration:
+			---------------------
+			Source:
+			Destination:
+			audio configuration
+			-------------------
+			sync stream     : 1
+			mute            : 0
+			start wait count: 20
+			Subpath info  :            from(id)              to(id)  #
+			----------------------------------------------------------------
+			                      armDevice( 4)        avDevice( 3)  2
+				Datalink info:
+				-------------
+				used dma's: 58 
+	------------------

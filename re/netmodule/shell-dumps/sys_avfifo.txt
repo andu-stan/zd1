@@ -1,0 +1,5 @@
+$ sys avfifo
+---- OVERVIEW ----
+sys avfifo           - avfifo shell command
+---- DESCRIPTION ----
+  <id> <dmactx> <maxpacketsize> <buffersize>

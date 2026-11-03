@@ -1,0 +1,60 @@
+help                         77 lines  ### Available Commands ###
+sys ver                      22 lines  Library Name                Version                    CVS T
+sys versulu                  12 lines  arm                    926/rev 5
+sys clock                    18 lines  Xtali input                     24000000 Hz ( 24.000 MHz)
+os timestamp                  1 lines  uptime = 1289411 ms delta = 42780 ms
+netcfg                       35 lines  Status of Network Interface 0:
+net                           9 lines  Networking "general" commands:
+sys if                        4 lines  ---- OVERVIEW ----
+sys macb                      9 lines  ---- OVERVIEW ----
+os th                       145 lines   n                     name    pri state       cnt stackU  s
+os load                     138 lines                  idle time (82.94) ##########################
+os sem                      340 lines   n                          name cnt      locked by         
+os q                         90 lines   n                          name peak  inQ free   threads
+os timer                     28 lines   n                     name remaining [ms]    reInit [ms]
+os map                       30 lines  MemPool : Heap Memory at 60941e00
+os free                       4 lines  ---- OVERVIEW ----
+os mseg                      30 lines  MEMORY SEGMENT BOUNDARIES
+sys av                        9 lines  ---- OVERVIEW ----
+sys avfifo                    4 lines  ---- OVERVIEW ----
+sys dma                      17 lines  ---- OVERVIEW ----
+sys sdram                     7 lines  ---- OVERVIEW ----
+sys irq                       6 lines  ---- OVERVIEW ----
+sys swmtx                     6 lines  ---- OVERVIEW ----
+sys swx                       8 lines  ---- OVERVIEW ----
+sys llc                       0 lines  
+sys stream                    5 lines  ---- OVERVIEW ----
+sys sytlog                    1 lines  SYT LOG not enabled
+sys umr                       9 lines  ---- OVERVIEW ----
+sys sds                       4 lines  ---- OVERVIEW ----
+sys spi stat                  1 lines  device 0 ioctl returned -1
+sys spi reg                  16 lines  0xb1002000: iSpiCfgSet               = 0x005ef101
+spilist                       1 lines  Spi List empty
+spilog                      503 lines  sizeof log buffer: 500
+sys wlan                      8 lines  ---- OVERVIEW ----
+sys wlan mib                 19 lines  ---- OVERVIEW ----
+sys wlan ctrl                18 lines  ---- OVERVIEW ----
+sys wlan test                17 lines  ---- OVERVIEW ----
+wpa status                    7 lines  bssid=02:00:00:00:00:0a
+wpa                          37 lines  ---- OVERVIEW ----
+ntp                           0 lines  
+lltd                         19 lines  ---- OVERVIEW ----
+ssdp                          1 lines  Usage: send | enable | disable | setVervose(verboseLevel)
+upnp help                     6 lines  Usage: upnp av dump
+rm all                        3 lines  rm [get set] - resource manager commands
+rm help                       3 lines  rm [get set] - resource manager commands
+ls                            2 lines    d. static
+ls static                     3 lines    d. Networking
+ls cne                       58 lines    d. UpnpContainerFilter
+ls static/Networking          3 lines    d. DrvStatus
+ls static/Metadata            1 lines    l. Latin1SjisPref
+ls static/cardea              1 lines    l. securityLevel
+drc                           1 lines  drc [verbose | lines n | refresh n | spi [on|off] ]
+usb                          11 lines  ---- OVERVIEW ----
+usbd                          1 lines  USBPlayDirect::playDirect() Error: Invalid Content Browser
+fburn listFlashAddr           3 lines  FlashId		Start Address	End Address
+shell                        11 lines  ---- OVERVIEW ----
+os uartcfg                    5 lines  ---- OVERVIEW ----
+sys clock                    18 lines  Xtali input                     24000000 Hz ( 24.000 MHz)
+ipodauth                     11 lines  ---- OVERVIEW ----
+apple                         1 lines  error: no command specified

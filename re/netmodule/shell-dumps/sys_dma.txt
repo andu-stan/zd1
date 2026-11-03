@@ -1,0 +1,18 @@
+$ sys dma
+---- OVERVIEW ----
+sys dma              - dma related commands
+sys dma ctx          - dump context of dma
+sys dma ctxclr       - clears the specified context
+sys dma ctxwr        - writes into a context with offset[quadlet] the value
+sys dma desc         - displays descriptors
+sys dma error        - displays all dma's which are in error condition
+                           Note: the interrupt status register (irqGrpXSet) will be cleared
+sys dma extinfo      - displays an overview of a dma with an extended error code.
+                           Note: the interrupt status register (irqGrpXSet) will be cleared
+                                 and the ctxSupervision will be overwritten
+sys dma info         - displays an overview of a dma
+sys dma lookup       - displays lookup ram
+sys dma perf         - performance monitor
+sys dma reg          - displays registers
+---- DESCRIPTION ----
+executes 'dma' command

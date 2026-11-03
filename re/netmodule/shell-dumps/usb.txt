@@ -1,0 +1,12 @@
+$ usb
+---- OVERVIEW ----
+usb                  - commands related to USB
+usb drv              - Commands related to USB Bus Driver level
+usb host             - USB cmd for host controller
+usb ipod             - Shell cmd for iPod Device
+usb msd              - Shell cmd for MassStorage Device
+usb mtp              - Shell cmd for MTP device
+usb stack            - Shell cmd for USB Stack
+usb test             - USB test commands
+---- DESCRIPTION ----
+executes 'usb' command

@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>zd1 · design</title>
+<meta name="color-scheme" content="dark">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="css/design.css">
+<script type="module" src="js/design.js"></script>
+</head>
+<body>
+<!-- The design system's catalogue (docs/web.md, "Design system"): every token and component, in each state, with no
+     speaker needed. A change to the system is checked here first. -->
+<nav class="nav">
+  <span class="wordmark">zd1</span>
+  <span class="nav-item">design</span>
+  <span class="grow"></span>
+  <a class="nav-link" href="index.html">The page ›</a>
+</nav>
+
+<header class="hero">
+  <zd-speaker mode="welcome"></zd-speaker>
+  <h1>Design</h1>
+  <p class="status">Black and white; colour is the speaker's LED.</p>
+</header>
+
+<main>
+  <section class="panel">
+    <h2>Colour</h2>
+    <div class="panel-body">
+      <p class="lead">Greys from black to white carry the page. The LED's palette, as a screen shows it, is the only
+         colour: a lamp, a glow, a line.</p>
+      <h3>Greys</h3>
+      <div class="swatches" data-tokens="grey-0 grey-50 grey-100 grey-150 grey-200 grey-250 grey-300 grey-400 grey-500 grey-600 grey-700 grey-800 grey-900 grey-1000"></div>
+      <h3>The LED</h3>
+      <div class="swatches lamps" data-tokens="led-red led-white led-usb led-aux led-ipod led-spotify led-snapcast led-green led-purple"></div>
+      <h3>States</h3>
+      <div class="swatches lamps" data-tokens="state-ok state-warn state-wait state-info"></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Type</h2>
+    <div class="panel-body">
+      <p class="lead">Helvetica Neue for words, thin and light at size. Monospace only for what the speaker reports:
+         <span class="data">07c73d9</span>, <span class="data">192.0.2.40</span>, its log.</p>
+      <div class="type-scale">
+        <div><span class="small data">3xl · thin</span><h1>Kitchen</h1></div>
+        <div><span class="small data">2xl · light</span><p style="font: var(--weight-light) var(--text-2xl) var(--font-sans); color: var(--text-strong); margin: 0">The speaker is in its bootloader.</p></div>
+        <div><span class="small data">xl · panel heading</span><h2>Network</h2></div>
+        <div><span class="small data">lg · lead</span><p class="lead" style="margin: 0">Plug the speaker into this computer with a USB cable.</p></div>
+        <div><span class="small data">md · body</span><p style="margin: 0">The speaker joins the first of these it sees.</p></div>
+        <div><span class="small data">sm · small</span><p class="small" style="margin: 0">The passphrase stays on this computer.</p></div>
+        <div><span class="small data">mono · data</span><p class="data" style="margin: 0">A: 327238f 2026-10-30; B: 07c73d9 2026-11-02 (runs)</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Controls</h2>
+    <div class="panel-body">
+      <p class="lead">Three tiers. Primary: filled, black ink: white, or for the source playing, its LED colour. Secondary: an outline
+         with ink of the same colour. Tertiary: a link. Disabled fades the same drawing.</p>
+      <div class="row">
+        <button type="button">Save</button>
+        <button type="button" class="primary">Install release 0.3.0</button>
+        <button type="button" class="danger">Everything, as from the factory</button>
+        <button type="button" class="quiet">Forget</button>
+        <button type="button" disabled>Disabled</button>
+        <button type="button" class="primary" disabled>Disabled</button>
+        <label class="file button">A file…<input type="file"></label>
+      </div>
+      <h3>Segmented: the choice filled in its LED colour</h3>
+      <div class="segmented" id="demo-sources"></div>
+      <h3>Switches and checks: on is filled white</h3>
+      <div class="row">
+        <button type="button" class="switch" aria-pressed="true">On</button>
+        <button type="button" class="switch" aria-pressed="false">Off</button>
+        <label class="check"><input type="checkbox" checked> a computer that starts playing over USB takes the speaker</label>
+        <label class="check"><input type="checkbox"> off</label>
+      </div>
+      <h3>Fields</h3>
+      <div class="row"><label for="d-name">Name</label><input id="d-name" value="Kitchen"><button type="button">Save</button></div>
+      <div class="row"><label for="d-pass">Passphrase</label><input id="d-pass" type="password" value="hunter22"></div>
+      <div class="row"><label for="d-pin">PIN</label><input id="d-pin" class="short" placeholder="none"></div>
+      <div class="row"><label for="d-sel">Off after</label><select id="d-sel"><option>5 min</option><option>10 min</option></select></div>
+      <div class="row"><label for="d-vol">Volume</label><input id="d-vol" type="range" min="0" max="40" value="28"><output>28</output></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Panels</h2>
+    <div class="panel-body">
+      <p class="lead">A heading in its own column, the content beside it, a hairline above: one per part of the page.</p>
+      <dl class="facts">
+        <dt>Main board</dt><dd class="data">07c73d9, built 2026-11-02 10:14</dd>
+        <dt>Wi-Fi</dt><dd><span class="ok">Joined HomeNet, 192.0.2.40.</span><span class="bars"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></dd>
+        <dt>Ethernet</dt><dd>No cable.</dd>
+      </dl>
+      <h3>Lists and tags</h3>
+      <div class="list">
+        <div class="row item"><span class="num">1.</span><strong>HomeNet</strong><span class="tag">WPA2</span><span class="tag ok">joined</span><span class="grow"></span><button type="button" class="quiet">Forget</button></div>
+        <div class="row item"><span class="num">2.</span><strong>Cabin</strong><span class="tag">WPA2</span><span class="grow"></span><button type="button" class="quiet">Prefer</button><button type="button" class="quiet">Forget</button></div>
+      </div>
+      <h3>A receiver</h3>
+      <div class="receiver">
+        <div class="row"><strong>Spotify Connect</strong><span class="small ok">playing</span><span class="grow"></span>
+          <button type="button" class="switch" aria-pressed="true">On</button></div>
+        <div class="stack options"><div class="row"><label for="d-q">Quality</label><select id="d-q"><option>160 kb/s</option></select></div></div>
+      </div>
+      <h3>Disclosures</h3>
+      <details><summary>Addresses</summary><p class="small">What it shows.</p></details>
+      <details class="triage"><summary>It doesn't appear in the browser's list</summary><p>Use a USB cable that carries data.</p></details>
+      <details class="triage"><summary>It still runs B&amp;W's own software</summary><p>Start it in its bootloader.</p></details>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Feedback</h2>
+    <div class="panel-body">
+      <div class="stack" style="gap: var(--space-2)">
+        <div class="notice"><span>The module restarts on slot A.</span><span class="grow"></span><button type="button" class="quiet">Dismiss</button></div>
+        <div class="notice ok"><span>Everything is back to the defaults.</span><span class="grow"></span><button type="button" class="quiet">Dismiss</button></div>
+        <div class="notice warn"><span>Nobody pressed ON/OFF on the speaker in time: nothing changed.</span><span class="grow"></span><button type="button" class="quiet">Dismiss</button></div>
+      </div>
+      <h3>The banner</h3>
+      <section class="banner"><i class="lamp on"></i><div class="banner-text"><strong>Release 0.3.0 is available</strong>
+        <span class="small">Main board 1 release behind, module up to date.</span></div>
+        <button type="button" class="primary">Update to 0.3.0</button></section>
+      <h3>Progress</h3>
+      <div class="row"><strong>Install release 0.3.0</strong><span class="small">3 of 6: the module's first boot</span></div>
+      <progress max="1" value="0.42"></progress>
+      <h3>Terminal</h3>
+      <pre class="log">[boot] cold start, stage 7 main loop
+[src] wifi: airplay playing
+[amp] on: sound</pre>
+      <pre class="copy">sudo udevadm control --reload-rules</pre>
+      <h3>A dialog</h3>
+      <div class="dialog-demo">
+        <h2><i class="lamp on press-lamp"></i>Press ON/OFF on the speaker</h2>
+        <p>Its light flashes purple: a press there allows this change.</p>
+        <div class="row"><span class="grow"></span><button type="button" class="quiet">Cancel</button><button type="button" class="primary">Go ahead</button></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>The speaker</h2>
+    <div class="panel-body">
+      <p class="lead"><code>&lt;zd-speaker&gt;</code>: its outline and the line down its middle, doing what the speaker
+         does. The glow is its LED.</p>
+      <div class="speakers">
+        <figure><zd-speaker mode="welcome" flat></zd-speaker><figcaption>mode=welcome</figcaption></figure>
+        <figure><zd-speaker mode="dfu" flat></zd-speaker><figcaption>mode=dfu</figcaption></figure>
+        <figure><zd-speaker mode="app" led="white" look="playing" vol="0.45" flat></zd-speaker><figcaption>AirPlay, playing</figcaption></figure>
+        <figure><zd-speaker mode="app" led="spotify" look="playing" vol="0.9" flat></zd-speaker><figcaption>Spotify, loud</figcaption></figure>
+        <figure><zd-speaker mode="app" led="usb" look="ready" flat></zd-speaker><figcaption>USB, ready (breathing)</figcaption></figure>
+        <figure><zd-speaker mode="app" led="aux" look="asleep" flat></zd-speaker><figcaption>AUX, amp asleep</figcaption></figure>
+        <figure><zd-speaker mode="app" led="red" look="standby" flat></zd-speaker><figcaption>standby</figcaption></figure>
+        <figure><zd-speaker mode="app" led="red" look="error" flat></zd-speaker><figcaption>a protection tripped</figcaption></figure>
+        <figure><zd-speaker mode="app" led="white" look="nonet" flat></zd-speaker><figcaption>no network</figcaption></figure>
+        <figure><zd-speaker mode="app" led="white" look="ready" press flat></zd-speaker><figcaption>press wanted</figcaption></figure>
+        <figure><zd-speaker mode="dfu" progress="0.6" flat></zd-speaker><figcaption>a job, 60 %</figcaption></figure>
+        <figure><zd-speaker mode="app" led="snapcast" look="choosing" flat></zd-speaker><figcaption>choosing Snapcast</figcaption></figure>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="footer">zd1 · the design system: <span class="data">css/tokens.css</span>, <span class="data">css/components/</span>, <span class="data">js/zd-speaker.js</span></footer>
+</body>
+</html>

@@ -1,0 +1,7 @@
+$ sys wlan ctrl dump_stats
+HD Event 509698
+UMAC PACKET TX: 7831
+UMAC PACKET DEQUEUED: 7831
+UMAC PACKET DROPPED: 0
+No buffer cnt: 0
+wlan_reset_count: 0

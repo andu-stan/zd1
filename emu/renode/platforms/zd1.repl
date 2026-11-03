@@ -1,0 +1,22 @@
+// B&W Zeppelin Air main board: the AT32UC3A1256 and what is around it (emu/renode/zd1/ZD1Board.cs).
+using "at32uc3a1.repl"
+
+board: ZD1.ZD1Board @ sysbus 0x5F000000
+    gpio: gpio
+    twi: twi
+    pwm: pwm
+    adc: adc
+
+codec: ZD1.ZD1_Codec @ twi 0x04
+    board: board
+
+dsp: ZD1.ZD1_DSP @ twi 0x38
+    Codec: codec
+    Gpio: gpio
+
+eeprom: ZD1.ZD1_Eeprom @ twi 0x50
+
+auth: ZD1.ZD1_Auth @ twi 0x10
+
+ssc:
+    Clock: board

@@ -1,0 +1,7 @@
+{
+"ctx":[35,3],
+"a800":{"tries":0,"ctrl20 stalled":"00020090","dma polls":10,"tries after dma":0,"ctrl20 after":"00020090","bank6 first/last":"0d000000 0d00003f"},
+"f400":{"tries":0,"ctrl20 stalled":"00020090","dma polls":10,"tries after dma":0,"ctrl20 after":"00020090","bank6 first/last":"0d000000 0d00003f"},
+"800d":{"tries":0,"ctrl20 stalled":"00020090","dma polls":10,"tries after dma":0,"ctrl20 after":"00020090","bank6 first/last":"0d000000 0d00003f"},
+"a000":{"tries":2000,"ctrl20 stalled":"000200c8","dma polls":7,"tries after dma":4000,"ctrl20 after":"000200c8","bank6 first/last":"0d000000 0d00003f"}
+}

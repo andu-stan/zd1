@@ -1,0 +1,7 @@
+$ upnp help
+Usage: upnp av dump
+       upnp av setVerbose
+       upnp av reader
+       upnp av content flush
+       upnp av content list
+       upnp repos

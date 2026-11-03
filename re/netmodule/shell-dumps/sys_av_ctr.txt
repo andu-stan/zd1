@@ -1,0 +1,23 @@
+$ sys av ctr
+0xe001b000: ctr          = 0x576cf310
+0xe001b004: lin25        = 0x0112721a
+0xe001b008: config       = 0x00000001
+0xe001b00c: adjust       = 0x00000000
+0xe001b010: drift        = 0x00000000
+0xe001b014: driftAccu    = 0x00000000
+-------------------------------------
+0xe001b020: ctr          = 0x00000000
+0xe001b024: lin25        = 0x00000000
+0xe001b028: config       = 0x00000000
+0xe001b02c: adjust       = 0x00000000
+0xe001b030: drift        = 0x00000000
+0xe001b034: driftAccu    = 0x00000000
+-------------------------------------
+0xe001b100: latchCtrl    = 0x0f000001
+0xe001b104: latchValue   = 0x00000000
+0xe001b200: trigCtrl     = 0x00000000
+0xe001b300: n            = 0x000000c0
+0xe001b304: m            = 0x000001b1
+0xe001b308: lsb          = 0x00000000
+0xe001bff0: testBus      = 0x00000000
+0xe001bff4: revision     = 0x00000000

@@ -1,0 +1,2565 @@
+[START_OF_ATTR_NAME_SPACE]]
+  [UpnpContainerFilter]
+    NumberOfEntries = '5'
+    [Entry0]
+      ServerName = 'Microsoft-Windows-NT/5.1 UPnP/1.0 UPnP-Device-Host/1.0'
+      ContainerIDToFilter = '2'
+    [Entry1]
+      ServerName = 'Intel CLR SDK/1'
+      ContainerIDToFilter = '0000000000000003'
+    [Entry2]
+      ServerName = 'Philips Media Manager/3'
+      ContainerIDToFilter = 'movies:0'
+    [Entry3]
+      ServerName = 'TwonkyVision UPnP SDK/1'
+      ContainerIDToFilter = 'Movie'
+    [Entry4]
+      ServerName = 'Windows NT/5.0, UPnP/1.0, pvConnect UPnP SDK/1.0'
+      ContainerIDToFilter = '3'
+    [Entry5]
+      ServerName = ''
+      ContainerIDToFilter = ''
+    [Entry6]
+      ServerName = ''
+      ContainerIDToFilter = ''
+    [Entry7]
+      ServerName = ''
+      ContainerIDToFilter = ''
+    [Entry8]
+      ServerName = ''
+      ContainerIDToFilter = ''
+    [Entry9]
+      ServerName = ''
+      ContainerIDToFilter = ''
+  [SlideShow]
+    Duration = '5'
+    BackgroundMusic = ''
+    Repeat = '1'
+    Shuffle = '0'
+  [PSM]
+    JBGreen = 'Disabled'
+    WakeOnNetwork = 'Enabled'
+    DeepSleepMode = 'Disabled'
+  [TV_OUT]
+    Enabled = '0'
+  [AirTunes]
+    FBoot = '0'
+    SpeakerName = ''
+    PasswordRequired = '0'
+    MetaData = '0'
+    Password = ''
+  [CNE_TEST]
+    URL = 'http://bridgeco.vtuner.com/setupapp/bridgeco/asp/func/dynamOD.asp?ex45v=0A681FA98B13CE2598106EABAD032AEA&id=23850'
+    mime = 'Unrecognized'
+    check = '0'
+    ActiveAudioResource = '0'
+    StationTitle = 'CVC The Voice Asia'
+    SourceContentBrowser = 'RadioNative'
+    LiveStream = '0'
+    SourceUrl = 'http://bridgeco.vtuner.com/setupapp/bridgeco/asp/func/dynamOD.asp?ex45v=0A681FA98B13CE2598106EABAD032AEA&id=23850'
+  [RenderPicture]
+    RenderPictureEnable = '1'
+  [FsChangeTimeout]
+    TimeOut = '1000'
+  [dev]
+    [uart0]
+      readDelay = '2'
+    [AvPortFormat]
+      [AvPort2]
+        DataAlignment = '1'
+        MCLK_32_44_48 = '4'
+        MCLK_88_96 = '2'
+        MCLK_176_192 = '0'
+  [JumpToCB]
+    LastCB = 'empty'
+  [ContentBrowserSwitch]
+    UPnP = '1'
+    RadioNative = '1'
+    Rhapsody = '1'
+    Napster = '1'
+    iPod = '1'
+    USB = '1'
+    MTP = '1'
+    Favorites = '1'
+    Flikr = '1'
+    Lastfm = '1'
+    Pandora = '1'
+    Sirius = '1'
+  [JBRemote]
+    ManufacturerID = 'BCOJBR-1785'
+    BrowseLines = '100'
+    NeedSet = '0'
+    UDIDAct = ''
+    DevNameAct = ''
+    Enabled = '0'
+    [DeviceList]
+      NumberOfEntries = '0'
+      [1]
+        JBName = ''
+        JBMac = ''
+        JBUid = ''
+      [2]
+        JBName = ''
+        JBMac = ''
+        JBUid = ''
+      [3]
+        JBName = ''
+        JBMac = ''
+        JBUid = ''
+      [4]
+        JBName = ''
+        JBMac = ''
+        JBUid = ''
+      [5]
+        JBName = ''
+        JBMac = ''
+        JBUid = ''
+      [6]
+        JBName = ''
+        JBMac = ''
+        JBUid = ''
+      [7]
+        JBName = ''
+        JBMac = ''
+        JBUid = ''
+      [8]
+        JBName = ''
+        JBMac = ''
+        JBUid = ''
+      [9]
+        JBName = ''
+        JBMac = ''
+        JBUid = ''
+      [10]
+        JBName = ''
+        JBMac = ''
+        JBUid = ''
+  [Capabilities]
+    [McuSources]
+      Enabled = '0'
+    [Sources]
+      UPnP = '1'
+      vTuner = '1'
+      Rhapsody = '1'
+      Napster = '0'
+      iPod = '1'
+      USB = '1'
+      Favorites = '1'
+      Lastfm = '1'
+      Pandora = '1'
+      Sirius = '0'
+      Airplay = '1'
+      FM = '0'
+      WHA = '0'
+    [UPnP]
+      Play = '1'
+      Pause = '1'
+      Mute = '1'
+      Volume = '1'
+      NextItem = '1'
+      PrevItem = '1'
+      Seek = '0'
+    [Airplay]
+      Play = '1'
+      Pause = '1'
+      Mute = '1'
+      Volume = '1'
+      NextItem = '1'
+      PrevItem = '1'
+    [iPOD]
+      Play = '1'
+      Pause = '1'
+      Mute = '1'
+      Volume = '1'
+      NextItem = '1'
+      PrevItem = '1'
+    [Pandora]
+      Play = '1'
+      Stop = '1'
+      Mute = '1'
+      Volume = '1'
+      NextItem = '1'
+      PrevItem = '1'
+      SignIn = '0'
+      SignUp = '0'
+      ThumbsUP = '0'
+      ThumbsDown = '0'
+      Bookmark = '0'
+      CreateStation = '0'
+      [Serach]
+        Genere = '0'
+        Artist = '0'
+      DeleteStation = '0'
+      StationInfo = '0'
+    [VTuner]
+      Play = '1'
+      Stop = '1'
+      Mute = '1'
+      Volume = '1'
+      NextItem = '1'
+      PrevItem = '1'
+      [Serach]
+        Genere = '0'
+        Artist = '0'
+      Bookmark = '0'
+    [LastFM]
+      Play = '1'
+      Stop = '1'
+      Mute = '1'
+      Volume = '1'
+      NextItem = '1'
+      PrevItem = '1'
+      [Serach]
+        Genre = '0'
+        Artist = '0'
+      Bookmark = '0'
+    [Rhapsody]
+      Play = '1'
+      Stop = '1'
+      Mute = '1'
+      Volume = '1'
+      NextItem = '1'
+      PrevItem = '1'
+      [Serach]
+        Genere = '0'
+        Artist = '0'
+      Bookmark = '0'
+    [Sirius]
+      Play = '1'
+      Pause = '0'
+      Mute = '1'
+      Volume = '1'
+      NextItem = '1'
+      PrevItem = '1'
+      Bookmark = '0'
+    [Napster]
+      Play = '1'
+      Pause = '1'
+      Mute = '1'
+      Volume = '1'
+      NextItem = '1'
+      PrevItem = '1'
+      Bookmark = '1'
+      [Serach]
+        Genere = '1'
+        Artist = '1'
+    [USB]
+      Play = '1'
+      Pause = '1'
+      Mute = '1'
+      Volume = '1'
+      NextItem = '1'
+      PrevItem = '1'
+      Seek = '0'
+    [FM]
+      AMBAND = '1'
+      RDS = '1'
+      SAVESTA = '1'
+      Volume = '1'
+      NextItem = '1'
+      PrevItem = '1'
+      AUTOTUNE = '1'
+    [WHA]
+      Play = '1'
+      Pause = '1'
+      Mute = '1'
+      Volume = '1'
+      NextItem = '1'
+      PrevItem = '1'
+      Seek = '0'
+      MasterLimit = '5'
+      SlaveLimit = '5'
+  [FirmwareUpdate]
+    BCDEncryption_BFKey = 'FEDCBA9876543210'
+    BCDEncryption_BFIV = '12345678'
+  [FirmwareDownload]
+    ProductId = '0'
+    ProductPWD = '0'
+    EmergencyFirmwareUrl = 'none'
+    Source = '0'
+    DefaultMethod = '0'
+    DownloadURL = '0'
+    FirmwareIndexPage = 'http://www.bridgeco-jukeblox.net/download/index.xml'
+    MCUPresent = '1'
+    FirmwareExt = 'bcd/fw'
+    EncryptionMandatory = '0'
+  [ResourceManager]
+    selectedLanguage = '1000'
+  [UartSwitch]
+    UartPortSelect = '0'
+    TelnetShellEnable = '1'
+    TelnetShellPort = '8000'
+  [SystemHost]
+    HostPresent = '1'
+    AllocateRecordTimeout = '0'
+    HostVersion = '0'
+  [CommunicationSettings]
+    Shell = 'UART1'
+    TelnetPort = '10000'
+    HostController = 'SPI'
+    iPodControl = 'UART0'
+    TCPIPTunnel = 'REMOTE_REGISTERS'
+    TCPIPTunnelPort = '50001'
+    EthDRC = 'ENABLE'
+    EthDRCPort = '10100'
+    EthDRCPort = '10100'
+    RRegXModemTxMode = '0'
+  [OutputPlug]
+    InterfaceName = 'lineout'
+  [NTP]
+    Enabled = '1'
+    NumServers = '2'
+    Server1 = 'pool.ntp.org'
+    Server2 = '134.214.100.6'
+  [SystemClock]
+    ClockSource = '0'
+    SleepTime = '00:10:00'
+    TimeZone = '0'
+    TimeFormat = '24'
+    DateFormat = 'dmy'
+    [Alarm1]
+      Active = '0'
+      AlarmTime = '7:00'
+      AlarmDate = '1.1.1970'
+      Repeat = 'week_days'
+      AlarmVolume = '50'
+      AlarmSoundSource = '1'
+      AlarmSoundCBPath = ''
+      AlarmDuration = '60'
+      SnoozeDuration = '00:05:00'
+    [Alarm2]
+      Active = '0'
+      AlarmTime = '00:00'
+      AlarmDate = '1.1.1970'
+      Repeat = 'week_days'
+      AlarmVolume = '50'
+      AlarmSoundSource = '1'
+      AlarmSoundCBPath = ''
+      AlarmDuration = '60'
+      SnoozeDuration = '00:05:00'
+  [USBHighSpeedMode]
+    Disable = 'FALSE'
+  [RTC]
+    AlarmInitialized = '0'
+  [Application]
+    [Presets]
+      NumberOfEntries = '60'
+      [Entry0]
+        Entry = ''
+      [Entry1]
+        Entry = ''
+      [Entry2]
+        Entry = ''
+      [Entry3]
+        Entry = ''
+      [Entry4]
+        Entry = ''
+      [Entry5]
+        Entry = ''
+      [Entry6]
+        Entry = ''
+      [Entry7]
+        Entry = ''
+      [Entry8]
+        Entry = ''
+      [Entry9]
+        Entry = ''
+      [Entry10]
+        Entry = ''
+      [Entry11]
+        Entry = ''
+      [Entry12]
+        Entry = ''
+      [Entry13]
+        Entry = ''
+      [Entry14]
+        Entry = ''
+      [Entry15]
+        Entry = ''
+      [Entry16]
+        Entry = ''
+      [Entry17]
+        Entry = ''
+      [Entry18]
+        Entry = ''
+      [Entry19]
+        Entry = ''
+      [Entry20]
+        Entry = ''
+      [Entry21]
+        Entry = ''
+      [Entry22]
+        Entry = ''
+      [Entry23]
+        Entry = ''
+      [Entry24]
+        Entry = ''
+      [Entry25]
+        Entry = ''
+      [Entry26]
+        Entry = ''
+      [Entry27]
+        Entry = ''
+      [Entry28]
+        Entry = ''
+      [Entry29]
+        Entry = ''
+      [Entry30]
+        Entry = ''
+      [Entry31]
+        Entry = ''
+      [Entry32]
+        Entry = ''
+      [Entry33]
+        Entry = ''
+      [Entry34]
+        Entry = ''
+      [Entry35]
+        Entry = ''
+      [Entry36]
+        Entry = ''
+      [Entry37]
+        Entry = ''
+      [Entry38]
+        Entry = ''
+      [Entry39]
+        Entry = ''
+      [Entry40]
+        Entry = ''
+      [Entry41]
+        Entry = ''
+      [Entry42]
+        Entry = ''
+      [Entry43]
+        Entry = ''
+      [Entry44]
+        Entry = ''
+      [Entry45]
+        Entry = ''
+      [Entry46]
+        Entry = ''
+      [Entry47]
+        Entry = ''
+      [Entry48]
+        Entry = ''
+      [Entry49]
+        Entry = ''
+      [Entry50]
+        Entry = ''
+      [Entry51]
+        Entry = ''
+      [Entry52]
+        Entry = ''
+      [Entry53]
+        Entry = ''
+      [Entry54]
+        Entry = ''
+      [Entry55]
+        Entry = ''
+      [Entry56]
+        Entry = ''
+      [Entry57]
+        Entry = ''
+      [Entry58]
+        Entry = ''
+      [Entry59]
+        Entry = ''
+    [HistoryBrowser]
+      [Configuration]
+        RootName = 'Recently Played'
+        BrowsersStored = 'RadioNative'
+      [Database]
+        NumberOfEntries = '20'
+        FirstFree = '1'
+        LastFree = '20'
+        FirstContent = '0'
+        LastContent = '0'
+        [Entry1]
+          Content = ''
+          Next = '2'
+          Previous = '0'
+        [Entry2]
+          Content = ''
+          Next = '3'
+          Previous = '1'
+        [Entry3]
+          Content = ''
+          Next = '4'
+          Previous = '2'
+        [Entry4]
+          Content = ''
+          Next = '5'
+          Previous = '3'
+        [Entry5]
+          Content = ''
+          Next = '6'
+          Previous = '4'
+        [Entry6]
+          Content = ''
+          Next = '7'
+          Previous = '5'
+        [Entry7]
+          Content = ''
+          Next = '8'
+          Previous = '6'
+        [Entry8]
+          Content = ''
+          Next = '9'
+          Previous = '7'
+        [Entry9]
+          Content = ''
+          Next = '10'
+          Previous = '8'
+        [Entry10]
+          Content = ''
+          Next = '11'
+          Previous = '9'
+        [Entry11]
+          Content = ''
+          Next = '12'
+          Previous = '10'
+        [Entry12]
+          Content = ''
+          Next = '13'
+          Previous = '11'
+        [Entry13]
+          Content = ''
+          Next = '14'
+          Previous = '12'
+        [Entry14]
+          Content = ''
+          Next = '15'
+          Previous = '13'
+        [Entry15]
+          Content = ''
+          Next = '16'
+          Previous = '14'
+        [Entry16]
+          Content = ''
+          Next = '17'
+          Previous = '15'
+        [Entry17]
+          Content = ''
+          Next = '18'
+          Previous = '16'
+        [Entry18]
+          Content = ''
+          Next = '19'
+          Previous = '17'
+        [Entry19]
+          Content = ''
+          Next = '20'
+          Previous = '18'
+        [Entry20]
+          Content = ''
+          Next = '0'
+          Previous = '19'
+    [Favourites]
+      NumberOfEntries = '100'
+      FirstFree = ''
+      FirstContent = ''
+      [Entry0]
+        Entry = ''
+        next = ''
+      [Entry1]
+        Entry = ''
+        next = ''
+      [Entry2]
+        Entry = ''
+        next = ''
+      [Entry3]
+        Entry = ''
+        next = ''
+      [Entry4]
+        Entry = ''
+        next = ''
+      [Entry5]
+        Entry = ''
+        next = ''
+      [Entry6]
+        Entry = ''
+        next = ''
+      [Entry7]
+        Entry = ''
+        next = ''
+      [Entry8]
+        Entry = ''
+        next = ''
+      [Entry9]
+        Entry = ''
+        next = ''
+      [Entry10]
+        Entry = ''
+        next = ''
+      [Entry11]
+        Entry = ''
+        next = ''
+      [Entry12]
+        Entry = ''
+        next = ''
+      [Entry13]
+        Entry = ''
+        next = ''
+      [Entry14]
+        Entry = ''
+        next = ''
+      [Entry15]
+        Entry = ''
+        next = ''
+      [Entry16]
+        Entry = ''
+        next = ''
+      [Entry17]
+        Entry = ''
+        next = ''
+      [Entry18]
+        Entry = ''
+        next = ''
+      [Entry19]
+        Entry = ''
+        next = ''
+      [Entry20]
+        Entry = ''
+        next = ''
+      [Entry21]
+        Entry = ''
+        next = ''
+      [Entry22]
+        Entry = ''
+        next = ''
+      [Entry23]
+        Entry = ''
+        next = ''
+      [Entry24]
+        Entry = ''
+        next = ''
+      [Entry25]
+        Entry = ''
+        next = ''
+      [Entry26]
+        Entry = ''
+        next = ''
+      [Entry27]
+        Entry = ''
+        next = ''
+      [Entry28]
+        Entry = ''
+        next = ''
+      [Entry29]
+        Entry = ''
+        next = ''
+      [Entry30]
+        Entry = ''
+        next = ''
+      [Entry31]
+        Entry = ''
+        next = ''
+      [Entry32]
+        Entry = ''
+        next = ''
+      [Entry33]
+        Entry = ''
+        next = ''
+      [Entry34]
+        Entry = ''
+        next = ''
+      [Entry35]
+        Entry = ''
+        next = ''
+      [Entry36]
+        Entry = ''
+        next = ''
+      [Entry37]
+        Entry = ''
+        next = ''
+      [Entry38]
+        Entry = ''
+        next = ''
+      [Entry39]
+        Entry = ''
+        next = ''
+      [Entry40]
+        Entry = ''
+        next = ''
+      [Entry41]
+        Entry = ''
+        next = ''
+      [Entry42]
+        Entry = ''
+        next = ''
+      [Entry43]
+        Entry = ''
+        next = ''
+      [Entry44]
+        Entry = ''
+        next = ''
+      [Entry45]
+        Entry = ''
+        next = ''
+      [Entry46]
+        Entry = ''
+        next = ''
+      [Entry47]
+        Entry = ''
+        next = ''
+      [Entry48]
+        Entry = ''
+        next = ''
+      [Entry49]
+        Entry = ''
+        next = ''
+      [Entry50]
+        Entry = ''
+        next = ''
+      [Entry51]
+        Entry = ''
+        next = ''
+      [Entry52]
+        Entry = ''
+        next = ''
+      [Entry53]
+        Entry = ''
+        next = ''
+      [Entry54]
+        Entry = ''
+        next = ''
+      [Entry55]
+        Entry = ''
+        next = ''
+      [Entry56]
+        Entry = ''
+        next = ''
+      [Entry57]
+        Entry = ''
+        next = ''
+      [Entry58]
+        Entry = ''
+        next = ''
+      [Entry59]
+        Entry = ''
+        next = ''
+      [Entry60]
+        Entry = ''
+        next = ''
+      [Entry61]
+        Entry = ''
+        next = ''
+      [Entry62]
+        Entry = ''
+        next = ''
+      [Entry63]
+        Entry = ''
+        next = ''
+      [Entry64]
+        Entry = ''
+        next = ''
+      [Entry65]
+        Entry = ''
+        next = ''
+      [Entry66]
+        Entry = ''
+        next = ''
+      [Entry67]
+        Entry = ''
+        next = ''
+      [Entry68]
+        Entry = ''
+        next = ''
+      [Entry69]
+        Entry = ''
+        next = ''
+      [Entry70]
+        Entry = ''
+        next = ''
+      [Entry71]
+        Entry = ''
+        next = ''
+      [Entry72]
+        Entry = ''
+        next = ''
+      [Entry73]
+        Entry = ''
+        next = ''
+      [Entry74]
+        Entry = ''
+        next = ''
+      [Entry75]
+        Entry = ''
+        next = ''
+      [Entry76]
+        Entry = ''
+        next = ''
+      [Entry77]
+        Entry = ''
+        next = ''
+      [Entry78]
+        Entry = ''
+        next = ''
+      [Entry79]
+        Entry = ''
+        next = ''
+      [Entry80]
+        Entry = ''
+        next = ''
+      [Entry81]
+        Entry = ''
+        next = ''
+      [Entry82]
+        Entry = ''
+        next = ''
+      [Entry83]
+        Entry = ''
+        next = ''
+      [Entry84]
+        Entry = ''
+        next = ''
+      [Entry85]
+        Entry = ''
+        next = ''
+      [Entry86]
+        Entry = ''
+        next = ''
+      [Entry87]
+        Entry = ''
+        next = ''
+      [Entry88]
+        Entry = ''
+        next = ''
+      [Entry89]
+        Entry = ''
+        next = ''
+      [Entry90]
+        Entry = ''
+        next = ''
+      [Entry91]
+        Entry = ''
+        next = ''
+      [Entry92]
+        Entry = ''
+        next = ''
+      [Entry93]
+        Entry = ''
+        next = ''
+      [Entry94]
+        Entry = ''
+        next = ''
+      [Entry95]
+        Entry = ''
+        next = ''
+      [Entry96]
+        Entry = ''
+        next = ''
+      [Entry97]
+        Entry = ''
+        next = ''
+      [Entry98]
+        Entry = ''
+        next = ''
+      [Entry99]
+        Entry = ''
+        next = ''
+    PowerState = '1'
+    ManageProfiles = '0'
+    ManageKeys = '0'
+    SkipOnRadioStations = '0'
+    EnableSleepTimer = '1'
+    PlayViewTitle = 'DateTime'
+    iRadioShortcut = 'RadioNative'
+    UpDownAsVolume = '1'
+    NumberCmdPlaysPreset = '0'
+    ResumePlaybackAfterStandby = '1'
+    IPodArtworkFetchTimeout = '1'
+    [Screensaver]
+      Enabled = '1'
+      Timeout = '30000'
+      View = 'CLOCK'
+    [BrowseJB]
+      Enabled = '1'
+      Timeout = '10000'
+    [ScrollSettings]
+      [Font0000]
+        ScrollStepSpeed = '100'
+        ScrollStepWidth = '6'
+      [Font0002]
+        ScrollStepSpeed = '15'
+        ScrollStepWidth = '1'
+    [Paravent]
+      Enabled = '0'
+      XMLLocation = 'rom:///ui/ui.xml'
+      Skin1Name = '4-Line UI'
+      Skin1 = 'rom:///ui/ui.xml'
+      BrowseLinesSkin1 = '4'
+      Skin2Name = '8-Line UI'
+      Skin2 = 'rom:///ui/ui_8Lines.xml'
+      BrowseLinesSkin2 = '8'
+    [UI]
+      BrowseLines = '4'
+      TVFormat = '0'
+    [IR]
+      A55A = '1'
+    [NetIF]
+      mode = 'autosense'
+      CurrentMode = 'wired'
+    [TimeDateFormat]
+      TimeZone = '0'
+      DaylightSavings = '0'
+      TimeFormat = '1'
+      DisplayFormat = '1'
+      Enabled = '1'
+    [AlarmCneSet]
+      ActiveAlarm = '2'
+      MaxAlarmPeriod = '30'
+      SnoozePeriod = '5'
+      HourlyChime = '0'
+      MaxAlarmConnectionTime = '30'
+      AlarmStopKey1 = 'STOP'
+      AlarmStopKey2 = 'CANCEL'
+      AlarmStopKey3 = 'POWER'
+      [Alarm1]
+        OnOff = '1'
+        Repeat = '0'
+        Volume = '60'
+        ToneSource = '1'
+        Hour = '0'
+        Minute = '0'
+        Name = ''
+        Description = ''
+        Url = ''
+        MimeType = ''
+        Frequency = ''
+      [Alarm2]
+        OnOff = '1'
+        Repeat = '0'
+        Volume = '60'
+        ToneSource = '1'
+        Hour = '0'
+        Minute = '0'
+        Name = ''
+        Description = ''
+        Url = ''
+        MimeType = ''
+        Frequency = ''
+    [VIIV]
+      CBServerFilter = ''
+    [RTC]
+      AlarmVolume = '60'
+      AlarmEnabled = '0'
+      TimeFormat = '0'
+      TimeAMPM = '0'
+      AlarmAMPM = '0'
+      AutoSyncOnNTP = '1'
+    [LCD]
+      LCDBrightness = '2'
+    [FM]
+      FMSensitivity = '0'
+  [MocanaSSL]
+    Certificate = '308202d23082023ba0030201020214415f14be948800b6c222c1735151f9588a314703300d06092a864886f70d01010405003081a5311430120603550406130b556e69746564204b696e67310f300d06035504081306576573742053311330110603550407130a576f727468696e67004231143012060355040a130b426f7765727320616e642031143012060355040b130b007765624366674e65744d31193017060355040313105a657070656c696e5f4169725f5365743120301e06092a864886f70d010901161170737570706f727440627767726f75702e301e170d3130313130333030303132365a170d3135313130333233303132365a3081a5311430120603550406130b556e69746564204b696e67310f300d06035504081306576573742053311330110603550407130a576f727468696e67004231143012060355040a130b426f7765727320616e642031143012060355040b130b007765624366674e65744d31193017060355040313105a657070656c696e5f4169725f5365743120301e06092a864886f70d010901161170737570706f727440627767726f75702e30819e300d06092a864886f70d010101050003818c00308188028180403fe66c9677e8c6310e24e347a2ff2e563c9b2fb5df8ab8f5eb4068936ad8a154d49030c51cd37ba304ef1d24bcd9835790845bd49d89cf4401dcff0092690b95e920630c1b85ea2a0bbf18fb12aac1943416933c2a79534a4d7820f1d32b38170a07dc092c9e3a829242b9b57b8e93a485d0fb97bb6cd58371ccb126d9285b0203010001300d06092a864886f70d01010405000381810027e86e149c143dcb1018bdf8be9f4a7bd250c333dd5cbcad5351aea9c00e40bc34b3b6cb907562447e4094994061eaf1a86c00f3dbfba0be0e8f4a4451a7650524af548aa1712d908bc92ec3502c5ce3e386c84f54dc5ab9a2f05f073ab91321ba7bb3b675c8b1f6134040e60d874f80b30b87dc765a61de11e616d3ad9d9a62'
+    CertificateLength = '1452'
+    RsaKeyBlob = '00000000000000010000000101010000000301000100000080403fe66c9677e8c6310e24e347a2ff2e563c9b2fb5df8ab8f5eb4068936ad8a154d49030c51cd37ba304ef1d24bcd9835790845bd49d89cf4401dcff0092690b95e920630c1b85ea2a0bbf18fb12aac1943416933c2a79534a4d7820f1d32b38170a07dc092c9e3a829242b9b57b8e93a485d0fb97bb6cd58371ccb126d9285b00000040804bacd48ca930f59b3eddf360dbad32b73adbf0faa7e169b2222a372e0a6d581121a5d711ba346232d1527510edb9fed9ce07cd76c76e4c0923d5c55b0ddf670000004080340145a9648290e48958d221e6f7021122e3fd9c5c94f25595ddc7c8e8d36b03e141855ae13813a933c50b9d8c9d29a10ada5572745d29c5880d1fabfc3aed00000040555d851f5c84cb7df11190af7b58505339962178a3e006ddc458754c88070a209a2d90629d7a0f96f387525d70a92da4449a9198861b46e9b2ff34238065a7ab000000403f59734778ecb197e755f70ddeb2c25bc31bfa8cd736e862d6e7b72f81978ae0d689f8566d11dd23d9f83ae60273f93518dec404750a0aff191ca15f851c9e01000000401e0bf2fd146a25b9edb0b0905026c6579960c750c8ca258342c9febb471c39cd886fcc13403ff92d357f04f18cb8ff36f5c391bd0e110d319e35a07bb82538220000011701000002000000004101000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004103ecde2746748ac38e21ebfb6a46f91ac0ef4657c426b660c4ada4590062bbbb41f77a3561c12084e0f4bbb85e19b73e782d4639492639fe526f002c222982450800000040804bacd48ca930f59b3eddf360dbad32b73adbf0faa7e169b2222a372e0a6d581121a5d711ba346232d1527510edb9fed9ce07cd76c76e4c0923d5c55b0ddf6700000040d51add717f160ad3d572a8235c84a83fb9d6573ef025041e2ed3866bf3afca414d9b271b6f31add632f9d868860b96a8be0bef75ebadf633d92fe6f2853a33a90000011601000002000000004101000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004012098d08613ac73737b028fe0fa3352b0b21c7a26fbbbd7c7fa9ea1ebb3b92c24ef49045ab63feff8a9957bb6dd24996068c86c618a4098ca256b214fd03eb530000004080340145a9648290e48958d221e6f7021122e3fd9c5c94f25595ddc7c8e8d36b03e141855ae13813a933c50b9d8c9d29a10ada5572745d29c5880d1fabfc3aed00000040240477e46aa7a1d753e7301131940cc90a8000f8a629b812b58cedff4360b16214eb183f231931cd47f194b0f2021217acb0d7e6ba9df31ddf7b3ae7014ecd1b'
+    RsaKeyBlobLength = '2116'
+    [CertificateInfo]
+      CountryLocation = 'United Kingdom'
+      StateProvidence = 'West Sussex'
+      Locality = 'Worthing'
+      Organization = 'Bowers and Wilkins'
+      OrganizationUnit = ''
+      CommonName = 'Zeppelin_Air_Setup'
+      EmailAddress = 'psupport@bwgroup.com'
+      CertificateStartDate = '101103000126Z'
+      CertificateEndDate = '151103230126Z'
+  [Rhapsody]
+    Keyblock = ''
+    DevicePrefix = 'rdk_dev_2'
+  [RhapsodyDirect]
+    Enabled = '1'
+    Logon = 'retoschreiber'
+    Password = 'bco'
+    TrialAccount = '1'
+    Certificate = '0238296dc3a95a347a5f46a4b27be2cdaf091bb701c835065f8ab0dc3fc84a18a127190fc44971ff5f8062a8e1ecef68250d97d4a78a7a52615b9c348b894032009703fa95bb73ab1befc77d2391341cdc3787e8e91094e47195110965c3f4feba81bf61bddf957d69b05b4cbda4dfd970e84b3fc608cf45c2de19df0a889a42286e11c5d1f4939b9b28e2110ca0618b1e6f951f457771e3c3582c0575c3ed4f528ebc7c5d4babcf6f7fe108b3ed0526856d7424f7d692eea85e4f2b531ada8bf3ffdef46372ede0bbd28620ec417566ec0d0691abe78e6715226845cc0afa4b7b3515f94c3cff505014cb30c97214f7660587569a480833bb83f549dbc47bbc49e59ae65a7dd8ba774d7cd77fe1419799ba514d0bb475023ff7416b56e7873dff7fc559d17cf5bddea4a2d6dc1b7a1e369f6b494e3feb89b5f37404ba7500d9ec04dbf991b8de3442594aa8c9e213792ffce0338545b92aa1cbdc88721345ba9b282c55c8b12b175af196c2eb81ec9ffb8994c9a06d472c2df3253631d81977628e78d33a0858a1d12401183ec652628b1cabeaf606ea2502f99d81467ba9bb4065ed92c86e7cbda35a76300a566e3d2d84fd77a72b86749cf358c82661ef0c85fdcf853cd26809b52810232182e6014e038cf495c310fa90fab141c15b9968c4fd511d1fcd589f84b1f3e0db3304f11030f0801f136cc739115c8f34e93e420fc570d18c1c47411319beb20f845050b5534ab4e716e9876c47d56c879d973d873f8652e47bcd310cb8959a80d44e354fc7c53af6beea4c6fd6006ffc38280032e7aca5386fd30c6b0880603fa7d949b42f01d8ee4aac50a8bfe1e9f0c310a31ea28ca905c0378942e4f7dc459e812d5866d5af66c0cd290d7bb11485072f30619d5c15d633a0ec3b830ad34c0ad2b18cf78307e74c8ab83c881a4f6e0a18747f9a0ca72a0b90f2b0303b8502136d5428953e12bd29497c803ff49bf38eae899fc5f4be12e77fb7fd6fbc8838468577a6daf6e9010d41fae253a854303edc0923b74e4e8d42b3c482a4f8d6b011d7b58aec2c7e55135e57a3cc00681f9112d73f070daf0236baefb3d1d2c53d9c02281a76a5f16cf247fb66871e8b8e8d03b612082f6b3682f07dc369547113e39fb0f85789ad7978f517a97907d1e45ab1da436b85fe521df9c11533f68e750e366e2dbc8081cadbe626'
+    Keyblob = '46a6ed479ed8839cdefd0955fee1a81ce9ef91503d04462bee40751d8106bd037bc0e31853826d68806f9c568845fc3119c81aeaaf1e8842bf95fff85a5f61ac88f7633cab8f7aaed3fc47eb10e5d70317ddd75eb9d6738cf991bfa845d6d15c25cbc77018b92a20ef981d53f081924fb0de00d308edf6a6a36d8187578a1d70242ff267b8438f7a21a5773add53b6f2153c891b961fbfd33cdf196ac4650fb2d2ebabd22c6642f4ce3cb549c5bdb77b4778b60db43c2cff96f28eafd2687350e3018bb375e82c22f6bbc367de21038ac1a5f626c50d90932dc72e9a26a234298905f8988442c55b40d125aa196851e74ccb8b29a48f8d431764f0f311b76a505977b7a80efa55143de0bc1ea50e3a0ccfcdf0e89c1c181378ac80be2d8421100947d28935befb40b56520b1d14e6c72cc0a83735dd2191a9aa405f4ad8ac6e26a310dacb954c0722c88f2518ac9128af09f37a9aa88232f31acd8db3f761fb5e62824d9965c5d2b51185770ccb81e1c2b27103c41f3b3acb662c8625288b1cf5b1edd1b3b945b40b51357d2dc8851b2bf52a66f649c861d6387a85600e5dd40a4e6f9d677305701b38bba6786a52a2a734c36b087516083a2af0a413743e3092c6ae961067107c02ceb44a86a4c878112f7978e13047949f00d924193b87ecae103a9b29e77a229dd72eef4d0309bbd958fb33f1a65cdea97921689baa0a1c541f04d3cc27aa8b939a28fb6e2bb420d324a1e3090d68b0093eb6da10f347ebf9cd35791fea68e71a7f5fd1cb65fab32326aba1ae923b675613e6081141c6b726ed3edc395ca4eae7338d34ecff31fd71e06d7dfe98e02de4eca2cb52cd34f8aa1d41478611bdb0e0431e4a20da0dcc142fa386f3dc641857000ba5c3270c8c491cf830ba7129a415c03abcb8c7b9b033e17f8166330c788a2838aa5503555024c8f60ae5a9c30760b7186c0d2cd45025bd355900d1165e3a7304bd1932c4cc0f0d0635603f1a975d562a88940453ed3acc6c2d7ab9a6d3cb14e8b09b7b8d12c7ac603403a66debf1fafb998e5a7572be8d321dd3bad258fe80f0ad5b15cbed5ea1a752a6a34bb3556b66fab5aa4bd5357df91365ae49ebeeb56014da576a8f7bd35a9ab73a5678b1939b327017caa3e1d4988e24a8752b3332bc1133a552aac58347be5c483e8600f3c6cc8d6b6b413fc689ff1a0fec1069b7439e5a0a7ec0ccaab9b456884b59a4a3199b60a2833aad6b36d2da79370292b9e39bc73ca992cc408d857303796a1fff97f95d21f8aad69a41a3f11daab82dd29f379e5242361158583578be1a9e6776923eb322bd3815ea59790a9f37128d346f627446d1f0a966401aa4b683a87461cc6308be85fe6c7348a58470d35edcafa88974b2879d336e2f9e782da39b67b003b5b59f66fdd8cf300ec76fe9f0ff3d1c6796c85d3890a99c474f076c53d160d8b93dd6d6b7c864f20c243e6883812f89dbf3d95c87a2015fbf5944aaddab304981733f7b9b667763b2b60f27549'
+    CobrandId = '40134'
+    ClientType = 'bridgeco'
+    DeveloperKey = '9B3J7E8C5A6C7D7F'
+    TrialAccountType = 'CE1'
+    TrialAccountDomain = 'bridgeco.net'
+    CA = '30820400308202e8a003020102020100300d06092a864886f70d01010505003063310b30090603550406130255533121301f060355040a131854686520476f2044616464792047726f75702c20496e632e3131302f060355040b1328476f20446164647920436c61737320322043657274696669636174696f6e20417574686f72697479301e170d3034303632393137303632305a170d3334303632393137303632305a3063310b30090603550406130255533121301f060355040a131854686520476f2044616464792047726f75702c20496e632e3131302f060355040b1328476f20446164647920436c61737320322043657274696669636174696f6e20417574686f7269747930820120300d06092a864886f70d01010105000382010d00308201080282010100de9dd7ea571849a15bebd75f4886eabeddffe4ef671cf46568b35771a05e77bbed9b49e970803d561863086fdaf2ccd03f7f0254225410d8b281d4c0753d4b7fc777c33e78ab1a03b5206b2f6a2bb1c5887ec4bb1eb0c1d845276faa3758f78726d7d82df6a917b71f72364ea6173f659892db2a6e5da2fe88e00bde7fe58d15e1ebcb3ad5e212a2132dd88eaf5f123da0080508b65ca565380445991ea3606074c541a572621b62c51f6f5f1a42be025165a8ae23186afc7803a94d7f80c3faab5afca140a4ca1916feb2c8ef5e730dee77bd9af67998bcb10767a2150ddda058c6447b0a3e62285fba41075358cf117e3874c5f8ffb569908f8474ea971baf020103a381c03081bd301d0603551d0e04160414d2c4b0d291d44c1171b361cb3da1fedda86ad4e330818d0603551d230481853081828014d2c4b0d291d44c1171b361cb3da1fedda86ad4e3a167a4653063310b30090603550406130255533121301f060355040a131854686520476f2044616464792047726f75702c20496e632e3131302f060355040b1328476f20446164647920436c61737320322043657274696669636174696f6e20417574686f72697479820100300c0603551d13040530030101ff300d06092a864886f70d01010505000382010100324bf3b2ca3e91fc12c6a1078c8e77a03306145c901e18f708a63d0a19f98780116e69e4961730ff3491637238eecc1c01a31d9428a431f67ac454d7f6e5315803a2ccce62db944573b5bf45c924b5d58202ad2379698db8b64dcecf4cca3323e81c88aa9d8b416e16c920e5899ecd3bda70f77e992620145425ab6e7385e69b219d0a6c820ea8f8c20cfa101e6c96ef870dc40f618badee832b95f88e92847239eb20ea83ed83cd976e08bceb4e26b6732be4d3f64cfe2671e26111744aff571a870f75482ecf516917a002126195d5d140b2104ceec4ac1043a6a59e0ad595629a0dcf8882c5320ce42b9f45e60d9f289cb1b92a5a57ad370faf1d7fdbbd9f'
+  [Sirius]
+    Enabled = '1'
+    Certificate = '4a8324df4e76b1d6b07722669bc3c1ae5d831ee9b99c707058c30785a05c016d3307898de2d3fff24fd10c40d334e4718f5d9316315ba6c95eb98bf85656291dd6c3eae813585bdf7cb16c7bf51875a77a76d65c5283b12cfc132713bf86fdff9e6c8ccad90771bd448885d6f2d984b882548043a09fa506a648e630e78da40371529ff4e61a92c870b7066f459d47bc97287a09b2a06fc14667992256f12f6ddcb7354161418e331b38629a601c44100165acf2c746d235922da6a829e811ff583fb91256b6195e3b3aa143ed1391a5e46d3332bd0da38dc9fe6dec4e582c4d0a0efde96db7d7ffbf797aa20049a532de0431c6959bd68f4ad84f247abd38e700b6ff03d7f34209038a084c539124395e4d40601542caa2441278dfaf45910a3c81722d36e04228f667c20e6ae49407d9d2e856054fc70c4ccb5306e7e5e206ce9040d52002ee9eeafb66db0772ab014e29259b18ba46201a21b0126579efef5e76b79cf564e7e6e180fd777cd29eae5e12ad77fd1291751ce039d0176824173742492938cb930feb4008da1e78a31087618001b632aa66dee438206c9b77a6838f2cd355dc8bb3aad02d225be61c1b4f9ba1012b4be9cc5cd8b72b7d37bddb5b1ee9276eb45cdb3c0358c2fcd71a34b8a235925a0a54bc710074930620757609025a76794b946cfa08e5a8270d2aa98517dc5276c40375d6db303b05fa34426ab79b2bac5f8090d06487282fa8a6b2fd910b29595814a54cd0b663d5464db75e622b93b97ae783b3ab72f3059609a1273a4d8adf8a8f170c51436b45957fb8c6e6e3ee5ee4ced4f63e404cedf505a8e5aaabfa72d0e9c37597bc491ae17705d278ccea78889a92e03a42f2e61de5b1ee388e692182ae39162b7ec22416307c7784cfaf056f3e84cdc4b074b0ae9363fc9bb0d4a3204577a28464e18f4a1a20118caecb40f26a326a975a638b65acd5582e24198b29a2c65259c735dc8c99a592beffb34511fb6ccb12fd40d3135aa1'
+    Keyblob = 'f1da5f9f88124991b291eeed13c500e451a4d30d971b60f1fbe1d112105aa64b75e0c0fe0c36c05799c04c9a9a75acb5990b226ff23a379122112fd3086825418a7365ce05692d6160823da2247a45e68ea2765247c199a3aa1b36172346d7382f3d35230db9aa0647ebe3cdd5c552b7ab821ace4fd8e3ba345f5d939c19b21efcd22d815a60fb773f49e02ca3a23daca220959e9af04ca9e3441953100120dc1b9eab757204049509d17c399de275bc48c36d3ff43349a1e8e4c926345eb2b21abeae33666e344eafa43696918d90cf83d1f325ab5b493971e948167f03a87e5d6d16d72a3e3296bd38d4e2cca20127c5182f2f347e891f2e082e71b30a818525cd8dd48e9acafdc6647ac9b3c1a9142f44fc60b4082d7217730a94d2869a1dcac39de8b8e420e20dff7d026d36539809ee6d584b4c75cf3dc5823d7638ac19dc79b012835d07bbe698472e3f8f5cdb6a869150326abcf18d013bc66173317d671cf712a7cef5d838d4e512518bb70892598440d6fccc199bfd4d388440ab9a8faf22a1352e1c3036875c625f5a3ec51719dc550bfa7926bde7eae5d9436ea67addc13f571739afedd3ff6c2a3c2b6d786fd70e96bc9873c036d2676ed955f62b13684a964ee8dd70f2c775e28e8cdd9114cb3e066c0caa319ff56cae5a88112733c8507a78318effc1bff29202965e897cf8f7d3f603cc0075dce47dd5c5ae8a0809a34be36b70a924c186884c37dd4aa0d3a24edb3a054d94c5f72a46030762a4fedfe17c1ab2a37720a66d33fa84d81b90d98cb23c63e9ab47717e3f3ff998619e5edce1eedb3ad807207e89a03d8e38dd105d93de2a74f8c119aaf9a2a4280e1f9627e40c0e7d538e1e92f2398a0d8ec725d7626e6b3a4d4b563c8ef6b5ae21d4a17dc78e070ace4bc8ddbf0a89d309ce6d4b599af08a52f379cd170a22efcfb7d14ed7a8d40885ecf65a8bac75287a518c75145ce5fee9da0e017a4aac95d4a4878f0b8a58c795a534bf9d01d9223e3e95bb51d6d01a83fdbaf5c56135cfd5c178a14ceabaa4791159209f633a242031abe2bca39804b206e2ce854561e420ec5b0783760c3473188d843e22d2feffe0ce83fdf623e2c828ad16ae252169a2bb8747162d98fc8a6f4a5e842c4d3dfb1ed5dae3033b79cd43358f80b43e2c92ea1489f618a8174af0a7609fcef791770f4c8b6e2547706a1871492364e25305d7ad6264142e4353c73d3f8fa46fd44f11720806637007d3bec16641bf8e1b8f5059ad2d8e37e7dff2088e485320754364fc583786c7ada8082ebf553b1e13b30ee4f2eb19a85a0b3c072d4e8e5806a1756f89c475a9930179a5b5bababc557592832e763fc7fb75920b31b380d73327eb74daca558245ba4de53840566c5f62528ab86d7600b82fe7baf64855f625159ce2df235e2d93f27acd71e68a226648c8ddfb7f41960ae26928c3cb1b68120870c936edea7934bc832d668d528ade7225a62f62c4c5e464da37237d64df3a75ff832f923d50'
+    CA = '308202A730820210020900FEAEE520A46FBCC1300D06092A864886F70D0101050500308197310B3009060355040613025553311330110603550408130A43616C69666F726E6961311630140603550407130D4D6F756E7461696E2056696577311A3018060355040A13115A696E672053797374656D7320496E632E310C300A060355040B13034F50533111300F060355040313087A696E672E6E6574311E301C06092A864886F70D010901160F7376636F7073407A696E672E6E6574301E170D3036303730313231313633375A170D3136303632383231313633375A308197310B3009060355040613025553311330110603550408130A43616C69666F726E6961311630140603550407130D4D6F756E7461696E2056696577311A3018060355040A13115A696E672053797374656D7320496E632E310C300A060355040B13034F50533111300F060355040313087A696E672E6E6574311E301C06092A864886F70D010901160F7376636F7073407A696E672E6E657430819F300D06092A864886F70D010101050003818D0030818902818100AC8869DDE42EA2BDBF7DC09F404029904C4277AF2893D8CCF6F52DE9A50E3ECBF7F10C4785FCDD81DAB99159D9B534B6D6426CA87A36218AD4D4845EA4C19BDA9806DF6C399D45A1C1CD6A4C1AB435791B30C316F86F74DA5FC8280067D0D33BA96A2E2856EA18A8C5C8809811A95F9105DE1D3C325D9652F281F9F44D0EE0210203010001300D06092A864886F70D0101050500038181004FEC8EB9F446F0B7E2DF23E23E6F755E3CCAB2DE732524DA246C9159E38D4673C8466AE16CCC518F15B84700E3D850302D70FB8D9ED93207BF5651865F74EBEEB4AB9CE51A0775F25A06F5051512D8CC1B841ABDA5E4CFE9E06BF15C609E8CD94D55B161979379FE43EAC9E7937F7545C7A84247C8C0A90E38BD6847B656742D'
+    UserName = 'dhtest04'
+    UserPassword = 'password'
+    PrimaryService = ''
+    BackupService = ''
+    DefaultService = 'https://stg-vip.zing.siriusxm.com/RoutingService/Routing.ashx/'
+    DigestPassword = ''
+    LoginAuthorization = ''
+    ListAuthorization = ''
+    InfoAuthorization = ''
+  [Napster]
+    TrialUserId = ''
+    UserId = ''
+    CA = ''
+    PartnerId = ''
+    UserPassword = ''
+    UserName = ''
+    Enabled = '1'
+  [Flickr]
+    Enabled = '1'
+    APIKey = '2e5d1718883d82b4472367c1baabd4f3cc2cf18b64b84ac7193e9dcbd9939f53a3e5f6895a1f5387c7c8ec5a41a8c2ac1e61230f1d7580a6'
+    Contacts = ''
+    MaxContacts = '30'
+  [Lastfm]
+    Username = 'hari_bco'
+    Password = 'bco123'
+    ApiKey = 'be1938598b31e8a49b4ef7c5d423659f'
+    Secret = '8d7e521840a4092ebc9ff88ddd832724'
+    SessionKey = ''
+    ClientId = 'tst'
+    ClientVer = '0.1'
+    [Scrobbler]
+      Enabled = '1'
+      SongsSubmitted = '0'
+      Status = ''
+  [Pandora]
+    UrlHttp = 'http://tuner-beta.savagebeast.com:8001/services/json/'
+    UrlHttps = 'https://tuner-beta.savagebeast.com:8443/services/json/'
+    SyncTimeKey = 'F0CB16367C953855'
+    RequestKey = '8DC6BD8B80EA9215'
+    DeviceModel = 'streamunlimited'
+    PartnerUsername = 'streamunlimited'
+    PartnerPassword = 'FEBFF1DF33DDF9504F3CC1C130E16C36D5A0419169E21EA4'
+    Username = 'rostislav.simonik@streamunlimited.com'
+    Password = 'pandoratest'
+    Certificate = '9eee91e78b32fe39e61cbe69afb334353e26ab0eb3b39235e9c025baccf02bbc97193034c94f18ff925a2f7a347e2de36197efcd2070a39245890e36c0161ed6ba069c41f7bbae50ac92c3fa7719ce049751c75cb242d4a767ea1713973e1ce54928c1dba514287d29739a9443fe455126387a59d4aa96740d7a6e584295d74bbd3e68e42fadaf744c3d2a50298bc0cac38ceed2b1e8901b5bd667c5c9d067c72064db50a1262e7c704e6e1ae2f310ddf54d08b0099b303483fff81adc25cb02d839c87758015ca941d7ac5f7f9fb6e5d5833c6ab441f0f32d8dcbd93b7c3de5430e594e90d5d00d00f15980efa96fede1b7d87c77c7ce085019f16dc31e15e1cce9c3cd0362e0852711745b3e3c8d001d0e37e88d8b62780146ef150a663d54dd1100aadf008a3b00ad23e77cad6a8df56e727adc57800e02c1015e12799a0d6ce65d22b6c3f184867cd9bee09ed9c5f490667789165b2cb2b8b5bef572b018e934d94ff491ea3b523c5b1a50082f8332064dad7f6b912c5ec1efa0ed105c7e9ed16c7e064e81480a370f42ec9ca991aaf9ac1f1d842feab518982ebab1fd7e3543bcfcc648a1d293ef84d86c5d59deb5bb143c6254809ec4d95eee9a01d14b544e389f0c542f97e952169396122878b12749f1f96019bb71623baaa199332f67920c338f7ee8e2274eda313fbec6934239f2db8c3980a41719604f054eb83cf36eb9f902c7f9af9bf9ca6426bbc7da7da4213b91f1219bba944ccd39283756c7207694ffb54100904d23bddf52de45e7e79ac7216345856993952f7bfdff5c97a578ff516e7d8df131c13343c17219f86c817fd20adc9ba605be6b372b9cd7060252f4a062da5cc95dc810baf8e856dd98bd334a96d2edee1b6ea300f6af9673ac5dadc867ead305adbbe443ffa232b8a1c8ee127cc304ffb27b8e9eff55212adddd3728cdde84cbf11aac9a259ab7c96503d82b1715c9c37a346f0c1e721d98e71bc8a90c83ab61610b5f3b37299a287fde241e3e36ec3bc393eaf20d89e647d69adc4750e2cd42f44d4a77fe9a12f8a30c60cdd758adab45e3b359877365775dcb112a6461b707491371ab7c9d0a7a131cdd5bfd85d0d761d0ac801296199765ddd15c376a0aafa5f60ac3b2219ae1de738021103cb2407c6ee598bd2638ec5fa631156cf33555017ff4a870a33afb0bdb77163ece1a'
+    Keyblob = '442e57b969d84499a164a89306d88b5ce16dc45876a941ca2c54121ae6a41a37414fd0583b3ec22516a3662ef21726cdf65575186e30af87ce512261f38af3370e6d510045abed247749f8902d0c8f588bbe3059e3fb0a34cf57cdc08746de78b1fd0dfb6ec385698fa112e2b78b3ad610154169193af1edbc73d93f49c7d660d0981f7bd8290d89203aefb3424861f5ecd3da388365a1d09173de83266efd9ffea5251efa5d293cfb18292245f70543c73edcb62b5474484e96004337b7347fb71cd1c41ccbb22ab1587853fca506816ded7568774ba5f566a39c9d26ae904e56fb8e5adc6a367215e3732e71874ead9c94361866515f8fd1a6291315a4212876c423f418d6bed176f8721f98c6c666eeb00f699fdbc0d6776051126af78caf25c34d8ced77d3a7b63ceb31cbe65bfccdc0246cb0a9849287ef05e21cc60d40f6c6e31398de8ef407f0814a9808d4fd924c997aab3a4ed4a8ae410b5b92cf5469ce8d3c72805321d72fdafb619aefe140425efaf2e52154287807be6199418bf3b23894e5432643ade69eca5f95e5a386b7ed940e8b53ef20034e1fe1aa455ebb5d7a45344e5386ebd32e41f6175543e9a975559d87570b294f37e3adf0b406c4f616e9bcc33d423d570944d25acf0a1411768883f8ba4aab883e6ff4d1a88b032bdd23bf4e52752aac9a85a22a09f153a9f86768e0e80387930c75015e96aeccbd5e81424f13ce3f0a2ba3bf4ba62584ea756c9728a82f10114e96dc7672c0a92292710acf8441539c0ac7fb8e3e5eb7144b5161a25388ff8fc78790ed810ba57c591ddf295a7c30114948e9bdc1ac9b413721c7eba8882a67848081948c5fcc363aae9216e625b8f5d123fb678ff99b69c2dbe1867503282de91e067063fd319ea99b3e677e20a0c7baa5061e310da5f88ffa6da31550311bcfd03a2c4bda626eb5f36d94654141212912a53628ce2eae15a2f5a6ca9ea262923e0df26a8f7a82a888604c87ff6b712f9be418ba6f9daf5744cfc19d23dba52b788ff5a6094378b5ba135ceeb74464c580df2d1c8089ab9373cac27ee46c5aa6a6dceed567c835bf84e2defdbadab1bd56311aa8570dcfb0c9994fcefb817f2598976bb2e84a9975f34cd62b8a69d16d94e7394a46636e2c74b64d87dc3643de94df60ebd713462d8c0cbc653b92329856626422d25b5bf5361c758e48554b2a7b0bc9267087c2717b8034dcd30f79684f2d078e318b369f2c787dc440eca45603c0788099a90c279018e42e382954d0404bdbd46608ffbcd03e822401344cbb01580290e2cb03877c8d844abc0074343e6166198fff3a67d57435e47f6f74963eec8a798500ef89c364e78ba6796759a77d8b59a88f4116652b0a374ad1f6e2a72b8bf5551fdec457c497121b51817651ee6807afb5a3f0de21c2126a0d81848e8366f0e0535796bbd63e393878dbbdc36d97f95cc53db93a78623d1cde68f890a732b43f18fba204fc8624c480b925fdfd97f7daec5222644351e73b'
+    CA = '308203023082026b02107dd9fe07cfa81eb7107967fba78934c6300d06092a864886f70d01010505003081c1310b300906035504061302555331173015060355040a130e566572695369676e2c20496e632e313c303a060355040b1333436c6173732033205075626c6963205072696d6172792043657274696669636174696f6e20417574686f72697479202d204732313a3038060355040b1331286329203139393820566572695369676e2c20496e632e202d20466f7220617574686f72697a656420757365206f6e6c79311f301d060355040b1316566572695369676e205472757374204e6574776f726b301e170d3938303531383030303030305a170d3238303830313233353935395a3081c1310b300906035504061302555331173015060355040a130e566572695369676e2c20496e632e313c303a060355040b1333436c6173732033205075626c6963205072696d6172792043657274696669636174696f6e20417574686f72697479202d204732313a3038060355040b1331286329203139393820566572695369676e2c20496e632e202d20466f7220617574686f72697a656420757365206f6e6c79311f301d060355040b1316566572695369676e205472757374204e6574776f726b30819f300d06092a864886f70d010101050003818d0030818902818100cc5ed1115d5c69d0abd3b96a4c991f5998308e168520466d473fd4852084e16db3f8a4ed0cf1170f3bf9a7f925d7c1cf8463f27c63cfa247f2c65b338e64400468c180b9641c4577c7d86ef595293c50e834d7781fa8ba6d4391958f45575e7ec5fbcaa404ebea973754306fbb01473233cddc579b646961f89b1d1c894f5c670203010001300d06092a864886f70d010105050003818100514dcdbe5ccb98199c15b20139782e4d0f67707099c6105a94a4534d546d2baf0d5d408b64d3d7eede5661925fa6c41d106136d32c273ce82909b9116474ccb5739f1c48a9bc6101eee217a60ce340083b0ee7eb44732a9af16992ef7114c339ac71a791096fe47106b3ba5957267900f6f80da2333028d4aa58a09d9d6991fd'
+  [DTCP]
+    DeviceSet = ''
+    EvalDeviceSet = ''
+    OrderFormat = ''
+  [Cardea]
+    EncKey = '623ed75da32cfe6e08d0d5212169597dccbd49214043befa9dabe5a8bc62d853faa1d7f3c5084452dac342e61f1b52b63380eb486ff1f05c20bf8dac3fa9e858463e142a56d396950d39fbed494a82e909c33968fdc5d674587cde6c92a5fa67368af6501e899ac0'
+    Certificate = '35421f9408cdde04870ed03da746cb2a6dc65b469fd7cfa99b5eabd8d1ff96fa539bc5edd88adde197ef142676eb58a5185e868bc9319b69c28255eb9b77f407831e03a6384a1a17125318dca7fabe8e184932bcdc748ce00b6ce8499e03ba0c9000a813cd40161d2a924c13b4b92dee137a201c0bcca823f9a6ef7d0878a6df979be759eb3e338c0cd66427bf27042c45680c3768d435b205f546457d240560ffa8064f6ebda91c55096a695e7e7f01627440e4c877c771f728a91f1984d9cffa10284147f96983d7295ae562d7245ed7557394f248ead448c46d1c58c7e568528fb5a64d2b607a5cb87bff1596da7cd795e0f82b770e4b576928c13a29b40cb6cc4c9af1cadb346ec55f969a992e77a54669031578c40c7cceb5f094e05ef5811f884a89aff108c0f45c2a983c081e90d580e19dc407c3ccaf93378728ecf1b9cce21a822dee2558c49c5aeaebc5d393cd13f62908bcd2888be0352d4e7d4f13dee51ea360661cf55f5925d50a502878d99bc4d053f27547e7ac4c9107e97c73f9d30d98322a0a6ab6f2ae0f582fb025403438e46807ffce76101871b613ef77fc421472ca1f61d6098f4b54a3ef4931a7f06bedd907d5a5afa4635cd6f42df1cd349830ac0f5e2d5f5383a562aded202bf13c498f5486323b7a1266c20903d80fbc93607322bf4ef736d679ee88060c41665edc86c2fe7400096a16337624cd7d6f9e87c4ce85f744fb4c58af308266723a18f820aa86cb5e6a56a2c4ec1cd4729a025aab50bf8262cf3a0f68ee21b45494951f4986421c010de208ecbaacfca4450acf73245cfda33af6fe9492c62fe82c791a53d5f55f8ad4b240d27d91fc3826f42cfc4bfc4a62076fd2a10cc6b1f59adb164b0435603a2bf2a1341464b47809b3dc7fa916c42e81e2df82b5ff0c259b7e22c368045304796539bd12acd82ca6a47b1d8164724f7793b95c2b431dd90c23977e07a2836485e733bbe38684489a405aba0437e634ca685a4d3b7d5b7b1b7c75439cbeea6bfaef95572f00953f79cf84425fa1b3481366e3f9f59009773e2fceedd46f3baf59fb7e19fca82c689e6875e47f66f07ef87aacd85118c7d4c29d1569cd54883eccc5753de8a8e0a788020f14513e7fd76094415cb56a94e49eb3db2318bc324c0d594222d7a463bc2a0f61862a42fa04d049cb7767cf33b0f63814dbd495fea14172f817f282d19274a0dd6dc5c1eb2190a064bedba6138d53f137d90341fc8b17596e6d111c5c6b1af8c089f2190601b109648eebcf54d41a533ac09328f68fb35c9ede61dd4056a37f59e929450255844d0bb23183e32d952dbbe3de0cd3582849e2bdcffa73edbfe591a10412b3800b0b36149d416527e4735a86c9bccceca7f0585fa9dcdf7084f22bd7078f56e46b40b7af06f0e407bcf319993fd012707beb8e1a665c67fc1495d2ea3868ea9a05e2d3a56bb031f0d5433a045491ebad27d5fc7e3a05230947976ebc49c20fc84a1b966dcf8dbd0d884efb75d5338fb078f3a371e76924f533040d40c04de8e9f0e2aff7f09ec46571040c8cac9483ac26cebbd60ab25be5fb77fb8866606903cba2c19f2f5d413eb0fca7b3c84e79cd0f882a86d233e9b25c443f2849dc29aec9b39e6cfa92457a6ba4bfde7a37e3ebc8d3015fb2fc3a9371ff58ee24a31df1559271954e9c8bbc95713b081cd3f445751f11c6c01308a0782974d493928664c2a8ebfe03f8489ca36b456cdf48881498693762052de0c8cce2167e97527c7a78f00704ef588fb877888cadb6c8c01d0d58eed779f90e99cb54c042d5393ce218b938af3532cb828e79acc602857e5edf010cb936dce44fe749932853fbd43ef738a1bcdadfee95a58ee4a84c6b2abd58b1a56048c2fb98fecba5f829f58773e7acc75315fde7ce71b280ff1104de4c3a719195c59150e1aa1f982e5ef9d7a7c858094f627cbaa25de0a578195c9794a341a10e7f295c7854b6d30b0f75b3e432eba40fe56c6951f8c0ef7dc5d5c0e5d5aa2ad4f4379c9f64e0c23289ec24cd7839189db936376e69da2f0e8f5abab2d389c7d1c2303b788a952817f8695cf64dbdcb97d063047e5be90ff70fa3f82510fa93a6f6646ecf3f2885acdcc935c7d9f64261e365d1633f135aa16dec78bb5da27030b9baebdc5839028644bdf7085039b91bf275d8d964bf1449dd5155b9c3e40cd8cb34501b3136a082c3e5ef0d44fba53a3763d786e5ab2f7749801fd5c2c41df6f0985265432cb67bc315ee6980e826fbe871dfd1bbf1ddf8b8f3ebcc3818c13250adf16d42cfc144fd9375c056c9baa3f0ef9216668bb19007319d08a6c2ee789fb66cf439b2f39a5ebb6fe8236790bbe551dabc2223f3c6c16f0dbd0931796d8529bd6d66709cd3ab1440107b1ced9557ea0780fd88159e0e068f86f6c8681fe29d94734c2cce1ecf86c55018843f63c21df402796639ce907382262afe1ba4227c16d1dc0555a4ab93cce6a89cf12db5dcb496da4ddeae783cf3d27a8dfe8c5d6fd9dd0b071923d87430658d91d34895c0a2ce22742cf35beb053bcf944510eee8dcbb43f67c5ba5a19cd128d8aebd16915c27d6eb3e3e597833be7e7829b917ca5e357d7cac07c8923f8d2f73fb39ec582819c15ae2318dbb04fa39b70f10238f08be320c7fc6222a5806ff7f8d2b33a85f164281c3a51ed87d3b9ad581f2a7b80508fc3a53fc29d8c53f18cd9a3e6e584503299f414d75d6115ec5bf40e6532e067b0d4dcbd76c016e3b43aa3fb579b401070454f3e7be530b2473f9f09bae1e875e3b887e5b3896de63ec5e727f69992ec1a09dcc64a937776c211f71d8eecce9e1fb824ea84c061276279783c9cdaed1776d98e57a702e82e8fe9d2d369063560e1ce362387982fbb6ae6bcc07e58e78ba51938061b1a259b75401bc57122e0e13d92634c97994d35aef9a5da4c5a399ba7ac683d1aaec657957b08fac74bdb12a0e0393df6c74c223de6dba40190d200eb31aefc454c96ca5eaef88d4e259efb578bfaae542b60c51da7884c606792c22b4d7449d412deac46574d261a484e4d640139e40f1ce90bb2513d92977ffa13234b342225633bd06ce01a5c4fe575375f8f091938ef5f6311729ffbf2b2aaecea925b8ed8618a521fe8b0e734c676afd417c3b46b4968b9c97c3f67792a68bc7f76cc1c5f649190a69520b1175455f6c94a0452fcf54165b60e4fbb623142706dd65f1a26c37dd6669d4855edeced3d67a5102cc7f72903c1f3d1465bcce851aadc517813047c836f32c127271fd5864bcac612dba89244b5bb7321e63d5cc2ec0de384b1812c4a3ef84d18d726a265c8ba4ab721cb2d9b055001cdf63ca3e22930fe7ec56dd624b02caae2e1c8692c3b14480769906ca8b0cceeadd7554fea1c32ddd982864fb86e2ceb9f3de4c8fb82baa267fc5c2d4c112bd850bcdba3c8fdbaf92361eee661dfffcefae4b7c35d810408673e9b6234bfec78d1f0df7c020301b8dbf086e2576d4d6c7d62b5338ab109e23f376dbee5f70a6789cec513cd69718f272e351285b4c6a7196f0374df70736d387684f0d8beb32961ba51559fb798fd41bee6c0d0ea737f782e66bf77be7763813badba3b0ecc3fd0e2d84c9daac2428336f4f6ab7cdb0b4174e660ef41fbe1d1c38b3cadb1e4f952861e2eef8e1243cf329dfc2f6a8fce003a78f3d2fb8a416cd3e6f6ffa6eccfef541bac1094988616bc4d015a180d3b6dcb412bccdabe0f7a9c341945eae52980442da8db9016cae4dc0a84aa447b3840f051f0e8e856fed253f9f38ddd399557198c6b44dc3949e5e4d91556090995f979ad3ec63d7c50e08176224387f12580811ee97446fe239f122f9c3e6d066c7dca2798ef13e06292076b6e48c16665c06f63949f6aa489382bb18491ddcce577a50f606a678831a2d322137deeecd5170da80c53b922b1d5e67f199cf0242d68ec6bcbcc175accabc254345f3a54ea68b757ce97104dd38c5dd225e2418be19dfec852c48c865d5a9564f7f846bbd6923efb554be4345aa5787737110727dc72bfa2b071949271fdb9256eca326fd82d47788482e0523d432abed2b3947d76d7f173b59abddbe75438fbd129b181109f953ec36da2062edf3e1015e3c190ea0aa52e486223c54c0ed989b8205bbbd992c29fc4c0ecc8defc575fd837ed9dee16d5189d15a0ea54daa45ebca661ea7ed562694f9a5ae66b325fbc27509f09af6afc563918164129ea6f794b42be6ced97049945c9edd542b7947eafeff04f0c0e1622e581ff5d56a5f52a31516e49e368351ef9cf5c26d78bc94e50a514173e1b6e801ed234295685ef4cde1aab8752fc575801787e65ab4c809e5401ff2dd44cb60c3de1e5c11c73971f4fea89be4817f04f087cd221adfc9ab814ddc152564aec6b08d9dca71509c9e91d8d53511695c0f9a8bba4c04cba4379da4e5975c57b5f1f1d4b0c73ce727b5817fb2a46f5acc0886e0df0c8a507e533a8f3b67c502383e55ea8816d2a1b6128fb310590fcb828afc84558c62c8c8480b9ae08514543783d642660f269c88e7f97e319c9b41cb158d2ad9c9f3b3d1d36180ae7417b0d9b1e4b173617bc7bd4eb1124fa6fc5fe6438b0bebc4365cf9514f081b6cd67cc23a37e4c40c7039381bc4388473bcca010754fc10d38d588a7bcf3cd77287fdb9a8df00357b49ba62871b121b7ecad2c01cb37b1ac08b015fe23911b4e721e12a950fe5985e6dcda6675149e3ae775df9191ef1e1c3d00d5a78afbda508be758d581489d0e333c2e20fe8e55c828eccf31dfd5455705c140e719f3622b3932db19230ddb9a58e4242eccd70a68a58f72fe40039d21152d9647fb382ef7f85c1494dd5a9685beb14e71bf433f321ecd0c09992140a81c29ca4490e0726682b9bc84ad15dd0561848c0c69c4842db136b42e7d4527a1f12711768a5c915244173b2b1a18ca1d6a904dd7a4320e1c70663bf20c1e6697af984bc0e4f730ebfd6c2aa21d730843bbea8ec9b34c4e03b54fbc2ba19bb7412fe8881c5406841d581ca555beff235e010255baf9e5d8c991156aa93450070c9e8e82bce74e3b3152dfbc5d433dcdcff3bbda392ee9c8f9e33e13f627e4715e23233ce50d27786e9c51a84692c285f97a15e55efb76dc7ceea0322a3c8551c51fa0aec169e2537b053f80c6d35d2edfa1640f5a47756dc358c9ed38537601f83b25d7539048f7942fdc7a9d37bcafee80c9545ed7a43512e30ec2e321890cf47720de126e3acab9cfa2adb5a8f810eca52a3d8cc5d4bfbd3b2a83de1818341329a87ccc4747d6e58bcefbd2659341b353c74bb781b9223df2c4a9277eb09413eaf2920137378aab87213650008f92ce81063df6b5c64d7f0c9207e303c66dc664d85c81f3faa463b70d17dcd7f37c647cc2321b38c3ba14d02d51c31105276fed0f09bd3361322b312c28cb01e83dd079499b1e3a5416c27bafe8232d09ad6ebfd5568a60c02d55a31228dd96cdd591c182fe53d1bdbabe601802e35aa91dfd023642024f74c249f98bee7e56656065b20be9835fe753c5adbb78b40165484b6d3937f5cec6420f162ec07f94d8e3cf6ac10489da0a0933995de3b67fd27436ed484d28d089a7343d7bfb75bcdcd0018842996f3c55195d007261566fed092872ec769bad00b0e8ed34b6c6a4e8f31807ac9c5ca0341ad6710172bdf4f6a58898d9121c3a7a09b485dfa881124b3f27e5c04bb2fedf17c7fd76af3d03ef2da3cc05fca176e6a2815a4636abf4a640101762036c813e151d2cb8620cd8a084109e8d30f532baf84b5ad31c57307b40b16def9da10b898811ac649e44d571b345bdd16b933e41e534f4194cb445109ac5491ea61cb5b6d06b43ecd7ef9f1ada73e5b2f1a1c574b8ae6b7e29cfe6c3de1163ebb8dde14e3843ec66a481bb5cec1c9c0204151f932df0f72aeab4b94ee8feef9c0e4c4798ce49bed11768fe289974862326b4f695c307aee5a70026bd957dbe2ef84dff08017e9d9a79bc2dd26de1d5b5a397da7b2bd86bafebd6fd85690822e26869c4aec825058bd2e03f4ff08c679bc5791d4a315731173c25b1c48b3a565a1112231b72d10cfae5af41ad9cc41cfd74e02e7794f7bd37fba7c24342f754c24870efbded7f8d93f97e099afa814cfe7f3578be843d2f30ba356e0b94b0005cf4d3b104f7de057bcfe35d55c2a617435ca077c807212fafc56ee1566a1fa021591714ea09789ae2c606118a862efc323f5b3c5f497e22f729bc5e1cd2101fe323c6b5acc2d2da99f89bf39e55e23727b1fdde70f3d08f1d7a0d3e31639bf69d188485e7a94d58d785d285e11cc9d90e8d2c3f9852e72c00284393ed3d61dd257de90f376eac9c17c91ded14e6154c70644adef0ae733faa9ae83c17e70dcc2143da2d7b03470aa23f18c45c605bc61b4f94cdb3f8c0728435813b38154af1ca747bb07b0158e0a8bc9086b04f0625e167e9151dd14f738a8d88632e50755787e0bfa57532fff2e1ecedbc17baf729f0b5d9dee52653a8a29769f35124b041f0f3afcf220f90b3d2078ec7392981be7a4630b27387a2cd0446f7a94f72e96f1fc488579962bb3bd01e9c4c32620fb0a0ebcf045e8de1cd3793f1761c19d2268fdb06c1b94c78ffa6c02e2f6ca8331c801f61d230e29a20156b53aee5c2de0c6ad959026ee3b90f7d3c2ef50fc139b6b84f33ca8058e1224867acbe6a5e2a2919466df1976d373977b0da3d577d54dd1ba6094e82b651882936423dc33cddb641a4366233c72b83d3dcecfb2d1fe0592e1c01ac3229d69799286eeace2ca7f01e08940297d0434a3501e1e11f4b491b7a9413e938008b6115e938cd5d6c479a4ba6e302521ad926f7f41efe8bffbdfeee8ec7e8f03bac0a648468416747cda7152dede86b775b4b67969f4e7e114c9098bbdbb8a238389c7d9f6d967da905fafb8eb79204af5c214614e575250fc68f770dd220eff25971e252362db18038ff77eea40949da1ce034e7785f4880b7494127c302ca85915183102f7ff80f27f0337b8c689213a00fef685211c912d8818bc638a68662bad9edb0059caaadba15526aaf44ff60a80225773c397e9330437a720a58e6359e6f254945d5ba030e86a4bf2d5ccd192c0c4fc95b51ba5279041517f5b7f748a06bbad4a188e67ebe8c61e4341c67011df77736ee45b8bf49668989134db1de9c4791b3db66451988ff2bd3b66388e7710c3d35c54eaa8dae0d7008afe9d30e82062ef33b2f73ca8bb81f198ec933b87a886ebef5b78d03b303739f76a4e1732236a90fdf8a238cca3981a6f233cb4e5e2d95343bac071ee73c7ce4bc357bb643b0e3bf9a45b22b7e1f85cedf4d4b52c0ee4fe6b005f623c7fe7cf88b0c8fda69f9597d7680d401fec63ff7b479d0474ec42ba9d7e54b2afc2747cba5be703612a0c15ce7e6ec101c91900546870ea9ddf039f0b01fff14fc7e3ec4cc4d681301fc11cd295fa3f38b797e911bda76c5882b18c155f8fc5157d510e34f21146e13aa8a3d7ae858cbd6ce6709ae04cd7962764ef1e3f7dc67ee24bce31b7545df06e9b7903204d666b23c49b8714680797d53942fbbe464be4589c475ff565cdb45e906adf0f6917f68c6406b54398f5787f24b1241acc036f28dfb26cdc613b9f072ad8e683b45c02974538ba341be52559e8bdfc200e6c89a0b415fba6fd36cc326bc2666442e8ec0d32024f49ec923aef3fc22010f3f5c69cd92a5f8b03b43bcf6fd9d5036ea5a85a1c3122e9c5bc2d04f8c56d094111ff246d01d5e9e49fdb2811dc8dcfa2021bc0b8e2fe3747264092b656405b27ab23c42526cadf9b76a41253f80a1006ed1cbac4cc68f17a0d6f71ce6188d10822b06b3fbc3b75f708d95a69319cb07722e8508e828da47e91f617cc39c14bd511ef6fd30ec1a4e6266de7d103bdcf184ba426a8ad62662fccb00dd494d939dc032acd73071366296fac908bf04ba0b95af3ac3d8d762df26632960892076f81ceb1ad4fdda184346d59daefeede4d0951dd0ff600e5d940e3f834d8856b2136e3f963d2a45a6cfe75427f546fb8c9396f859a2fab8b6424626c13a7b86975491632c76243819c53e430d3ac71314754be074afeb3bc5fcc168dbe4c945325a3415442012c9766ba24f25616465d0d4727ca2af4dff96bd956da98815a948f4d966f99a1c2631e5b53d6a9657d4cab4463523008f509b269582409f2ad54b27b514c2cde1d5c564ed1b45c75bd11a084c810d329a0852db3af3b2a9a7d4f93e4c12fdae4ccc616a9dbc40d759f5baaabe02b858c47e1c6ea29b9950a089b7adae97c22ef267729336b5fc851cd53c76df51a48b0fc3c8b514e9254c48cc5a080589123384092468be187a57d8039d27757b88d868138373a4fe93e76ee3143f695c490487b7c4df98a441e5ef30e68a472e80d4ce37e525d63e11d9261ce066a9a2561cd2bdb3b3702f111a9ca497bba1e94be079caba8fd7d569401bceb0b6f46a76ece509fb470c819146e22b10bbabc657c7c93c44f0106d87bf617a18060f1ee3d67576da1e0c22aec40c77b9c5cb2cf5399dd2c5580c98aa569a71ff2ba533aef6c35e401824ac9c9d1bf714743dbbd91597441090b81f11f63336f5a52d0c27c02c673d0d44ec3046d7ce722944c2f037f7239f2ce4716aedbf3751247099c0d54271d09229e500e2fa121ef50c031802d5fad8883201611371091633e9fbf888554bea4441ff2c03a6fe7a92c7ffc9f60465514dd1e80de9699ef415028cac2bccb03d328619da629dbc3deab34c53881dfb96341d89cdb88565998f370a57423a16bd91216d914e052093cdaa909159fbd9a3da4c5f34a1108594aa100b255b211a766689aed3fd5e29c4b86ae2396c339aff31f7aaa57dca5adba58d64c1046855a163a6060a07b6e99f07fc87fdda39df7fadcd00dc327bbde9441155f638df6b5ef330e53e267d1121137fe47e86e73903499e02ff574adaacaa8753210f6a442e4d2b01972388a8554e73645f572c5126b4307cd3b7cf51f6a4db08b8b192694a1d20a4a7f0f8acc23154bc7d065b48aa001bb2824dea8f7f13813456fe48761426d1d7f5a6ddd507f9de186d1c68a4b503b51e9fc243a31a903b850e1b93fcf85fde5ad5f2a183630db4fb02e817cefebabb46d720a5fdf59b439f51c5d1493428da41c3f3a4b0a5214300d0f64e375899be99357e1c1843e1fe83bcc6ac9e166b677c761c434a40d69a02be09dfb95e2c4e577600ad56a76f9493f3cf74e57a8a6a22d5cd5669e0252271dab8d7eb4a60333960bddee6942990259c8db81ef6c9bbf6c30dfdfe7fd0cb10b7ca7b3bf0486e2f8eafe2e2a38c5dadbb71b0f4eb1fac6c2ec80744e085eb1748c9bb4a70a8a389e27aaa2da3ed5319a9d8a356ac89ed752d782f2a62a115f09af6da16d7efce6b224b1d3726a46af2b59351837ddadf3bf9adc679c8d8eb85051cb49252046f166b0ac12dbeb8ed0b7eec7fdee6a67c23471846b28508a4b2415ad4ed6810daf82381a45b4546bdf45237b89cafc82b47ba001c3ff34c63f5ec6925aad5679386563ff6fe9c1057293d55f8dd7346e163969bf1a575a95949382274bba88ee565a575f2258d6f4d91c2e7389bcc954247133acff6c4dffcf53d9866efda657c0188d33c018dd5d751e629f66fb15aa90fdfd8b3e3c9ad2f6966bed8b606ffec202597363a2b27c92622dd6e19e35bf26dc7b14bf5543122830272f4c27c878afd7d080475e0a165a51ff1d22810e259ba33e09b47e1ee6d3c0122ffcc96ac3c349b5338423d599b0f045f623d360e78d197a66397a3f3ca269cbfcf3047c4c797f00f45867c0e05f5f8658d2d597d74ee16bea2365ebce8a1dc2d498cc4623784aa8eed3b390027c581d0846a5cc8d3bb5ffd57cf1bb5f30716a6deb4a9883f1d321db9b4a148c3154da0ef7004dd7bf5a99ddc7d351e64eb4a606573b35a4671f6cb707a085f2c5f7bae4633a15dca037a0761592217352b118ad15a75eac1869e537ef2560277666e061eababd217e0e45f97837d8879489f59d31a23780c3acf93b478dbca8e472c8640c02669371e5074bec603b95fa7c39a2190661832707e69a3267f14a4fb63ab46c46458c44e31a9cb740576cd083f31a834b5e89b095ac28219b5e6668cf2179459a744a7ca1df5fd443d0dc9942618b5f8a6ea5f77efdbc3541fa1ee80280e1fb9427131528062493b894a0efefe113f4884696061f7211231dba160c3c41ed96884221c465f48e88190aad0825de86c8808e0e84c960838306d9904be906622ba6e0bd3b7006f77a707a00459be183002ba75decb110051e0c360632c79f99c645cacc61427e60d3c4888b395dc3234495fb0efb666e27fc93898c2f46697f5371d53a4b428b538779a4198dd1a1915ab37300240e8f234530677625e23fe79e919baa650d352e76d431a8e8b4c4f40a81720ef98c4b737cd5c300d0122a69344e0875305753cdb962fdae61109cf4bfb987104da5ff32f1fa105264e38f655f19693ec88491a2091ca5d0a047d69b1ed764bac77808e4e2c1aa757cb642f56e20d7e38d0629c2f2f8a1a9a3b46c017f4fea5e994278d97ff42bc4ccc79bfa7a84fb8e7f396eeb64dea3fd3aaed4505f3700d33b25d46cf7d3bb987efe71083bb61a93be30f379144e522b37f16cf0bbc9be7d8a6b3b5cdbda43d0ba1c57b6a210d51c585d13f6958e7c50'
+    PrivateKey = 'd1052c44e1255d74e77cb7e21e12d94027721d4029325edf6cda6d7f481bee6a756a182de54e7f4c3e780cdc453365359f47adc2a77f21d0906d2bf86b664ea4aebf23b864555a0e6e33e1c14feb2227d8571931d87cbb3b9ae2cab5b3f729d650f9b6eb60724abac2e288e2f7e1a77a0d4df74d8f4c471f4f3f0d26e4a73462b13ca4f6c78f4fb9fa130bf09832ceb1adc6a622e20a999964e3d45e26666e349d8ac3bb64c0e25996eeed2c47ce9333b7c956a7566362b9d85d03bf1cf3bab00df847ddedbf027353e826a175630b6283287e6a282c5db64f18649e93b94e0870f5917567df9287407ed523e1b0ba114e10cf8fb6fc008c449b99050be777952578c76536e37997cca0f8a287bd1635a87401c38cc077c6b9a8c99cbf0baf5bf2ce4ad5fa2fc3573ebea2ff57543aed86c349614d7e26be9b343b9c45b25aba65863c66d2e3c3632ed77c8d2480d1640023ed323d435021c97ff0a6099d80521c0d8859748ddeec8ea3daa23d26231e74754d55c2389045d560399f0e4b8b82bab79c74a0803cfcfbac257763b024616fb2946a1fe9e5ba9de493a1c5369891805a56c0bec13aafc7dc9a48975e64c8476806117e894760a58783cfa4f65b8d908384cc409e10159c6ddfaac69a960d672ab4bfe8d2914bd3f268532d26297607b8151e81f00f40a80ec6a6a1e24ac3369f9b9acda005b939f387330d11a3d312e1c9913053d13b3c8d7bac241d5cae91cb584aed066b074831e7438fafe50a895226b39eb58c437f6a24031a836d9d4ba2648f1cc1bf33d97441d900b9377278095e3493dd726d4b7facb5ece395d85fd163de575d8bd3197ffb034312da4d3c9483eafa248a2d97c77a7efb1c2a8bb69644bbcb2c1c0b'
+  [SnapProtocol]
+    SnapBugfixHeaderSelect = '0'
+  [LineIn]
+    Enabled = '0'
+  [Presets]
+    Enabled = '1'
+    NumberOfEntries = '60'
+    [Entry0]
+      Entry = ''
+    [Entry1]
+      Entry = ''
+    [Entry2]
+      Entry = ''
+    [Entry3]
+      Entry = ''
+    [Entry4]
+      Entry = ''
+    [Entry5]
+      Entry = ''
+    [Entry6]
+      Entry = ''
+    [Entry7]
+      Entry = ''
+    [Entry8]
+      Entry = ''
+    [Entry9]
+      Entry = ''
+    [Entry10]
+      Entry = ''
+    [Entry11]
+      Entry = ''
+    [Entry12]
+      Entry = ''
+    [Entry13]
+      Entry = ''
+    [Entry14]
+      Entry = ''
+    [Entry15]
+      Entry = ''
+    [Entry16]
+      Entry = ''
+    [Entry17]
+      Entry = ''
+    [Entry18]
+      Entry = ''
+    [Entry19]
+      Entry = ''
+    [Entry20]
+      Entry = ''
+    [Entry21]
+      Entry = ''
+    [Entry22]
+      Entry = ''
+    [Entry23]
+      Entry = ''
+    [Entry24]
+      Entry = ''
+    [Entry25]
+      Entry = ''
+    [Entry26]
+      Entry = ''
+    [Entry27]
+      Entry = ''
+    [Entry28]
+      Entry = ''
+    [Entry29]
+      Entry = ''
+    [Entry30]
+      Entry = ''
+    [Entry31]
+      Entry = ''
+    [Entry32]
+      Entry = ''
+    [Entry33]
+      Entry = ''
+    [Entry34]
+      Entry = ''
+    [Entry35]
+      Entry = ''
+    [Entry36]
+      Entry = ''
+    [Entry37]
+      Entry = ''
+    [Entry38]
+      Entry = ''
+    [Entry39]
+      Entry = ''
+    [Entry40]
+      Entry = ''
+    [Entry41]
+      Entry = ''
+    [Entry42]
+      Entry = ''
+    [Entry43]
+      Entry = ''
+    [Entry44]
+      Entry = ''
+    [Entry45]
+      Entry = ''
+    [Entry46]
+      Entry = ''
+    [Entry47]
+      Entry = ''
+    [Entry48]
+      Entry = ''
+    [Entry49]
+      Entry = ''
+    [Entry50]
+      Entry = ''
+    [Entry51]
+      Entry = ''
+    [Entry52]
+      Entry = ''
+    [Entry53]
+      Entry = ''
+    [Entry54]
+      Entry = ''
+    [Entry55]
+      Entry = ''
+    [Entry56]
+      Entry = ''
+    [Entry57]
+      Entry = ''
+    [Entry58]
+      Entry = ''
+    [Entry59]
+      Entry = ''
+  [Favourites]
+    Enabled = '1'
+    NumberOfEntries = '100'
+    FirstFree = ''
+    FirstContent = ''
+    [Entry0]
+      Entry = ''
+      next = ''
+    [Entry1]
+      Entry = ''
+      next = ''
+    [Entry2]
+      Entry = ''
+      next = ''
+    [Entry3]
+      Entry = ''
+      next = ''
+    [Entry4]
+      Entry = ''
+      next = ''
+    [Entry5]
+      Entry = ''
+      next = ''
+    [Entry6]
+      Entry = ''
+      next = ''
+    [Entry7]
+      Entry = ''
+      next = ''
+    [Entry8]
+      Entry = ''
+      next = ''
+    [Entry9]
+      Entry = ''
+      next = ''
+    [Entry10]
+      Entry = ''
+      next = ''
+    [Entry11]
+      Entry = ''
+      next = ''
+    [Entry12]
+      Entry = ''
+      next = ''
+    [Entry13]
+      Entry = ''
+      next = ''
+    [Entry14]
+      Entry = ''
+      next = ''
+    [Entry15]
+      Entry = ''
+      next = ''
+    [Entry16]
+      Entry = ''
+      next = ''
+    [Entry17]
+      Entry = ''
+      next = ''
+    [Entry18]
+      Entry = ''
+      next = ''
+    [Entry19]
+      Entry = ''
+      next = ''
+    [Entry20]
+      Entry = ''
+      next = ''
+    [Entry21]
+      Entry = ''
+      next = ''
+    [Entry22]
+      Entry = ''
+      next = ''
+    [Entry23]
+      Entry = ''
+      next = ''
+    [Entry24]
+      Entry = ''
+      next = ''
+    [Entry25]
+      Entry = ''
+      next = ''
+    [Entry26]
+      Entry = ''
+      next = ''
+    [Entry27]
+      Entry = ''
+      next = ''
+    [Entry28]
+      Entry = ''
+      next = ''
+    [Entry29]
+      Entry = ''
+      next = ''
+    [Entry30]
+      Entry = ''
+      next = ''
+    [Entry31]
+      Entry = ''
+      next = ''
+    [Entry32]
+      Entry = ''
+      next = ''
+    [Entry33]
+      Entry = ''
+      next = ''
+    [Entry34]
+      Entry = ''
+      next = ''
+    [Entry35]
+      Entry = ''
+      next = ''
+    [Entry36]
+      Entry = ''
+      next = ''
+    [Entry37]
+      Entry = ''
+      next = ''
+    [Entry38]
+      Entry = ''
+      next = ''
+    [Entry39]
+      Entry = ''
+      next = ''
+    [Entry40]
+      Entry = ''
+      next = ''
+    [Entry41]
+      Entry = ''
+      next = ''
+    [Entry42]
+      Entry = ''
+      next = ''
+    [Entry43]
+      Entry = ''
+      next = ''
+    [Entry44]
+      Entry = ''
+      next = ''
+    [Entry45]
+      Entry = ''
+      next = ''
+    [Entry46]
+      Entry = ''
+      next = ''
+    [Entry47]
+      Entry = ''
+      next = ''
+    [Entry48]
+      Entry = ''
+      next = ''
+    [Entry49]
+      Entry = ''
+      next = ''
+    [Entry50]
+      Entry = ''
+      next = ''
+    [Entry51]
+      Entry = ''
+      next = ''
+    [Entry52]
+      Entry = ''
+      next = ''
+    [Entry53]
+      Entry = ''
+      next = ''
+    [Entry54]
+      Entry = ''
+      next = ''
+    [Entry55]
+      Entry = ''
+      next = ''
+    [Entry56]
+      Entry = ''
+      next = ''
+    [Entry57]
+      Entry = ''
+      next = ''
+    [Entry58]
+      Entry = ''
+      next = ''
+    [Entry59]
+      Entry = ''
+      next = ''
+    [Entry60]
+      Entry = ''
+      next = ''
+    [Entry61]
+      Entry = ''
+      next = ''
+    [Entry62]
+      Entry = ''
+      next = ''
+    [Entry63]
+      Entry = ''
+      next = ''
+    [Entry64]
+      Entry = ''
+      next = ''
+    [Entry65]
+      Entry = ''
+      next = ''
+    [Entry66]
+      Entry = ''
+      next = ''
+    [Entry67]
+      Entry = ''
+      next = ''
+    [Entry68]
+      Entry = ''
+      next = ''
+    [Entry69]
+      Entry = ''
+      next = ''
+    [Entry70]
+      Entry = ''
+      next = ''
+    [Entry71]
+      Entry = ''
+      next = ''
+    [Entry72]
+      Entry = ''
+      next = ''
+    [Entry73]
+      Entry = ''
+      next = ''
+    [Entry74]
+      Entry = ''
+      next = ''
+    [Entry75]
+      Entry = ''
+      next = ''
+    [Entry76]
+      Entry = ''
+      next = ''
+    [Entry77]
+      Entry = ''
+      next = ''
+    [Entry78]
+      Entry = ''
+      next = ''
+    [Entry79]
+      Entry = ''
+      next = ''
+    [Entry80]
+      Entry = ''
+      next = ''
+    [Entry81]
+      Entry = ''
+      next = ''
+    [Entry82]
+      Entry = ''
+      next = ''
+    [Entry83]
+      Entry = ''
+      next = ''
+    [Entry84]
+      Entry = ''
+      next = ''
+    [Entry85]
+      Entry = ''
+      next = ''
+    [Entry86]
+      Entry = ''
+      next = ''
+    [Entry87]
+      Entry = ''
+      next = ''
+    [Entry88]
+      Entry = ''
+      next = ''
+    [Entry89]
+      Entry = ''
+      next = ''
+    [Entry90]
+      Entry = ''
+      next = ''
+    [Entry91]
+      Entry = ''
+      next = ''
+    [Entry92]
+      Entry = ''
+      next = ''
+    [Entry93]
+      Entry = ''
+      next = ''
+    [Entry94]
+      Entry = ''
+      next = ''
+    [Entry95]
+      Entry = ''
+      next = ''
+    [Entry96]
+      Entry = ''
+      next = ''
+    [Entry97]
+      Entry = ''
+      next = ''
+    [Entry98]
+      Entry = ''
+      next = ''
+    [Entry99]
+      Entry = ''
+      next = ''
+  [RadioNative]
+    Enabled = '1'
+    SearchEnabled = '1'
+    RecentlyPlayedEnabled = '1'
+    RootName = 'Internet Radio'
+    RootUrl = 'http://bridgeco.vtuner.com/setupapp/bridgeco/asp/BrowseXPA/loginXML.asp'
+    RootUrlBackup = 'http://bridgeco2.vtuner.com/setupapp/bridgeco/asp/BrowseXPA/loginXML.asp'
+    LoginUrl = 'http://radio567.vtuner.com/setupapp/radio567/asp/BrowseXML/loginXML.asp?token=0'
+    LoginUrlBackup = 'http://radio5672.vtuner.com/setupapp/radio567/asp/BrowseXML/loginXML.asp?token=0'
+    SearchUrl = 'http://bridgeco.vtuner.com/setupapp/bridgeco/asp/BrowseXPA/search.asp?sSearchType=2'
+    SearchUrlBackup = 'http://bridgeco2.vtuner.com/setupapp/bridgeco/asp/BrowseXPA/search.asp?sSearchType=2'
+    SearchString = 'Rock'
+    XTEAEncryptedBlowfishKey = '9f916bfbb6ebe47bd5319d56caa5c49111e55f37ca0c9a57de4735bfa9c5030b1b871d74172ce74b'
+    XTEAEncryptedBlowfishInitialVector = 'a253c3f2ba68cb0a25b1db2720c557ce2fd696097aeb466ad2e4ba04656d34ca'
+  [BCORadioClient]
+    RootName = 'BCORadio'
+    RootUrl = 'http://persephone.bc-int.net:8080/'
+  [HistoryBrowser]
+    [Configuration]
+      Enabled = '1'
+      RootName = 'Recently Played'
+    [Database]
+      NumberOfEntries = '20'
+      FirstFree = '1'
+      LastFree = '20'
+      FirstContent = '0'
+      LastContent = '0'
+      [Entry1]
+        Content = ''
+        Next = '2'
+        Previous = '0'
+      [Entry2]
+        Content = ''
+        Next = '3'
+        Previous = '1'
+      [Entry3]
+        Content = ''
+        Next = '4'
+        Previous = '2'
+      [Entry4]
+        Content = ''
+        Next = '5'
+        Previous = '3'
+      [Entry5]
+        Content = ''
+        Next = '6'
+        Previous = '4'
+      [Entry6]
+        Content = ''
+        Next = '7'
+        Previous = '5'
+      [Entry7]
+        Content = ''
+        Next = '8'
+        Previous = '6'
+      [Entry8]
+        Content = ''
+        Next = '9'
+        Previous = '7'
+      [Entry9]
+        Content = ''
+        Next = '10'
+        Previous = '8'
+      [Entry10]
+        Content = ''
+        Next = '11'
+        Previous = '9'
+      [Entry11]
+        Content = ''
+        Next = '12'
+        Previous = '10'
+      [Entry12]
+        Content = ''
+        Next = '13'
+        Previous = '11'
+      [Entry13]
+        Content = ''
+        Next = '14'
+        Previous = '12'
+      [Entry14]
+        Content = ''
+        Next = '15'
+        Previous = '13'
+      [Entry15]
+        Content = ''
+        Next = '16'
+        Previous = '14'
+      [Entry16]
+        Content = ''
+        Next = '17'
+        Previous = '15'
+      [Entry17]
+        Content = ''
+        Next = '18'
+        Previous = '16'
+      [Entry18]
+        Content = ''
+        Next = '19'
+        Previous = '17'
+      [Entry19]
+        Content = ''
+        Next = '20'
+        Previous = '18'
+      [Entry20]
+        Content = ''
+        Next = '0'
+        Previous = '19'
+  [RDM]
+    UserFriendlyName = 'USB'
+  [MultiRadioStationDB]
+    Enabled = '0'
+    NumberOfEntries = '0'
+  [Shell]
+  [iPodAccInfo]
+    Manufacturer = ''
+    ModelName = 'eDMP3.9_CE2'
+    ModelNumber = ''
+    [AccFwVers]
+      MajVer = '0'
+      MinVer = '1'
+      Rev = '33'
+    [AccHwVers]
+      MajVer = '3'
+      MinVer = '4'
+      Rev = '55'
+    [iOSCommunication]
+      iOSCommEnabled = '0'
+      NoOfProtocols = '5'
+      BundleSeedID = 'xxxxxxxxxx'
+      ProtocolName1 = 'xxx.xxxxxxxxxx.xxxx'
+      ProtocolName2 = 'xxx.xxxxxxxxxx.xxxx'
+      ProtocolName3 = 'xxx.xxxxxxxxxx.xxxx'
+      ProtocolName4 = 'xxx.xxxxxxxxxx.xxxx'
+      ProtocolName5 = 'xxx.xxxxxxxxxx.xxxx'
+      EnableiOSSPIComm = '0'
+      ApplicationBunddleID = 'xxx.xxxxxxxxxx.xxxx'
+    [iOSApp]
+      iOSAppEnabled = '1'
+      ServiceType = '_JB2XiOSApp._tcp'
+  [Ipod]
+    IsSimpleMode = '1'
+    AutoReleasePlayPauseButton = '1'
+    RemoteUIHeadUnitClaim = '1'
+    SimpleRemoteClaim = '1'
+    CPPresent = '1'
+    CPOnHost = '0'
+    CPAddress = '0x20'
+    ExtraCurrent = '1600'
+    ExtraCurrentInSuspend = '500'
+    [CommInterfaces]
+      Serial = 'TRUE'
+      USB = 'TRUE'
+    Audio = 'Digital'
+    [HW]
+      IC = 'TRUE'
+      Video = 'TRUE'
+    [ArtworkFormat]
+      Serial = '55'
+      USB = '320'
+    SetVidDel = 'TRUE'
+    [iPodAccCapability]
+      VideoOutAccessoryClaim = '0'
+      LineoutAccessoryClaim = '1'
+      RFCertClaim = '27'
+      EnableVideoOutSetting = 'on'
+      EnableVideoOutConnection = 'composite'
+    [VideoDelay]
+      32k = '3200'
+      44_1k = '4000'
+      48k = '5000'
+  [FMTuner]
+    Enabled = '1'
+    NumberOfEntries = '10'
+    FirstFree = ''
+    FirstContent = ''
+    [Entry0]
+      Entry = ''
+      next = ''
+    [Entry1]
+      Entry = ''
+      next = ''
+    [Entry2]
+      Entry = ''
+      next = ''
+    [Entry3]
+      Entry = ''
+      next = ''
+    [Entry4]
+      Entry = ''
+      next = ''
+    [Entry5]
+      Entry = ''
+      next = ''
+    [Entry6]
+      Entry = ''
+      next = ''
+    [Entry7]
+      Entry = ''
+      next = ''
+    [Entry8]
+      Entry = ''
+      next = ''
+    [Entry9]
+      Entry = ''
+      next = ''
+    [Presets]
+      NumberOfEntries = '10'
+      ActivePreset = '0'
+      FirstFree = ''
+      FirstContent = ''
+      NoOfStoredStations = '0'
+      [Entry0]
+        Entry = ''
+        next = ''
+      [Entry1]
+        Entry = ''
+        next = ''
+      [Entry2]
+        Entry = ''
+        next = ''
+      [Entry3]
+        Entry = ''
+        next = ''
+      [Entry4]
+        Entry = ''
+        next = ''
+      [Entry5]
+        Entry = ''
+        next = ''
+      [Entry6]
+        Entry = ''
+        next = ''
+      [Entry7]
+        Entry = ''
+        next = ''
+      [Entry8]
+        Entry = ''
+        next = ''
+      [Entry9]
+        Entry = ''
+        next = ''
+    [HAL]
+      [RDS]
+        SearchStopLevel = '5'
+        MonoStereo = 'Stereo'
+        BandLimit = 'US/Europe'
+        StereoNoiseCancelling = '1'
+        LevelHysteresis = 'Small'
+        AutoHLSI = 'Off'
+        SoftwarePort = 'On'
+      SearchStopLevel = '7'
+      MonoStereo = 'Stereo'
+      BandLimit = 'US/Europe'
+      StereoNoiseCancelling = '1'
+      HighCutControl = '1'
+  [AMTuner]
+    Enabled = '1'
+    NumberOfEntries = '10'
+    FirstFree = ''
+    FirstContent = ''
+    [Entry0]
+      Entry = ''
+      next = ''
+    [Entry1]
+      Entry = ''
+      next = ''
+    [Entry2]
+      Entry = ''
+      next = ''
+    [Entry3]
+      Entry = ''
+      next = ''
+    [Entry4]
+      Entry = ''
+      next = ''
+    [Entry5]
+      Entry = ''
+      next = ''
+    [Entry6]
+      Entry = ''
+      next = ''
+    [Entry7]
+      Entry = ''
+      next = ''
+    [Entry8]
+      Entry = ''
+      next = ''
+    [Entry9]
+      Entry = ''
+      next = ''
+    [Presets]
+      NumPresets = '0'
+      ActivePreset = '0'
+      NextFreeSlotForPreset = '0'
+      NoOfStoredStations = '0'
+    [HAL]
+      [RDS]
+        SearchStopLevel = '5'
+        MonoStereo = 'Stereo'
+        BandLimit = 'US/Europe'
+        StereoNoiseCancelling = '1'
+        LevelHysteresis = 'Small'
+        AutoHLSI = 'Off'
+        SoftwarePort = 'On'
+      SearchStopLevel = '7'
+      MonoStereo = 'Stereo'
+      BandLimit = 'US/Europe'
+      StereoNoiseCancelling = '1'
+      HighCutControl = '1'
+  [System]
+    [ExceptionHandling]
+      HeapCorrupt = '1'
+    [Nap]
+      CurrentAttenuation = '0'
+      MinAttenuation = '0'
+      MaxAttenuation = '600'
+      SrcAlwaysOn = '0'
+      EffectProcessingForDigitalAndAnalogOutput = '0'
+      AudioEnginePostProcessingOn = '0'
+      AudioEnginePpSubWooferOn = '0'
+      CurrentEqualizer = '8'
+      CurrentDbb = 'false'
+      MaxConsecutivePlayErrors = '3'
+      MaxContentManagerErrors = '3'
+      VolumeControl = '1'
+      [LeftRightChange]
+        line1 = 'false'
+        spdif1 = 'false'
+    [NapAudioEnginePp]
+      InputFormat = '2'
+      InputQ_Type = '1'
+      InputNumberOfChannels = '2'
+      InputBitsPerSample = '16'
+      OutputFormat = '3'
+      OutputQ_Type = '1'
+      OutputNumberOfChannels = '2'
+      OutputBitsPerSample = '16'
+      [ODLCoeff]
+        COEF_VOL0O16 = '2048'
+        COEF_MASTER_BYPASS = '16384'
+        COEF_EQ_TC = '65373'
+        COEF_EFFECT_OUT_ATTEN = '32767'
+        COEF_VOL5O16 = '2048'
+        COEF_METER_INPUT = '0'
+        COEF_METER_BASS = '0'
+        COEF_METER_LEFT = '0'
+        COEF_METER_RIGHT = '0'
+        COEF_FS_COUNT = '0'
+        COEF_EQ1_A0O4 = '8192'
+        COEF_EQ1_A1O8_M = '0'
+        COEF_EQ1_A2O4 = '0'
+        COEF_EQ1_B1O2 = '0'
+        COEF_EQ1_B2_M = '0'
+        COEF_EQ2_A0O4 = '8192'
+        COEF_EQ2_A1O8_M = '0'
+        COEF_EQ2_A2O4 = '0'
+        COEF_EQ2_B1O2 = '0'
+        COEF_EQ2_B2_M = '0'
+        COEF_EQ3_A0O4 = '8192'
+        COEF_EQ3_A1O8_M = '0'
+        COEF_EQ3_A2O4 = '0'
+        COEF_EQ3_B1O2 = '0'
+        COEF_EQ3_B2_M = '0'
+        COEF_EQ4_A0O4 = '8192'
+        COEF_EQ4_A1O8_M = '0'
+        COEF_EQ4_A2O4 = '0'
+        COEF_EQ4_B1O2 = '0'
+        COEF_EQ4_B2_M = '0'
+        COEF_EQ5_A0O4 = '8192'
+        COEF_EQ5_A1O8_M = '0'
+        COEF_EQ5_A2O4 = '0'
+        COEF_EQ5_B1O2 = '0'
+        COEF_EQ5_B2_M = '0'
+        COEF_EQ6_A0O4 = '8192'
+        COEF_EQ6_A1O8_M = '0'
+        COEF_EQ6_A2O4 = '0'
+        COEF_EQ6_B1O2 = '0'
+        COEF_EQ6_B2_M = '0'
+        COEF_EQ7_A0O4 = '8192'
+        COEF_EQ7_A1O8_M = '0'
+        COEF_EQ7_A2O4 = '0'
+        COEF_EQ7_B1O2 = '0'
+        COEF_EQ7_B2_M = '0'
+        COEF_EQ8_A0O4 = '8192'
+        COEF_EQ8_A1O8_M = '0'
+        COEF_EQ8_A2O4 = '0'
+        COEF_EQ8_B1O2 = '0'
+        COEF_EQ8_B2_M = '0'
+        COEF_EQ11_A0O4 = '8192'
+        COEF_EQ11_A1O8_M = '0'
+        COEF_EQ11_A2O4 = '0'
+        COEF_EQ11_B1O2 = '0'
+        COEF_EQ11_B2_M = '0'
+        COEF_EQ12_A0O4 = '8192'
+        COEF_EQ12_A1O8_M = '0'
+        COEF_EQ12_A2O4 = '0'
+        COEF_EQ12_B1O2 = '0'
+        COEF_EQ12_B2_M = '0'
+        COEF_EQ13_A0O4 = '8192'
+        COEF_EQ13_A1O8_M = '0'
+        COEF_EQ13_A2O4 = '0'
+        COEF_EQ13_B1O2 = '0'
+        COEF_EQ13_B2_M = '0'
+        COEF_EQ14_A0O4 = '8192'
+        COEF_EQ14_A1O8_M = '0'
+        COEF_EQ14_A2O4 = '0'
+        COEF_EQ14_B1O2 = '0'
+        COEF_EQ14_B2_M = '0'
+        COEF_EQ15_A0O4 = '8192'
+        COEF_EQ15_A1O8_M = '0'
+        COEF_EQ15_A2O4 = '0'
+        COEF_EQ15_B1O2 = '0'
+        COEF_EQ15_B2_M = '0'
+        COEF_EQ16_A0O4 = '8192'
+        COEF_EQ16_A1O8_M = '0'
+        COEF_EQ16_A2O4 = '0'
+        COEF_EQ16_B1O2 = '0'
+        COEF_EQ16_B2_M = '0'
+        COEF_EQ17_A0O4 = '8192'
+        COEF_EQ17_A1O8_M = '0'
+        COEF_EQ17_A2O4 = '0'
+        COEF_EQ17_B1O2 = '0'
+        COEF_EQ17_B2_M = '0'
+        COEF_LOUD_X3 = '0'
+        COEF_LOUD_INV_X3 = '32767'
+        COEF_LOUD_X4 = '0'
+        COEF_LOUD_INV_X4 = '32767'
+        COEF_LOUD_X7 = '0'
+        COEF_LOUD_INV_X7 = '32767'
+        COEF_LOUD_X8 = '0'
+        COEF_LOUD_INV_X8 = '32767'
+        COEF_WID_LEVEL_D = '4096'
+        COEF_WID_LOUD = '0'
+        COEF_WID_LOUD_INV = '32767'
+        COEF_WID_A0O4 = '8192'
+        COEF_WID_A1O8_M = '0'
+        COEF_WID_A2O4 = '0'
+        COEF_WID_B1O2 = '0'
+        COEF_WID_B2_M = '0'
+        COEF_GATE_ATTEN = '0'
+        COEF_GATE_THRESH = '1638'
+        COEF_GATE_LED = '0'
+        COEF_PEAK1_LATTACK = '32767'
+        COEF_PEAK1_LDECAY = '31129'
+        COEF_PEAK1_LTHRESH = '1638'
+        COEF_PEAK1_GM = '0'
+        COEF_PEAK_METER = '0'
+        COEF_BASSA_FREQ = '0'
+        COEF_BASSA_WIDTH = '0'
+        COEF_BASSA_LEVEL = '0'
+        COEF_BASSA_METER = '0'
+        COEF_PEAK2_LTHRESH = '1638'
+        COEF_BASS_EQ30_A0O16 = '2048'
+        COEF_BASS_EQ30_A1O32_M = '0'
+        COEF_BASS_EQ30_A2O16 = '0'
+        COEF_BASS_EQ30_B1O2 = '0'
+        COEF_BASS_EQ30_B2_M = '0'
+        COEF_BASS_EQ31_A0O16 = '2048'
+        COEF_BASS_EQ31_A1O32_M = '0'
+        COEF_BASS_EQ31_A2O16 = '0'
+        COEF_BASS_EQ31_B1O2 = '0'
+        COEF_BASS_EQ31_B2_M = '0'
+        COEF_BASS_EQ32_A0O16 = '2048'
+        COEF_BASS_EQ32_A1O32_M = '0'
+        COEF_BASS_EQ32_A2O16 = '0'
+        COEF_BASS_EQ32_B1O2 = '0'
+        COEF_BASS_EQ32_B2_M = '0'
+        COEF_BASS_EQ33_A0O16 = '2048'
+        COEF_BASS_EQ33_A1O32_M = '0'
+        COEF_BASS_EQ33_A2O16 = '0'
+        COEF_BASS_EQ33_B1O2 = '0'
+        COEF_BASS_EQ33_B2_M = '0'
+        COEF_BASS_EQ34_A0O16 = '2048'
+        COEF_BASS_EQ34_A1O32_M = '0'
+        COEF_BASS_EQ34_A2O16 = '0'
+        COEF_BASS_EQ34_B1O2 = '0'
+        COEF_BASS_EQ34_B2_M = '0'
+        COEF_BASS_EQ35_A0O16 = '2048'
+        COEF_BASS_EQ35_A1O32_M = '0'
+        COEF_BASS_EQ35_A2O16 = '0'
+        COEF_BASS_EQ35_B1O2 = '0'
+        COEF_BASS_EQ35_B2_M = '0'
+        COEF_BASS_F1_W = '0'
+        COEF_BASS_F1_X = '0'
+        COEF_BASS_F1_Y = '0'
+        COEF_BASS_F2_W = '0'
+        COEF_BASS_F2_X = '0'
+        COEF_BASS_F2_Y = '0'
+        COEF_BASS_F3_W = '0'
+        COEF_BASS_F3_X = '0'
+        COEF_BASS_F3_Y = '0'
+        COEF_BASS_F4_W = '0'
+        COEF_BASS_F4_X = '0'
+        COEF_BASS_F4_Y = '0'
+        COEF_BASS_F5_W = '0'
+        COEF_BASS_F5_X = '0'
+        COEF_BASS_F5_Y = '0'
+        COEF_BASS_F6_W = '0'
+        COEF_BASS_F6_X = '0'
+        COEF_BASS_F6_Y = '0'
+        COEF_BASS_F7_W = '0'
+        COEF_BASS_F7_X = '0'
+        COEF_BASS_F7_Y = '0'
+        COEF_BASS_F8_W = '0'
+        COEF_BASS_F8_X = '0'
+        COEF_BASS_F8_Y = '0'
+        COEF_BASS_F9_W = '0'
+        COEF_BASS_F9_X = '0'
+        COEF_BASS_F9_Y = '0'
+        COEF_BASS_F10_W = '0'
+        COEF_BASS_F10_X = '0'
+        COEF_BASS_F10_Y = '0'
+        COEF_BASS_F11_W = '0'
+        COEF_BASS_F11_X = '0'
+        COEF_BASS_F11_Y = '0'
+        COEF_BASS_F12_W = '0'
+        COEF_BASS_F12_X = '0'
+        COEF_BASS_F12_Y = '0'
+        COEF_MANAGER_MUX1 = '0'
+      [Algorithms]
+        ByPassEnable = '0'
+        PeakEnable = '0'
+        EqEnable = '0'
+        ToneEqEnable = '0'
+        NumberOfBandsToneEq = '0'
+        BellEqEnable = '0'
+        NumberOfBandsBellEq = '0'
+        BassA_Enable = '0'
+        BassB_Enable = '0'
+        WidthEnable = '0'
+        LoudMasterEnable = '0'
+        GateEnable = '0'
+        AttenEnable = '0'
+        MasterLevelEnable = '0'
+        CrossOverEnable = '0'
+      [QueueParams]
+        NrQueueEntry = '16'
+        BufferSize = '1024'
+        OutBuffBlocking = '0'
+      AudioEnginePostProcessingMode = '0'
+      [Speaker]
+      [HeadPhone]
+    [Equalizer]
+      EqualizerMode = '0'
+      [Speaker]
+        bassfreq = '200'
+        bassQ = '1.0'
+        midfreq = '4000'
+        midQ = '0.8'
+        treblefreq = '10000'
+        trebleQ = '0.8'
+        [Neutral]
+          bass = '0'
+          mid = '0'
+          treble = '0'
+          bassDbb0 = '6'
+          bassDbb1 = '0'
+          bassDbbThr = '60'
+          midDbb = '0'
+        [Classical]
+          bass = '0'
+          mid = '0'
+          treble = '0'
+          bassDbb0 = '6'
+          bassDbb1 = '0'
+          bassDbbThr = '60'
+          midDbb = '0'
+        [Acoustic]
+          bass = '1'
+          mid = '-3'
+          treble = '4'
+          bassDbb0 = '4'
+          bassDbb1 = '0'
+          bassDbbThr = '40'
+          midDbb = '0'
+        [Jazz]
+          bass = '-2'
+          mid = '-6'
+          treble = '4'
+          bassDbb0 = '6'
+          bassDbb1 = '2'
+          bassDbbThr = '40'
+          midDbb = '0'
+        [Rock]
+          bass = '2'
+          mid = '-8'
+          treble = '4'
+          bassDbb0 = '6'
+          bassDbb1 = '4'
+          bassDbbThr = '60'
+          midDbb = '0'
+        [Pop]
+          bass = '0'
+          mid = '-4'
+          treble = '6'
+          bassDbb0 = '8'
+          bassDbb1 = '0'
+          bassDbbThr = '80'
+          midDbb = '0'
+        [Techno]
+          bass = '2'
+          mid = '-8'
+          treble = '-2'
+          bassDbb0 = '6'
+          bassDbb1 = '0'
+          bassDbbThr = '60'
+          midDbb = '0'
+        [Custom]
+          bass = '-3'
+          mid = '-2'
+          treble = '2'
+          bassDbb0 = '7'
+          bassDbb1 = '3'
+          bassDbbThr = '40'
+          midDbb = '0'
+      [HeadPhone]
+        bassfreq = '80'
+        bassQ = '1.0'
+        midfreq = '4000'
+        midQ = '0.8'
+        treblefreq = '10000'
+        trebleQ = '0.8'
+        [Neutral]
+          bass = '0'
+          mid = '0'
+          treble = '0'
+          bassDbb0 = '6'
+          bassDbb1 = '0'
+          bassDbbThr = '60'
+          midDbb = '0'
+        [Classical]
+          bass = '0'
+          mid = '0'
+          treble = '0'
+          bassDbb0 = '6'
+          bassDbb1 = '0'
+          bassDbbThr = '60'
+          midDbb = '0'
+        [Acoustic]
+          bass = '1'
+          mid = '-3'
+          treble = '4'
+          bassDbb0 = '4'
+          bassDbb1 = '0'
+          bassDbbThr = '40'
+          midDbb = '0'
+        [Jazz]
+          bass = '-2'
+          mid = '-6'
+          treble = '4'
+          bassDbb0 = '6'
+          bassDbb1 = '2'
+          bassDbbThr = '40'
+          midDbb = '0'
+        [Rock]
+          bass = '2'
+          mid = '-8'
+          treble = '4'
+          bassDbb0 = '6'
+          bassDbb1 = '4'
+          bassDbbThr = '60'
+          midDbb = '0'
+        [Pop]
+          bass = '0'
+          mid = '-4'
+          treble = '6'
+          bassDbb0 = '8'
+          bassDbb1 = '0'
+          bassDbbThr = '80'
+          midDbb = '0'
+        [Techno]
+          bass = '2'
+          mid = '-8'
+          treble = '-2'
+          bassDbb0 = '6'
+          bassDbb1 = '0'
+          bassDbbThr = '60'
+          midDbb = '0'
+        [Custom]
+          bass = '-3'
+          mid = '-2'
+          treble = '2'
+          bassDbb0 = '7'
+          bassDbb1 = '3'
+          bassDbbThr = '40'
+          midDbb = '0'
+    [Wavetunes]
+      EncKey = ''
+    [DisplaySettings]
+      LCD_Bias = '1'
+      V5_Ratio = '6'
+      Volume = '43'
+    [Threads]
+      [default]
+        stackSize = '4096'
+        memType = 'heap'
+        priority = '24'
+        preemptThreshold = '24'
+        timeSlice = '1'
+      [ShellThread]
+        stackSize = '8192'
+      [GDB Thread]
+        stackSize = '1024'
+        priority = '25'
+        preemptThreshold = '25'
+      [PING application]
+        stackSize = '512'
+      [Swap_Spaces_Thread]
+        stackSize = '2048'
+        timeSlice = '0'
+      [UPnP Disc Thread]
+        stackSize = '1024'
+      [UPnP Evnt Thread]
+        stackSize = '4096'
+      [UPnP TCP Thread]
+        stackSize = '8192'
+      [WLDRV_ISR_THR]
+        stackSize = '4096'
+      [WLDRV_TIMER_THR]
+        stackSize = '4096'
+      [iPodSignatureGenerationThread]
+        priority = '22'
+        preemptThreshold = '20'
+      [iPodSerialReader]
+        priority = '21'
+        preemptThreshold = '20'
+      [iPodSerial]
+        priority = '22'
+        preemptThreshold = '20'
+      [iPodTelegramRec]
+        priority = '21'
+        preemptThreshold = '20'
+      [iPodControl]
+        priority = '22'
+        preemptThreshold = '20'
+      [iPodControlInit]
+        priority = '22'
+        preemptThreshold = '20'
+      [AVRPlayerService]
+        stackSize = '6144'
+  [USB]
+    [DeviceDetection]
+      DetectionMode = '0'
+      NotMTPDevicesList = ''
+  [UPnP]
+    [XMLTagDescription]
+      Manufacturer = 'Bowers &amp; Wilkins'
+      ManufacturerURL = 'http://www.bowers-wilkins.com/'
+      ModelDescription = 'AirPlay device'
+      ModelName = 'Zeppelin Air'
+      ModelNumber = ''
+      ModelURL = ''
+    [UPnPDeviceUDNs]
+      Dev0 = ''
+    MCast_TTL = '4'
+    [MediaRenderer]
+      [RenderingControl]
+        PresetNameList = 'FactoryDefaults, InstallationDefaults'
+        Mute = '0'
+        Volume = '0'
+      [ConnectionManager]
+        SourceProtocolInfo = ''
+        SinkProtocolInfo = 'http-get:*:audio/L16;rate=44100;channels=1:DLNA.ORG_PN=LPCM,http-get:*:audio/L16;rate=44100;channels=2:DLNA.ORG_PN=LPCM,http-get:*:audio/L16;rate=48000;channels=1:DLNA.ORG_PN=LPCM,http-get:*:audio/L16;rate=48000;channels=2:DLNA.ORG_PN=LPCM,http-get:*:audio/mpeg:DLNA.ORG_PN=MP3,http-get:*:audio/x-ms-wma:DLNA.ORG_PN=WMABASE,http-get:*:audio/x-ms-wma:DLNA.ORG_PN=WMAFULL,http-wavetunes:*:audio/x-ms-wma:*,http-get:*:audio/vnd.dlna.adts:DLNA.ORG_PN=AAC_ADTS'
+        CurrentConnectionIDs = '0'
+      [AVTransport]
+        TransportState = 'NO_MEDIA_PRESENT'
+        TransportStatus = 'OK'
+        PlaybackStorageMedium = 'NONE'
+        RecordStorageMedium = 'NOT_IMPLEMENTED'
+        PossiblePlaybackStorageMedia = 'NONE,NETWORK'
+        PossibleRecordStorageMedia = 'NOT_IMPLEMENTED'
+        CurrentPlayMode = 'NORMAL'
+        TransportPlaySpeed = '1'
+        RecordMediumWriteStatus = 'NOT_IMPLEMENTED'
+        CurrentRecordQualityMode = 'NOT_IMPLEMENTED'
+        PossibleRecordQualityModes = 'NOT_IMPLEMENTED'
+        NumberOfTracks = '0'
+        CurrentTrack = '0'
+        CurrentTrackDuration = 'NOT_IMPLEMENTED'
+        CurrentMediaDuration = 'NOT_IMPLEMENTED'
+        CurrentTrackMetaData = ''
+        CurrentTrackURI = ''
+        AVTransportURI = ''
+        AVTransportURIMetaData = ''
+        RelativeTimePosition = 'NOT_IMPLEMENTED'
+        AbsoluteTimePosition = 'NOT_IMPLEMENTED'
+        RelativeCounterPosition = 'NOT_IMPLEMENTED'
+        AbsoluteCounterPosition = 'NOT_IMPLEMENTED'
+        CurrentTransportActions = ''
+      [WholeHomeAudio]
+        DeviceState = '0'
+        PartyInfo = '0'
+  [Networking]
+    StoredIP = '0'
+    [IpCfg]
+      DeviceName = 'Zeppelin Air'
+      FactoryDefault = 'Zeppelin Air_'
+      WellKnownAutoIP = '169.254.1.1'
+      WellKnownJBCIP = '192.168.10.1'
+      [Config0]
+        DHCPClient = '1'
+        IP = ''
+        Mask = ''
+        DefGW = ''
+        Proxy = '0'
+        ProxyServer = ''
+        ProxyServerPort = ''
+        DNSSrv1 = ''
+        DNSSrv2 = ''
+      [Config1]
+        DHCPClient = '1'
+        IP = ''
+        Mask = ''
+        DefGW = ''
+        Proxy = '0'
+        ProxyServer = ''
+        ProxyServerPort = ''
+        DNSSrv1 = ''
+        DNSSrv2 = ''
+      [Config2]
+        DHCPClient = '1'
+        IP = ''
+        Mask = ''
+        DefGW = ''
+        Proxy = '0'
+        ProxyServer = ''
+        ProxyServerPort = ''
+        DNSSrv1 = ''
+        DNSSrv2 = ''
+      [Config3]
+        DHCPClient = '1'
+        IP = ''
+        Mask = ''
+        DefGW = ''
+        Proxy = '0'
+        ProxyServer = ''
+        ProxyServerPort = ''
+        DNSSrv1 = ''
+        DNSSrv2 = ''
+      [Config4]
+        DHCPClient = '1'
+        IP = ''
+        Mask = ''
+        DefGW = ''
+        Proxy = '0'
+        ProxyServer = ''
+        ProxyServerPort = ''
+        DNSSrv1 = ''
+        DNSSrv2 = ''
+    [DrvCfg]
+      [WlanCfg]
+        CountryCode = 'JP'
+        antenna = '10'
+        Module = 'CR'
+        msglevel = '1'
+        manualcfg = 'false'
+        ActiveProfile = '1'
+        JBConnectActiveProfile = '4'
+        [TxPower]
+          G = '-1'
+          B = '-1'
+          [Channel]
+            minG = '1'
+            minB = '9'
+            maxG = '1'
+            maxB = '9'
+            midG = '1'
+            midB = '9'
+        [Profile0]
+          ProfileName = 'default'
+          IpConfig = '0'
+          SSID = 'BridgeCo'
+          IBSS = 'FALSE'
+          Security = 'NONE'
+          [WEP]
+            Key0 = ''
+            Key1 = ''
+            Key2 = ''
+            Key3 = ''
+            KeyIndex = ''
+            Authentication = 'shared'
+          [WPAPSK]
+            Passphrase = ''
+            Cipher = ''
+        [Profile1]
+          ProfileName = 'Profile1'
+          IpConfig = '1'
+          SSID = ''
+          IBSS = 'FALSE'
+          Security = 'NONE'
+          [WEP]
+            Key0 = ''
+            Key1 = ''
+            Key2 = ''
+            Key3 = ''
+            KeyIndex = ''
+            Authentication = 'shared'
+          [WPAPSK]
+            Passphrase = ''
+            Cipher = ''
+        [Profile2]
+          ProfileName = 'Profile2'
+          IpConfig = '2'
+          SSID = ''
+          IBSS = 'FALSE'
+          Security = 'NONE'
+          [WEP]
+            Key0 = ''
+            Key1 = ''
+            Key2 = ''
+            Key3 = ''
+            KeyIndex = ''
+            Authentication = 'shared'
+          [WPAPSK]
+            Passphrase = ''
+            Cipher = ''
+        [Profile3]
+          ProfileName = 'Profile3'
+          IpConfig = '3'
+          SSID = ''
+          IBSS = 'FALSE'
+          Security = 'NONE'
+          [WEP]
+            Key0 = ''
+            Key1 = ''
+            Key2 = ''
+            Key3 = ''
+            KeyIndex = ''
+            Authentication = 'shared'
+          [WPAPSK]
+            Passphrase = ''
+            Cipher = ''
+        [Profile4]
+          ProfileName = 'Profile4'
+          IpConfig = '4'
+          SSID = 'BcoJBConnect'
+          PreviousActiveProfile = ''
+          IBSS = 'TRUE'
+          Security = 'NONE'
+          [WEP]
+            Key0 = ''
+            Key1 = ''
+            Key2 = ''
+            Key3 = ''
+            KeyIndex = ''
+            Authentication = 'shared'
+          [WPAPSK]
+            Passphrase = ''
+            Cipher = ''
+      [MacbCfg]
+        CountryCode = 'JP'
+        antenna = '10'
+        msglevel = '1'
+        manualcfg = 'false'
+        ActiveProfile = '1'
+        [Profile0]
+          ProfileName = 'default'
+          IpConfig = '0'
+          SSID = 'BridgeCo'
+          IBSS = 'FALSE'
+          Security = 'NONE'
+          [WEP]
+            Key0 = ''
+            Key1 = ''
+            Key2 = ''
+            Key3 = ''
+            KeyIndex = ''
+            Authentication = 'shared'
+          [WPAPSK]
+            Passphrase = ''
+            Cipher = ''
+        [Profile1]
+          ProfileName = 'Profile1'
+          IpConfig = '1'
+          SSID = ''
+          IBSS = 'FALSE'
+          Security = 'NONE'
+          [WEP]
+            Key0 = ''
+            Key1 = ''
+            Key2 = ''
+            Key3 = ''
+            KeyIndex = ''
+            Authentication = 'shared'
+          [WPAPSK]
+            Passphrase = ''
+            Cipher = ''
+        [Profile2]
+          ProfileName = 'Profile2'
+          IpConfig = '2'
+          SSID = ''
+          IBSS = 'FALSE'
+          Security = 'NONE'
+          [WEP]
+            Key0 = ''
+            Key1 = ''
+            Key2 = ''
+            Key3 = ''
+            KeyIndex = ''
+            Authentication = 'shared'
+          [WPAPSK]
+            Passphrase = ''
+            Cipher = ''
+        [Profile3]
+          ProfileName = 'Profile3'
+          IpConfig = '3'
+          SSID = ''
+          IBSS = 'FALSE'
+          Security = 'NONE'
+          [WEP]
+            Key0 = ''
+            Key1 = ''
+            Key2 = ''
+            Key3 = ''
+            KeyIndex = ''
+            Authentication = 'shared'
+          [WPAPSK]
+            Passphrase = ''
+            Cipher = ''
+    [WPS]
+      [IES]
+        Manufacturer = 'BridgeCo'
+        ModelName = 'DM870'
+        ModelNumber = 'CE2'
+        SerialNumber = '9999'
+        Category = '1'
+        SubCategory = '1'
+        DeviceName = 'BridgeCo DM870-CE2 Enrollee'
+        OSVersion = '0x1234'
+        FixedPin = '64428147'
+    [JBCONNECT]
+      Enabled = '0'
+      JBCSSID = 'ZeppelinAir_Setup'
+      WellKnownJBCURI = 'jbconnect.dmp'
+      DHCPLeaseIpMin = '192.168.10.101'
+    [JBDIRECT]
+      JBDSSID = 'BCOJBDirect'
+      JBDCHANNEL = '0'
+  [CneFlag]
+    Enabled = '0'
+    Bti_Opti_Enabled = '1'
+  [BTI]
+    Enabled = '0'
+  [cneGroup]
+    WMM = '1'
+    CfgMethod = '0'
+    iPodVolumeCheckBit = '1'
+    VendorVersion = '0'
+    ModelName = 'Zeppelin Air'
+    AppendMac = '0'
+    Producttype = 'CE2'
+    Firmwarerevision = 'xxx.xxx.xxx'
+    Hardwarerevision = 'xxx.xxx.xxx'
+    IsflacEnabled = '0'
+    IsaacEnabled = '0'
+    IsoggEnabled = '0'
+    Ismp3Enabled = '0'
+    IswmaEnabled = '0'
+    IsUPnPEnabled = '1'
+    COEF_PEAK1_LIN_LATTACK = '7430'
+    COEF_PEAK1_LIN_LDECAY = '110'
+    COEF_PEAK1_LIN_LTHRESH = '-32768'
+    COEF_PEAK2_LIN_LTHRESH = '-32768'
+    COEFF_CROSS_OVER_LP_A0 = '32'
+    COEFF_CROSS_OVER_LP_A1 = '32'
+    COEFF_CROSS_OVER_LP_A2 = '32'
+    COEFF_CROSS_OVER_LP_B1 = '-31283'
+    COEFF_CROSS_OVER_LP_B2 = '29927'
+    COEFF_CROSS_OVER_HP_A0 = '31315'
+    COEFF_CROSS_OVER_HP_A1 = '-31315'
+    COEFF_CROSS_OVER_HP_A2 = '31315'
+    COEFF_CROSS_OVER_HP_B1 = '-31283'
+    COEFF_CROSS_OVER_HP_B2 = '29927'
+    COEFF_CROSS_OVER_GAIN = '16384'
+    WakeOnAirplay = 'Enabled'
+    NotifyRSSI = '0'
+    DiversityOpt = '0'
+    DiversityHysteresis = '4'
+    DiversityThreshold = '75'
+    iPodOutModeEnabled = '0'
+    IsUsbImageEnabled = '1'
+    FBoot = '0'
+  [FwDwnLoadWithHostNotification]
+    HostControlNotification = '1'
+  [pssCne]
+    CneId = '1'
+  [END_OF_ATTR_NAME_SPACE]]
+    ÿ = ''

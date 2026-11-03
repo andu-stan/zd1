@@ -1,0 +1,5 @@
+$ sys dma ctx
+---- OVERVIEW ----
+sys dma ctx          - dump context of dma
+---- DESCRIPTION ----
+<nr>                    context number

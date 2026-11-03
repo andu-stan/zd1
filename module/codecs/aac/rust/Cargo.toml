@@ -1,0 +1,15 @@
+# The module's AAC-LC decoder (../aacdec.c) for Rust, and an AAC decoder plug-in for shairplay-rust (zd1-airplay).
+[package]
+name = "zd1-aac"
+version = "0.1.0"
+edition.workspace = true
+license = "MIT AND LGPL-2.1-or-later" # aac_tables.c (NOTICE.md)
+publish = false
+links = "zd1aac"
+
+[dependencies]
+zd1-dsp.workspace = true
+shairplay = { workspace = true, default-features = false }
+
+[build-dependencies]
+cc = "1"

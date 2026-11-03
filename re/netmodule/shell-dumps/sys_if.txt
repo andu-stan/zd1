@@ -1,0 +1,5 @@
+$ sys if
+---- OVERVIEW ----
+sys if               - show interface status/statistics
+---- DESCRIPTION ----
+  <interface> stat      [uart0|uart1|spi0]

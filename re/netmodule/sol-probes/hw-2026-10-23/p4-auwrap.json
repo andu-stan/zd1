@@ -1,0 +1,8 @@
+{
+"u1 l0 mod 2, l1 mod 3, both lanes":[4,0,0,0],
+"u1 l0 mod 3, l1 mod 2, both lanes":[6,0,0,0],
+"u1 l0 mod 2, l1 mod 3, lane 0 loads":[0,0,0,0],
+"u1 l0 mod 2, l1 mod 3, lane 1 loads":[4,0,0,0],
+"u1 l1 mod 2, read with code 4":[0,0,0,0],
+"u2 l1 mod 2, code 6":[6,0,0,0]
+}

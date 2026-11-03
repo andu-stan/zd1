@@ -1,0 +1,34 @@
+# The module's builds, as nix runs them (nix/module/apps.nix, nix/boot.nix); the toolchain is rust-toolchain.toml's.
+#   cargo module -p zd1                     the multicall, everything (the system's); --no-default-features: the
+#                                           rescue's core. One program from RAM: copy it over, `zd1 PROGRAM ARGS`
+#   cargo boot                              the boot stub and the test image (module/boot)
+# std and core are built from rust-src with the profile (opt-level z, LTO across them): std without its backtrace
+# feature, since the symbolizer can name nothing in a stripped binary that aborts on panic. The linker and C compiler
+# for the module, alsa-lib and the Warp0 images: `nix develop .#cross`.
+#   cargo web                               the web page's WebAssembly (host/web); wasm-bindgen makes its JS glue
+#                                           (nix/web.nix). web-sys keeps WebUSB behind a cfg the top crate opts into.
+[target.wasm32-unknown-unknown]
+rustflags = ["--cfg=web_sys_unstable_apis"]
+
+[alias]
+module = [
+  "build",
+  "--profile",
+  "module",
+  "--target",
+  "armv5te-unknown-linux-musleabi",
+  "-Zbuild-std=std,panic_abort",
+  "-Zbuild-std-features=",
+]
+boot = [
+  "build",
+  "--profile",
+  "boot",
+  "--target",
+  "armv5te-none-eabi",
+  "-p",
+  "zd1-boot",
+  "-Zbuild-std=core,compiler_builtins",
+  "-Zbuild-std-features=compiler-builtins-mem",
+]
+web = ["build", "--release", "--target", "wasm32-unknown-unknown", "-p", "zd1-web"]

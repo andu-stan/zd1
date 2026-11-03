@@ -1,0 +1,12 @@
+$ ipodauth
+---- OVERVIEW ----
+ipodauth             - ipod authentication coprocessor
+---- DESCRIPTION ----
+iPod Authenticate Coprocessor shell commands
+ipodauth devid                      : get device id
+ipodauth certsize                   : get certificate size
+ipodauth cert                       : get certificaten
+ipodauth gensig                     : generate signature
+ipodauth reset                      : reset coprocessor
+ipodauth test [test] [num]          : perform [test] a num of times
+                                      test = (getcert|getdevid)

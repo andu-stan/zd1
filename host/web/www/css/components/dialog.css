@@ -1,0 +1,29 @@
+/* The dialog: a sheet over the page, dimmed and blurred behind. Its heading is the question; its buttons answer. */
+dialog {
+  max-width: 460px;
+  padding: var(--space-5) var(--space-6);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-lg);
+  background: var(--surface-raised);
+  color: var(--text-body);
+  box-shadow: 0 30px 80px rgb(0 0 0 / 0.9);
+}
+dialog[open] {
+  animation: dialog-in var(--medium) var(--ease-out);
+}
+dialog::backdrop {
+  background: var(--surface-overlay);
+  backdrop-filter: blur(6px);
+}
+dialog > h2 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+}

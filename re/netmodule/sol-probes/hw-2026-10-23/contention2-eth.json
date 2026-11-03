@@ -1,0 +1,5 @@
+{
+"label":"Ethernet RX TCP",
+"warp1_spin":false,
+"runs":[{"seconds":2.2064757347106934,"cycles_per_load":17.651805877685547},{"seconds":2.20424485206604,"cycles_per_load":17.63395881652832},{"seconds":2.206866979598999,"cycles_per_load":17.654935836791992}]
+}

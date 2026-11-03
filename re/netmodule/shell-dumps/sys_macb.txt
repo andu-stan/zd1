@@ -1,0 +1,10 @@
+$ sys macb
+---- OVERVIEW ----
+sys macb             - macb commands
+sys macb callback    - macb ethernet callbacks
+sys macb debug       - set debug levels
+sys macb irq         - macb ethernet interrupts
+sys macb phy         - phy register commands
+sys macb reg         - show MAC registers
+---- DESCRIPTION ----
+executes 'macb' command

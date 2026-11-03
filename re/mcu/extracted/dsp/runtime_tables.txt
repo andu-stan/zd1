@@ -1,0 +1,188 @@
+# ADAU1445 runtime tables extracted from ZD1 v2.04.05 (values are 5.23 fixed point, 32-bit BE)
+
+## Bass/tone biquad table @0x8001f49c: 5 entries x 21 bytes {u8 idx; i32 b0,b1,b2,a1,a2} -> safeload to params 0x3F..0x43 (FUN_8001fc74)
+entry 0 idx=0: 0x00800000(+1.000000) 0x00000000(+0.000000) 0x00000000(+0.000000) 0x00000000(+0.000000) 0x00000000(+0.000000)
+entry 1 idx=1: 0x008029a5(+1.001271) 0xff02aaf9(-1.979157) 0x007d319d(+0.978077) 0x00fd55ab(+1.979177) 0xff82a561(-0.979328)
+entry 2 idx=2: 0x007fe0ce(+0.999048) 0xff02f1ea(-1.976992) 0x007d325d(+0.978099) 0x00fd0d9a(+1.976978) 0xff82ec58(-0.977162)
+entry 3 idx=3: 0x007fc196(+0.998095) 0xff031298(-1.975995) 0x007d307c(+0.978042) 0x00fcec70(+1.975965) 0xff830cf7(-0.976167)
+entry 4 idx=4: 0x007fa247(+0.997140) 0xff0334b8(-1.974954) 0x007d2d47(+0.977944) 0x00fcc9d3(+1.974909) 0xff832efd(-0.975129)
+
+## Master volume table @.data 0x0c5c (flash 0x80035720): word[i] for DSP volume index i=0..71 -> safeload param 0x4B (FUN_8001fbc8)
+idx  0: 0x0194c583 +10.0 dB
+idx  1: 0x0168c0c5 +9.0 dB
+idx  2: 0x0141857e +8.0 dB
+idx  3: 0x011e8e6a +7.0 dB
+idx  4: 0x00ff64c1 +6.0 dB
+idx  5: 0x00e39ea8 +5.0 dB
+idx  6: 0x00caddc7 +4.0 dB
+idx  7: 0x00b4ce07 +3.0 dB
+idx  8: 0x00a12477 +2.0 dB
+idx  9: 0x008f9e4c +1.0 dB
+idx 10: 0x00800000 +0.0 dB
+idx 11: 0x00721482 -1.0 dB
+idx 12: 0x0065ac8c -2.0 dB
+idx 13: 0x005a9df7 -3.0 dB
+idx 14: 0x0050c335 -4.0 dB
+idx 15: 0x0047facc -5.0 dB
+idx 16: 0x004026e7 -6.0 dB
+idx 17: 0x00392ced -7.0 dB
+idx 18: 0x0032f52c -8.0 dB
+idx 19: 0x002d6a86 -9.0 dB
+idx 20: 0x00287a26 -10.0 dB
+idx 21: 0x00241346 -11.0 dB
+idx 22: 0x002026f3 -12.0 dB
+idx 23: 0x001ca7d7 -13.0 dB
+idx 24: 0x00198a13 -14.0 dB
+idx 25: 0x0016c310 -15.0 dB
+idx 26: 0x00144960 -16.0 dB
+idx 27: 0x0012149a -17.0 dB
+idx 28: 0x00101d3f -18.0 dB
+idx 29: 0x000e5ca1 -19.0 dB
+idx 30: 0x000ccccc -20.0 dB
+idx 31: 0x000b6873 -21.0 dB
+idx 32: 0x000a2ada -22.0 dB
+idx 33: 0x00090fcb -23.0 dB
+idx 34: 0x00081385 -24.0 dB
+idx 35: 0x000732ae -25.0 dB
+idx 36: 0x00066a4a -26.0 dB
+idx 37: 0x0005b7b1 -27.0 dB
+idx 38: 0x00051884 -28.0 dB
+idx 39: 0x00048aa7 -29.0 dB
+idx 40: 0x00040c37 -30.0 dB
+idx 41: 0x00039b87 -31.0 dB
+idx 42: 0x00033718 -32.0 dB
+idx 43: 0x0002dd95 -33.0 dB
+idx 44: 0x00028dce -34.0 dB
+idx 45: 0x000246b4 -35.0 dB
+idx 46: 0x00020756 -36.0 dB
+idx 47: 0x0001cedc -37.0 dB
+idx 48: 0x00019c86 -38.0 dB
+idx 49: 0x00016fa9 -39.0 dB
+idx 50: 0x000147ae -40.0 dB
+idx 51: 0x0001240b -41.0 dB
+idx 52: 0x00010449 -42.0 dB
+idx 53: 0x0000e7fa -43.0 dB
+idx 54: 0x0000cec0 -44.0 dB
+idx 55: 0x0000b844 -45.0 dB
+idx 56: 0x0000a43a -46.0 dB
+idx 57: 0x0000925e -47.0 dB
+idx 58: 0x00008273 -48.0 dB
+idx 59: 0x00007443 -49.0 dB
+idx 60: 0x0000679f -50.0 dB
+idx 61: 0x00005c5a -51.0 dB
+idx 62: 0x0000524f -52.0 dB
+idx 63: 0x0000495b -53.0 dB
+idx 64: 0x00004161 -54.0 dB
+idx 65: 0x00003a45 -55.0 dB
+idx 66: 0x000033ef -56.0 dB
+idx 67: 0x00002e49 -57.0 dB
+idx 68: 0x00002940 -58.0 dB
+idx 69: 0x000024c4 -59.0 dB
+idx 70: 0x000020c4 -60.0 dB
+idx 71: 0x00000000 mute
+
+## User volume step table @0x80012f5c: 72 x {u32 dsp_idx, u32 ipod_vol_0_255}; step 0 = mute ... 71 = max
+step  0: dsp_idx 71 ipod   0
+step  1: dsp_idx 70 ipod   1
+step  2: dsp_idx 69 ipod   2
+step  3: dsp_idx 68 ipod   5
+step  4: dsp_idx 67 ipod   9
+step  5: dsp_idx 66 ipod  12
+step  6: dsp_idx 65 ipod  17
+step  7: dsp_idx 64 ipod  20
+step  8: dsp_idx 63 ipod  24
+step  9: dsp_idx 62 ipod  28
+step 10: dsp_idx 61 ipod  31
+step 11: dsp_idx 60 ipod  35
+step 12: dsp_idx 59 ipod  38
+step 13: dsp_idx 58 ipod  42
+step 14: dsp_idx 57 ipod  46
+step 15: dsp_idx 56 ipod  50
+step 16: dsp_idx 55 ipod  53
+step 17: dsp_idx 54 ipod  57
+step 18: dsp_idx 53 ipod  60
+step 19: dsp_idx 52 ipod  64
+step 20: dsp_idx 51 ipod  68
+step 21: dsp_idx 50 ipod  70
+step 22: dsp_idx 49 ipod  75
+step 23: dsp_idx 48 ipod  79
+step 24: dsp_idx 47 ipod  82
+step 25: dsp_idx 46 ipod  86
+step 26: dsp_idx 45 ipod  90
+step 27: dsp_idx 44 ipod  93
+step 28: dsp_idx 43 ipod  97
+step 29: dsp_idx 42 ipod 101
+step 30: dsp_idx 41 ipod 103
+step 31: dsp_idx 40 ipod 108
+step 32: dsp_idx 39 ipod 110
+step 33: dsp_idx 38 ipod 115
+step 34: dsp_idx 37 ipod 119
+step 35: dsp_idx 36 ipod 122
+step 36: dsp_idx 35 ipod 126
+step 37: dsp_idx 34 ipod 129
+step 38: dsp_idx 33 ipod 133
+step 39: dsp_idx 32 ipod 136
+step 40: dsp_idx 31 ipod 141
+step 41: dsp_idx 30 ipod 144
+step 42: dsp_idx 29 ipod 148
+step 43: dsp_idx 28 ipod 152
+step 44: dsp_idx 27 ipod 155
+step 45: dsp_idx 26 ipod 159
+step 46: dsp_idx 25 ipod 162
+step 47: dsp_idx 24 ipod 166
+step 48: dsp_idx 23 ipod 170
+step 49: dsp_idx 22 ipod 173
+step 50: dsp_idx 21 ipod 177
+step 51: dsp_idx 20 ipod 181
+step 52: dsp_idx 19 ipod 184
+step 53: dsp_idx 18 ipod 188
+step 54: dsp_idx 17 ipod 192
+step 55: dsp_idx 16 ipod 195
+step 56: dsp_idx 15 ipod 200
+step 57: dsp_idx 14 ipod 204
+step 58: dsp_idx 13 ipod 207
+step 59: dsp_idx 12 ipod 211
+step 60: dsp_idx 11 ipod 214
+step 61: dsp_idx 10 ipod 218
+step 62: dsp_idx  9 ipod 222
+step 63: dsp_idx  8 ipod 224
+step 64: dsp_idx  7 ipod 227
+step 65: dsp_idx  6 ipod 232
+step 66: dsp_idx  5 ipod 234
+step 67: dsp_idx  4 ipod 239
+step 68: dsp_idx  3 ipod 243
+step 69: dsp_idx  2 ipod 246
+step 70: dsp_idx  1 ipod 250
+step 71: dsp_idx  0 ipod 255
+
+## 0..-10 dB gain table @0x8001f568 (21 x 0.5 dB) used by FUN_8001fecc (param 0x83) / FUN_8001ff28 (params 0x147,0x148,0x173,0x174,0x18e,0x18f) / FUN_8001fd4c (0x11d,0x11e,0x121,0x122,0x175)
+ 0: 0x00800000 (+0.0 dB)
+ 1: 0x0078d6fc (-0.5 dB)
+ 2: 0x00721482 (-1.0 dB)
+ 3: 0x006bb2d6 (-1.5 dB)
+ 4: 0x0065ac8c (-2.0 dB)
+ 5: 0x005ffc88 (-2.5 dB)
+ 6: 0x005a9df7 (-3.0 dB)
+ 7: 0x00558c4b (-3.5 dB)
+ 8: 0x0050c335 (-4.0 dB)
+ 9: 0x004c3ea8 (-4.5 dB)
+10: 0x0047facc (-5.0 dB)
+11: 0x0043f405 (-5.5 dB)
+12: 0x004026e7 (-6.0 dB)
+13: 0x003c9038 (-6.5 dB)
+14: 0x00392ced (-7.0 dB)
+15: 0x0035fa26 (-7.5 dB)
+16: 0x0032f52c (-8.0 dB)
+17: 0x00301b70 (-8.5 dB)
+18: 0x002d6a86 (-9.0 dB)
+19: 0x002ae025 (-9.5 dB)
+20: 0x00287a26 (-10.0 dB)
+
+## Mains/supply-voltage correction table @0x8001f50c: 12-byte entries {float corr_dB, float b, i16 adc_threshold, pad}; first entry with threshold >= ADC ch6 (PA27) avg is used; corr_dB -> index into 0.5 dB table -> params 0x11d,0x11e,0x121,0x122,0x175 (FUN_8001fd4c)
+0: corr -3.00 dB  b=+10.50  adc<= 732
+1: corr -2.50 dB  b=+10.50  adc<= 776
+2: corr -2.00 dB  b=+10.50  adc<= 819
+3: corr -1.50 dB  b=+11.00  adc<= 863
+4: corr -1.00 dB  b=+11.50  adc<= 906
+5: corr -0.50 dB  b=+12.00  adc<= 950
+6: corr +0.00 dB  b=+12.00  adc<= 32767

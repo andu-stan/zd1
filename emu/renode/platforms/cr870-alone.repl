@@ -1,0 +1,5 @@
+// The CR870 module alone, with a test host on its J2 SPI link (zemu run --spi).
+using "cr870.repl"
+
+testhost: CR870.J2TestHost @ spis
+    spis: spis

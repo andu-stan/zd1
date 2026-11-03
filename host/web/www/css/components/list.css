@@ -1,0 +1,79 @@
+/* The list: rows in a sunken box, hairlines between (`.list > .item`; `button.item` for a row that is a choice).
+ * `.num` numbers a row. A receiver is a block of its own (`.receiver`, its options indented under it: `.options`). */
+.list {
+  display: grid;
+  margin: var(--space-2) 0;
+  border: 1px solid var(--line-hair);
+  border-radius: var(--radius-md);
+  background: var(--surface-sunken);
+  overflow: hidden;
+}
+.list:empty {
+  display: none;
+}
+.list > p {
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+}
+.list .item {
+  margin: 0;
+  padding: var(--space-2) var(--space-4);
+  border-bottom: 1px solid var(--line-hair);
+}
+.list .item:last-child {
+  border-bottom: 0;
+}
+.list .item:hover {
+  background: var(--surface-hover);
+}
+.list > button.quiet {
+  justify-self: start;
+  margin: var(--space-1) var(--space-4);
+}
+button.item {
+  justify-content: flex-start;
+  width: 100%;
+  min-height: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--text-body);
+  font-weight: var(--weight-regular);
+}
+button.item:hover {
+  border-color: transparent;
+  color: var(--text-strong);
+}
+button.item:disabled {
+  opacity: 0.45;
+}
+.item strong {
+  color: var(--text-strong);
+  font-weight: var(--weight-medium);
+}
+.num {
+  width: 1.5em;
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+}
+.receiver {
+  padding: var(--space-2) 0;
+  border-top: 1px solid var(--line-hair);
+}
+.receiver:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+.receiver > .row:first-child strong {
+  color: var(--text-strong);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-light);
+}
+.options {
+  margin: 0 0 var(--space-2);
+  padding-left: var(--space-4);
+  border-left: 1px solid var(--line-soft);
+}
+.addr {
+  margin: var(--space-2) 0;
+}

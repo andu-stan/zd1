@@ -1,0 +1,12 @@
+registers only    5.04 cycles per iteration (5 instructions; 4 loads: 7)
+local load        5.10 cycles per iteration (5 instructions; 4 loads: 7)
+local 4 loads     7.06 cycles per iteration (5 instructions; 4 loads: 7)
+local store       5.12 cycles per iteration (5 instructions; 4 loads: 7)
+SDRAM load       23.31 cycles per iteration (5 instructions; 4 loads: 7)
+SDRAM store      10.85 cycles per iteration (5 instructions; 4 loads: 7)
+code in local RAM, COP3=0:  5.06 cycles per 5-instruction iteration
+code in local RAM, COP3=5:  5.15 cycles per 5-instruction iteration
+2 nops                                   5.02 cycles per iteration: +0.00 stall
+multu; mflo; mfhi                        9.01 cycles per iteration: +2.99 stall
+multu; 4 nops; mflo; mfhi               10.09 cycles per iteration: +0.07 stall
+multiply-accumulate (7 instructions)    13.23 cycles per iteration: +3.21 stall

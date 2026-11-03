@@ -1,0 +1,23 @@
+$ sys ver
+Library Name                Version                    CVS Tag Name
+-------------------------------------------------------------------------------
+KnOS (Release)              9112 (2014-09-15  09:09:40)JB3_0F_edmp_32MB-3_8_0-9112_ER
+APP:JB21.0-Ref/HW:JukeBlox2 (Release)9112 (2014-09-15  17:30:56)JB3_0F_edmp_32MB-3_8_0-9112_ER
+AudioHWService (Release)    9112 (2012-04-14  01:39:56)hal_service-3_3_0-9112_ER
+DM870_HAL (Release)         9112 (2012-04-14  01:39:56)PSM_SDRAM-1_0_0-9112_ER
+Presets (Release)           9112 (2012-04-14  01:39:56)presets-3_2_0-9112_ER  
+Favourites (Release)        9112 (2012-04-14  01:39:56)presets-3_2_0-9112_ER  
+History (Release)           9112 (2012-04-14  01:39:56)presets-3_2_0-9112_ER  
+
+   Component CreationDate CreationTime       ID  Version  FlashID   BaseAddr     Length
+                 YYYYMMDD       HHMMSS                                      
+---------------------------------------------------------------------------------------
+      DMChip          N/A          N/A        8        0        0 0x00000000 0x00000000
+    Hardware          N/A          N/A      189        0        0 0x00000000 0x00000000
+page addr=0x60000, fixpage result=6
+  Bootloader     20100927       140429        0        0        0 0x000A0080 0x00000028
+page addr=0x20000, fixpage result=6
+         Cne     20140929       082157      105     9112        0 0x00040080 0x00000028
+page addr=0x20000, fixpage result=6
+page addr=0x60000, fixpage result=6
+       Image     20140929       082157      105     9112        0 0x00240080 0x00000028

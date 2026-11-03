@@ -1,0 +1,53 @@
+$ sys macb reg
+Registers starting at Address 0xe0017000
+Control, Configuration and Status Registers (p.31)
+               Network Control [00]: 00000010
+         Network Configuration [04]: 00000803
+                Network Status [08]: 00000006
+                      Revision [fc]: 0001010d
+               Transmit Status [14]: 00000000
+ Transmit Buffer Queue Pointer [1c]: 00000000
+  Receive Buffer Queue Pointer [18]: 00000000
+                Receive Status [20]: 00000000
+              Interrupt Status [24]: 00000000
+              Interrupt Enable [28]: 00000000
+             Interrupt Disable [2c]: 00000000
+                Interrupt Mask [30]: 00003fff
+               PHY Maintenance [34]: 62867809
+                    Pause Time [38]: 00000000
+        Transmit Pause Quantum [bc]: 0000ffff
+                   Wake-on LAN [c4]: 00000000
+Address Matching Registers (p.40)
+     Specific Address 1 Bottom [98]: 00000000
+        Specific Address 1 Top [9c]: 00000000
+     Specific Address 2 Bottom [a0]: 00000000
+        Specific Address 2 Top [a4]: 00000000
+     Specific Address 3 Bottom [a8]: 00000000
+        Specific Address 3 Top [ac]: 00000000
+     Specific Address 4 Bottom [b0]: 00000000
+        Specific Address 4 Top [b4]: 00000000
+              Type ID Checking [b8]: 00000000
+                   Hash Bottom [90]: 00000000
+                      Hash Top [94]: 00000000
+Statistics Registers (p.42)
+         Pause Frames Received [3c]: 00000000
+         Frames Transmitted OK [40]: 00000000
+       Single Collision Frames [44]: 00000000
+     Multiple Collision Frames [48]: 00000000
+            Frames Received OK [4c]: 00000000
+   Frame Check Sequence Errors [50]: 00000000
+              Alignment Errors [54]: 00000000
+  Dererred Transmission Frames [58]: 00000000
+               Late Collisions [5c]: 00000000
+          Excessive Collisions [60]: 00000000
+      Transmit Underrun Errors [64]: 00000000
+          Carrier Sense Errors [68]: 00000000
+       Receive Resource Errors [6c]: 00000000
+        Receive Overrun Errors [70]: 00000000
+         Receive Symbol Errors [74]: 00000000
+       Excessive Length Errors [78]: 00000000
+               Receive Jabbers [7c]: 00000000
+              Undersize Frames [80]: 00000000
+               SQE Test Errors [84]: 00000000
+Received Length Field Mismatch [88]: 00000000
+      Transmitted Pause Frames [8c]: 00000000

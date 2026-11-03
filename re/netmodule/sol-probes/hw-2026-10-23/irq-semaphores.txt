@@ -1,0 +1,33 @@
+Hardware semaphores 0xFFFF0308 / 0xFFFF030C and IRQ 51, our OS, 2026-10-23 (wsl.ko loaded, /dev/wsl_admin held).
+
+First write after a module power-up:
+  Warp1 job: R32 0xFFFF030C -> 0; W32 0xFFFF030C = 0x5B; R32 -> 0x1B; (DELAY) R32 -> 0x1B
+  /proc/interrupts: " 51:          1    sulu-irq  wsl_admin"   (was 0 before)
+  -> a Warp write of a non-zero ID to 0x30C raises IRQ 51; the register keeps bits 4:0 (0x5B reads 0x1B).
+Afterwards 0x30C stayed 0x1B:
+  wsl.ko's handler writes 0 to it (wsladmin_isr: str #0 -> ioremap(0xFFFF030C)); no effect.
+  Warp1 W32 0; Warp0 W32 7 / 0; ARM (zd1-memsh) wr 0x1B, 0, 0x5B, 0x1F, 0x20, 0x40, 0x80, 0x100, 0x80000000,
+  0xFFFFFFFF, 0xFFFFFFE4, 0: all read back 0x1B. No further IRQ (count stayed 1).
+  Reset pulses on tgen gates 2 (Warp0), 20 (Warp1), 21 (Sol), 22: still 0x1B.
+  A module power cycle (MCU `mod off`, `mod power 60`) cleared it (reads 0). The next Warp1 write (0x15) set it again.
+0xFFFF0308 by contrast: Warp0 W32 9 -> reads 9, W32 0 -> 0; ARM wr 3 -> 3, wr 0 -> 0 (take / release as expected).
+0xFFFF0300 / 0x304: securewarp.ko's 8-byte mailbox (it ioremaps 0xFFFF0300, 8 bytes); read 0.
+
+After a module power cycle, our OS, 2026-10-23 late (tools/zeppelin/warp/irqprobe.py), 0x30C read 0:
+start: 0x30C 00000000 0x308 00000000
+ARM wr 0x15 -> 00000015
+ARM wr 0    -> 00000015
+ARM wr 0x80000015 -> 00000015
+ARM wr 0    -> 00000015
+Warp1: before 15; set+clear -> 15; set -> 15; clear -> 15; wr 1B -> 15; wr 80 -> 15
+ARM view 00000015
+irqc ack read +0x90 -> 0000000b; 0x30C 00000015
+irqc EOI 51 -> 0x30C 00000015
+irqc EOI 51|bit31 -> 0x30C 00000015
+ARM 0x308 := 1 -> 0x30C 00000015
+ARM 0x308 := 0 -> 0x30C 00000015
+page 0x300-0x3FC (Warp1): 0 0 0 15 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+final 0x30C 00000015
+  Warp1 writes of 0 and 0x1B to every word 0xFFFF0310-0xFFFF03FC: 0x30C stayed 0x15.
+  ARM 0x308 := 0x15, then 0: 0x30C stayed 0x15.
+  -> the first non-zero write from any master (here the ARM) latches it; nothing but a power cycle clears it.

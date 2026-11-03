@@ -1,0 +1,5 @@
+{
+"label":"alone",
+"warp1_spin":false,
+"runs":[{"seconds":2.254521131515503,"cycles_per_load":18.036169052124023},{"seconds":2.234147787094116,"cycles_per_load":17.87318229675293},{"seconds":2.209912061691284,"cycles_per_load":17.679296493530273}]
+}

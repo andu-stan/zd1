@@ -1,0 +1,9 @@
+hangprobe.py 2026-10-25: 5 Warp1 bus hangs (lw 0x10000, COP3 = 0), parked after each; fresh module power cycle
+cycle | hang (stuck/parked) | W1 debug c0_13 loads copy | cycles reg/local/sdram | W0 kat | Wi-Fi regs 0x580 irq15 ping | dmesg new/keywords
+    0 | - | dbg 0x1 ok ok | 5.06/5.16/23.83 | ok | 00000000 2347 3/3 | 173/4
+    1 | stuck/['0x0', '0x0'] | dbg 0x1 ok ok | 5.35/5.37/24.4 | ok | 00000000 3146 3/3 | 0/0
+    2 | stuck/['0x0', '0x0'] | dbg 0x1 ok ok | 5.13/5.29/23.94 | ok | 00000000 3889 3/3 | 0/0
+    3 | stuck/['0x0', '0x0'] | dbg 0x1 ok ok | 5.34/5.14/24.29 | ok | 00000000 4684 3/3 | 172/4
+    4 | stuck/['0x0', '0x0'] | dbg 0x1 ok ok | 5.04/5.16/23.92 | ok | 00000000 5428 3/3 | 0/0
+    5 | stuck/['0x0', '0x0'] | dbg 0x1 ok ok | 5.15/5.25/23.73 | ok | 00000000 6198 3/3 | 1/0
+JTAG kernel log at the end: # halted at c002734c = cpu_idle+0x38, cpsr 60000013

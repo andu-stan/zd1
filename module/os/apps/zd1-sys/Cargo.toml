@@ -1,0 +1,9 @@
+[package]
+name = "zd1-sys"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+description = "What the module OS's programs share: the kernel log, system calls, files, the MTD ioctls, CRC-32, hex, MACs"
+
+[dependencies]
+libc = "0.2"

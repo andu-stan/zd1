@@ -1,0 +1,1660 @@
+{
+ "about": "The downloads/ archive: vendor firmware, installers and documents, on archive.org. `path` is the file under downloads/ (`python3 tools/zeppelin downloads fetch` gets it), = <item>/<name in the item>; `source` is where it was downloaded from (each directory's SOURCES.md has the details). `dropped`: what was in downloads/ and is not archived here, and why.",
+ "items": {
+  "bw-zeppelin-air-software": {
+   "title": "B&W Zeppelin Air (ZD1) software and firmware, and the B&W AirPlay range around it",
+   "url": "https://archive.org/details/bw-zeppelin-air-software"
+  },
+  "bridgeco-jukeblox-firmware": {
+   "title": "BridgeCo/SMSC JukeBlox (DM860/DM870) device firmware collection",
+   "url": "https://archive.org/details/bridgeco-jukeblox-firmware"
+  },
+  "bridgeco-jukeblox-documents": {
+   "title": "BridgeCo/SMSC JukeBlox (CR870/CX870, DM8x0) FCC exhibits, datasheets and briefs",
+   "url": "https://archive.org/details/bridgeco-jukeblox-documents"
+  },
+  "avr32-gnu-toolchain-3.4.2-linux-x86_64": {
+   "title": "Atmel AVR32 GNU Toolchain 3.4.2 (GCC 4.4.7), Linux x86_64",
+   "url": "https://archive.org/details/avr32-gnu-toolchain-3.4.2-linux-x86_64"
+  },
+  "20230115_20230115_1916": {
+   "title": "Bowers & Wilkins ZZ34088 NAND dump (CR870)",
+   "url": "https://archive.org/details/20230115_20230115_1916",
+   "note": "a Zeppelin Air / A7 module NAND without OOB (HY27U1G8F2B@TSOP48_NO_OOB.BIN, 134217728 bytes, sha1 1388ccde2dd7b74f40d377a691f9ecf6b7741327); uploaded 2023"
+  },
+  "nokia-hd-1-dump": {
+   "title": "Nokia Home Music HD-1 NAND dump (third party)",
+   "url": "https://archive.org/details/nokia-hd-1-dump",
+   "note": "source of blobs/module/nokia-hd1/ (blobs/README.md)"
+  }
+ },
+ "files": [
+  {
+   "path": "bw-zeppelin-air-software/zeppelin-air/firmware-2.04.05/DFUflasher.exe",
+   "size": 123374,
+   "sha256": "e2bac6df187a2647c085b5754e86a64d8651c5bf2fd0ce7eeadb2a70985ca251",
+   "md5": "e4ae8800d53cf54ce59e1e6ddbc935dc"
+  },
+  {
+   "path": "bw-zeppelin-air-software/zeppelin-air/firmware-2.04.05/DFUpdaterTestMac",
+   "size": 13056,
+   "sha256": "15a2485838867d016cbe6dd72d8dcf322be5119bdda0fc73a14c011e850e4163",
+   "md5": "b2547fa6e3eee51c0ba19f2e3e857e5c"
+  },
+  {
+   "path": "bw-zeppelin-air-software/zeppelin-air/firmware-2.04.05/ZD1_v2-04-05.hex",
+   "size": 644903,
+   "sha256": "ca3071648a14b136ec81a0082baeda7cbb3af6db587d843f7f2ac4a14d32d164",
+   "md5": "1d5fd52bd482195ae8f1be10c57a50ff"
+  },
+  {
+   "path": "bw-zeppelin-air-software/zeppelin-air/firmware-2.04.05/app_DMP.bcd",
+   "size": 6847488,
+   "sha256": "568bc8243a7e2f57bffb9967d4209c270b7601bda0c561eaf71b7bca9f11b8dd",
+   "md5": "dc43cce2b57ebdd6dcd7b567a3c1a142"
+  },
+  {
+   "path": "bw-zeppelin-air-software/zeppelin-air/firmware-2.04.05/cygusb0.dll",
+   "size": 41984,
+   "sha256": "34e604eaedef050738abb1aab92e2c891baeeab5b5bd43a24e8ab0f26190965e",
+   "md5": "f8bb94b5c36cd485559129764eaa0935"
+  },
+  {
+   "path": "bw-zeppelin-air-software/zeppelin-air/firmware-2.04.05/cygwin1.dll",
+   "size": 3113058,
+   "sha256": "c8a7bbf688f5652f9b2fcc9c4372df576c93b04f3c124a81e5494151c0240c49",
+   "md5": "0a5a32a041aad33744a742ba32b70628"
+  },
+  {
+   "path": "bw-zeppelin-air-software/zeppelin-air/firmware-2.04.05/libusb-0.1.4.dylib",
+   "size": 44908,
+   "sha256": "690b60b78f792001ff04c122478783633c5737ef02f91bf2ff8582a1f49879b9",
+   "md5": "2553564c7fff7f8929c0895aca690555"
+  },
+  {
+   "path": "bw-zeppelin-air-software/zeppelin-air/firmware-2.04.05/updater.dylib",
+   "size": 70020,
+   "sha256": "ed28791980fa2a05755fcb2c5b17cf68c0e930d5439885de5a8bf037f7737011",
+   "md5": "dc58e2a1be1053884933c18b30f49a51"
+  },
+  {
+   "path": "bw-zeppelin-air-software/zeppelin-air/firmware-2.04.05/upgrade.cmd",
+   "size": 1465,
+   "sha256": "7c99aa8d8400bbbb2aa420319064fc9bbb0e7acf17cd551051428bd0ec5c18d5",
+   "md5": "1854e39ca6d02b7bb8702ba3ae044c99"
+  },
+  {
+   "path": "bw-zeppelin-air-software/zeppelin-air/firmware-2.04.05/upgrade.sh",
+   "size": 2157,
+   "sha256": "6557663be48f04ca3dfd941ce94621346518fa5bfe462c792b0865e9a4c486a0",
+   "md5": "046453fc17c2466679c20cad4d9e23c4"
+  },
+  {
+   "path": "bw-zeppelin-air-software/zeppelin-air/firmware-updater-mac/ENG_FP28495_Zeppelin_Firmware_Mac.dmg",
+   "size": 654639,
+   "sha256": "d594943e7411c5d9a6520fa7db13a94df8e19750286f72c559c8557219b4d51c",
+   "md5": "a9790ff9962bb491ced943f0d3e0f727"
+  },
+  {
+   "path": "bw-zeppelin-air-software/zeppelin-air/programmer-windows/Zeppelinprogrammer.exe",
+   "size": 1256328,
+   "sha256": "ee5d73be402edaa5f818f631fcb0d27fc541da50ead6c668ce57fb3684302717",
+   "md5": "0bf7ee7016ca6e9eb13152f30d501ea8"
+  },
+  {
+   "path": "bw-zeppelin-air-software/zeppelin-air/programmer-windows-x64-setup/ZeppelinAirProgrammerSetup_x64.msi",
+   "size": 5002752,
+   "sha256": "aa4a59c557e3ea1ed87bb469f248ccafb2b1170ffdbf828a99e8f83d9ae774b7",
+   "md5": "fdf0bf3d95aa16e8c6bd34171fbe4426"
+  },
+  {
+   "path": "bw-zeppelin-air-software/zeppelin-air/programmer-windows-x64-setup/Zeppelin_Air_Firmware_Installation_instructions.pdf",
+   "size": 185322,
+   "sha256": "29a7591115b98d29dcee2373800978a2a297918bcd8db8e5fed08bcf123b4507",
+   "md5": "3fbb0a0d74c368ba929e404fc0852a6a"
+  },
+  {
+   "path": "bw-zeppelin-air-software/zeppelin-air/programmer-windows-x64-setup/Zeppelin_Air_Release_Notes.pdf",
+   "size": 90615,
+   "sha256": "9a82d24ac3b7e2d4fddd474e5b7ecb28d1c370fe6b3eb7c99aa9d8968acefcb9",
+   "md5": "0ed192c2e515e029abb00006ada542a2"
+  },
+  {
+   "path": "bw-zeppelin-air-software/zeppelin-air/programmer-windows-x64-setup/setup.exe",
+   "size": 430592,
+   "sha256": "42f20bac9835f0d4bee09de7640b5982eb3feab260ca8fe66e82505570a00edd",
+   "md5": "102b985f57dbab3e6cdc2ac4f400207d"
+  },
+  {
+   "path": "bw-zeppelin-air-software/zeppelin-air/recovery-utility/150108_ZeppelinAirRecoveryUtility_2.2.2_322.zip",
+   "size": 5688089,
+   "sha256": "9f0a7264835a62a17cb84fe1d0d3c92951bf1762739586d718bd1b3a9ce2478a",
+   "md5": "32c76f11322fb305abd029b99637ea12",
+   "source": "https://rn.dmglobal.com/Bowers_Wilkins/archive/software/zeppelin_air_recovery/mac/150108_ZeppelinAirRecoveryUtility_2.2.2_322.zip"
+  },
+  {
+   "path": "bw-zeppelin-air-software/zeppelin-air/recovery-utility/151009_ZeppelinAirRecoveryUtilityInstaller_2.2.3_342.zip",
+   "size": 66268685,
+   "sha256": "a4b709d75fc40dc8051fc2c20c3ff485a6838d61480d01276628cf1d04930015",
+   "md5": "2a04520f7211a822cb26864bc52390fc",
+   "source": "https://rn.dmglobal.com/Bowers_Wilkins/archive/software/zeppelin_air_recovery/pc/151009_ZeppelinAirRecoveryUtilityInstaller_2.2.3_342.zip"
+  },
+  {
+   "path": "bw-zeppelin-air-software/zeppelin-air/recovery-utility/SOURCES.md",
+   "size": 3433,
+   "sha256": "f88a42eba8f6718fdfd6b0e85a4ba858093c4203a3eda42945a7e5e685a81f1f",
+   "md5": "2cd67853d6fe32e4b1ca896202f08977"
+  },
+  {
+   "path": "bw-zeppelin-air-software/control-app/191028_BowersWilkinsControl_1.2.4_14697.dmg",
+   "size": 11379314,
+   "sha256": "00b9c66be41eaf0e291ca237b7a312a42f28eccf80c36fd4ce1387c4c0c9d6da",
+   "md5": "3ecbd91c8e27d38df69585cf03148c27",
+   "source": "https://rn.dmglobal.com/Bowers_Wilkins/archive/software/airplay_setup/mac/191028_BowersWilkinsControl_1.2.4_14697.dmg"
+  },
+  {
+   "path": "bw-zeppelin-air-software/control-app/Bowers&WilkinsControlInstaller.exe",
+   "size": 9718224,
+   "sha256": "6fa687e04441b194a13b3b04f584ce58349810c28a7db8f69f7fe3686428f9d9",
+   "md5": "8dc656d01310198b1f0ad5fd4784ee3d"
+  },
+  {
+   "path": "bw-zeppelin-air-software/control-app/firmware-manifests/SOURCES.md",
+   "size": 3046,
+   "sha256": "8f0e896c4aaf0d8f3ef6cb1a1990444375f422b4ec8b35c6f73c632ede657ee7",
+   "md5": "da22008fded4de337c021c2636f0992e"
+  },
+  {
+   "path": "bw-zeppelin-air-software/control-app/firmware-manifests/firmware.xml.Control-1.2.0",
+   "size": 9384,
+   "sha256": "44fb9b8a21e95a43b2fa47f3ba1291ffe4922e5335fe5477b5fd80d2273d942a",
+   "md5": "d36c000931c6abb995834603ed3e7fd2"
+  },
+  {
+   "path": "bw-zeppelin-air-software/control-app/firmware-manifests/firmware.xml.Control-1.2.4",
+   "size": 10343,
+   "sha256": "8b38f7c2055cd7011a536a35a9416a39f8482b20ab9f4cc97b791ae88600c604",
+   "md5": "7d3b06662a14019eab3ebd938ae74734"
+  },
+  {
+   "path": "bw-zeppelin-air-software/control-app/firmware-manifests/getFirmwareXML.live-2026-10-18.xml",
+   "size": 8468,
+   "sha256": "90860fe1ec6f96efae791a75c68fe6de8f1e2a120949b0aec9772ba34f7013c8",
+   "md5": "0e346eedce2fd773ce1bae9b230bc1de",
+   "source": "https://dds.bwfirmware.com/sparkle/getFirmwareXML.php"
+  },
+  {
+   "path": "bw-zeppelin-air-software/a5/SOURCES.md",
+   "size": 1001,
+   "sha256": "a3b608423778cdefa25cfb4085b35187cacb03d9fabe7c1fa484f9d6473c1877",
+   "md5": "1a2ebaababc2c79fd9f6f3468e87fe91"
+  },
+  {
+   "path": "bw-zeppelin-air-software/a7/SOURCES.md",
+   "size": 1528,
+   "sha256": "3b89d01b8411509011bcb4c42119b6c13db54d7cae8ea3aa8ee525328f531906",
+   "md5": "041b5e86580d026e84628227582a3d31"
+  },
+  {
+   "path": "bw-zeppelin-air-software/a7/release_notes_id62_v2.04.77.html",
+   "size": 996,
+   "sha256": "cdfb550f71e8b3d4956afaf4e4cff1e9af93393279c068785f95f698626f8d7d",
+   "md5": "7358060342d0ada1d920d9bce9a53a2f",
+   "source": "https://dds.bwfirmware.com/sparkle/getReleaseNotes.php?release_id=62"
+  },
+  {
+   "path": "bw-zeppelin-air-software/z2/SOURCES.md",
+   "size": 594,
+   "sha256": "d9d9e5023da255510452b5d2dd3eca3d9b44e52560d25a54281022b1439c304e",
+   "md5": "5a7e86403fb959f1b4f4c53bf283cbef"
+  },
+  {
+   "path": "bw-zeppelin-air-software/zeppelin-air-lightning/SOURCES.md",
+   "size": 941,
+   "sha256": "bf7cfea5abff9298d5c12720989921441ba8d6d0d7d446f87901f855a0f23e9a",
+   "md5": "ca8f0b4acfdf9f1eee432ad09d0044fb"
+  },
+  {
+   "path": "bw-zeppelin-air-software/zeppelin-air-lightning/release_notes_id64_v2.04.35.html",
+   "size": 1044,
+   "sha256": "53a8acebf923438ec563086e506ebae6ad12f554dba67a0d7c5a1cff829d5840",
+   "md5": "4a13ea5e6835017090800ff39eb3fc00",
+   "source": "https://dds.bwfirmware.com/sparkle/getReleaseNotes.php?release_id=64"
+  },
+  {
+   "path": "bw-zeppelin-air-software/zeppelin-wireless/SOURCES.md",
+   "size": 739,
+   "sha256": "fde35b5200b9fa782a54e49ca6da21982544487eeaa731bea92f5e57b7a6e6a3",
+   "md5": "73f55cf39ba031d7a74f08c71f95b8d8"
+  },
+  {
+   "path": "bw-zeppelin-air-software/zeppelin-wireless/ZW_v01.03.928.sap.bin",
+   "size": 3913807,
+   "sha256": "f9da870982bb428683054d382dc83368b22ec8e9b847ccbc0955589188c5ba70",
+   "md5": "3c90a585fa88355430fee5f072ba7661",
+   "source": "https://rn.dmglobal.com/Bowers_Wilkins/archive/firmware/zeppelin_wireless/ZW_v01.03.928.sap.bin"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/BWY-CR870-2Q_2012-08-14_Internal-Photos_1766352.pdf",
+   "size": 1319891,
+   "sha256": "3c75abd098013e96903e46d268024630930a82585ee8699547f3453e913fb456",
+   "md5": "5b508724fef377c22463ca63a0e8b726",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1766352"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/BWY-CR870-2Q_2012-08-14_Users-Manual_1766359.pdf",
+   "size": 4702648,
+   "sha256": "17af2876918f103b6d07a0882231b00256e96b2c7daac6107134788959b37d64",
+   "md5": "42513dc0b5a5181fb725395c2565070f",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1766359"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/PPQ-CR8702C_2010-02-22_Cover-Letter-s_1243963_wayback.pdf",
+   "size": 17366,
+   "sha256": "a9238f383771090a5c5f7f438f4ca44d4fe0eb5aa148209fda2aa86ab0402818",
+   "md5": "9f72dbf44146c655a9817d1b956e1f42",
+   "source": "http://web.archive.org/web/2025id_/https://fcc.report/FCC-ID/PPQ-CR8702C/1243963.pdf"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/PPQ-CR8702C_2010-02-22_Internal-Photos_1243972.pdf",
+   "size": 1415917,
+   "sha256": "a8a2c0f0ebda1773b409e4a504914f61a7ed4ac6ca78e4443c7096c552946e42",
+   "md5": "dd7d958986117d416f29cc6e9c1fe977",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1243972"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/PPQ-CR8702C_2010-02-22_Operational-Description_1243970.pdf",
+   "size": 32460,
+   "sha256": "b1f38f910be5e05b4647b435d2bce9a9710b718457fbaa6942ce51635d9b7b21",
+   "md5": "d2c464eaad9be0f7f53b6cc997e47789",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1243970"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/PPQ-CR8702C_2010-02-22_Test-Setup-Photos_1243974_wayback.pdf",
+   "size": 231925,
+   "sha256": "2ba17fa9bd7be24c3937536332a42ebd96ccc0e0dec6638263ce8b7a6c6a1f23",
+   "md5": "5d0dc1c2cd66d160e318e8a4efd8b539",
+   "source": "http://web.archive.org/web/2025id_/https://fcc.report/FCC-ID/PPQ-CR8702C/1243974.pdf"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/PPQ-CR8702C_2010-02-22_Users-Manual_1243975.pdf",
+   "size": 807750,
+   "sha256": "d73efc17cf25077c30795e957ed333bc76780fa43da9cb2318f79d0806852119",
+   "md5": "96e35389c00af67a76ffdfb64afba940",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1243975"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/PPQ-CR8702G_2010-04-07_Internal-Photos_1262462.pdf",
+   "size": 1820995,
+   "sha256": "7b950c439260c9b7de7efac0dd3ffc0e3edfbd62bd20010b4acaa512ff40b946",
+   "md5": "1a259e02a68ff64411b5b030146e6969",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1262462"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/PPQ-CR8702G_2010-04-07_Operational-Description_1262465.pdf",
+   "size": 32460,
+   "sha256": "5aa99c94fbae304a5a30ff12d917e81309b2ca5e55fffebe33fb737db0123128",
+   "md5": "c2d6a5113f4880dc7afb0835f9ad6eac",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1262465"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/PPQ-CR8702G_2010-04-07_Users-Manual_1262469.pdf",
+   "size": 903041,
+   "sha256": "3d1b135f886b7daed93741a172de2dce26e8edac09ca982c909c1bd635bdb4b3",
+   "md5": "3278f978dfdcb3e802dc9f44d74ad579",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1262469"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/PPQ-CR8702G_2011-03-02_Internal-Photos_1424563.pdf",
+   "size": 1063399,
+   "sha256": "90adaed6713e361f1ffc8e4caa6c8e6b3023f6c8af11b48d74ce38003b246a0c",
+   "md5": "4a816904f8cdfc809cc0d20359a3ebc3",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1424563"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/PPQ-CR8702G_2011-08-17_Internal-Photos_1524642.pdf",
+   "size": 2604765,
+   "sha256": "ef49f94f2bee43667251ff1a3765f5f81a8f694220a35a348007ee4e343e7ccc",
+   "md5": "2898fdfcbbf59bb4e19b809c2eb9227a",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1524642"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/PPQ-CR8702G_2011-08-17_Operational-Description_1524645.pdf",
+   "size": 13868,
+   "sha256": "4cfe33e5c1153ee63dd119777d97816ff6077b148512a9c3718daea1ce0f443f",
+   "md5": "9560a66159e5eaf6462e03ea97e3216b",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1524645"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/PPQ-CR8702G_2011-08-17_Users-Manual_1524649.pdf",
+   "size": 697853,
+   "sha256": "cdc863731eab0c8e1c7493945cc4e582c14db384400e5fe4a7b5150ec2c19035",
+   "md5": "78d4a80b9187ab9adcc58305f1e48442",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1524649"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/PPQ-CR8702K_2011-03-18_Internal-Photos_1433726.pdf",
+   "size": 1787832,
+   "sha256": "a53a4793a4e3507d42b7bc5df389d14f54e1c2a36b6b3ebc6851e85f81186753",
+   "md5": "774ddc37c666b1ab2f3f1f609ad0827f",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1433726"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/PPQ-CR8702K_2011-03-18_Operational-Description_1433729.pdf",
+   "size": 61280,
+   "sha256": "2a4a387cf7fc85e902b65bac18aaa299921711af9085024a52dd9f088aaf4d1d",
+   "md5": "9dd729ad89325d9e77e934eed9a40bd5",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1433729"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/PPQ-CR8702K_2011-03-18_Users-Manual_1433733.pdf",
+   "size": 569934,
+   "sha256": "c3f852c830c83a3dc1dda3b4c60faeb2064f9fa4777dc62b02aee9dc8f55691c",
+   "md5": "b39f5e9419dc2a37c712e4dd8ae58793",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1433733"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/PPQ-CR8702N_2011-06-16_Internal-Photos_1484424.pdf",
+   "size": 1225300,
+   "sha256": "2a4c978afbda81ecafbf92904a776f082d6c6504f1d953592094a32920f2db34",
+   "md5": "351dbaaaff0297cc795b3e77bb9b82f5",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1484424"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/PPQ-CR8702N_2011-06-16_Operational-Description_1484428.pdf",
+   "size": 13847,
+   "sha256": "b500d85e901e1b530e8508a0e297971ad724f1079c6e9bdc980adccb388e6fba",
+   "md5": "92e0f929c88af1b7c03feabdefe6e9a0",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1484428"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/PPQ-CR8702N_2011-06-16_Users-Manual_1484432.pdf",
+   "size": 3592219,
+   "sha256": "8a045a27d99ca1774940649856eefe18b4f68d5f8c8c79cb6da492e23c8c554a",
+   "md5": "1fb16b601a9b82e7d836716016b5b8a7",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1484432"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/PPQ-CR8702SB_2012-06-12_Internal-Photos_1720623.pdf",
+   "size": 440979,
+   "sha256": "0639f9c9ecfccd2cbb20b3f40d2a61b1f061f6a794dbd169b7012897fda70451",
+   "md5": "9500de548b49ee327fe21fab77678997",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1720623"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/PPQ-CR8702SB_2012-06-12_Users-Manual_1720632.pdf",
+   "size": 4963372,
+   "sha256": "690431d2c2ad6cb3bce427e7ad82ac4ba57d23a32c3743aeee7d2fbe33fbc6e1",
+   "md5": "7bc5df0690c5b488d2e8d0339e234e6c",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1720632"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/PPQ-CX8703BD120_2014-02-17_Internal-Photos_2191656.pdf",
+   "size": 1463082,
+   "sha256": "8d66e072a0cbd85a30a4d485bd2c76fe1d2f4d59840905d899fd5a47f36a4ded",
+   "md5": "775b6179e2a1bb7b0e7725e9f7ddcf1d",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=2191656"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/PPQ-CX8703BD120_2014-02-17_Users-Manual_2191660.pdf",
+   "size": 2471340,
+   "sha256": "f7ef0c11d72bf9d17b41007f92b8e6398996a01bf820f44020e90d4aef0058c9",
+   "md5": "ceefb66f1960d458fe0f06414a637f4b",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=2191660"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/PPQ-CX8703LB_2012-12-19_Internal-Photos_1862977.pdf",
+   "size": 993775,
+   "sha256": "6e2970126461e81f78277de60e65fdcac78e8f8d4beaa24c550307b9fe3a39c3",
+   "md5": "01fd44afb305750a6402dc649f0ac3a5",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1862977"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/PPQ-CX8703LB_2012-12-19_Users-Manual_1862983.pdf",
+   "size": 1482473,
+   "sha256": "94808c5999e9d1cfb2d493c63af2d9330352ec6505c1aec1275e8c215ece3692",
+   "md5": "f007de79904a561c6b83709d3f19b02c",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1862983"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/PPQ-CX8703LB_2013-01-15_Internal-Photos_1878758.pdf",
+   "size": 796629,
+   "sha256": "c90cf36ee332b2624643c26fd0290f12a3a035cab005240a8adc800a173eb69c",
+   "md5": "bf03c4a1bad38496b7aed99836ce54c4",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1878758"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/PPQ-CX8703LB_2013-01-15_Users-Manual_1878762.pdf",
+   "size": 1480108,
+   "sha256": "0743cce72e4a2ea06b1570c708a2609b30facae2c8c611676bbe1d93293bba9c",
+   "md5": "daf7138052bfd2395763e01ea81cb16f",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1878762"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/PPQ-CX8703MB_2012-10-16_Internal-Photos_1815237.pdf",
+   "size": 564752,
+   "sha256": "391f142ea6001bd8fecb11e2d05f9029992d6592d4d9c75900aeb7c517ba61bb",
+   "md5": "826f950bf882c4639f4a73e32f673500",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1815237"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/PPQ-CX8703MB_2012-10-16_Users-Manual_1815245.pdf",
+   "size": 1535426,
+   "sha256": "b0a3fc76c3adea49a60f7da24ef2db8df0d46bf74d7e5932cf36323a4c902202",
+   "md5": "8274c0360dabeb07a6bfa03970ea6faa",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1815245"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/PPQ-CX8703MB_2013-11-12_Internal-Photos_2117588.pdf",
+   "size": 804682,
+   "sha256": "caefbb125f1fbce1abd1493915fb412019089490ed5358c8fb0c30881a38d0f0",
+   "md5": "eeca06457608ae1a66216bec39443257",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=2117588"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/PPQ-CX8703MB_2013-11-12_Users-Manual_2117592.pdf",
+   "size": 1585603,
+   "sha256": "f652af72f6f43e32aad6c97216aade90e5b1eda46ae23f1f90970a23c35c27ce",
+   "md5": "d99b40bdd23c84630135edc3e7bd9a4c",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=2117592"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/PPQ-NM100BB_2009-07-20_Cover-Letter-s_1141476.pdf",
+   "size": 11473,
+   "sha256": "bcb43b9ee709a23ee64e493f5882436d3c83e6d4b6c2bdf8b0f344615bbb9760",
+   "md5": "91a54b3b92371ca84ce5667ff14c18ec",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1141476"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/PPQ-NM100BB_2009-07-20_Internal-Photos_1141481.pdf",
+   "size": 264186,
+   "sha256": "5b0c5a465b7e8956d3ad3887c47a4d9e6d2c09113161189771240e2b8f3f162c",
+   "md5": "ae16b0d0547541f6da1c68a4ce410d80",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1141481"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/PPQ-NM100BB_2009-07-20_Operational-Description_1141484.pdf",
+   "size": 13732,
+   "sha256": "ced7b522ace933973ab80d381e69b809c56bd0e5389a54728a545d4d262dd015",
+   "md5": "652703fd735075a71486cb5d0a5f6040",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1141484"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/PPQ-NM100BB_2009-07-20_Users-Manual_1141487.pdf",
+   "size": 326583,
+   "sha256": "23f95bf5fec507edcc5dd1f7b9d5a04c5d99d2bfc8312f1d879a2a751b74f28a",
+   "md5": "f38624895adac1fb18b96ee4586f2b15",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1141487"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/PYAHD-1_2009-08-24_Internal-Photos_1158245.pdf",
+   "size": 2734528,
+   "sha256": "b5071083ab8adca6e9f737cd0c15647fb1b1c297fc8e46e4f5f1dd04d33cb68d",
+   "md5": "dd9b00ecea940fa9edefae8d9879e5e8",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1158245"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/PYAHD-1_2009-08-24_Internal-Photos_1158246.pdf",
+   "size": 2260910,
+   "sha256": "0cf82f7e36086b461b1bedb517a7e75efd16038015a1f0813f3dfd4609622d8d",
+   "md5": "ad3114e703020f4a57799965669474a8",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1158246"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/PYAHD-1_2009-08-24_Internal-Photos_1158247.pdf",
+   "size": 1593881,
+   "sha256": "1d8c3ae2a6bc8eac51a12af08a09d335ba5d4103205c41b8555df443a7f8340d",
+   "md5": "696d0855c734015b0c0aea7d6c816b7c",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1158247"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/PYAHD-1_2009-08-24_Test-Setup-Photos_1158255_wayback.pdf",
+   "size": 242078,
+   "sha256": "ed73ea5073b5305ddfe44114ff4d7e1708e1fd2f8253992d1865f098454a8cdb",
+   "md5": "ad99622b7cfab3645099eca7b30b7584",
+   "source": "http://web.archive.org/web/2025id_/https://fcc.report/FCC-ID/PYAHD-1/1158255.pdf"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/PYAHD-1_2009-08-24_Users-Manual_1158257.pdf",
+   "size": 1717478,
+   "sha256": "cec7753b9dd211d14b75d9a24e57f7751c5a27fa5319f6135d31ddd6c04a6d54",
+   "md5": "9bef4001d498a83f961598926b6bd403",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1158257"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/SOURCES.md",
+   "size": 24991,
+   "sha256": "9efde994415ca6b8778ef551e0028653fc030a97e1217e597baa1ba0837516b4",
+   "md5": "a3a83b9fc17b6943951b0ab46563d6d8"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/TTUCR870-2Q_2011-11-11_Internal-Photos_1580248.pdf",
+   "size": 965698,
+   "sha256": "51958ddd23d19096fd5f5cc5eb79053f13efe82ce37bb072a54c7b22b5676947",
+   "md5": "677ae91f6eeff5df45a4391043cddfe7",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1580248"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/TTUCR870-2Q_2011-11-11_Users-Manual_1580250.pdf",
+   "size": 694189,
+   "sha256": "0a4d79c993e25061def0ab21a2b40b82904ef99020e5d8b9a1f68a5e402b95f5",
+   "md5": "a2b131a301720432a322f184a52fe185",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1580250"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/TTUCR870-2Q_2012-03-07_Users-Manual_1651008.pdf",
+   "size": 687876,
+   "sha256": "35061491e1a9bfbeb6fc6e2a0ce448fc0f30f26750fa65b960fb332756398c07",
+   "md5": "28bb6954bddbe015817ce2972b2f207e",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1651008"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/TTUCR870-2Q_2013-12-23_Internal-Photos_2150723.pdf",
+   "size": 1869113,
+   "sha256": "7de9fd6cae5c51fe689d6f546db54e073d23603d4ac93754ccd1571b3887df6b",
+   "md5": "b33b13d364053d491ef9cb0cf01176bd",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=2150723"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/ZQO-CX8703B_2011-07-11_Internal-Photos_1498553.pdf",
+   "size": 1161160,
+   "sha256": "0456b3cf670e5c67599f239c2ca66f12563ba695a6ecf8aa3bd3f01c3cdb2570",
+   "md5": "38f65e103a10997a56554dc4ad14f505",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1498553"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/ZQO-CX8703B_2011-07-11_Operational-Description_1498554.pdf",
+   "size": 14113,
+   "sha256": "60c96d55322ce1916559363d9327abe5d22667252a2e7b44f9da986d4272ecfa",
+   "md5": "f9cce7cc0b2d75311fe85517dc04aa7f",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1498554"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/ZQO-CX8703B_2011-07-11_Users-Manual_1498559.pdf",
+   "size": 3548320,
+   "sha256": "9313df502fa7d52e19d129736c08d2a02e1ff31f82eeed11127e975d6c2bd720",
+   "md5": "d23b97adfa10795b27f6170f4fb06e09",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1498559"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/ZQO-CX8703B_2012-04-16_Internal-Photos_1676670.pdf",
+   "size": 2679362,
+   "sha256": "685b7978cb27f256d8109b50f807538b57b8ba1d2a414eee05e6770ae743af52",
+   "md5": "8f8bbe1ac4acb2e1277c76d13ec46f2b",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1676670"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/ZQO-CX8703B_2012-04-16_Users-Manual_1676672.pdf",
+   "size": 1380659,
+   "sha256": "163d2915c4050daed5be0d75bbca6ebf7e55d9589a459beb68fea11a8b5ad8a0",
+   "md5": "daaeec6bbfccdbbf8d737457e2a6d7dc",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1676672"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/ZQO-CX8703B_2013-01-22_Internal-Photos_1883710.pdf",
+   "size": 2417407,
+   "sha256": "ade40b282acb565fcc02edea427b64d6f4e940594d6c058017c9b2ee50f1e0d8",
+   "md5": "1e9dcc0c72d3021fc613b44e9a0d0023",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1883710"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/ZQO-CX8703B_2013-01-22_Users-Manual_1883712.pdf",
+   "size": 1481554,
+   "sha256": "8f006cd7dda93f4ab36de48596df1d71b512f859a8e4bec1007a0f47d0cc3574",
+   "md5": "812f7282d8a1367caedb4d9e068a7718",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1883712"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/fcc/ZQO-CX8703B_2013-06-13_Internal-Photos_1989448.pdf",
+   "size": 1188485,
+   "sha256": "d1aadd3625647bf1e0eea9e367e81e180a5146d542ce0a638c1c60c8aae4f5f5",
+   "md5": "90a57a340ead4b4fc33b7f7111bd5b5e",
+   "source": "https://apps.fcc.gov/eas/GetApplicationAttachment.html?id=1989448"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/bridgeco/brochures/SOURCES.md",
+   "size": 1403,
+   "sha256": "ec4c1a6236179a0e2e9752a1c2768f2ccef377be3f7856f24f990a9cfb61c6f6",
+   "md5": "4f19b302f3d4cb81a0f5874700c7168f"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/bridgeco/brochures/jukeblox2_1fs.pdf",
+   "size": 681848,
+   "sha256": "413f4b646aad97458526f3464799d1ba5b5a680c2d0c58c5c8fcf7dc5f6e3d8a",
+   "md5": "4f3339e9b0572ab0502e2d46db8a5ad0",
+   "source": "https://web.archive.org/web/20131111044143/http://www.smsc.com/Downloads/SMSC/Product_Brochures/jukeblox2_1fs.pdf"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/bridgeco/brochures/jukeblox2_2po.pdf",
+   "size": 738065,
+   "sha256": "285906065de490c72b6f7d95309278b56faa549b723836e3b3fb2385b0d0cbad",
+   "md5": "26d192f47e815f2be930e692dd441530",
+   "source": "https://web.archive.org/web/20131110172534/http://www.smsc.com/Downloads/SMSC/Product_Brochures/jukeblox2_2po.pdf"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/bridgeco/brochures/jukeblox3_0po.pdf",
+   "size": 725983,
+   "sha256": "fb49c46de9c848cf448864396705d370f805597782f2b6553b0a86e0df747bd6",
+   "md5": "19269b52665febad60ed2ef3f446091e",
+   "source": "https://web.archive.org/web/20130108065227/http://www.smsc.com:80/Downloads/SMSC/Product_Brochures/jukeblox3_0po.pdf"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/bridgeco/reference-designs/DM860_PB_Ver2_8-27-08.pdf",
+   "size": 680978,
+   "sha256": "d00b10c820375fee9682be8bfa55ef42923690681453f34174b6fff137d5bbd0",
+   "md5": "817f69ab989b1554ad0da703d2ade3a4",
+   "source": "https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/896/DM860_PB_Ver2_8-27-08.pdf"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/bridgeco/reference-designs/SOURCES.md",
+   "size": 2007,
+   "sha256": "11d12dd5eba90a0451d9f0ee46b78e7e1c635aded799c3dcda408f796439448d",
+   "md5": "93001d9904e64f9aaafaf22546d35b2b"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/bridgeco/reference-designs/adp_cul_01_pma_evm_eDMP2_product_brief.pdf",
+   "size": 193156,
+   "sha256": "c8bd26a6d8ed7f0ec51a1c0d1175ed30924e193930e4a5b679a7c8f84700ab61",
+   "md5": "590add08671547c530df6b4a08f689c2",
+   "source": "https://web.archive.org/web/20070803224809/http://www.bridgeco.net/pdfs/adp_cul_01_pma_evm_eDMP2_product_brief.pdf"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/bridgeco/reference-designs/adp_dm850_02_pma_edmp.pdf",
+   "size": 52397,
+   "sha256": "a72d46c7ad4b8105242b0d10f27b7fd2941d850d2ec5ffa9da0b235f272c6ce7",
+   "md5": "7cb34e67222bc0cf3f0204d71b474684",
+   "source": "https://web.archive.org/web/20070803224832/http://www.bridgeco.net/pdfs/adp_dm850_02_pma_edmp.pdf"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/bridgeco/reference-designs/productbriefaDMP-005v220080827.pdf",
+   "size": 247253,
+   "sha256": "b86de0fddb185659b08d00f4de2fc18b96a9a17c7dc4964b44d60448428758d0",
+   "md5": "6c4b19fb48caaccf69b4eda36ff1bec3",
+   "source": "https://web.archive.org/web/20100119185120/http://www.bridgeco.net:80/assets/Uploads/productbriefaDMP-005v220080827.pdf"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/bridgeco/reference-designs/productbriefeDMPv220080827.pdf",
+   "size": 133102,
+   "sha256": "758ee7b96e282d131cbd58ee4a0191b855721f405fe4e18f35909c860ecba392",
+   "md5": "71e789d50bf1d999607fcbca2e5f2eee",
+   "source": "https://web.archive.org/web/20100119185137/http://www.bridgeco.net:80/assets/Uploads/productbriefeDMPv220080827.pdf"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/bridgeco/jukeblox-update-server/README.txt",
+   "size": 18002,
+   "sha256": "6dac39e9c6f7dd00ddf37ed50fa2561a14299765ad824c4257275f885dcf9215",
+   "md5": "8e8d89f00625707241b2dcb9c4b1cc8c",
+   "source": "https://web.archive.org/web/20090531134436/http://www.bridgeco-jukeblox.net:80/README.txt"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/bridgeco/jukeblox-update-server/SOURCES.md",
+   "size": 2320,
+   "sha256": "cd3ba48b4e90971fa9e1e0de6cb2139c6d3d97edceaa6350ae1c6452e82cfb6c",
+   "md5": "efd6935b88e4fb6303737e4b69295f02"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/bridgeco/jukeblox-update-server/do_firmwareupdate_README.txt",
+   "size": 1274,
+   "sha256": "f5442888981be24b91f76db4363a975eab4ba81361783e74dc3fa9e7fc1cc49a",
+   "md5": "d934b270c45f05760614987ff7cd6ab5",
+   "source": "https://web.archive.org/web/20090531134733/http://www.bridgeco-jukeblox.net:80/do_firmwareupdate/README.txt"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/bridgeco/jukeblox-update-server/homepage_20101229.html",
+   "size": 4172,
+   "sha256": "df0ede11510804ee0c13ff1c9eadf5c6d8a72e1c1f25d9922fc68ede28265466",
+   "md5": "77703105645d50ab7072eb4820bff2c7",
+   "source": "https://web.archive.org/web/20101229021548/http://bridgeco-jukeblox.net/"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/bridgeco/jukeblox-update-server/index.txt",
+   "size": 5216,
+   "sha256": "b7ea530afbb3d69fe919f1f1bd02ddc0cf14f736e852ba52e227b226467231c9",
+   "md5": "d26b4fd3038166d9e5c749f84ec245dd",
+   "source": "https://web.archive.org/web/20090531133754/http://www.bridgeco-jukeblox.net:80/download/index.txt"
+  },
+  {
+   "path": "bridgeco-jukeblox-documents/bridgeco/jukeblox-update-server/index_20090430.txt",
+   "size": 4727,
+   "sha256": "325b77515eb54a68c3c1818a613e89afe120d204b9220dcac4e103f1e821f032",
+   "md5": "cbe2eb42477516f3da33b7dfd666c792",
+   "source": "https://web.archive.org/web/20090430100617/http://www.bridgeco-jukeblox.net:80/download/index.txt"
+  },
+  {
+   "path": "avr32-gnu-toolchain-3.4.2-linux-x86_64/avr32-toolchain.tar.gz",
+   "size": 27339881,
+   "sha256": "dc6b37c5f31cb997e7a067c414309f1e11bb79be16ce9f954047353df50f8ad7",
+   "md5": "3f78fa13370212d13f88a77d8a2c5f77"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/arcam/solo-neo/SOURCES.md",
+   "size": 939,
+   "sha256": "088f3e3c52a4801df325227614c7ff0725532463b57df374c1403925d8377a02",
+   "md5": "191d081b1892c70e79f076c4eb00a066"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/arcam/solo-neo/soloneoe_manual.pdf",
+   "size": 4112779,
+   "sha256": "f611bcbba68dfdf2920852ac9c2226dfff4d35977b0f3624d4154285f5af922a",
+   "md5": "91e6288c89bd49de9dbf00aab275951c",
+   "source": "https://web.archive.org/web/20101203125726/http://www.arcam.co.uk/_ugc/file/soloneoe_manual.pdf"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/bang-olufsen/beoplay_a8/SOURCES.md",
+   "size": 974,
+   "sha256": "8e75505e776d4dabf3fc16dcbb1bb296b704cd723ee6a2602eda57e1911883bd",
+   "md5": "88392bfa3f710b70abffe88c7a0c6c79"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/bang-olufsen/beoplay_a9_mk1/SOURCES.md",
+   "size": 2495,
+   "sha256": "7950c4c0d7043f472393bf618dada9208b17e39c9ba49cd03a4863c91e8432ae",
+   "md5": "38a6eb08ae58ad3fe113731e3e4b400f"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/bose/SoundLink-Air/SOURCES.md",
+   "size": 1818,
+   "sha256": "08dfa368ac80b0b1d7463eb5ec5fa6e0876fb58df603831f965cbb88eadc89d0",
+   "md5": "0137c9d8763467f684d48e2b7a294095"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/bose/SoundLink-Air/index.xml",
+   "size": 390,
+   "sha256": "60cd73be24acf0464f292b908092fabcc00398cf3020bebb5dff7cbab6093d8e",
+   "md5": "cf97642615e60e566366cd57ae5746bb",
+   "source": "https://raw.githubusercontent.com/bosefirmware/ced-old/master/bose_soundlink_air/index.xml"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/bose/SoundLink-Air/index_official.xml",
+   "size": 377,
+   "sha256": "192a8ce775848c3e219846361b05d9a0b4e537ed55b9b2b4daa06f1b2071ed99",
+   "md5": "ca38d0785394b01f03200bbc13e0cfa5",
+   "source": "https://downloads.bose.com/ced/bose_soundlink_air/index.xml"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/bose/SoundLink-Air/index_old.xml",
+   "size": 396,
+   "sha256": "2024ea7474b1781056f4fd0b6cedaa91dede2773c83596bace3556f850e94741",
+   "md5": "0aa269feb2fc764cab36b18f7aed08af",
+   "source": "https://raw.githubusercontent.com/bosefirmware/ced-old/master/bose_soundlink_air/old/index.xml"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/bose/SoundLink-Air/update_1.2.5.9924.fw",
+   "size": 7445944,
+   "sha256": "cd8c8144512c73819f2773156bd597c8391af2ac3566ba84a3f3ce858fad095f",
+   "md5": "c01b5c06a83465815640514081cbeff7",
+   "source": "https://raw.githubusercontent.com/bosefirmware/ced-old/master/bose_soundlink_air/update_1.2.5.9924.fw"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/bose/SoundLink-Air-2/SOURCES.md",
+   "size": 1010,
+   "sha256": "2ffd61b55236d7070f8bda47cdee5551930c08b79d26b6f569c3cea01083df3b",
+   "md5": "0e06fcc7aa8949d792252c6bf937f1b3"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/bose/SoundLink-Air-2/index.xml",
+   "size": 381,
+   "sha256": "0bcb4c3ac41f3b20dff0182ed76affe55b298fb4ab0d9292395b311817d03ea5",
+   "md5": "264b93552695a47d7b62d9a799de5bb8",
+   "source": "https://downloads.bose.com/ced/bose_soundlink_air_2/index.xml"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/bose/SoundLink-Air-2/update_1.1.6.5412.fw",
+   "size": 7449760,
+   "sha256": "ac01084ce701684b83313c65ded976d35ac5118cde719c98b2bd3205380b3226",
+   "md5": "2620019044e135af56425c0119355b15",
+   "source": "https://downloads.bose.com/ced/bose_soundlink_air_2/update.fw"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/denon/AVR-1613/SOURCES.md",
+   "size": 2787,
+   "sha256": "20ff63120a490a3c8ee475e9e7f95dc5230d903c135ec6db2c0ae5cedb180725",
+   "md5": "a5f6c5f1701d96a1349c0295c3f36138"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/denon/AVR-1613/avr-1613_usb_update_06_29_17.zip",
+   "size": 14877244,
+   "sha256": "66fe3dd3bb9fa64356547075b9f38bfcd008da394ae5f03a44b3ede0ae0520f1",
+   "md5": "1ec94f108e07e4ea5bd17e016d66ed07",
+   "source": "https://assets.denon.com/documentmaster/us/avr-1613_usb_update_06_29_17.zip"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/denon/AVR-1713/SOURCES.md",
+   "size": 3828,
+   "sha256": "ac27814d33e993837299a8b0342f0988ff31c27f3bce3281dbedb639ac16ffbd",
+   "md5": "ffacec43c2797c1d39adef6302f610fc"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/denon/AVR-1713/avr-1713_usb_update_06_29_17.zip",
+   "size": 14877365,
+   "sha256": "b503f3e0d358ce352922729a71f8d75ede1d090fc409ad68773e8a993651a40d",
+   "md5": "1479feb1dc536ee751e53bae1fb68dde",
+   "source": "https://assets.denon.com/documentmaster/us/avr-1713_usb_update_06_29_17.zip"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/denon/AVR-1713/avr-1713_usb_update_11_30_16.zip",
+   "size": 14873846,
+   "sha256": "6f05201084e0e211791b77bc2b008c007ef7087ccd4d835f1382b13835dafd43",
+   "md5": "5f9802ae463b11d0904882f40bc68d01",
+   "source": "https://assets.denon.com/documentmaster/us/avr-1713_usb_update_11_30_16.zip"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/denon/AVR-1913/SOURCES.md",
+   "size": 3776,
+   "sha256": "09a48456d09c2a69322f2b48eaaae79ce6fe0e7784ada568b21d2bc0bf01e8b2",
+   "md5": "7368a6edb1464eaaa345d808ba0e7fa8"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/denon/AVR-1913/avr-1913_usb_update_06_30_17.zip",
+   "size": 20891554,
+   "sha256": "7d4147deb2c8cca24a79dc9dd267a169ac3c32be9aa793b91bb0d00f2abdf186",
+   "md5": "6f7e011cc714fb9f42c0a50c6342cdac",
+   "source": "https://assets.denon.com/documentmaster/us/avr-1913_usb_update_06_30_17.zip"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/denon/AVR-1913/avr-1913_usb_update_11_30_16.zip",
+   "size": 20888284,
+   "sha256": "85cd6f3b94c6d3aa0f7845ff874904e99554656ec7cd0c2be462d5d10ec05151",
+   "md5": "cb65689923e5dd6dab6a1a393ed146e5",
+   "source": "https://assets.denon.com/documentmaster/us/avr-1913_usb_update_11_30_16.zip"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/denon/AVR-2113CI/SOURCES.md",
+   "size": 3861,
+   "sha256": "6fbfa682774bf38608c95d7625aa30feba2f6a98d43541b49b8bfa21d7104f30",
+   "md5": "8a2cb1ef7dd4c230705f35622288ac88"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/denon/AVR-2113CI/avr-2113ci_usb_update_06_30_17.zip",
+   "size": 20892137,
+   "sha256": "61ba211a871cf5096deb46b4c0cedc8b4b8a1a0a64f5dc9e3ec753168375b37a",
+   "md5": "e97e673af432f88531cc4569f119c2c6",
+   "source": "https://assets.denon.com/documentmaster/us/avr-2113ci_usb_update_06_30_17.zip"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/denon/AVR-2113CI/avr-2113ci_usb_update_11_30_16.zip",
+   "size": 20888701,
+   "sha256": "581982bead05694841af0571e59e010617d28740c13028e9b21e2793138f001a",
+   "md5": "7e8bf65811658ba93b1c76420491051c",
+   "source": "https://assets.denon.com/documentmaster/us/avr-2113ci_usb_update_11_30_16.zip"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/denon/AVR-3313CI/SOURCES.md",
+   "size": 2685,
+   "sha256": "ee3288e1411c6896e320e2847171013d4f647207468b501219ae29418232d565",
+   "md5": "6542590329e3550be86c61f8dd34fb57"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/denon/AVR-3313CI/avr-3313ci_usb_update_06_30_17.zip",
+   "size": 21121639,
+   "sha256": "9d2c21a81de40d8b2f9047ff6a0729753e9561b7856305beecd7ff640cddada3",
+   "md5": "3f178022475bbab6be2156bc1d2afeb4",
+   "source": "https://assets.denon.com/documentmaster/us/avr-3313ci_usb_update_06_30_17.zip"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/denon/AVR-4520CI/SOURCES.md",
+   "size": 2883,
+   "sha256": "3ad789c678789a2cca3def805cf2eb51bf481764275b3f19edb92add2668e095",
+   "md5": "465120e4dcfebc7b554f2471f3a15035"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/denon/AVR-4520CI/avr-4520ci_usb_update_06_30_17.zip",
+   "size": 24307877,
+   "sha256": "6e19abe0c3289ec44f30f1cf8978a7bf8e29d2b515a6bae25bd80a926f3ac980",
+   "md5": "d7012aac03ed772a1ca3efbd32b5dfa2",
+   "source": "https://assets.denon.com/documentmaster/us/avr-4520ci_usb_update_06_30_17.zip"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/denon/AVR-E300/SOURCES.md",
+   "size": 2475,
+   "sha256": "b8fa415d46859559113ac40ffd172267e4f4532996da626a937e6ae38f79dad6",
+   "md5": "cc8d4e4f765bf363b34ac7daa65d1b06"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/denon/AVR-E300/avr-e300_usb_update_11_16_16.zip",
+   "size": 20358318,
+   "sha256": "085f063ac1b32e6788d90bd6355eb3f413ec9f6ec0359e8f2a69f7e49b3e5306",
+   "md5": "79ab32fba851b2e3104dcc8a1582cfeb",
+   "source": "https://assets.denon.com/documentmaster/us/avr-e300_usb_update_11_16_16.zip"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/denon/AVR-E400/SOURCES.md",
+   "size": 2473,
+   "sha256": "442766c34db98bff6ffe24525c596ecdf86aaf85424cad9d1897f447f38c625b",
+   "md5": "a3e8c8e62b7156799e0dcc9dc5455a7a"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/denon/AVR-E400/avr-e400_usb_update_11_16_16.zip",
+   "size": 24149936,
+   "sha256": "559664f3516c42048660c19abb5c938cbdbbb061a1ae22b4c410772a279d4b44",
+   "md5": "0f4868500f2da589eeb4dd261a0b10a3",
+   "source": "https://assets.denon.com/documentmaster/us/avr-e400_usb_update_11_16_16.zip"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/denon/AVR-X1000/SOURCES.md",
+   "size": 2560,
+   "sha256": "11a25870ca2cd33d374e6090566c0846ab43be5a111761fa32d2f64bd3514c39",
+   "md5": "16f9ab31292773f940d8eb7f8245a827"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/denon/AVR-X1000/avr-x1000_usb_update_11_16_16.zip",
+   "size": 20683858,
+   "sha256": "07c5b66d2fa5f2440c23323ea0c570ba9bd26e4230b0fa6fd6ff27972ec03b84",
+   "md5": "8e15ea71cbad77956adb18e36d840440",
+   "source": "https://assets.denon.com/documentmaster/us/avr-x1000_usb_update_11_16_16.zip"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/denon/AVR-X2000/SOURCES.md",
+   "size": 2559,
+   "sha256": "d306ae4d382bd01f2801dc6939b5251499fd5d91e68f50682da8b08fa51d6712",
+   "md5": "fd5e5b7d54d19b9cd2ceb820bfdc9753"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/denon/AVR-X2000/avr-x2000_usb_update_11_16_16.zip",
+   "size": 24150978,
+   "sha256": "b211e13e74348f9e9ca4498f20d5a297484d7ee9a25c47c8aa539785b23da378",
+   "md5": "b02995b439bbfb91144efbeb6b3364d1",
+   "source": "https://assets.denon.com/documentmaster/us/avr-x2000_usb_update_11_16_16.zip"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/denon/AVR-X3000/SOURCES.md",
+   "size": 3815,
+   "sha256": "2c9f2d1304c007a7c382d378a5ddc3fbb9fb4f915eee5c2e76b7209b55bed942",
+   "md5": "53945cb07ebdf0307b8df21be9f979d1"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/denon/AVR-X3000/avr-x3000_usb_update_06_29_17.zip",
+   "size": 24474708,
+   "sha256": "b438ba1d96dbb5dcfcaf704afb16be909935983923912551f7ca57aae8deb735",
+   "md5": "ee7e7b5c674332f2e3b7d75565538ef1",
+   "source": "https://assets.denon.com/documentmaster/us/avr-x3000_usb_update_06_29_17.zip"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/denon/AVR-X3000/avr-x3000_usb_update_11_29_16.zip",
+   "size": 24467044,
+   "sha256": "8a4b404cf3b469b9102f3c33eee78748d78b5fe94f81f04769f4ae0b43d6196a",
+   "md5": "5edd3d8380f8c9a89aadaee5d971a020",
+   "source": "https://assets.denon.com/documentmaster/us/avr-x3000_usb_update_11_29_16.zip"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/denon/AVR-X4000/SOURCES.md",
+   "size": 3985,
+   "sha256": "1c443158b0cf5a6c4022c18d76511f7adb8c9549b5c1b5980f0cf3e9d73302eb",
+   "md5": "661c1f9f6aad58228273f98652ccc497"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/denon/AVR-X4000/avr-x4000_usb_update_06_29_17.zip",
+   "size": 24487020,
+   "sha256": "49b68ab3a27baa2f6bdc0abefcda80cf258b5b7967135aefffd114ccace647f2",
+   "md5": "75fda46dd789f70ef5577af6c8eb3c04",
+   "source": "https://assets.denon.com/documentmaster/us/avr-x4000_usb_update_06_29_17.zip"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/denon/AVR-X4000/avr-x4000_usb_update_11_29_16.zip",
+   "size": 24483172,
+   "sha256": "3ab2fbe36d3aaa371b9118e77220230c6f7b766cef60bd09470ed6b08ab40f90",
+   "md5": "215751861173c2ae1a98a1c00d0807b1",
+   "source": "https://assets.denon.com/documentmaster/us/avr-x4000_usb_update_11_29_16.zip"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/denon/DNP-720AE/SOURCES.md",
+   "size": 821,
+   "sha256": "1e7060f63307049376574e6d7a1319e119de939ecf33bbfa851a5aa4fba25273",
+   "md5": "7be2b8e39667da239ca13341c1495271"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/ihome/iW1/SOURCES.md",
+   "size": 2141,
+   "sha256": "32cc212c1d293cb62c5aa3ea512449a633cfbf3ae23f25133ce866805b444764",
+   "md5": "3dc0a556f5591655079405955b82d26d"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/ihome/iW1/2012-01-31/iHome_iW1.fw",
+   "size": 4644892,
+   "sha256": "91c86a17e1932c3fc3aba72053d249968ac8dbbc37e0e1b3eb8276fdb09c9349",
+   "md5": "b463c344f6ddf8a635a0dbc275337f98",
+   "source": "https://web.archive.org/web/20121010052133id_/http://ihomeaudiointl.com:80/media/uploads/SUDS/firmware/2012/01/31/17/49/29/iHome_iW1.fw"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/ihome/iW1/2014-07-10/iHome_iW1.fw",
+   "size": 4646940,
+   "sha256": "50caf09b637f16fcde35de9304b78098737539431649aba4e52bceae4cfaebda",
+   "md5": "e206f26c28af351e23aff7b736f709e8",
+   "source": "https://web.archive.org/web/20140720105255id_/http://ihomeaudiointl.com/media/uploads/SUDS/firmware/2014/07/10/09/09/54/iHome_iW1.fw"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/ihome/iW2/SOURCES.md",
+   "size": 1381,
+   "sha256": "8ee97666b0ee15a3a6b8417a92bb226247fc52aadbd5ad3ceacf5998e5d4fec5",
+   "md5": "595f41110557a60fbe0c52a86b62c313"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/ihome/iW2/iW2_1.0.0.bin",
+   "size": 3929088,
+   "sha256": "7a7fa20c5fd7ea3bd0240be9a21d7083b198d3c97abbb5bd270e6c7163d65dc8",
+   "md5": "7a7624e3f66668383a8a8bbc016486c3",
+   "source": "https://cdn.ihomeaudio.com/media/SUDS/firmware/2012/02/06/17/38/48/iW2_1.0.0.bin"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/ihome/iW3/SOURCES.md",
+   "size": 779,
+   "sha256": "9ffae3d3c7a88302615bcfb52f1b47a7aa2c23f2db7f2ecab67a50b36e223364",
+   "md5": "85356c83e1125a2169dd174f0494f04c"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/jbl/OnAirWireless/SOURCES.md",
+   "size": 640,
+   "sha256": "53128e045d47644196da95cabc3e7aa8ab191c67870241f5cb8663c6c447bf59",
+   "md5": "078811f5452ba7fdd3df8a94128c6acb"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/jbl/OnBeatAir/SOURCES.md",
+   "size": 696,
+   "sha256": "f08c533763cd621f6549c3ebf1a39b85e35d78426fd321348c37fdf899471212",
+   "md5": "98102eb867fb00b81b06832caa1f6466"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/klipsch/G-17-Air/G17_v105_071615_635781851735682000.zip",
+   "size": 2741660,
+   "sha256": "e1b77afbe61a42e6c1ee5a443e5292544c716da3d8a54287e5942141adc94b1b",
+   "md5": "8e98117ae86365a53710550c5ec32c0d",
+   "source": "https://support.klipsch.com/hc/en-us/article_attachments/20744432037780"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/klipsch/G-17-Air/G17apple_macprocedure.pdf",
+   "size": 8051675,
+   "sha256": "1952e452a266f5e472e40c3fc5b491c3347355631655b6fc0e41b044c54072a2",
+   "md5": "09cb81e978489b3fbc061ed429a0ec06",
+   "source": "https://support.klipsch.com/hc/en-us/article_attachments/20744390077588"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/klipsch/G-17-Air/SOURCES.md",
+   "size": 1401,
+   "sha256": "f97703a86cb2008fe976e9827f758675183f1b8144b556ad96f8e8d309ccbcc3",
+   "md5": "80c6ae8a3b5a09989ed6d67432afbced"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/libratone/diva/SOURCES.md",
+   "size": 878,
+   "sha256": "fb4dec0fe9007a8a41b0da7865eb4e749ec64844aa75b5056270684764c040b0",
+   "md5": "7b3c4d131f267b76d3cdd2defdc951ea"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/libratone/diva/diva_46.fw",
+   "size": 5643686,
+   "sha256": "acbc6f22019bd528c6dbb0f987493c5e393aae38386dedd1f955d59221eeeade",
+   "md5": "6f284255ef40cd85490544dc9dff0b42",
+   "source": "http://assets.libratone.com/wp-content/uploads/2016/02/diva_46.fw"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/libratone/live_lounge/SOURCES.md",
+   "size": 1348,
+   "sha256": "bb0a3ae3ae5a26e860551a64a694d6a05738412aebce980105b363ddde038305",
+   "md5": "c62d8f4acae9376c599beffebb9110f0"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/libratone/loop/SOURCES.md",
+   "size": 1336,
+   "sha256": "923c7f5825503ad9255741b2f5f20ceaabd8fe2708c929df8d8953dab16aef20",
+   "md5": "6da42ed9e69104e855ce4091aa8561c4"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/libratone/loop/loopwifipd.fw",
+   "size": 5487410,
+   "sha256": "6eedfeb8540af3cd2bda7ecf0f5d679291ee374d334a1fbe740391fde414bf2f",
+   "md5": "c4aca6e6514fa2f252daed44165ca8b5",
+   "source": "http://assets.libratone.com/wp-content/uploads/2016/02/loopwifipd.fw"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/libratone/zipp/SOURCES.md",
+   "size": 2457,
+   "sha256": "f921ec45c8c6048e3569ffa3199d25a9d0e01847f0a492b074eb5b2d88ef16f4",
+   "md5": "aa90d92809a7eee11d4407d5bbcf7f8f"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/libratone/zipp/zipp.fw",
+   "size": 5548156,
+   "sha256": "04ae13c9b9d0fac1d1db375cbbdc53d4b23709fcebc3b5c5d11b7766cbf941f5",
+   "md5": "0b0508268879f561fb8bc34543d2ce1d",
+   "source": "http://libratone.com/download/zipp.fw"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/libratone/zipp/zippwifibt_43.fw",
+   "size": 5638342,
+   "sha256": "fc65279582257be2df115298a2aab56f35460e77a104b431c6bdac0578c4f792",
+   "md5": "189ae7d4a57bd932b7d29c27e81368fb",
+   "source": "http://assets.libratone.com/wp-content/uploads/2016/02/zippwifibt_43.fw"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/mcintosh/mcaire/SOURCES.md",
+   "size": 1082,
+   "sha256": "708c8428e1aecd61c8e0c0b7e2de00db841a7064a2e264eebda23c43ef0ab327",
+   "md5": "101da132b69bb8c7b1e00d80203d9199"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/monitor-audio/asb-2/SOURCES.md",
+   "size": 1825,
+   "sha256": "22eb3db78ac579c45d8602932d67e0f65d92bc9e10c7b78352d0c000e44611f9",
+   "md5": "12f472d25626a32f84fc90c4867bc998"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/monitor-audio/asb-2/asb-2_v1.81.zip",
+   "size": 8168621,
+   "sha256": "4b712a778a76b3bf1b85f33d6a197017d7bc33bcf142a74057888c09f498c805",
+   "md5": "9a0616c0a7ba0beeb4af85207134211c",
+   "source": "https://web.archive.org/web/20140809063311/http://www.monitoraudio.co.uk/assets/files/firmware/asb-2_v1.81.zip"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/monitor-audio/asb-2/asb2.update-procedure.pdf",
+   "size": 1326429,
+   "sha256": "34586fd043603e3a860151c8f1d58f92dd92dc8779079ecfb9db492a41ab121a",
+   "md5": "76c0062f1cd9cdec554a2a1016455fb2",
+   "source": "https://web.archive.org/web/20140809075805/http://www.monitoraudio.co.uk/assets/files/manuals/asb2.update-procedure.pdf"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/nokia/hd-1/SOURCES.md",
+   "size": 1401,
+   "sha256": "3db0e956526660d7fd4eba68935a0af12f16ec3e2aca69c61dc2ac5dc29fe42e",
+   "md5": "00ebc5e8e210089ace56d6e574591c2b"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/philips/AD7000W/SOURCES.md",
+   "size": 1674,
+   "sha256": "d7ab4a6c3131f8b1de4f9c4d319a39931518b47673ae7c82b1b0349dcb19f6a9",
+   "md5": "a28862cb75747113f12569f56511e896"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/philips/AD7000W/SW_upgrade_procedure_reference.pdf",
+   "size": 224434,
+   "sha256": "13697714ef7a5fc46fd041e65a18f3b99eadc4b10fa293c6124236ddf2a493c1",
+   "md5": "4aca77dfa5cbc1a8fd7ed914f1194620",
+   "source": "https://gitlab.hamburg.ccc.de/teal/rephil/-/raw/HEAD/firmwares/philips-ad7000w/SW_upgrade_procedure_reference.pdf"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/philips/AD7000W/s9110.102.1010_bcd.zip",
+   "size": 2581720,
+   "sha256": "a8d1c6aed9fe69390a597ff66ea9e3d616f55e243ec3d16e734678d6fcc03e75",
+   "md5": "edaf0f85b304a2e33cbf501aec3d8c3f",
+   "source": "https://gitlab.hamburg.ccc.de/teal/rephil/-/raw/HEAD/firmwares/philips-ad7000w/s9110.102.1010_bcd.zip"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/philips/AD7000W/s9110.102.3710_bcd.bcd",
+   "size": 5070848,
+   "sha256": "99948b623adaf9377040879ae4f48f4eec8e051097d3e5ebb1206e36fcc82e01",
+   "md5": "73f21645d96a4303277a36f0be24c1a9",
+   "source": "https://raw.githubusercontent.com/mbriney/ADW7000W_Firmware/master/s9110.102.3710_bcd.bcd"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/philips/DS9800W/SOURCES.md",
+   "size": 2112,
+   "sha256": "8f8180e85c6e8ace3732f923b898f24fe83d6fd2dcc560c13dcc4def49541b6a",
+   "md5": "9d0845b68f045ee5017d68c650db8c2e"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/philips/DS9800W/ds9800w_10_fus_rus.zip",
+   "size": 2235756,
+   "sha256": "c03a7e70a565be33a91ae79000b966612d21a15cbf6b35656c3ba1476c3aa180",
+   "md5": "8831cdfc3795044d4821ab94d5168257",
+   "source": "https://liutyi.info/wp-content/uploads/2013/11/ds9800w_10_fus_rus.zip"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/philips/DS9800W/ds9800w_37_fus_aen.zip",
+   "size": 2235783,
+   "sha256": "fa06c13aade8615baafba5bb549bbdb7f5272f227925c78331ca2fdb3a08774b",
+   "md5": "e07ecb7a846cd237e3582a233f705479",
+   "source": "https://liutyi.info/wp-content/uploads/2013/11/ds9800w_37_fus_aen.zip"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/N-50AE_N-70AE/SOURCES.md",
+   "size": 886,
+   "sha256": "8177b0c74bbd40d722c87ddfb652d06c8dd90c374e3652258be7fb153daedff3",
+   "md5": "4824d4f81f8f66017e43cfe8c86a09af"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/N-50A_N-70A/NAP2015APP_034_035_1010_100.zip",
+   "size": 11225042,
+   "sha256": "7316653a5204abbf5321ae15f9a097bb635acefbed8bf4422d0f4a53dc822f7f",
+   "md5": "a802cb9dfef6e181805c66a491b7855e",
+   "source": "https://fichiers.touslesdrivers.com/44857/NAP2015APP_034_035_1010_100.zip"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/N-50A_N-70A/SOURCES.md",
+   "size": 1627,
+   "sha256": "ad9d9e9d8c6fde0ed8d1b3fe94c5bfc30ab38c2f727bbe9190a67e7dad81b00e",
+   "md5": "5f69fbeb3354ce3cd6c1b1b26a983372"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/N-50_N-30/NAP12Main_1020.zip",
+   "size": 7922908,
+   "sha256": "76cf6a9a34bef53dc707760cedd20128a1a36b3f8adac470a48bf1ceadd8c1e0",
+   "md5": "bff563525933f88833ca67d26e5d25f4",
+   "source": "https://fichiers.touslesdrivers.com/36928/NAP12Main_1020.zip"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/N-50_N-30/NAP12Main_1021.zip",
+   "size": 7922945,
+   "sha256": "0f316a8067cc1b4cee6e320d7f326bdc4ad9770bf3d510b5618d95946e152acf",
+   "md5": "996caed434b24ef54a063b98655abff5",
+   "source": "https://fichiers.touslesdrivers.com/37975/NAP12Main_1021.zip"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/N-50_N-30/NAP12Main_1038.zip",
+   "size": 7921992,
+   "sha256": "477294258adfdb44e37c2c0cb4368d4851296929cb42b613bac98e1af241c51a",
+   "md5": "f8462fe21e7180afda683dbb09c0e677",
+   "source": "https://fichiers.touslesdrivers.com/41930/NAP12Main_1038.zip"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/N-50_N-30/SOURCES.md",
+   "size": 2084,
+   "sha256": "0f345f017d51cde499bcb1e22b13bb476cd40d8c341b8895b95910956a9061f7",
+   "md5": "f719d18ab7bb7372abbc84959cec5b6a"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/SC-1222_SC-61/AVR_1_189084018152.ZIP",
+   "size": 18116428,
+   "sha256": "182aa01c4a8fddb1c2b0f79259012178012e503bad36528dbc214211dbd657a2",
+   "md5": "bc41bc7af3c169a89af3e8a827a546d7",
+   "source": "https://fichiers.touslesdrivers.com/42668/AVR_1_189084018152.ZIP"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/SC-1222_SC-61/SOURCES.md",
+   "size": 1251,
+   "sha256": "043de8bb1300f9bb0530162cf0fcb206e04da2ab597d0d6500e907695ed549c3",
+   "md5": "e67e3e0ae823e55c11316c50ea1f3b2d"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/SC-1223_SC-2023/AVR_1_135020015086.ZIP",
+   "size": 15352165,
+   "sha256": "db73c33429c5ace7dd425c3af672f64ad67d03e1e0c17aac4e789199cf14e575",
+   "md5": "9a2eff7959504836df096e7924b979b0",
+   "source": "https://web.archive.org/web/20131015061756id_/http://www.pioneerelectronics.com/StaticFiles/PUSA/Files/AVR/SC-1223K_1228_1323_1328_71_72/AVR_1_135020015086.ZIP"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/SC-1223_SC-2023/AVR_1_148020015107.ZIP",
+   "size": 17292022,
+   "sha256": "0a8782e49155c186989d3ce9ab8be077e863fce770b1468eb191335a5a033a67",
+   "md5": "cc04c8b53f0ce7318d683c9598350dff",
+   "source": "https://fichiers.touslesdrivers.com/39520/AVR_1_148020015107.ZIP"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/SC-1223_SC-2023/SOURCES.md",
+   "size": 1517,
+   "sha256": "5efff8858413825de814960aca813d08f4ae27689f83f21615ab7afe1c0993a1",
+   "md5": "871ce605fa380ba2a67d8d5f88bbb3c9"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/SC-1224_SC-2024/AVR_1_263007010116.ZIP",
+   "size": 23071607,
+   "sha256": "3e69641e44d4dd345b768011eb62e4b98d2d6f1f3345a6883c5a8d0100af95a7",
+   "md5": "34e850b61eda065906dba2936d84159a",
+   "source": "https://fichiers.touslesdrivers.com/42415/AVR_1_263007010116.ZIP"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/SC-1224_SC-2024/SOURCES.md",
+   "size": 1253,
+   "sha256": "4a89483a5fe1163979babe7d05d580f158ed57d69cb1df4d72bf2ce0019c17b7",
+   "md5": "eb2ca070ec06e1177d81b2e6fe1f69fe"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/SC-1522_SC-LX56/AVR_1_203084513160.ZIP",
+   "size": 20419157,
+   "sha256": "3d8cc123e712978f297e2e476a14fc649af8c7ea35464e87eaa1c5dead6ae1d0",
+   "md5": "025f604d909c90814ef79041f01f2fb0",
+   "source": "https://web.archive.org/web/20230217044920id_/https://www.pioneerelectronics.com/ephox/StaticFiles/PUSA/Files/SC-1522_65/Ver1_203_084_513_106/AVR_1_203084513160.ZIP"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/SC-1522_SC-LX56/SOURCES.md",
+   "size": 1333,
+   "sha256": "cbaaab20b91fceeaf0619d5e0fe358292a77c8aec7474e3db30c1b50fd4b3e09",
+   "md5": "16ce8cce82165a0c11432c88f02493c2"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/SC-1523_SC-LX77/AVR_1_149020516107.ZIP",
+   "size": 17638952,
+   "sha256": "74341cdd1de210c2d71f539189f73345a1fcdb680eab9746a84c772840bc36ce",
+   "md5": "6a6ad70a97cc66b84c48dbedf965cce0",
+   "source": "https://fichiers.touslesdrivers.com/39521/AVR_1_149020516107.ZIP"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/SC-1523_SC-LX77/SOURCES.md",
+   "size": 1253,
+   "sha256": "dffef501eeb31a624498147417fc67c944e6dc69726e8527b15144829ceae6eb",
+   "md5": "9f7b164b16e8c6f4a4b93bb69334159a"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/SC-1526_SC-55/AVR_1_203086703093.zip",
+   "size": 18398613,
+   "sha256": "589923389801680dd28a355acbc43f6a9eb56b362fd1d0e3c21c566333ce60ae",
+   "md5": "dd2fe7aec3cb3951f47513276d96b876",
+   "source": "https://fichiers.touslesdrivers.com/42667/AVR_1_203086703093.zip"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/SC-1526_SC-55/SOURCES.md",
+   "size": 989,
+   "sha256": "76be4c992fdebb71bb8147fa0f885b86b93f430f9d0eab2470825a1bd810ac14",
+   "md5": "0d3df2eee7bd72138b19feee06eedfaf"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/SC-2022/AVR_1_189084018141.ZIP",
+   "size": 18116219,
+   "sha256": "3751f13843dbae88b03c681539cf2f6b3925bd9aaa2662df70a0465ba38d1e12",
+   "md5": "df5d0a177bfa5f4e88c42c3031b66dc6",
+   "source": "https://fichiers.touslesdrivers.com/36560/AVR_1_189084018141.ZIP"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/SC-2022/SOURCES.md",
+   "size": 1245,
+   "sha256": "69fd5456ec36a192a42e938561200b724d88638c77604f0005ad374c79fc6bce",
+   "md5": "0dc2a9c47d375e953b9c8e6c3efa352c"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/SC-LX76_LX86/AVR_1_204084513160.ZIP",
+   "size": 20424153,
+   "sha256": "45bf2ce7efb9ac973b285cc4f9d5b59509e849e3d34d84a8724b7998f713f88c",
+   "md5": "d8dbb0f5538be5c4c98fe4560d1d12a5",
+   "source": "https://fichiers.touslesdrivers.com/36562/AVR_1_204084513160.ZIP"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/SC-LX76_LX86/SOURCES.md",
+   "size": 1250,
+   "sha256": "139fbb0fe79d721c8bfa07133b4b0b0059642b0c631044fd7cf3a3c2171960c2",
+   "md5": "1bceac7a9579cc988ca4bfc9e76c13aa"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/VSX-1121_VSX-52/AVR_1_204087119093.zip",
+   "size": 16124404,
+   "sha256": "f9228e32154436645aa85c7f414fc15e10dea37a68558f84cf54f47171fb4629",
+   "md5": "c8b00ce367d1252dee1aee77b9fe035f",
+   "source": "https://fichiers.touslesdrivers.com/42670/AVR_1_204087119093.zip"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/VSX-1121_VSX-52/SOURCES.md",
+   "size": 991,
+   "sha256": "57145f643e37f6c3954977c3b2cf5f499102acff4a61c2f925499cd56d666505",
+   "md5": "33b9b01aa059ea7d60a48671a5bdff51"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/VSX-527_VSX-827/ARM2013APP1058.zip",
+   "size": 9760379,
+   "sha256": "9947934621abb02544d2628013cb48de50d958e38b41cd67bc378c42d0e0f365",
+   "md5": "c72633c13da1f183142b85b1e6907c8f",
+   "source": "https://fichiers.touslesdrivers.com/36564/ARM2013APP1058.zip"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/VSX-527_VSX-827/SOURCES.md",
+   "size": 990,
+   "sha256": "a7571e3a376077c8550ca8cb75d48b188815ce6625e39fa9c3bc6b849a59892d",
+   "md5": "ff5bcd12d51f6d7794bbbd5f658772c9"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/VSX-528_VSX-823_VSX-1023/ARM2014APP1066.zip",
+   "size": 12164947,
+   "sha256": "2e9451dddaec4888e8e169e41b21910b86ad5f9d1d9973961bc23a8047febced",
+   "md5": "352a6702cd700327e8fc72a180ea6b52",
+   "source": "https://fichiers.touslesdrivers.com/39523/ARM2014APP1066.zip"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/VSX-528_VSX-823_VSX-1023/SOURCES.md",
+   "size": 1000,
+   "sha256": "02bb37e96d4f576b7662142a7627b195520476078099e3530020a126c5677fb8",
+   "md5": "811aaf2c07e2bc8b1ec1df84a088a33a"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/VSX-822_VSX-1022/ARM2013APP1053.zip",
+   "size": 9764743,
+   "sha256": "4ea79a135af3984269164cabe29f25b1a23967ff59154b7e06700bfdf0377c9c",
+   "md5": "2bb4a5b01e3b2aec218ed0c44b7ae434",
+   "source": "https://web.archive.org/web/20140913024012id_/http://www.pioneerelectronics.com/ephox/StaticFiles/PUSA/Files/VSX-822_1022_42/USB/ARM2013APP1053.zip"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/VSX-822_VSX-1022/SOURCES.md",
+   "size": 1072,
+   "sha256": "b6e0354e6de28779eb187d83e641b0c73381c185ae4c8a5037f06137763b1541",
+   "md5": "7db0a4d77caadc4c98f8f6a150ac4bd6"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/VSX-921_VSX-1021/SOURCES.md",
+   "size": 1020,
+   "sha256": "e159e7b0472a82fcba2283d0d70b6739ba0acdce7d6e25c57f0b9a19c0c30fb8",
+   "md5": "cfddf7de6e4c3392e4adf74eb2077d07"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/VSX-921_VSX-1021/VSX-921_VSX-1021-Firmware-Update.zip",
+   "size": 15662812,
+   "sha256": "08a460a3a1fcb701c3bf83f4fe2828e1c91ed1171063f38a225db49588e76c71",
+   "md5": "e23685c01018989f53c5abef2c0fdb77",
+   "source": "https://fichiers.touslesdrivers.com/37515/VSX-921_VSX-1021-Firmware-Update.zip"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/VSX-922_VSX-1122/AVR_1_188076019151.ZIP",
+   "size": 18045840,
+   "sha256": "4d9f852c876383fbaef219356e995e92442348698ccbbcb1a8d729c23cd7a4d0",
+   "md5": "3f1d1f29e3eb1fad989e89a48a806e18",
+   "source": "https://fichiers.touslesdrivers.com/42663/AVR_1_188076019151.ZIP"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/VSX-922_VSX-1122/SOURCES.md",
+   "size": 1254,
+   "sha256": "0a2937c6a2e185e5e1998d1b8d523f33de5289a8046bc325281a4bf31e9b09b2",
+   "md5": "ad8ab453ecae307a39e3c657ec7473ec"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/VSX-923_VSX-1123_VSX-70/AVR_1_134020016085.ZIP",
+   "size": 15349738,
+   "sha256": "c026d9766fd981865d5761f5a772f4ab1a3e2fa37bdc0563cba3964800a2baa3",
+   "md5": "a835e1193a2b39ec752afa82a1bd2666",
+   "source": "https://web.archive.org/web/20131110223300id_/http://www.pioneerelectronics.com/StaticFiles/PUSA/Files/AVR/VSX-1123K_1028_1128_70/AVR_1_134020016085.ZIP"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/VSX-923_VSX-1123_VSX-70/AVR_1_147020016106.ZIP",
+   "size": 17288237,
+   "sha256": "9c53a060ecc7d34ad6b6c24eceaf674c293b0aa8786dd07e82238329ed764754",
+   "md5": "aeb66105fa51ad264d78893540470af0",
+   "source": "https://fichiers.touslesdrivers.com/39522/AVR_1_147020016106.ZIP"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/VSX-923_VSX-1123_VSX-70/SOURCES.md",
+   "size": 1518,
+   "sha256": "35b95ab628d8f72dc2993f2e9d77191ac9984b24b5078835e17b01891222492e",
+   "md5": "5568bfe34fb1aaf82e53350037384e9f"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/VSX-S510/ASM2014APP1014.zip",
+   "size": 12165023,
+   "sha256": "97b051dac22db4986e27d4e9ea4b2c3b512ceff6d440a1f931d73cd6e617b5a2",
+   "md5": "b63e1aabe7a3d98144d549d292646d9c",
+   "source": "https://fichiers.touslesdrivers.com/39518/ASM2014APP1014.zip"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/VSX-S510/SOURCES.md",
+   "size": 648,
+   "sha256": "38cc2712521500cbeb1bfaf7b58cdb44714d254c0bf263132be04e21a624e9a9",
+   "md5": "70485376a4ef40604929f03bc1a4e982"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/X-HM72_X-HM82/HMx2015APP1010.zip",
+   "size": 10498686,
+   "sha256": "8bc415f616568c47158b2d89906ed593ca4a94f75a39bf810e2148fc773f8a70",
+   "md5": "5d08964c9d9cdf8bbdc2e18c44ba7ae7",
+   "source": "https://fichiers.touslesdrivers.com/61236/HMx2015APP1010.zip"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/X-HM72_X-HM82/SOURCES.md",
+   "size": 1454,
+   "sha256": "7131b3e75944192570b29b2000929a04aa58d0024fb2c452b49b2e499aa432c4",
+   "md5": "0ceb39120fb35707f281a038bbd8bfd7"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/X-SMC55/SMC2014APP0141.zip",
+   "size": 9050156,
+   "sha256": "d58b7fd2f8e623a05c4e02ea4f049d2a86f8f6d8190ca9be1556d22c44606b3e",
+   "md5": "27450fae5d62f83acb8e7aece81fbf6a",
+   "source": "https://fichiers.touslesdrivers.com/39517/SMC2014APP0141.zip"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/X-SMC55/SOURCES.md",
+   "size": 700,
+   "sha256": "ef94166d8f2abbc40f66d739879748bb0eba5dd16083800fcf3d298b886c52a1",
+   "md5": "5c8f1d5928250509f5a3ddca4a344047"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/XW-SMA/SMA2013NMP1050.zip",
+   "size": 6935133,
+   "sha256": "d6b423dcafcd33594dd4b09861e4884b036ca11d19c9338b14f851848532b14d",
+   "md5": "3bbd6a83321b80d283d51a3d43b47b5b",
+   "source": "https://fichiers.touslesdrivers.com/36316/SMA2013NMP1050.zip"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/XW-SMA/SMA2013NMP1051.zip",
+   "size": 6930909,
+   "sha256": "5079eef1c2a7e4bdf4c044f55de80616486695526053f08f60551abc70ad2eb1",
+   "md5": "8415346b26dbfed3ee34703fca811d04",
+   "source": "https://web.archive.org/web/20130405044852id_/http://www.pioneerelectronics.com/ephox/StaticFiles/PUSA/Files/SMA1_3_4/SMA2013NMP1051.zip"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/XW-SMA/SMA2013NMP1080.zip",
+   "size": 8806992,
+   "sha256": "491ad6935826da05961fe20d9f6378a54bf536982887b22fdb9dc3a704ad62cb",
+   "md5": "e7fc1fac8af5d5699cb2cc1ebdba1fb6",
+   "source": "https://fichiers.touslesdrivers.com/39519/SMA2013NMP1080.zip"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/pioneer/XW-SMA/SOURCES.md",
+   "size": 1574,
+   "sha256": "0761a34cb205e62f19adfa3880909047f45d837a6b562e94042e6c8c388f8b0e",
+   "md5": "826f75f59a36776ef7bc2a6ddbb5bd5b"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/wren/v5ap/LatestFileonWebsite.txt",
+   "size": 39,
+   "sha256": "56541aa19e969f4d04793223b03458a9d315ac8d14f5317b8d09fa6150b48a93",
+   "md5": "005b62bac2a8bf04b53cd25454a53d08",
+   "source": "https://web.archive.org/web/20161027043114/http://wrensound.com:80/firmware/LatestFileonWebsite.txt"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/wren/v5ap/SOURCES.md",
+   "size": 1464,
+   "sha256": "9e39b7fa79c59da83868aac54615620028344003e775034ee3ec42e988283ac0",
+   "md5": "e02efbf3627ac99ece53ffdf41a19bc3"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/wren/v5ap/wren.xml",
+   "size": 140,
+   "sha256": "710a48c197cadc2c388aa8f7ef88fb96dbddfe138d3dfbccb589669b8880203c",
+   "md5": "268bb47fd33b2225bce49448ef385908",
+   "source": "https://web.archive.org/web/20170211081516/http://wrensound.com:80/software/v5ap12/wren.xml"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/wren/v5ap/wren_v5.fw",
+   "size": 7687200,
+   "sha256": "c373bdd38f36f201ff712968a6096c72b31f3e3aa897bba480438336d0991853",
+   "md5": "1a05c5df95486d6d9d7efc4bda514303",
+   "source": "https://web.archive.org/web/20170108173524/http://wrensound.com/software/v5ap12/wren_v5.fw"
+  },
+  {
+   "path": "bridgeco-jukeblox-firmware/INDEX.md",
+   "size": 2645,
+   "sha256": "a7ca864e03c65ceb89e402bac3d5d06e1378e18b2250f34f3ff4b4f0fdec82ca",
+   "md5": "1ef1a7a4c63a43982ff4fdec6336a1a2"
+  }
+ ],
+ "dropped": [
+  {
+   "path": "zd1v20405/ZD1_v2-04-05.bin",
+   "size": 229620,
+   "sha256": "450203fdc2d9a8843bf64559a0ef3c83d59186f0cf840f5ac99f4d1656be1053",
+   "reason": "ZD1_v2-04-05.hex converted to binary, gaps 0x00 (regenerable)"
+  },
+  {
+   "path": "legacy/bowers_wilkins/zeppelin_air/extracted/dmhFixZD1d.hex",
+   "size": 383034,
+   "sha256": "547e7f8cd8232791b9954ed7cf74f26038548225c2d1683f5d54b13ba494085b",
+   "reason": "dmhFixZD1d.hex, extracted from the Recovery Utility zip; also blobs/mcu/"
+  },
+  {
+   "path": "legacy/bridgeco/datasheets/cr-fcc/cr870-2q-datasheet-3.6.pdf",
+   "size": 694189,
+   "sha256": "0a4d79c993e25061def0ab21a2b40b82904ef99020e5d8b9a1f68a5e402b95f5",
+   "reason": "duplicate of fcc/TTUCR870-2Q_2011-11-11_Users-Manual_1580250.pdf"
+  },
+  {
+   "path": "*/.dl.log",
+   "files": 27,
+   "reason": "download log; its URL and sha256 are in SOURCES.md"
+  },
+  {
+   "path": "legacy/libratone/loop/loopwifibt_43.fw",
+   "size": 5638342,
+   "sha256": "fc65279582257be2df115298a2aab56f35460e77a104b431c6bdac0578c4f792",
+   "reason": "byte-identical to libratone/zipp/zippwifibt_43.fw"
+  },
+  {
+   "path": "legacy/libratone/zipp/zippwifipd.fw",
+   "size": 5548156,
+   "sha256": "04ae13c9b9d0fac1d1db375cbbdc53d4b23709fcebc3b5c5d11b7766cbf941f5",
+   "reason": "byte-identical to libratone/zipp/zipp.fw"
+  },
+  {
+   "path": "legacy/nokia/hd-1/mtd0-11ro.zip",
+   "size": 57831166,
+   "sha256": "2f0582e36ecabeb2139894e4fb986b0e7045a35ac87cf053d2813e9abf8c4d00",
+   "reason": "already on archive.org (sha1 matches the item)",
+   "ref": "https://archive.org/details/nokia-hd-1-dump"
+  },
+  {
+   "path": "legacy/nokia/hd-1/mtdblock0-11.zip",
+   "size": 30430901,
+   "sha256": "c1a247ed91b592c33209930d0f16decdb1983c5aca1565d4cacd6104a09e5be0",
+   "reason": "already on archive.org (sha1 matches the item)",
+   "ref": "https://archive.org/details/nokia-hd-1-dump"
+  },
+  {
+   "path": "legacy/nokia/hd-1/nokia-home-music-hd-1-jukebox.jpg",
+   "size": 43583,
+   "sha256": "3fee8647cb077136885ce6688645074d18ae23d5ff36e333e17af812ca7a2f88",
+   "reason": "already on archive.org (sha1 matches the item)",
+   "ref": "https://archive.org/details/nokia-hd-1-dump"
+  },
+  {
+   "path": "legacy/pioneer/N-50AE_N-70AE/PIONAP1001_0000000000NANH_N_111.zip",
+   "size": 194645862,
+   "sha256": "3a84271cdc5ef559c334d3e03e3fdf81e80bd72feaa2cc911a0099e824f5be0d",
+   "reason": "not BridgeCo (Onkyo-era platform), 195 MB contrast sample",
+   "ref": "https://fichiers.touslesdrivers.com/61204/PIONAP1001_0000000000NANH_N_111.zip"
+  },
+  {
+   "path": "zd1_firmware.bin",
+   "size": 229620,
+   "sha256": "31ede6b039313f75ab3f5581f3659ec9122515fbb7ed9682aff8ed85ea799e33",
+   "reason": "ZD1_v2-04-05.hex converted to binary, gaps 0xFF (regenerable)"
+  },
+  {
+   "path": "Windows 64bit/Zeppelinprogrammer/",
+   "files": 28,
+   "size": 1254765,
+   "reason": "PE sections carved from Zeppelinprogrammer.exe (regenerable)"
+  },
+  {
+   "path": "archive.org-nand-dump/HY27U1G8F2B@TSOP48_NO_OOB.BIN",
+   "size": 134217728,
+   "sha256": "4d38228c1cf08cadf9736ec319e12d8b6cf6fde17f91f137468c7c0ae98b255d",
+   "reason": "already on archive.org (sha1 matches the item)",
+   "ref": "https://archive.org/details/20230115_20230115_1916"
+  },
+  {
+   "path": "archive.org-nand-dump/meta.xml",
+   "size": 1263,
+   "sha256": "91264bdd61c82faaffbe716882021c1c06708006fcddd059476aa73650d8b29d",
+   "reason": "already on archive.org (sha1 matches the item)",
+   "ref": "https://archive.org/details/20230115_20230115_1916"
+  },
+  {
+   "path": "wpa/",
+   "files": 1038,
+   "size": 28262673,
+   "reason": "upstream wpa_supplicant 2.11 release (and its unpacked tree); module/os/os.toml pins its hash",
+   "ref": "https://w1.fi/releases/wpa_supplicant-2.11.tar.gz"
+  }
+ ]
+}

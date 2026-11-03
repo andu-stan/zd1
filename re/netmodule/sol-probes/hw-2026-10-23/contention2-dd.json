@@ -1,0 +1,5 @@
+{
+"label":"ARM dd bs=1M (57 MB/s)",
+"warp1_spin":false,
+"runs":[{"seconds":4.19144606590271,"cycles_per_load":33.53156852722168},{"seconds":4.197018146514893,"cycles_per_load":33.57614517211914},{"seconds":4.155187129974365,"cycles_per_load":33.24149703979492}]
+}

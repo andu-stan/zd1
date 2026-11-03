@@ -1,0 +1,24 @@
+00 write subaddr=0xe220 len=    2 00 1c
+01 write subaddr=0xe228 len=    2 00 00
+02 write subaddr=0x2000 len= 6804 00 00 00 00 00 00 06 03 80 00 00 00 07 ff d1 08 20 00 06 04 e0 00 00 00 ...
+03 write subaddr=0xe000 len=   18 00 00 a8 00 08 00 24 00 24 00 24 00 24 00 24 00 24 00
+04 write subaddr=0xe040 len=   18 28 00 28 00 28 00 28 00 28 00 28 00 28 00 28 00 28 00
+05 write subaddr=0xe049 len=    2 00 00
+06 write subaddr=0xe080 len=   16 00 00 00 3f 00 3f 00 3f 00 20 00 3f 00 3f 00 3f
+07 write subaddr=0xe088 len=   16 00 10 00 3f 00 3f 00 3f 00 10 00 3f 00 3f 00 3f
+08 write subaddr=0xe090 len=   24 00 10 00 11 00 12 00 3f 00 3f 00 3f 00 3f 00 3f 00 3f 00 3f 00 3f 00 3f
+09 write subaddr=0xe0c0 len=   24 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+10 write subaddr=0xe100 len=    4 00 e4 00 00
+11 write subaddr=0xe140 len=    4 00 e4 0f 00
+12 write subaddr=0xe180 len=   48 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ...
+13 write subaddr=0xe1c0 len=   64 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ...
+14 write subaddr=0xe200 len=   84 68 c6 95 ca 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ...
+15 write subaddr=0xe240 len=   26 00 00 00 00 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ...
+16 write subaddr=0xe280 len=    2 01 ff
+17 write subaddr=0x0000 len= 1600 00 00 20 00 00 22 0e aa 0f 00 2d f0 00 7f e9 08 00 ff d2 0c 0f 80 2d ec ...
+18 write subaddr=0xe21f len=    2 20 00
+19 write subaddr=0x6000 len=    0 
+20 write subaddr=0xe228 len=    2 00 01
+21 write subaddr=0xe220 len=    2 00 01
+22 write subaddr=0xe221 len=    2 00 00
+23 write subaddr=0xe221 len=    2 00 05

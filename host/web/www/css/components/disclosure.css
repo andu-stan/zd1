@@ -1,0 +1,46 @@
+/* Disclosures: `details` whose summary is a link with a chevron that turns; `.triage` is a list of them, each a
+ * question with its answer under it. */
+details > summary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: var(--space-2) 0;
+  color: var(--text-link);
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+details > summary::after {
+  content: "›";
+  font-size: 1.25em;
+  line-height: 1;
+  transition: transform var(--medium) var(--ease);
+}
+details[open] > summary::after {
+  transform: rotate(90deg);
+}
+details > summary:hover {
+  color: var(--text-link-hover);
+}
+.triage {
+  border-bottom: 1px solid var(--line-hair);
+}
+.triage:first-of-type {
+  border-top: 1px solid var(--line-hair);
+}
+.triage > summary {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0;
+  padding: var(--space-3) 0;
+  color: var(--text-strong);
+}
+.triage p,
+.triage ul {
+  margin: 0 0 var(--space-4);
+  color: var(--text-body);
+}

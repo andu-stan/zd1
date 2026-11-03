@@ -1,0 +1,12 @@
+# The decoders' shared fixed-point pieces (../imdct.c) as one static library, so that module/codecs/aac and module/codecs/vorbis
+# link one copy of them.
+[package]
+name = "zd1-dsp"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+publish = false
+links = "zd1dsp"
+
+[build-dependencies]
+cc = "1"

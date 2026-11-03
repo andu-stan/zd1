@@ -1,0 +1,11 @@
+[
+{"label":"cop3","value":0},
+{"label":"cop3 0x10 read 0x00010000","words":[0,0,0,0]},
+{"label":"cop3 0x10 read 0x02000000","words":[838860,838860,838860,838860]},
+{"label":"cop3 0x10 read 0x0000c000","words":[14,14,14,14]},
+{"label":"cop3 0x10 read 0x00020000","words":[0,0,0,0]},
+{"label":"cop3 0x10 read 0x02000200","words":[838860,838860,838860,838860]},
+{"label":"cop3 0x0 read 0x02000000","words":[838860,838860,838860,838860]},
+{"label":"cop3 0x10 read 0x00014000","words":[0,0,0,0]},
+{"label":"cop3 after","value":0}
+]

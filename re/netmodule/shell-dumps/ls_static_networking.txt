@@ -1,0 +1,4 @@
+$ ls static/Networking
+  d. DrvStatus
+  d. IpStatus
+  l. NetworkGeneration

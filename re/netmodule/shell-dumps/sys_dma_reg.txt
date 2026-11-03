@@ -1,0 +1,9 @@
+$ sys dma reg
+---- OVERVIEW ----
+sys dma reg          - displays registers
+---- DESCRIPTION ----
+  cfg      config registers
+  stat     status registers
+  irq      interrupt registers
+  fast     fast access registers
+  misc     miscellaneous registers

@@ -1,0 +1,100 @@
+# table @0x60589e80
+reg_dec reg_hex size  p3 p4  name
+   16  0x10      2  33   0  DM1 Mute
+   19  0x13      2  33   0  EVMDMP3 Mute
+   17  0x11      2  32   0  DM1000Status
+    5  0x05      2   0   0  StreamAttributes
+    6  0x06      2  49   0  AudioFormat
+    7  0x07      2  33   0  Channel
+    8  0x08      2  56  32  Frequency
+   44  0x2c   1030   0   0  XModem DM1
+   45  0x2d   1030   0   0  XModem Host
+   40  0x28      2   0   0  HCR Ctrl
+   41  0x29      2   0   0  HCR Status
+   42  0x2a      2   0   0  DCR Ctrl
+   43  0x2b      2   0   0  DCR Status
+   37  0x25     20   0   0  VersionImage
+   38  0x26     20   0   0  VersionBootld
+   39  0x27     20   0   0  VersionCNE
+   49  0x31      2   1   0  UARTVersion
+   50  0x32      2  48   0  NetStatus
+   51  0x33     18   0   0  MacAddress
+   52  0x34      2   0   0  UserProfiles
+   53  0x35      2   0   0  ActiveProfile
+   54  0x36      2   0   0  Profile
+   55  0x37      2   0   0  DHCPClient
+   56  0x38     16   0   0  IP
+   57  0x39     16   0   0  Mask
+   58  0x3a     16   0   0  DefGW
+   59  0x3b      2   0   0  Proxy
+   60  0x3c    128   0   0  ProxyServer
+   61  0x3d      8   0   0  ProxyServerPort
+   62  0x3e    128   0   0  DNSSrv1
+   63  0x3f    128   0   0  DNSSrv2
+   90  0x5a      2   0   0  ActiveWirelessProfile
+   91  0x5b      2   0   0  SelectedWirelessProfile
+   92  0x5c      8   0   0  WirelessSecurity
+   93  0x5d      8   0   0  IBSS
+   94  0x5e     32   0   0  SSID
+   95  0x5f      8   0   0  WepAuthentication
+   96  0x60      2   0   0  WepKeyIndex
+   97  0x61     28   0   0  WepKey0
+   98  0x62     28   0   0  WepKey1
+   99  0x63     28   0   0  WepKey2
+  100  0x64     28   0   0  WepKey3
+  101  0x65      8   0   0  WpaCipher
+  102  0x66     64   0   0  WpaPassphrase
+  104  0x68     32   0   0  BssScan
+  105  0x69    256   0   0  BssScanResult
+  106  0x6a      2   0   0  BssAttemptConnection
+  108  0x6c     64   0   0  WPSCommand
+  147  0x93     16   0   0  WiFiTest
+   65  0x41    256   0   0  TelnetCmd
+   66  0x42    256   0   0  TelnetResponse
+   69  0x45   1024   0   0  Configuration
+   70  0x46      2  32   0  DRCUpdate
+   71  0x47    256   0   0  DRCProtocol
+   72  0x48      2   0   0  DRCCommand
+   73  0x49      2   0   3  DRCLines
+   74  0x4a      2   0   0  DRCRefresh
+  123  0x7b      8   0   0  DRCChildList
+  244  0xf4      4   0   0  JBRCommands
+  245  0xf5    256   0   0  JBRInfo
+   75  0x4b    128   0   0  CurStreamTitle
+   76  0x4c    512   0   0  CurStreamUrl
+   77  0x4d      2   0   0  CurStreamMimeType
+   78  0x4e    128   0   0  PlayStreamTitle
+   79  0x4f    512   0   0  PlayStreamUrl
+   80  0x50      2   0   0  PlayStreamMimeType
+   81  0x51      2   0   0  StreamFileType
+   82  0x52      2   0   0  PlayPreset
+   83  0x53      2   0   0  StorePreset
+   84  0x54      2   0   0  GetPresetName
+   85  0x55    128   0   0  SetPresetName
+   86  0x56      2   0   0  NumberOfPresets
+   87  0x57      2   0   0  CardeaSecurityLevel
+  116  0x74      2   0   0  ConvertMode
+  117  0x75      8   0   0  TelnetShellPort
+  118  0x76      2   0   0  UARTPortsSelect
+  120  0x78    256   0   0  TCPIPToSpi
+  121  0x79    256   0   0  SpiToTCPIP
+  119  0x77      8   0   0  TCPIPSpiPort
+   46  0x2e     32   0   0  WebpagesVersion
+  122  0x7a      2   0   0  DeviceDetect
+   88  0x58    256   0   0  DeviceName
+   48  0x30      2   0   0  SetCbSwitch
+  206  0xce      2   0   0  Set NTP Data
+  207  0xcf     32   0   0  Get NTP Time
+   47  0x2f      3   0   0  Set Device Language
+  107  0x6b      2   0   0  WiFi Off/On
+  208  0xd0    256   0   0  Service Command/Status
+  114  0x72      2   0   0  Set Language
+  226  0xe2      2   0   0  RebootDeviceStatus
+  227  0xe3      2   0   0  AirTunesPlaybackStatus
+  228  0xe4      4   0   0  VolumeHostChange
+  229  0xe5      2   0   0  ACP Session
+  230  0xe6   2048   0   0  ACP Access
+  225  0xe1      2   0   0  PSM Mode
+  242  0xf2    256   0   0  iOStospi
+  243  0xf3    256   0   0  spitoiOS
+  246  0xf6      2   0   0  JBDSPControl

@@ -1,0 +1,59 @@
+$ sys stream stat
+global 8kHz interrupt statistic:
+--------------------------------
+
+global statistic:
+rxTxIsr 11128095, rxNoStream 0
+maxDuration 333 (0x14d), maxInterval 5054 (0x13be)
+
+ISO-Audio streams:
+------------------
+
+	Output Audio Stream statistic:
+	--------------------------
+	           dest       AV
+	     isoChannel       44
+	          Speed     S100
+	      SytOffset     1536
+	        FFLimit  1967616
+	     HwPktDelay     1536
+	     QFillLevel   512/512
+	      CacheProc       On
+
+	        txWrite  7649716
+	        txReady  7649212
+	      txDelayed  3451693
+	    txSendEmpty        0
+	          txDma  7649204
+	   pktPerSecond     5513
+	W      txQEmpty    23548
+	E       txQFull  7643285
+	E     txDmaBusy        0
+	E      pkt Past        0
+	E    pkt Future        0
+	S    pktSytDiff     4665
+
+	Input Stream statistic:
+	-----------------------
+	No active input streams.
+
+ISO-Image streams:
+------------------
+
+	Output Image Stream statistic:
+	--------------------------
+	           destVideoDevice
+	     isoChannel        1
+	          Speed  invalid
+	      SytOffset        0
+	        FFLimit        0
+	     HwPktDelay        0
+	     QFillLevel     0/ 3
+	      CacheProc      Off
+
+	    noOfUpdates 21881913
+	       noOfImgs    83360
+	     newFrmBufs        0
+	   dirtyFrmBufs        0
+	E     errorPkts        0
+	E       dmaBusy        3

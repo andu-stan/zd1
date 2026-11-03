@@ -1,0 +1,9 @@
+$ sys wlan
+---- OVERVIEW ----
+sys wlan             - wlan related commands
+sys wlan ctrl        - Low level control wireless commands
+sys wlan mib         - Management Information Base related commands
+sys wlan pci         - Test PCI interface
+sys wlan test        - Test commands for Wifi test mode.
+---- DESCRIPTION ----
+executes 'wlan' command

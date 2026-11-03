@@ -1,0 +1,3 @@
+# taplo, for the TOML files (`nix fmt`)
+[formatting]
+column_width = 120

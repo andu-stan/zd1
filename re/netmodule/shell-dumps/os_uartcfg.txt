@@ -1,0 +1,6 @@
+$ os uartcfg
+---- OVERVIEW ----
+os uartcfg           - uart control command
+---- DESCRIPTION ----
+  <device> <nr>         device = [uart0|uart1...]
+                        nr = baudrate (e.g. 115200)

@@ -1,0 +1,252 @@
+ZD1 MCU (AT32UC3A1256) USB + iPod/iAP notes  -- static analysis of ZD1_v2-04-05 (hex.bin), 2026-10-15
+=====================================================================================================
+Confidence: H = read directly from code/registers, M = strong inference, L = hypothesis.
+New helper scripts: re/scripts/fnof.py (addr->containing fn), re/scripts/dis.py (annotated disasm ranges,
+  resolves PC-literal loads/MCALLs), re/ghidra/scripts/AddrDec.java + OrphanDec.java (run on a COPY of the mcu-app project in re/gen/ghidra/
+  with -noanalysis; OrphanDec creates+decompiles ~96 functions the original dump missed, e.g. 80027e8c/80027f20/
+  800280d0 HID-iAP transport, 80014d90.., 80015a60.., 800166ac.., 800170b0.., 800171d8.., 80020fe4 USB ISR).
+The USB stack is Atmel ASF-1.x "usb_task" dual-role (OTG) code; iAP stack is a separate component (no strings).
+
+-----------------------------------------------------------------------------------------------------
+1. ROLE SELECTION, MUX, POWER  (USB "route" manager FUN_80013f98, state struct RAM 0x5080 {target,state,next})
+-----------------------------------------------------------------------------------------------------
+Mode is chosen by SOFTWARE, not by the ID pin (H):
+ - USBCON(0x800) UIDE(bit24) is cleared; UIMOD(bit25) forced: 80020f88 = force HOST (UIMOD=0, host init 80021a44),
+   80020e90 = force DEVICE (UIMOD=1, dev init 80018eec), 80020ee4 = ASF otg init (reads USBSTA.ID, registers ISR
+   80020fe4 at INTC group 0x220/17, enables IDTE). 80013ef4 = usb stop (detach host/device stacks).
+ - PA21 is muxed as USB_ID (func C + pull-up) by 80020ee4, but at boot PA21 is ADC ch0 reading a resistor ladder =
+   PCB level "Lnn" (8001474c/80014850, shown by 8001e508 "L%02d"). ID never changes -> ID-change IRQ irrelevant (M).
+ - PA23 = ADC ch2: <0x200 -> HW variant 1 (model string "FP30570"), else variant 2 ("FP35548")
+   (80014698 -> RAM 0x50a0, getter 8001468c). Variant 1 = video-capable unit (see AccCaps/iPodPreference below).
+Request API: FUN_80013e98(p): p=1->target 5, 2->9, 3->0xd (variant 1 only, else hang), 4->0x10.
+Pin helpers: 8001b9cc(x) PA22 (x=1 -> LOW), 8001ba0c(m) PB11/PB12 route (m stored RAM 0x80c0, read by 8001ba00/
+ 800142e8), 800183c4(x) PA19 (x=1 -> LOW; x=0 -> HIGH, variant 1 only), 8001a9a8(x) PB17 (x=1 -> HIGH).
+
+ req | target | PB11 PB12 | PA19 | PA22 | PB17 steady | USBB core                    | used by
+ ----+--------+-----------+------+------+-------------+------------------------------+-----------------------------------
+  1  |   5    |  H    H   |  L   |  L   |  L          | HOST forced (dock / iPod)    | every source except PC (iPod, AUX, WiFi, src4)
+  2  |   9    |  H    L   |  L   |  H   |  L          | DEVICE forced (rear USB-B)   | PC source only (80029b04)
+  3  |  0xd   |  L    L   |  H   |  L   |  H          | USBE=0, UDCON.DETACH         | SLPS sleep/standby sm (80010a8e), HW var.1
+  4  |  0x10  |  H    L   |  L   |  H   |  L          | USBE=0, UDCON.DETACH         | STBY (8000ff96), 8002392c
+ Transitions (all via timer 0x28): PB17=H, PA22=L, USB disabled first; settle 100..900 ms; then pins; PB17=L last.
+ Sequences (H): s1..s4 = to host: USBE=0,PA22=L,PB17=H,PA19=L,300ms; PB11/12=HH,100ms; USBE=1,otg_init,force_host,
+   500ms; PB17=L. s6..s8 = to device: USBE=0, PB11/12=HL,100ms; USBE=1,otg_init,force_host,force_device,PA22=H,PA19=L,
+   200ms; PB17=L. s11/s12 = to 0xd: DETACH, ~20ms busy wait, PA22=L, PB17=H, 900ms, PA19=H, PB11/12=LL.
+Interpretation (L, needs schematic): PB11/PB12 = USB switch select (1 = MCU<->dock, 2 = MCU<->rear B port,
+   3 = probably dock<->rear port pass-through (PC syncs/charges iPod while MCU sleeps) or a charger-ID position);
+   PB17 = active-low enable of dock USB power/switch (also forced HIGH in fatal shutdown 800235fc and pulsed HIGH
+   900+400+500 ms by the iPod manager to power-cycle a misbehaving iPod); PA22/PA19 = VBUS-path selects (unknown which).
+VBUS sensing (H): USBB dedicated VBUS pad. Host mode: USBCON VBUSHWC=1 (VBOF pin NOT used), VBUSPO=1, host task
+   state 1 sets USBSTASET.VBUSRQS and waits USBSTA.VBUS(bit11)=1 -> dock 5V must reach the MCU VBUS pad.
+   Device mode: VBUSTI in ISR -> VBUS present -> attach (80018f58), event 0x20000004 "SLPS: PC inserted".
+iPod detect (M/H): no GPIO. Presence = USB host connection (DCONN) + enumeration of Apple VID 0x05AC,
+   (PID & 0xFF00)==0x1200 with a HID interface -> dock state 4 -> event 0x20000001 ("SLPS: iPod inserted").
+   PIDs 0x13xx (shuffle) are rejected (host state 8, FUN_80028c08(3) = "unsupported").
+Pins checked and NOT USB-related: PB09 (8001c7ac/c4, main power/amp rail on/off), PB16 (8001abf4, protection/amp,
+   ADC monitor 800120ac), PB13/14 CS2000 bit-bang, PA03 IR, PB18 duty-cycle monitor 8001ab14 (unknown).
+"iPod Acc Pwr" etc. strings (RAM 0x3085.., 5 boolean pairs: iPod det / Comms / Acc Pwr / PC / Aux) are not referenced
+   by code in this build (dead table, probably factory status). "Acc Pwr" corresponds to the Apple vendor power request.
+
+-----------------------------------------------------------------------------------------------------
+2. DEVICE MODE (PC, rear USB-B)  -- descriptors at 0x8002a8ec (H)
+-----------------------------------------------------------------------------------------------------
+Device: USB 2.0 FS, class 0, EP0 64, VID 0x19B5 PID 0x0005 bcdDevice 0x0204, iMfr 1 iProd 2 iSer 3, 1 config.
+Config 0x8002a8fe: wTotalLength 0x8D(141), 3 ifaces, bCfg 1, attr 0xC0 (self-powered), MaxPower 0.
+ IF0 AudioControl (0 EP): HEADER bcdADC 1.00 total 0x28, 1 AS iface (#1)
+    IT  id1 type 0x0101 USB-streaming, 2ch, wChannelConfig 0x0003 (L,R)
+    FU  id2 src1 controlSize 1 bmaControls master=0x03 (mute+volume), ch1=0, ch2=0
+    OT  id3 type 0x0301 Speaker, src2
+ IF1 AudioStreaming alt0 (0 EP) / alt1 (1 EP): AS_GENERAL link 1 delay 1 PCM; FORMAT_TYPE I 2ch 2byte/16bit,
+    3 discrete rates 48000, 44100, 32000; EP 0x05 ISO OUT ADAPTIVE (bmAttr 0x09) wMaxPacket 256 bInterval 1;
+    CS EP_GENERAL bmAttributes 0x01 (sampling-freq control).
+ IF2 HID class 3/0/0 (no boot): HID 1.11, report desc 37 B @0x8002a9d4; EP 0x81 INTERRUPT IN 8 B, bInterval 2.
+Strings: 0 = 0x0409, 1 "Bowers & Wilkins", 2 "Zeppelin Air", 3 "304". GET_DESCRIPTOR(string/HID) via 80029cac/8002a4e0.
+HID report (1 byte, no report ID): Consumer page; bit0 Vol+ (E9) bit1 Vol- (EA) [Abs]; bit2 Play/Pause (CD),
+  bit3 Scan Next (B5), bit4 Scan Prev (B6), bit5 FF (B3), bit6 Rewind (B4), bit7 Stop (B7) [Rel].
+  Sender 8001432c(key): only if route==2(PC) and configured; key->byte table RAM 0x00b8:
+  1->0x04 2->0x10 3->0x08 4->0x01 5->0x02 6->0x20 7->0x40 8->0x80 99->0x00(release); queue 15, 5 ms timer 0x23.
+  Zeppelin volume keys in PC mode send Vol+/- to the PC (80013428, 80013c2c); 800238f4 sends Stop+release.
+EP config at SET_CONFIGURATION (8002a85c): UECFG5 = ISO OUT 256 B double bank; UECFG1 = INT IN 8 B single bank;
+  EP0 = 64 B control (800188ac on EORST). Std requests in 8001893c (GET_STATUS, CLR/SET_FEATURE halt, SET_ADDRESS,
+  GET_DESCRIPTOR, GET/SET_CONFIGURATION, GET_INTERFACE, SET_INTERFACE); others -> class handler 8002a4e0:
+  bmReqType/bReq            | target (wIndex hi=entity, lo=iface)   | handler   | behaviour
+  0x21/0x01 SET_CUR mute    | FU 2, CS1                             | 8002a350  | RAM 0x824b, FUN_80018368(mute), unmute->8002350c/8001332c
+  0x21/0x01 SET_CUR volume  | FU 2, CS2                             | 8002a18c  | v (1/256 dB, s16): <0->0, >=0xFF0->71, else v*71>>12;
+                            |                                       |           | -> FUN_80013bec(vol 0..71), event 0x30001000
+  0xA1/0x81 GET_CUR         | mute / volume                         | 8002a2fc/8002a108 | mute state / vol*0x1000/71
+  0xA1/0x82 GET_MIN volume  |                                       | 8002a0bc  | 0x0000 (0 dB)
+  0xA1/0x83 GET_MAX volume  |                                       | 8002a070  | 0x1000 (+16.0 dB)
+  0xA1/0x84 GET_RES volume  |                                       | 8002a020  | 0x0050 (0.3125 dB)
+  (entity 5 = phantom 2nd FU, not in descriptor: 80029fb8/80029ef0/80029e94/80029dfc/80029e48/80029db0/80029f64)
+  0x22/0x01 SET_CUR samfreq | endpoint 0x05                         | 8002a24c  | 3-byte rate -> 800294d0 (only 32k/44.1k/48k,
+                            |                                       |           | else 44.1k) -> RAM_2f98+0xe8; mixer stop; ring re-init
+  0x21/0x09 SET_REPORT out  | HID                                   | accepted, data ignored
+  0x21/0x0A SET_IDLE, 0xA1/0x02 GET_IDLE | HID                      | stores/returns RAM_7df0[4]
+  no GET_CUR sampling freq (stalls).
+Audio data path (H): main-loop poller 8002914c (also called inside control-transfer wait loops): EP5 RXOUTI ->
+  FUN_80021644(0, ep5) copies the packet into a 16-slot x 256 B ring (RAM ptr 0x7cec, 0x1030 B heap block), byte-swaps
+  16-bit LE samples to BE (24/32-bit also handled), then hands slots to the audio_mixer output (table 0x80018104,
+  3 drivers x 0x30 B; SSC+PDCA driver 800232d8/800231c8/800230e8). SOF counter 80029124 + float math in 80021644
+  (12 MHz ref, FUN_8001cbcc) = adaptive clock trim (CS2000) to the PC's packet rate (M).
+  Rate setup: source PC -> 800298c8(1) -> 80029894(RAM_2f98+0xe8) -> 80018194(2) + 800181fc(rate,2ch,16bit) + 8002194c.
+
+-----------------------------------------------------------------------------------------------------
+3. HOST MODE (dock: iPod/iPhone)  (H unless noted)
+-----------------------------------------------------------------------------------------------------
+Host task 80021ae4 (ASF): state RAM 0x80f9, 12 cases (decompiled as functions in scratch run):
+ 0 power-on/VBUS wait, 1 VBUSRQ + wait USBSTA.VBUS, 2 wait DCONN -> bus reset, 3 reset done -> pipe0 cfg ->
+ FUN_80028c08(2) (dock sm notified "device attached"), 4 GET_DESCRIPTOR(dev,64) -> SET_ADDRESS, 5 GET_DESCRIPTOR(dev,18)
+ -> 800223dc stores VID (RAM 0x8204)/PID (0x8234), supported-list {05AC:1200} sets flag only,
+ 6 config: if VID==05AC: PID&0xFF00 must be 0x1200 (0x13xx/other -> state 8 unsupported); config descriptor
+   INDEX = (bNumConfigurations != 1) ? 1 : 0  (i.e. iPods' 2nd config "iPod USB Interface");
+   GET_DESCRIPTOR(cfg, 0xFA) -> class check 80022c10 -> SET_CONFIGURATION -> state 7, RAM 0x7d74=1, 80027e18.
+ 7 configured (class drivers run), 8 unsupported, 9 error->1, 0xA suspend (SET_FEATURE RWU if bmAttributes&0x20), 0xB resume.
+Control transfer engine 80022480 (setup struct RAM 0x81f6, data buf RAM 0x80fc), pipe read 800187a8, OUT 8002759c.
+Class filter (table 0x800223d0, 3 entries): {03,00,00} HID, {01,01,00} AudioControl, {01,02,00} AudioStreaming.
+  Max 5 interfaces x 3 EPs (RAM 0x8206, 9-byte entries {ifnum, alt, nEP, class, sub, proto, pipe[3]}); pipes 1..5
+  for wMaxPacket<=64, pipe 6 (UPCFG6) for larger (iso audio). 80017348 parses class-specific descriptors:
+  FU (unit id + bmaControls, 1-byte control size), FORMAT_TYPE (bNrChannels, bBitResolution, MAX of tSamFreq list).
+Audio class driver 80028654 (struct RAM 0x7d68, data 0x38 B): on state 7 + 0x7d74: find AS iface with ISO pipe ->
+  UPINRQ INMODE (continuous IN), SET_INTERFACE(iface, alt 1) (80028608, error -> event 0x50000100);
+  per FU: SET_CUR mute=0 (80028564: 21 01 0100 unit<<8 len1); if volume ctl: GET_MAX then SET_CUR vol=max
+  (800284d0: A1 83 0200|ch unit<<8 len2; 8002851c: 21 01 ...). Ring init with descriptor max rate (8002194c).
+  Streaming (when RAM 0x7d68[4] set by 80028458(1) from the source sm and iso pipe found): FUN_80021644(1,pipe) ->
+  same 16x256 ring/byte swap/mixer as device mode. FUN_800294fc(x) notifies stream starved/running.
+  Rate change: 8002859c(rate) (called by Digital-Audio lingo NewiPodTrackInfo) -> 80028a54 store (32k/44.1k/48k else
+  44.1k) -> 80021998 -> ring re-init -> SET_CUR SAMPLING_FREQ to iPod endpoint (80028488: 22 01 0100 wIndex=0x80|ep,
+  3 bytes LE). Source iPod -> 800298c8(0) -> 80029894(80028a7c()) programs SSC/CS2000 for that rate.
+HID iAP transport (80027b04 at state 7): only if VID 05AC & (PID&FF00)==1200: first HID iface with INT-IN pipe;
+  GET_DESCRIPTOR HID (81 06 2100) + report desc (81 06 2200, len 0xFA) -> parser 80026f08/800144b0: collects Input
+  (tag 8) and Output (tag 9) Variable items -> tables {reportID, bytes=ReportSize*ReportCount/8}; RAM 0x7d65 = uses
+  report IDs; needs >=1 input & >=1 output report else event 0x24000000. Then FUN_80028c08(4) -> dock state 4.
+  TX 800280d0: pick output report (smallest size-1 >= remaining, capped 0xFA-hasID), buf = [reportID][link][payload,
+     zero-padded]; SET_REPORT 21 09 wValue 0x02xx (Output|ID) wIndex=HID ifnum. link byte: bit0 = continuation of
+     previous report, bit1 = more reports follow (0x00 single, 0x02 first, 0x03 middle, 0x01 last).
+  RX 80027f20 / 80027e8c: interrupt IN pipe (RAM 0x7d64), same [ID][link][data] layout, size from input table.
+  NO 0xFF sync byte on this transport: parser 800156b4 requires buffer[0]==0x55 else discards the buffer.
+Apple power request 80014480: 40 40 wValue=500 wIndex=500 wLength 0 (vendor, device) after auth; failure -> reset.
+iPod manager sm 80028d30 (runs only when route state==5; state RAM 0x7d78+0x1c; notify list 80028a10 codes:
+  0 none,1 detected,3 HID/iAP ok,4 authenticated,5 auth failed,6 ready(power granted),7 unsupported):
+  s0 wait attach->s6; s6 audio init, 20 s timer->s7; s7 wait dock state 4 -> notify3 -> s0xA/0xB; dock state 3 -> s8;
+  USB errors (0x50000080/0x50000100/0x24000000) -> 80028ab0 -> s1; s1..s4 = power-cycle: PB17 H 900 ms, USBE=0 400 ms,
+  host re-init 500 ms, PB17 L; s0xB waits iAP result: 0x30000001 (iAP done) -> TWI back to 400 kHz, notify4 ->
+  s0xC (flag +0x20 "iAP ready" used by command queue) -> s0xD after 100 ms: vendor power request, then
+  SetRemoteEventNotification(0x19), notify6 -> s0xF idle; 0x20020000 (auth fail) -> notify5 -> s0x10 -> s1 (retry).
+
+iAP stack (context RAM 0x51a4 -> 0xA4C B heap; transport fn ptrs set in 8001589c: 80027e38 connected?,
+ 80027e8c rx-ready, 80027f20 read, 800280d0 write). TX builder 80015588(transID, lingo, cmd, len, forceLong):
+ 0x55 len [0x00 lenHi lenLo if >255] lingo cmd(2 bytes if lingo 4, else 1) [transID BE16 if enabled] data cksum
+ (cksum = -(sum of len..data)). Transaction IDs ON at start (8001554c); turned OFF when an iPodAck arrives with
+ payload length 4/8 without trans ID, and by RequestIdentify / legacy IdentifyDeviceLingoes path.
+ RX dispatcher 800156b4 -> per-lingo handler table ctx[4+lingo] (registered: 0 -> 800167a0, 2 -> 80015a60,
+ 3 -> 80016db0, 8 -> 800171d8, 10 -> 800170b0); response matching via pending list (80015970, 24 entries).
+Lingoes identified: 0x00 General, 0x02 Simple Remote, 0x03 Display Remote, 0x08 Accessory Equalizer, 0x0A Digital
+ Audio (IdentifyToken list @0x80017544 = 00 02 03 08 0A; legacy IDL mask 0x50D, options 6).
+Main iAP sm FUN_80017be8 (state RAM 0x51cc; cases at 0x800174e8; timers 0x1f/0x1c/0x27):
+ 0 reset ->1; 1 CP init sm (80016b3c, see 4) ok -> stack init, trans IDs on, ->2 (retries 20, 20 s)
+ 2 when dock state 4: StartIDPS 00/38 (ack handler 8001777c) ->3
+ 3 ack OK(event 0x20100000) -> GetiPodOptionsForLingo 00/4B [00] -> RetiPodOptionsForLingo 00/4C: byte7 bit5 ? s0x17 : s0x18
+   ack status 4 (bad param) & HW var1 -> legacy s0xB; status 0x15/other -> s0x15 dead; timeout -> s7 (retry)
+ 0x17/0x18 SetFIDTokenValues 00/39 (800177d0; token list RAM 0x158 / 0x17c, identical):
+     IdentifyToken(00/00: 5 lingoes, options, CP device ID), AccCapsToken(00/01: 0x814 var1 / 0x810 var2),
+     iPodPreferenceToken(00/03 class 0, setting 1, restore; var1 only = video out on),
+     AccInfoToken(00/02) types 1 name "Zeppelin Air", 4 fw 2.4.x, 5 hw (var).(Lnn).x, 6 mfr "Bowers & Wilkins",
+     7 model "FP30570"/"FP35548", 0x0C RF certifications 0. -> 4
+ 4 RetFIDTokenValueACKs 00/3A (80017fec: re-send failed tokens) -> RequestTransportMaxPayloadSize 00/11 ->
+   00/12 (clamped to 0x400) -> EndIDPS 00/3B [00] -> IDPSStatus 00/3C: 0 -> event 0x20800000 -> s0xF; 5 -> s0xB; 7 -> s2
+ 5/6 EndIDPS abandon variants; 7 retry counter; 0xA wait; 0xB legacy: IdentifyDeviceLingoes 00/13 (mask 1) -> 0xC
+   -> 00/13 (mask 0x50D, opts 6, devID) -> 0xE -> ack -> 0xF
+ 0xF authentication (iPod-driven, handler 800167a0):
+     00/14 GetDevAuthenticationInfo -> 00/15 RetDevAuthenticationInfo [major 2, minor 0, section idx, max idx, cert
+           <=500 B per section] (80016584), next section on ack (event 0x20400000)
+     00/16 AckDevAuthenticationInfo (status !=0 -> fail)
+     00/17 GetDevAuthenticationSignature [challenge..] -> CP sign (8001c958) -> 00/18 RetDevAuthenticationSignature
+     00/19 AckDevAuthenticationStatus 0 -> event 0x21000000 -> 80017638 done (state 0x13, CP into reset, 0x30000001)
+     else (event 0x20001000 after RetAccessoryInfo type 9) -> RequestLingoProtocolVersion 00/0F per lingo (table
+     0x80028a00: 00>=1.4, 0A>=1.1, 02>=1.1, 08>=1.0, 03>=1.1) -> 00/10 -> too old -> s0x14 fail; all ok -> done.
+ 0x14 fail -> event 0x20020000 -> 0x15 dead (until reset).
+ Also handled from iPod (General): 00/00 RequestIdentify (re-identify), 00/27 GetAccessoryInfo -> 00/28
+   (types 0 caps|0xF3, 1 name, 2 min iPod FW per model-ID table 0x800289a0, 3 min lingo ver, 4 fw, 5 hw, 6 mfr,
+   7 model, 8 serial, 9 -> max payload 0x0400 + event 0x20001000), 00/3F OpenDataSessionForProtocol,
+   00/40 CloseDataSession, 00/43 iPodDataTransfer (EA sessions -> callback ctx+0x28), 00/6A -> callback.
+ Commands the Zeppelin SENDS for control (queue RAM 0x50b0, 15 entries, dispatcher 80015084, needs "iAP ready"):
+   02/00 ContextButtonStatus, 4-byte little-endian mask (800159f8), release = mask 0 after 50 ms (timer 9):
+        0x0001 Play/Pause, 0x0008 Next, 0x0010 Prev, 0x0200 Pause, 0x0002/0x0004 Vol+/- (held/auto-repeat 50 ms)
+   03/0E SetiPodStateInfo: type 3 play status (3 FF, 4 REW, 5 end FF/REW) (80014e8c); type 4 [mute, UIvol, x] (80014f88/80014f04)
+   03/0C GetiPodStateInfo type 4 (vol) / 9 (date-time 6 B) (80014d18) -> 03/0D parsed by 80016fb8 (types 3,4,9,0xB,0x10)
+   03/08 SetRemoteEventNotification mask 0x00000019 (track pos, play status, mute/vol) (8001500c)
+   00/2B SetiPodPreferences [class, setting, restore] (queue type 6)
+ Handled from iPod: 03/09 RemoteEventNotification: type 0 track pos (u32), 3 play status -> 80014dfc (events
+   0x30000080/20/40/100/200; "playing" flag), 4 and 0x10 [mute, vol] -> 8001522c (mute or set Zeppelin volume =
+   iPod UI volume via 80013d04), 0xB -> callback. Callback struct RAM 0x128.
+ Accessory Equalizer lingo 08 (800171d8; struct RAM 0x138, 5 presets "Bass  0","Bass +1","Bass -1","Bass -2",
+   "Bass -3" @0x80033560): 08/01 GetCurrentEQIndex -> 08/02; 08/03 SetCurrentEQIndex -> ack 08/00; 08/04 GetNumEQ ->
+   08/05 (5); 08/06 GetIndexedEQProfileName -> 08/07.
+ Digital Audio lingo 0A (800170b0; struct 0x80028440 {3, ptr, cb 8002859c}): 0A/02 GetAccessorySampleRateCaps ->
+   0A/03 [32000, 44100, 48000] (u32 BE each); 0A/04 NewiPodTrackInfo [rate u32, soundcheck u32, vol adj u32] ->
+   callback 8002859c (SET_CUR rate on iPod EP) and AccessoryAck 0A/00 [00, 04].
+
+-----------------------------------------------------------------------------------------------------
+4. AUTH COPROCESSOR (CP 2.0B) -- I2C 7-bit 0x10 on the shared TWI (H)
+-----------------------------------------------------------------------------------------------------
+Driver: read 8001c87c(reg, buf, len) = twi_master_read(chip 0x10, 1-byte addr), write 8001c7f4(reg, buf, len);
+ both retry until OK or NACK(-9), 5 ms delay after each transfer.
+ PA02 = CP nRESET: 8001ca60(1) -> HIGH (run), (0) -> LOW (reset). 8001ca50 reads PA02 ("was in reset" test).
+ TWI clock: 80029630(0, 50000) before CP use (CP init sm state 1); restored to 400 kHz after iAP finishes, and at
+ 400 kHz the CP is always held in reset (80029630 does 8001ca60(0)).
+ reg   | use (function)
+ 0x00  | device version (selftest strings only, dead code)      0x01 | firmware version (same)
+ 0x02  | auth protocol major; must be 2 (8001ca0c, 80016b80)  0x03 | minor; must be 0 -> CP 2.0B only
+ 0x04  | device ID, 4 bytes (80016b80) -> IdentifyToken / IDL
+ 0x05  | error code, read when status bit7 set (8001c8d8)
+ 0x10  | status/control: write 1 = start signature generation; read: bit7 error, bits6:4 ==1 -> signature ready
+ 0x11  | signature length (2 B) (8001c928); also read at init (80016bc4)
+ 0x12  | signature data (8001c928)
+ 0x20  | challenge length (2 B, written 8001c840; read at init)  0x21 | challenge data (written 8001c840)
+ 0x30  | accessory certificate length (2 B) (80016bf8)            0x31.. | cert pages, 128 B each (80016c28, buffer 0x780)
+CP init sm (80016b3c, state ctx+0x48): 1 TWI 50 kHz, retries 10 -> 2 PA02 low 1 ms, high, 30 ms -> 3 check reg2==2 &&
+ reg3==0 (else retry) -> 4 read 0x02,0x03,0x04 -> 5 read 0x11,0x20 -> 6 read 0x30 -> 7 read cert -> 8 done.
+Signature (8001c958, called from 800164c0): write 0x21 challenge, 0x20 length, 0x10=1; poll 0x10 (3 retries
+ of re-trigger); read 0x11/0x12. Result -> 00/18 RetDevAuthenticationSignature.
+
+-----------------------------------------------------------------------------------------------------
+5. SERIAL iAP on the 30-pin connector -- RULED OUT (H)
+-----------------------------------------------------------------------------------------------------
+ - No USART2 (0xFFFF1C00 / imm -0xE400) or USART3 (0xFFFF2000 / -0xE000) base anywhere in code; only USART0
+   (debug PA00/01) and USART1 (factory UART PA05/06).
+ - The iAP context transport pointers are hard-wired to the USB-HID functions (8001589c); no 0xFF sync handling.
+ - No GPIO toggling pattern consistent with bit-banged serial; no dock-detect GPIO (presence = USB enumeration).
+ => Only iPods/iPhones that speak iAP over USB HID (USB-audio capable, 2008+ devices) work in the dock.
+
+-----------------------------------------------------------------------------------------------------
+6. CROSS-CHECK vs an RP2350 pretending to be an iPod
+-----------------------------------------------------------------------------------------------------
+ OK : VID 05AC / PID 0x1262 passes the (PID&FF00)==0x1200 filter; 1 configuration -> config index 0 is used.
+ OK : UAC1 AS iface with iso IN, 16-bit stereo 44.1k (Zeppelin takes MAX tSamFreq; packets <=256 B OK).
+ OK : 1-byte Simple Remote bits 0x01/0x08/0x10 match what the Zeppelin sends (but 0x0200 Pause is in byte 1).
+ BAD: iAP interface must be HID class 3/0/0 with INT-IN EP + report descriptor (Input & Output reports, report IDs);
+      vendor 0xFF/0xF0 bulk is not in the host class table -> never used.  Accessory->iPod data arrives as
+      SET_REPORT(Output) on EP0; iPod->accessory goes out on the INT-IN EP. Each report = [ID][link byte][data].
+ BAD: no 0xFF before 0x55 on USB: Zeppelin sends 0x55..., and drops RX buffers not starting with 0x55.
+ BAD: General-lingo command numbers in iap.rs are wrong: 0x13 = IdentifyDeviceLingoes (not 0x15), 0x0F/0x10 =
+      Request/ReturnLingoProtocolVersion, 0x38 StartIDPS, 0x3B EndIDPS, 0x3C IDPSStatus, 0x39/0x3A FID tokens,
+      0x4B/0x4C iPod options, 0x11/0x12 max payload, 0x07/08 name, 0x09/0A sw ver, 0x0B/0C serial, 0x0D/0E model.
+ BAD: Zeppelin never uses Extended Interface lingo 0x04 (PlayControl/SetVolume). Volume/transport come via Simple
+      Remote 02/00 (4-byte mask) and Display Remote 03/0E SetiPodStateInfo; Zeppelin also expects 03/0C->03/0D,
+      03/08 ack, and 03/09 notifications; 0A Digital Audio and 08 EQ lingoes.
+ NEED: to get "ready": ack StartIDPS (status 0; replying without trans ID makes Zeppelin drop trans IDs), answer
+      4B with 4C (8 option bytes), 39 with 3A, 11 with 12, 3B with 3C status 0; then (as the iPod) send 14, ack 15
+      with 16 (00), send 17 (challenge), answer 18 with 19 (00) -- no need to verify the signature; answer 0F with 10
+      (>= table versions). Also ACK the vendor request 40/40 (wValue 500, wIndex 500) or the dock power-cycles the
+      iPod (PB17) and restarts. Optional: send 0A/02, then 0A/04 NewiPodTrackInfo (rate) -> Zeppelin issues
+      SET_CUR sampling freq to the iso EP (must not stall badly); it also sends SET_CUR mute/volume (GET_MAX first)
+      to every Feature Unit with those controls -- handle or drop the FU.
+
+-----------------------------------------------------------------------------------------------------
+OPEN QUESTIONS
+-----------------------------------------------------------------------------------------------------
+ - Physical meaning of PB11/PB12 positions (esp. mode 3 = 0xd), PB17, PA19, PA22 (need PCB trace / schematic).
+ - What the 0x13xx-PID / non-Apple device path does beyond "unsupported" (state 8) - e.g. charging only?
+ - Exact gating of host audio streaming on iAP state (80028458(1) callers 80025891/80026100 in the big source sm 800248bc).
+ - 00/6A and 03/09 type 0xB handlers' purpose; EA protocol string(s) for 00/3F sessions (B&W Control app).
+ - SLPS (sleep) behaviour with route 0xd: does the MCU wake on dock insertion via VBUS/other IRQ?

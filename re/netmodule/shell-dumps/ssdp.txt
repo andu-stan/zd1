@@ -1,0 +1,2 @@
+$ ssdp
+Usage: send | enable | disable | setVervose(verboseLevel)

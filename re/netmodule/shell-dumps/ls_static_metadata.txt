@@ -1,0 +1,2 @@
+$ ls static/Metadata
+  l. Latin1SjisPref

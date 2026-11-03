@@ -1,0 +1,2 @@
+$ apple
+error: no command specified

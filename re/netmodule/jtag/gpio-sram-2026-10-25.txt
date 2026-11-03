@@ -1,0 +1,26 @@
+JTAG (J-Link, OpenOCD 0.12, mdw/mww phys), unit running our OS normal image, 2026-10-25.
+
+GPIO 0xFFFF0400 (+0x400 A, +0x404 A, +0x408 levels, +0x40C B), live:  000fe2ff 000fe2ff 000d76af 00001440
+Pin 0 (unconnected), A/B -> level:
+  A=1 B=0 -> 1 | A=1 B=1 -> 1 | A=0 B=1 -> 1 | A=0 B=0 -> 0 | A=1 B=0 again -> 0 (floats; high again within 0.5 s)
+  driven low, then released with B=0 -> 0 at once, 1 after 0.5 s; released with B=1 -> 1 at once (pull-up)
+Under BL2 (regs-bl2.txt): 000fe2bf 000fe2bf 000d7fef 00001d40
+At reset (core caught in BL1's undefined-instruction stub 0x00403624 after a halt in the ROM):
+  GPIO 000fffff 000fffff 00000000 00000000; pad matrix 0xE0013000: 0 x8, +0x20 00000900, +0x24 0, +0x28 1, +0x2C 0
+
+SRAM alias: 0x0-0x3FFF, 0x4000-0x43FF, 0x10000, 0x3F0000, 0x500000 (256-4080 words each) equal 0x400000+;
+a word written at phys 0x0000FFF0 (0xa5a55a5a, and 0x12345678 at 0x0040FFF4) read back at 0x0040FFF0, 0x0000FFF0,
+0x0001FFF0, 0x003FFFF0, 0x0050FFF0; both restored to 0.
+
+devmem under our OS (via mod con):
+  idle: 0xE0007800/04/08 = 0 0 0, 0xE0007140 = 0, AV CTR 0xE001B000/08 = 0 0, port 2 ctrl 0, avActivate 0
+  aplay -D hw:0,0 S32_LE silence (amp locked): 0xE0007800/04/08 = 0 0xFFFF 0, 0xE0007140.. = 80220849 100D0801 00110002,
+    AV CTR 0, port 2 ctrl 0x01000001, avActivate 0x14; after: 0xE0007804 still 0xFFFF
+  tgen 0xE0007028: 00FFFFED; +0x2C = 1<<17 -> 00FDFFED; +0x28 = 1<<17 -> 00FFFFED; +0x2C = 1<<8 -> 00FFFEED; back -> 00FFFFED
+
+Clock gates (devmem, our OS): 0xE0007028 = 00FFFFED; enabling gate 4, 1, 24, 25 (+0x28) left it 00FFFFED each time.
+
+I2C on GPIO 13/14 bit-banged from our OS (devmem; A set = release, A clear = drive B = 0):
+auth chip 0x10: ACK on the 2nd try (wake-up NAK); 0x44: no ACK (5 and 20 tries)
+scan 0x08-0x77, one try each: ACK at 0x0b once (never again in 6 probes and 3 reads: a glitch)
+0x10 registers 0-8: 03 01 02 00 00 00 02 00 02, then 03 01 02 00 00 00 02 00 00

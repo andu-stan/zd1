@@ -1,0 +1,17 @@
+[package]
+name = "zd1-cli"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+description = "zd1: the Zeppelin Air over USB from a terminal, host/core's flows: the speaker's state and controls, settings, the module's system update, the MCU firmware, the DFU bootloader"
+
+[[bin]]
+name = "zd1"
+path = "src/main.rs"
+
+[dependencies]
+zd1-host.workspace = true
+clap = { version = "4", features = ["derive", "string"] }
+futures-lite = "2"
+serde_json = "1"
+libc = "0.2"

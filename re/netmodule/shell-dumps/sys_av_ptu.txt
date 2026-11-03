@@ -1,0 +1,24 @@
+$ sys av ptu
+AvPtu registers:
+----------------
+0xe0012000: avPtuCtrl0           = 0x00000022
+0xe0012004: avPtuCtrl1           = 0x00003d12
+0xe0012008: avPtuCtrl2           = 0x00000062
+0xe0012010: fifoLuTable[0]       = 0x3e3e3e3d
+0xe0012018: fifoLuTable[2]       = 0x3e3e3e3a
+0xe001201c: fifoLuTable[3]       = 0x3e3e3e3e
+0xe0012020: fifoLuTable[4]       = 0x3e3e3e3e
+0xe0012800: ptuFifoEmpty         = 0x000ffefe
+0xe0012804: ptuFifoFull          = 0x00000000
+0xe0012810: ptuFillLevel[0]      = 0x00000063
+0xe0012818: ptuFillLevel[2]      = 0x00000009
+0xe001281c: ptuFillLevel[3]      = 0x00000000
+0xe0012820: ptuFillLevel[4]      = 0x00000000
+0xe0012c00: ptuAvBndEmptyIntSet  = 0x00000101
+0xe0012c04: ptuAvBndEmptyIntClr  = 0x00000000
+0xe0012c10: ptuBusBndFullIntSet  = 0x00000000
+0xe0012c14: ptuBusBndFullIntClr  = 0x00000000
+0xe0012c20: ptuDMAAbortIntSet    = 0x00000000
+0xe0012c24: ptuDMAAbortIntClr    = 0x00000000
+0xe0012ff8: ptuVersion           = 0x06111701
+0xe0012ffc: ptuReset             = 0x00000000

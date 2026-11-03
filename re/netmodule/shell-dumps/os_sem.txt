@@ -1,0 +1,341 @@
+$ os sem
+ n                          name cnt      locked by           suspended     
+ 1           HeapNoCached Memory   1           -                   -         
+ 2                   Heap Memory   1           -                   -         
+ 3                   UMR0 Memory   1           -                   -         
+ 4          SmallObjectAllocator   1           -                   -         
+ 5               UARTWriteAccess   1           -                   -         
+ 6                  UartRxBuffer   4           -                   -         
+ 7               CriticalSection   1           -                   -         
+ 8                     WAAMRUPnP   1           -                   -         
+ 9               CountableObject   1           -                   -         
+10                CountedPointer   1           -                   -         
+11              InterfaceManager   1           -                   -         
+12       DynamicInterfaceManager   1           -                   -         
+13                    Observable   1           -                   -         
+14                     MyCnelock   1           -                   -         
+15                  BCOAllocator   1           -                   -         
+16                 FlickrService   1           -                   -         
+17             MultiFlashManager   1           -                   -         
+18                    streamLock   1           -                   -         
+19            BCOStringContainer   1           -                   -         
+20        AttributeContainerLock   1           -                   -         
+21PicturePlayerListenerRegistrations   1           -                   -         
+22               UsbScsiPortLock   1           -                   -         
+23                FObserversLock   1           -                   -         
+24                    DebugPrint   1           -                   -         
+25               SharedTimerLock   1           -                   -         
+26            SerializedSCI_Lock   1           -                   -         
+27    SerializedEmulatedSCI_Lock   1           -                   -         
+28               CriticalSection   1           -                   -         
+29           CTRAccessorListLock   1           -                   -         
+30           SystemDeviceManager   1           -                   -         
+31               SharedDevClient   1           -                   -         
+32               CriticalSection   1           -                   -         
+33               CriticalSection   1           -                   -         
+34               CriticalSection   1           -                   -         
+35               CriticalSection   1           -                   -         
+36             knos_ctrl_msg_sem   0 ShellThread                   -         
+37            knos_ctrl_msg_lock   1           -                   -         
+38            BCOSymbolTableLock   1           -                   -         
+39              XMLAllocatorLock   1           -                   -         
+40                          core   1           -                   -         
+41                    DebugPrint   1           -                   -         
+42               LibcWrapperLock   1           -                   -         
+43               UARTWriteAccess   1           -                   -         
+44                  UartRxBuffer   2           -                   -         
+45                SPIWriteAccess   1           -                   -         
+46                   NandGeneric   1           -                   -         
+47                      RamFlash   1           -                   -         
+48                       cneLock   1           -                   -         
+49               SimpleTimerLock   1           -                   -         
+50      CnE_DynContentSysDataMgr   1           -                   -         
+51                AudioHWService   1           -                   -         
+52   HALCompatibilityServiceImpl   1           -                   -         
+53    IpodDetectObserverListLock   1           -                   -         
+54                         HWCom   1           -                   -         
+55               SpiComEmulation   1           -                   -         
+56               SimpleTimerLock   1           -                   -         
+57 IPodAuthCoprocessorV2ImplLock   1           -                   -         
+58               SimpleTimerLock   1           -                   -         
+59            SluCtrAccessorLock   1           -                   -         
+60               ResourceManager   1           -                   -         
+61           INetCritSectionLock   1           -                   -         
+62                   INetMainSem   0 Inet main             Inet main
+63                Net block Slot   0 WRCThread             WRCThread
+64                Net block Slot   0           -           GenaEventThread
+65                Net block Slot   0           -           SsdpRecUDP
+66                Net block Slot   0 JBRemoteCtrlThread    JBRemoteCtrlThread
+67                Net block Slot   0 pthread               pthread
+68                Net block Slot   0 UPnP TCP Thread       UPnP TCP Thread
+69                Net block Slot   0 SsdpPort              SsdpPort
+70                Net block Slot   1           -                   -         
+71                Net block Slot   0 Webserver             Webserver
+72                Net block Slot   0 pthread               pthread
+73                Net block Slot   0 TelnetServer          TelnetServer
+74                Net block Slot   0           -                   -         
+75                Net block Slot   0           -                   -         
+76                Net block Slot   0           -                   -         
+77                Net block Slot   0           -                   -         
+78                Net block Slot   0           -                   -         
+79                Net block Slot   0           -                   -         
+80                Net block Slot   0           -                   -         
+81                Net block Slot   0           -                   -         
+82                Net block Slot   0           -                   -         
+83                 interruptLock   1           -                   -         
+84                    pktUseLock   1           -                   -         
+85                          Wlan   0 WlanThread            WlanThread
+86             HTProxyServerLock   1           -                   -         
+87                     ARP table   1           -                   -         
+88                    AutoIPLock   1           -                   -         
+89                 WpaSupplicant   1           -                   -         
+90WpaSupplicantWlConnectionService   1           -                   -         
+91               SimpleTimerLock   1           -                   -         
+92                         Timer   1           -                   -         
+93               SimpleTimerLock   1           -                   -         
+94               SimpleTimerLock   1           -                   -         
+95               SimpleTimerLock   1           -                   -         
+96               SimpleTimerLock   1           -                   -         
+97                     StateLock   1           -                   -         
+98             USBBusDriver Lock   1           -                   -         
+99               USB Rx Ep0 lock   1           -                   -         
+100               USB Tx Ep0 lock   1           -                   -         
+101               USB Rx Ep1 lock   1           -                   -         
+102               USB Tx Ep1 lock   1           -                   -         
+103               USB Rx Ep2 lock   1           -                   -         
+104               USB Tx Ep2 lock   1           -                   -         
+105               USB Rx Ep3 lock   1           -                   -         
+106               USB Tx Ep3 lock   1           -                   -         
+107               USB Rx Ep4 lock   1           -                   -         
+108               USB Tx Ep4 lock   1           -                   -         
+109               USB Rx Ep5 lock   1           -                   -         
+110               USB Tx Ep5 lock   1           -                   -         
+111               USB Rx Ep6 lock   1           -                   -         
+112               USB Tx Ep6 lock   1           -                   -         
+113               USB Rx Ep7 lock   1           -                   -         
+114               USB Tx Ep7 lock   1           -                   -         
+115               USB Rx Ep8 lock   1           -                   -         
+116               USB Tx Ep8 lock   1           -                   -         
+117               USB Rx Ep9 lock   1           -                   -         
+118               USB Tx Ep9 lock   1           -                   -         
+119              USB Rx Ep10 lock   1           -                   -         
+120              USB Tx Ep10 lock   1           -                   -         
+121              USB Rx Ep11 lock   1           -                   -         
+122              USB Tx Ep11 lock   1           -                   -         
+123              USB Rx Ep12 lock   1           -                   -         
+124              USB Tx Ep12 lock   1           -                   -         
+125              USB Rx Ep13 lock   1           -                   -         
+126              USB Tx Ep13 lock   1           -                   -         
+127              USB Rx Ep14 lock   1           -                   -         
+128              USB Tx Ep14 lock   1           -                   -         
+129              USB Rx Ep15 lock   1           -                   -         
+130              USB Tx Ep15 lock   1           -                   -         
+131                      RDM Lock   1           -                   -         
+132                   RDM FS Lock   1           -                   -         
+133                USB Stack Lock   1           -                   -         
+134            Endpoint Ctrl lock   1           -                   -         
+135      USB Host Controller Lock   1           -                   -         
+136               SimpleTimerLock   1           -                   -         
+137          USB Hub Manager Lock   1           -                   -         
+138                UPnPModuleImpl   1           -                   -         
+139              UPnPActivateLock   1           -                   -         
+140        SsdpPort_lockListeners   1           -                   -         
+141             SsdpPort_lockPort   1           -                   -         
+142           BcoUdpPort_SendLock   1           -                   -         
+143            BcoUdpPort_RecLock   0 SsdpPort                      -         
+144              UpnpSynchronizer   1           -                   -         
+145               CriticalSection   1           -                   -         
+146               CriticalSection   1           -                   -         
+147               SimpleTimerLock   1           -                   -         
+148                  UartRxBuffer   0 SPI Receiver          SPI Receiver
+149                CardeaPlayLock   1           -                   -         
+150          CardeaServerListLock   1           -                   -         
+151             HTProxyServerLock   1           -                   -         
+152             HTProxyServerLock   1           -                   -         
+153                         Timer   1           -                   -         
+154             HTProxyServerLock   1           -                   -         
+155             HTProxyServerLock   1           -                   -         
+156                         Timer   1           -                   -         
+157                         Timer   1           -                   -         
+158                  dmrProx Lock   1           -                   -         
+159             HTProxyServerLock   1           -                   -         
+160             HTProxyServerLock   1           -                   -         
+161                 UpnpReposLock   1           -                   -         
+162          UpnpDeviceRepository   0           -                   -         
+163             HTProxyServerLock   1           -                   -         
+164             HTProxyServerLock   1           -                   -         
+165               SsdpReceiveLock   1           -                   -         
+166                RDMFS_TestLock   1           -                   -         
+167          USBPacket SharedData   1           -                   -         
+168          USBPacket SharedData   1           -                   -         
+169          USBPacket SharedData   1           -                   -         
+170          USBPacket SharedData   1           -                   -         
+171          USBPacket SharedData   1           -                   -         
+172          USBPacket SharedData   1           -                   -         
+173           PPChangingSlideshow   1           -                   -         
+174         MemoryBlobServiceLock   1           -                   -         
+175          GenaSubscriptionLock   1           -                   -         
+176             HTProxyServerLock   1           -                   -         
+177             HTProxyServerLock   1           -                   -         
+178               CriticalSection   1           -                   -         
+179                 UpnpReposLock   1           -                   -         
+180          UpnpDeviceRepository   0           -                   -         
+181             HTProxyServerLock   1           -                   -         
+182             HTProxyServerLock   1           -                   -         
+183             HTProxyServerLock   1           -                   -         
+184             HTProxyServerLock   1           -                   -         
+185     UpnpContentBrowserService   1           -                   -         
+186   UpnpNotificationServiceLock   1           -                   -         
+187                         Timer   1           -                   -         
+188                ConversionMode   1           -                   -         
+189      PresetContentBrowserLock   1           -                   -         
+190           NapObserverListLock   1           -                   -         
+191            ContentManagerLock   1           -                   -         
+192               SimpleTimerLock   1           -                   -         
+193                       NapCore   1           -                   -         
+194               SimpleTimerLock   1           -                   -         
+195               SimpleTimerLock   1           -                   -         
+196           StreamingRingBuffer   1           -                   -         
+197             HTProxyServerLock   1           -                   -         
+198             HTProxyServerLock   1           -                   -         
+199             HTProxyServerLock   1           -                   -         
+200             HTProxyServerLock   1           -                   -         
+201             HTProxyServerLock   1           -                   -         
+202             HTProxyServerLock   1           -                   -         
+203    RtspPendingRequestListLock   1           -                   -         
+204               CriticalSection   1           -                   -         
+205               SocketSemaphore   0           -           ActiveSocket
+206                RtspSocketLock   1           -                   -         
+207               SocketSemaphore   0           -           ActiveSocket
+208                RtspSocketLock   1           -                   -         
+209               SocketSemaphore   0           -           ActiveSocket
+210                RtspSocketLock   1           -                   -         
+211                         Timer   1           -                   -         
+212               SimpleTimerLock   1           -                   -         
+213               SimpleTimerLock   1           -                   -         
+214           StreamingRingBuffer   1           -                   -         
+215    RDMFSContentBrowserService   1           -                   -         
+216             HTProxyServerLock   1           -                   -         
+217             HTProxyServerLock   1           -                   -         
+218         AVRPlayerService Lock   1           -                   -         
+219                         Timer   1           -                   -         
+220                  BCOAllocator   1           -                   -         
+221               SimpleTimerLock   1           -                   -         
+222                         Timer   1           -                   -         
+223           UIPlayerArtworkSema   1           -                   -         
+224                         Timer   1           -                   -         
+225                         Timer   1           -                   -         
+226                         Timer   1           -                   -         
+227                         Timer   1           -                   -         
+228               SimpleTimerLock   1           -                   -         
+229               SimpleTimerLock   1           -                   -         
+230                         Timer   1           -                   -         
+231                         Timer   1           -                   -         
+232                         Timer   1           -                   -         
+233                         Timer   1           -                   -         
+234                         Timer   1           -                   -         
+235                         Timer   1           -                   -         
+236                         Timer   1           -                   -         
+237                  UpnpAvAccess   1           -                   -         
+238                 UpnpAvControl   1           -                   -         
+239             UpnpAvContentLock   1           -                   -         
+240              UpnpAvDidlReader   0           -                   -         
+241             HTProxyServerLock   1           -                   -         
+242             HTProxyServerLock   1           -                   -         
+243                  UpnpAvAccess   1           -                   -         
+244                 UpnpAvControl   1           -                   -         
+245             UpnpAvContentLock   1           -                   -         
+246              UpnpAvDidlReader   0           -                   -         
+247             HTProxyServerLock   1           -                   -         
+248             HTProxyServerLock   1           -                   -         
+249                  UpnpAvAccess   1           -                   -         
+250                 UpnpAvControl   1           -                   -         
+251             UpnpAvContentLock   1           -                   -         
+252              UpnpAvDidlReader   0           -                   -         
+253             HTProxyServerLock   1           -                   -         
+254             HTProxyServerLock   1           -                   -         
+255                  UpnpAvAccess   1           -                   -         
+256                 UpnpAvControl   1           -                   -         
+257             UpnpAvContentLock   1           -                   -         
+258              UpnpAvDidlReader   0           -                   -         
+259             HTProxyServerLock   1           -                   -         
+260             HTProxyServerLock   1           -                   -         
+261                 RDMFS CB Lock   1           -                   -         
+262                 RDMFS CB Lock   1           -                   -         
+263                 RDMFS CB Lock   1           -                   -         
+264                 RDMFS CB Lock   1           -                   -         
+265               SimpleTimerLock   1           -                   -         
+266               SimpleTimerLock   1           -                   -         
+267               SimpleTimerLock   1           -                   -         
+268      UIInfraRedEvtHandlerLock   1           -                   -         
+269                         Timer   1           -                   -         
+270                WRCConnectLock   1           -                   -         
+271                  WRCTimerLock   1           -                   -         
+272               WRCUIXmitSesSem   1           -                   -         
+273                  BCOAllocator   1           -                   -         
+274                         Timer   1           -                   -         
+275               SimpleTimerLock   1           -                   -         
+276           UPnPNotifyDoneEvent   1           -                   -         
+277                    Mocana SSL   1           -                   -         
+278                    Mocana SSL   1           -                   -         
+279               CriticalSection   1           -                   -         
+280             RDServiceSoapLock   1           -                   -         
+281          RDServiceSSLSoapLock   1           -                   -         
+282               SimpleTimerLock   1           -                   -         
+283               CriticalSection   1           -                   -         
+284RhapsodyTrackInfoRetrieverLock   1           -                   -         
+285 RhapsodyDirectBrowserListLock   1           -                   -         
+286        RDContentRetrieverLock   1           -                   -         
+287            IPodControlService   1           -                   -         
+288               iPodReaderqLock   1           -                   -         
+289                    m_AppQLock   1           -                   -         
+290                  iPodConnLock   1           -                   -         
+291               iPodArtworkSema   1           -                   -         
+292               CriticalSection   1           -                   -         
+293         IpodGetPlayStatusLock   1           -                   -         
+294               CriticalSection   1           -                   -         
+295               iPodTlgRecReady   0           -                   -         
+296                       CP_Lock   1           -                   -         
+297               SimpleTimerLock   1           -                   -         
+298               iPodComSendLock   1           -                   -         
+299          IPodUsbCommErrorLock   1           -                   -         
+300               iPodComSendLock   1           -                   -         
+301               CriticalSection   1           -                   -         
+302               CriticalSection   1           -                   -         
+303               CriticalSection   1           -                   -         
+304               CriticalSection   1           -                   -         
+305               CriticalSection   1           -                   -         
+306         LastfmBrowserListLock   1           -                   -         
+307                  FlickrBLLock   1           -                   -         
+308            FavouritesListLock   1           -                   -         
+309       FileTransferServiceLock   1           -                   -         
+310RemoteRegCtrldFileTransferServiceLock   1           -                   -         
+311            AlbumArtOverRRLock   1           -                   -         
+312                 pthread_mutex   1           -                   -         
+313      SiriusContentBrowserLock   1           -                   -         
+314     NapsterContentBrowserLock   1           -                   -         
+315           JBRemoteConnectLock   1           -                   -         
+316             JBRemoteTimerLock   1           -                   -         
+317                     Semaphore   1           -                   -         
+318                  BCOAllocator   1           -                   -         
+319                  BCOAllocator   1           -                   -         
+320                    Mocana SSL   1           -                   -         
+321             HTProxyServerLock   1           -                   -         
+322             HTProxyServerLock   1           -                   -         
+323               CriticalSection   1           -                   -         
+324wpa_supplicant.eloop.timeoutSem   1           -                   -         
+325                    ByteStream   1 ShellThread                   -         
+326             FlickrServiceImpl   1           -                   -         
+327                    FK_APILock   1           -                   -         
+328             HTProxyServerLock   1           -                   -         
+329             HTProxyServerLock   1           -                   -         
+330     PandoraContentBrowserLock   1           -                   -         
+331           Moderation_Data_Sem   1           -                   -         
+332         Event_Distr_Semaphore   1           -                   -         
+333      Subscriber_Log_Semaphore   1           -                   -         
+334        Msg_Schedule_Semaphore   1           -                   -         
+335                 pthread_mutex   1           -                   -         
+336                 pthread_mutex   1           -                   -         
+337                 pthread_mutex   1           -                   -         
+338                 pthread_mutex   1           -                   -         
+339                  pthread_cond   0           -           pthread

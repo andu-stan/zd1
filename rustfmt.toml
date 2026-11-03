@@ -1,0 +1,4 @@
+# rustfmt (`nix fmt` runs it per file, so the edition is here too: every crate's, [workspace.package])
+edition = "2024"
+max_width = 120
+use_small_heuristics = "Max"

@@ -1,0 +1,359 @@
+# DM870 WLAN MAC MIB schema (table @0x605c1f08) — group:elem  off size flags cnt  name
+# per-group base ptr = *(wlanDev+6 + group*4); element addr = base + off (+ idx*size)
+[00] APP_STAT  (count=11, desc@0x605c1fe8)
+   00:00  off=0x004 sz=4   fl=0x01 cnt=1    HardwareVersion
+   00:01  off=0x008 sz=4   fl=0x01 cnt=1    BootRomVersion
+   00:02  off=0x00c sz=4   fl=0x01 cnt=1    FirmwareVersion
+   00:03  off=0x010 sz=4   fl=0x01 cnt=1    BupVersion
+   00:04  off=0x014 sz=4   fl=0x01 cnt=1    ModemaVersion
+   00:05  off=0x018 sz=4   fl=0x01 cnt=1    ModembVersion
+   00:06  off=0x01c sz=4   fl=0x01 cnt=1    StreamVersion
+   00:07  off=0x020 sz=4   fl=0x01 cnt=1    EagleVersion
+   00:08  off=0x024 sz=4   fl=0x01 cnt=1    LastErrorCode
+   00:09  off=0x028 sz=64  fl=0x01 cnt=1    LastErrorParam
+   00:10  off=0x068 sz=6   fl=0x01 cnt=5    PermanentMacAddress
+[01] HD_STAT  (count=15, desc@0x605c202a)
+   01:00  off=0x004 sz=4   fl=0x01 cnt=1    TxPacketCnt
+   01:01  off=0x008 sz=4   fl=0x01 cnt=1    TxOKCnt
+   01:02  off=0x00c sz=4   fl=0x01 cnt=1    TxErrorCnt
+   01:03  off=0x010 sz=4   fl=0x01 cnt=1    TxRetryCnt
+   01:04  off=0x014 sz=4   fl=0x01 cnt=1    TxFilteredCnt
+   01:05  off=0x018 sz=4   fl=0x01 cnt=1    TxAgedOutCnt
+   01:06  off=0x01c sz=4   fl=0x01 cnt=1    TxNoBufferCnt
+   01:07  off=0x020 sz=4   fl=0x01 cnt=1    TxQueuedPacketCur
+   01:08  off=0x024 sz=4   fl=0x01 cnt=1    TxQueuedPacketMax
+   01:09  off=0x028 sz=4   fl=0x01 cnt=1    TxPendingPacketCur
+   01:10  off=0x02c sz=4   fl=0x01 cnt=1    TxPendingPacketMax
+   01:11  off=0x030 sz=4   fl=0x01 cnt=1    RxOKCnt
+   01:12  off=0x034 sz=4   fl=0x01 cnt=1    RxPacketCnt
+   01:13  off=0x038 sz=4   fl=0x01 cnt=1    RxErrorCnt
+   01:14  off=0x03c sz=4   fl=0x01 cnt=1    RxNoBufferCnt
+[02] ME_CTE  (count=14, desc@0x605c2084)
+   02:00  off=0x004 sz=4   fl=0x01 cnt=1    MibVersion
+   02:01  off=0x008 sz=1   fl=0x01 cnt=1    dot11MultiDomainCapabilityImplemented
+   02:02  off=0x009 sz=1   fl=0x01 cnt=1    dot11SpectrumManagementImplemented
+   02:03  off=0x00a sz=1   fl=0x01 cnt=1    dot11RegulatoryClassesImplemented
+   02:04  off=0x00b sz=1   fl=0x01 cnt=1    dot11QosOptionImplemented
+   02:05  off=0x00c sz=1   fl=0x01 cnt=1    MultiSsidOptionImplemented
+   02:06  off=0x00d sz=1   fl=0x01 cnt=1    PsTxBufferingOptionImplemented
+   02:07  off=0x00e sz=1   fl=0x01 cnt=1    AntennaDiversityImplemented
+   02:08  off=0x00f sz=1   fl=0x01 cnt=1    BandSwitchingOptionImplemented
+   02:09  off=0x010 sz=1   fl=0x01 cnt=1    UserTraceImplemented
+   02:10  off=0x011 sz=1   fl=0x01 cnt=1    DriverTraceImplemented
+   02:11  off=0x012 sz=1   fl=0x01 cnt=1    WdsOptionImplemented
+   02:12  off=0x013 sz=1   fl=0x01 cnt=1    MbOptionImplemented
+   02:13  off=0x014 sz=1   fl=0x01 cnt=1    AclOptionImplemented
+[03] ME_CONF  (count=27, desc@0x605c20d8)
+   03:00  off=0x003 sz=6   fl=0x01 cnt=7    MacAddr
+   03:01  off=0x009 sz=6   fl=0x01 cnt=7    DesiredBssid
+   03:02  off=0x00f sz=33  fl=0x01 cnt=15   DesiredSsid
+   03:03  off=0x030 sz=1   fl=0x01 cnt=3    DesiredPhyType
+   03:04  off=0x031 sz=1   fl=0x02 cnt=3    DesiredChannel[2]
+   03:05  off=0x033 sz=13  fl=0x02 cnt=15   DesiredRates[2]
+   03:06  off=0x04e sz=2   fl=0x01 cnt=3    DesiredBeaconPeriod
+   03:07  off=0x050 sz=1   fl=0x01 cnt=3    Dtim
+   03:08  off=0x052 sz=2   fl=0x01 cnt=3    Atim
+   03:09  off=0x054 sz=1   fl=0x01 cnt=3    Infrastructure
+   03:10  off=0x056 sz=2   fl=0x01 cnt=3    PassiveMaxScanTime
+   03:11  off=0x058 sz=2   fl=0x01 cnt=3    ActiveMaxScanTime
+   03:12  off=0x05a sz=2   fl=0x01 cnt=3    ActiveMinScanTime
+   03:13  off=0x05c sz=2   fl=0x01 cnt=3    ScanChannelTime
+   03:14  off=0x05e sz=2   fl=0x01 cnt=3    ScanCheckingTime
+   03:15  off=0x060 sz=2   fl=0x01 cnt=3    RoamingCheckingTime
+   03:16  off=0x062 sz=2   fl=0x01 cnt=3    ActiveProbeDelay
+   03:17  off=0x064 sz=2   fl=0x01 cnt=3    Listen
+   03:18  off=0x066 sz=1   fl=0x01 cnt=3    dot11AuthenticationAlgorithm
+   03:19  off=0x067 sz=1   fl=0x01 cnt=3    EncryptionStatus
+   03:20  off=0x068 sz=1   fl=0x01 cnt=3    dot11MultiDomainCapabilityEnabled
+   03:21  off=0x069 sz=1   fl=0x01 cnt=3    dot11RegulatoryClassesRequired
+   03:22  off=0x06a sz=41  fl=0x02 cnt=15   MacChannelDomain[2]
+   03:23  off=0x0bc sz=15  fl=0x02 cnt=15   RawForcedChannelDomain[2]
+   03:24  off=0x0da sz=1   fl=0x01 cnt=3    MultiSSIDEnabled
+   03:25  off=0x0db sz=1   fl=0x01 cnt=3    FrameBurstingEnabled
+   03:26  off=0x0dc sz=1   fl=0x01 cnt=3    WmeRequested
+[04] ME_STAT  (count=2, desc@0x605c217a)
+   04:00  off=0x003 sz=1   fl=0x01 cnt=1    IsConnected
+   04:01  off=0x004 sz=15  fl=0x02 cnt=15   RawCurrentChannelDomain[2]
+[05] ME_SP_CONF  (count=6, desc@0x605c2186)
+   05:00  off=0x003 sz=1   fl=0x01 cnt=3    SpectrumMgtRequired
+   05:01  off=0x004 sz=1   fl=0x01 cnt=3    TPCRequired
+   05:02  off=0x005 sz=1   fl=0x01 cnt=3    DFSRequired
+   05:03  off=0x006 sz=1   fl=0x01 cnt=3    MitigationRequirement
+   05:04  off=0x007 sz=1   fl=0x01 cnt=3    SwitchCount
+   05:05  off=0x008 sz=2   fl=0x01 cnt=3    RadarCheckTime
+[06] MM_CONF  (count=15, desc@0x605c21aa)
+   06:00  off=0x004 sz=4   fl=0x01 cnt=3    dot11AuthenticationResponseTimeOut
+   06:01  off=0x008 sz=4   fl=0x01 cnt=3    dot11AssociationResponseTimeOut
+   06:02  off=0x00c sz=4   fl=0x01 cnt=3    AgingTimeout
+   06:03  off=0x010 sz=1   fl=0x01 cnt=1    PhyType
+   06:04  off=0x011 sz=1   fl=0x01 cnt=1    Channel
+   06:05  off=0x01b sz=1   fl=0x01 cnt=3    BeaconPeriod
+   06:06  off=0x01c sz=1   fl=0x01 cnt=3    EncryptionStatus
+   06:07  off=0x01d sz=1   fl=0x01 cnt=3    Dtim
+   06:08  off=0x01e sz=1   fl=0x01 cnt=3    Atim
+   06:09  off=0x01f sz=1   fl=0x01 cnt=3    CapaInfo
+   06:10  off=0x02c sz=6   fl=0x01 cnt=1    ErpIe
+   06:11  off=0x032 sz=33  fl=0x01 cnt=13   PreamblePolicy
+   06:12  off=0x053 sz=13  fl=0x01 cnt=13   SlotPolicy
+   06:13  off=0x060 sz=1   fl=0x01 cnt=3    ProtectionPolicy
+   06:14  off=0x061 sz=1   fl=0x01 cnt=3    ProtectionType
+[07] MM_STAT  (count=13, desc@0x605c2204)
+   07:00  off=0x003 sz=1   fl=0x01 cnt=1    PreambleStatus
+   07:01  off=0x004 sz=1   fl=0x01 cnt=1    SlotStatus
+   07:02  off=0x005 sz=1   fl=0x01 cnt=1    ProtectionStatus
+   07:03  off=0x006 sz=1   fl=0x01 cnt=1    CWminStatus
+   07:04  off=0x007 sz=1   fl=0x01 cnt=1    WmeRequested
+   07:05  off=0x008 sz=32  fl=0x01 cnt=1    WmmFrame
+   07:06  off=0x028 sz=1   fl=0x01 cnt=1    WmmSetCount
+   07:07  off=0x029 sz=1   fl=0x01 cnt=1    WpaRequested
+   07:08  off=0x02a sz=36  fl=0x01 cnt=1    WpaFrame
+   07:09  off=0x04e sz=1   fl=0x01 cnt=1    ApInstNbr
+   07:10  off=0x04f sz=1   fl=0x01 cnt=1    SsidType
+   07:11  off=0x050 sz=2   fl=0x01 cnt=1    VlanTag
+   07:12  off=0x052 sz=1   fl=0x01 cnt=3    FrameBurstingEnabled
+[08] MM_ACL_CONF  (count=3, desc@0x605c2252)
+   08:00  off=0x003 sz=7   fl=0x06 cnt=3    ACL_Table[6]
+   08:01  off=0x02d sz=1   fl=0x01 cnt=1    
+   08:02  off=0x030 sz=4   fl=0x01 cnt=3    
+[09] DP_STA_STAT  (count=15, desc@0x605c2264)
+   09:00  off=0x003 sz=6   fl=0x01 cnt=1    Addr
+   09:01  off=0x009 sz=1   fl=0x01 cnt=1    InstNbr
+   09:02  off=0x00a sz=1   fl=0x01 cnt=1    PortId
+   09:03  off=0x00b sz=1   fl=0x01 cnt=1    LogPortState
+   09:04  off=0x00c sz=1   fl=0x01 cnt=1    PsMode
+   09:05  off=0x00d sz=1   fl=0x01 cnt=3    TxPwLevel
+   09:06  off=0x00e sz=1   fl=0x01 cnt=1    AuthXRequested
+   09:07  off=0x00f sz=1   fl=0x01 cnt=3    WmeCapacity
+   09:08  off=0x010 sz=13  fl=0x01 cnt=1    TxRate
+   09:09  off=0x01d sz=8   fl=0x01 cnt=3    StaRateSetData
+   09:10  off=0x025 sz=8   fl=0x01 cnt=3    StaRateSetDataRef
+   09:11  off=0x02d sz=1   fl=0x01 cnt=3    MaxRate
+   09:12  off=0x02e sz=1   fl=0x01 cnt=3    RateAdaptationOft
+   09:13  off=0x048 sz=1   fl=0x01 cnt=1    LivingCount
+   09:14  off=0x04a sz=2   fl=0x01 cnt=3    NoTrafficCount
+[10] DP_STA_PEER_STAT  (count=6, desc@0x605c22be)
+   10:00  off=0x004 sz=4   fl=0x04 cnt=1    TxAvgRate[4]
+   10:01  off=0x014 sz=1   fl=0x04 cnt=1    TxAvgPER[4]
+   10:02  off=0x018 sz=4   fl=0x04 cnt=1    TxAvgPackets[4]
+   10:03  off=0x028 sz=4   fl=0x01 cnt=1    
+   10:04  off=0x02c sz=4   fl=0x01 cnt=1    
+   10:05  off=0x030 sz=1   fl=0x01 cnt=1    
+[11] DP_MDS_CONF  (count=11, desc@0x605c22e2)
+   11:00  off=0x003 sz=1   fl=0x01 cnt=3    MdsMode
+   11:01  off=0x004 sz=1   fl=0x01 cnt=3    MaxTxRate
+   11:02  off=0x008 sz=4   fl=0x01 cnt=3    LinkRateTimer
+   11:03  off=0x00c sz=1   fl=0x01 cnt=3    dot11ExcludeUnencrypted
+   11:04  off=0x013 sz=8   fl=0x01 cnt=3    Bssid
+   11:05  off=0x01b sz=1   fl=0x01 cnt=3    BssBasicRateSet
+   11:06  off=0x01c sz=4   fl=0x01 cnt=3    RateAdaptationEnabled
+   11:07  off=0x020 sz=2   fl=0x08 cnt=3    RateAdaptationMinPacket
+   11:08  off=0x030 sz=2   fl=0x08 cnt=3    RateAdaptationPerForDown[8]
+   11:09  off=0x040 sz=1   fl=0x01 cnt=3    RateAdaptationPerForUp[8]
+   11:10  off=0x041 sz=1   fl=0x01 cnt=3    WmmEnabled
+[12] DP_MDS_STAT  (count=11, desc@0x605c2324)
+   12:00  off=0x004 sz=4   fl=0x01 cnt=3    TxDataOkCnt
+   12:01  off=0x008 sz=4   fl=0x01 cnt=3    TxDataFailCnt
+   12:02  off=0x00c sz=4   fl=0x01 cnt=3    TxDataSendBackOkCnt
+   12:03  off=0x010 sz=4   fl=0x01 cnt=3    TxDataSendBackFailCnt
+   12:04  off=0x014 sz=4   fl=0x01 cnt=3    TxLogPortFilteredCnt
+   12:05  off=0x018 sz=4   fl=0x01 cnt=3    TxQueueFullCnt
+   12:06  off=0x01c sz=4   fl=0x01 cnt=3    TxMgtFailCnt
+   12:07  off=0x020 sz=4   fl=0x01 cnt=3    TxMgtAllocBufFailCnt
+   12:08  off=0x024 sz=4   fl=0x01 cnt=3    RxLogPortFilteredCnt
+   12:09  off=0x028 sz=4   fl=0x01 cnt=3    RxIndQueueFullCnt
+   12:10  off=0x02c sz=4   fl=0x01 cnt=3    RxDataOkCnt
+[13] DP_SEC_CONF  (count=5, desc@0x605c2366)
+   13:00  off=0x003 sz=33  fl=0x04 cnt=15   dot11WEPDefaultKeyValue[4]
+   13:01  off=0x087 sz=1   fl=0x04 cnt=3    WEPDefaultKeyStatus[4]
+   13:02  off=0x08b sz=33  fl=0x20 cnt=15   dot11WEPKeyMappingValue[32]
+   13:03  off=0x4ab sz=1   fl=0x01 cnt=3    dot11WEPDefaultKeyID
+   13:04  off=0x4ac sz=1   fl=0x01 cnt=3    BssPrivacy
+[14] DP_SEC_STAT  (count=9, desc@0x605c2384)
+   14:00  off=0x004 sz=4   fl=0x01 cnt=3    dot11WepIcvErrorCount
+   14:01  off=0x008 sz=4   fl=0x01 cnt=3    dot11WepExcludedCount
+   14:02  off=0x00c sz=4   fl=0x01 cnt=3    dot11WEPUndecryptableCount
+   14:03  off=0x010 sz=4   fl=0x01 cnt=3    WepRxDecryptedCount
+   14:04  off=0x014 sz=4   fl=0x01 cnt=3    WepRxNonEncryptedCount
+   14:05  off=0x018 sz=4   fl=0x01 cnt=3    TxSecWepOkCnt
+   14:06  off=0x01c sz=4   fl=0x01 cnt=3    TxSecWepTkipCnt
+   14:07  off=0x020 sz=4   fl=0x01 cnt=3    TxSecWepCcmpCnt
+   14:08  off=0x024 sz=20  fl=0x11 cnt=1    dot11RSNAStatsTab[17]
+[15] DP_PP_CONF  (count=4, desc@0x605c23ba)
+   15:00  off=0x004 sz=4   fl=0x01 cnt=3    dot11FragmentationThreshold
+   15:01  off=0x008 sz=1   fl=0x01 cnt=3    dot11PowerManagementMode
+   15:02  off=0x009 sz=1   fl=0x01 cnt=3    PpLoopbackMode
+   15:03  off=0x00c sz=4   fl=0x01 cnt=3    dot11MaxReceiveLifetime
+[16] DP_PP_STAT  (count=9, desc@0x605c23d2)
+   16:00  off=0x004 sz=4   fl=0x01 cnt=3    dot11FrameDuplicateCount
+   16:01  off=0x008 sz=4   fl=0x01 cnt=3    dot11MulticastReceivedFrameCount
+   16:02  off=0x00c sz=4   fl=0x01 cnt=3    RxDiscardedFrameCnt
+   16:03  off=0x010 sz=4   fl=0x01 cnt=3    RxNoBufCnt
+   16:04  off=0x014 sz=4   fl=0x01 cnt=3    RxUnicastFrameCnt
+   16:05  off=0x018 sz=4   fl=0x01 cnt=3    RxNoPackDescAllocCnt
+   16:06  off=0x01c sz=4   fl=0x01 cnt=3    RxInvalidLenOneFrag
+   16:07  off=0x020 sz=4   fl=0x01 cnt=3    RxInvalidLenMultiFrag
+   16:08  off=0x024 sz=4   fl=0x01 cnt=3    TxNoSecOkCnt
+[17] MB_CONF  (count=2, desc@0x605c2408)
+   17:00  off=0x004 sz=4   fl=0x01 cnt=3    
+   17:01  off=0x008 sz=4   fl=0x01 cnt=3    
+[18] MB_STAT  (count=26, desc@0x605c2414)
+   18:00  off=0x004 sz=4   fl=0x01 cnt=3    
+   18:01  off=0x008 sz=4   fl=0x01 cnt=3    
+   18:02  off=0x00c sz=4   fl=0x01 cnt=3    
+   18:03  off=0x010 sz=4   fl=0x01 cnt=3    
+   18:04  off=0x014 sz=4   fl=0x01 cnt=3    
+   18:05  off=0x018 sz=4   fl=0x01 cnt=3    
+   18:06  off=0x01c sz=4   fl=0x01 cnt=3    
+   18:07  off=0x020 sz=4   fl=0x01 cnt=3    
+   18:08  off=0x024 sz=4   fl=0x01 cnt=3    
+   18:09  off=0x028 sz=4   fl=0x01 cnt=3    
+   18:10  off=0x02c sz=4   fl=0x01 cnt=3    
+   18:11  off=0x030 sz=4   fl=0x01 cnt=3    
+   18:12  off=0x034 sz=4   fl=0x01 cnt=3    
+   18:13  off=0x038 sz=4   fl=0x01 cnt=3    
+   18:14  off=0x03c sz=4   fl=0x01 cnt=3    
+   18:15  off=0x040 sz=4   fl=0x01 cnt=3    
+   18:16  off=0x044 sz=4   fl=0x01 cnt=3    
+   18:17  off=0x048 sz=4   fl=0x01 cnt=3    
+   18:18  off=0x04c sz=4   fl=0x01 cnt=3    
+   18:19  off=0x050 sz=4   fl=0x01 cnt=3    
+   18:20  off=0x054 sz=4   fl=0x01 cnt=3    
+   18:21  off=0x058 sz=4   fl=0x01 cnt=3    
+   18:22  off=0x05c sz=4   fl=0x01 cnt=1    
+   18:23  off=0x060 sz=4   fl=0x01 cnt=1    
+   18:24  off=0x064 sz=4   fl=0x01 cnt=1    
+   18:25  off=0x068 sz=4   fl=0x01 cnt=1    
+[19] TRC_CONF  (count=25, desc@0x605c24b0)
+   19:00  off=0x003 sz=6   fl=0x01 cnt=3    dot11StationID
+   19:01  off=0x00c sz=4   fl=0x01 cnt=3    dot11RTSThreshold
+   19:02  off=0x010 sz=4   fl=0x01 cnt=3    dot11ShortRetryLimit
+   19:03  off=0x014 sz=4   fl=0x01 cnt=3    dot11LongRetryLimit
+   19:04  off=0x018 sz=1   fl=0x01 cnt=3    TrcLoopbackMode
+   19:05  off=0x01c sz=4   fl=0x01 cnt=3    RssiTrigger
+   19:06  off=0x020 sz=1   fl=0x01 cnt=3    SyncLossThreshold
+   19:07  off=0x022 sz=2   fl=0x01 cnt=3    TxPowerLevelOfdm
+   19:08  off=0x024 sz=2   fl=0x01 cnt=3    TxPowerLevelDsssCck
+   19:09  off=0x026 sz=2   fl=0x0a cnt=3    aCWmin[10]
+   19:10  off=0x03a sz=2   fl=0x0a cnt=3    aCWmax[10]
+   19:11  off=0x04e sz=1   fl=0x0a cnt=3    AifsTab[10]
+   19:12  off=0x058 sz=2   fl=0x01 cnt=3    Eifs
+   19:13  off=0x05c sz=4   fl=0x08 cnt=3    TxOpLimit[8]
+   19:14  off=0x07c sz=4   fl=0x01 cnt=3    StatisticTimer
+   19:15  off=0x080 sz=2   fl=0x01 cnt=1    dot11BeaconPeriod
+   19:16  off=0x082 sz=1   fl=0x01 cnt=1    dot11DTIMPeriod
+   19:17  off=0x083 sz=1   fl=0x01 cnt=1    dot11CurrentChannelNumber
+   19:18  off=0x084 sz=13  fl=0x01 cnt=13   OperationalRates
+   19:19  off=0x091 sz=1   fl=0x01 cnt=1    SlotTime
+   19:20  off=0x092 sz=1   fl=0x01 cnt=1    ShortPreamble
+   19:21  off=0x093 sz=1   fl=0x01 cnt=1    ProtectionMode
+   19:22  off=0x094 sz=1   fl=0x01 cnt=1    dot11PhyType
+   19:23  off=0x096 sz=2   fl=0x01 cnt=1    AtimWindow
+   19:24  off=0x098 sz=6   fl=0x01 cnt=5    CurrentBssid
+[20] TRC_STAT  (count=32, desc@0x605c2546)
+   20:00  off=0x004 sz=4   fl=0x01 cnt=3    dot11TransmittedFragmentCount
+   20:01  off=0x008 sz=4   fl=0x01 cnt=3    dot11MulticastTransmittedFrameCount
+   20:02  off=0x00c sz=4   fl=0x01 cnt=3    dot11FailedCount
+   20:03  off=0x010 sz=4   fl=0x01 cnt=3    dot11RetryCount
+   20:04  off=0x014 sz=4   fl=0x01 cnt=3    dot11MultipleRetryCount
+   20:05  off=0x018 sz=4   fl=0x01 cnt=3    dot11RTSSuccessCount
+   20:06  off=0x01c sz=4   fl=0x01 cnt=3    dot11RTSFailureCount
+   20:07  off=0x020 sz=4   fl=0x01 cnt=3    dot11ACKFailureCount
+   20:08  off=0x024 sz=4   fl=0x01 cnt=3    dot11ReceivedFragmentCount
+   20:09  off=0x028 sz=4   fl=0x01 cnt=3    dot11FCSErrorCount
+   20:10  off=0x02c sz=4   fl=0x01 cnt=3    dot11TransmittedFrameCount
+   20:11  off=0x030 sz=1   fl=0x01 cnt=1    Rssi
+   20:12  off=0x058 sz=4   fl=0x01 cnt=3    RxErrFullBufCount
+   20:13  off=0x05c sz=4   fl=0x01 cnt=3    RxErrFormatViolationCount
+   20:14  off=0x060 sz=4   fl=0x01 cnt=3    RxErrCarrierLossCount
+   20:15  off=0x064 sz=4   fl=0x01 cnt=3    RxErrUnsupportedRateCount
+   20:16  off=0x068 sz=4   fl=0x01 cnt=3    RxCorrectFrameCount
+   20:17  off=0x06c sz=4   fl=0x01 cnt=3    RxIncorrectFrameCount
+   20:18  off=0x0d0 sz=4   fl=0x04 cnt=1    PreparedFragmentCurrentCnt[4]
+   20:19  off=0x0e0 sz=4   fl=0x04 cnt=1    BackgroundSendCurrentCnt[4]
+   20:20  off=0x0f0 sz=4   fl=0x04 cnt=1    IacSendCurrentCnt[4]
+   20:21  off=0x100 sz=4   fl=0x04 cnt=1    RetryCurrentCnt[4]
+   20:22  off=0x110 sz=4   fl=0x04 cnt=1    MultipleRetryCurrentCnt[4]
+   20:23  off=0x120 sz=4   fl=0x04 cnt=1    FailCurrentCnt[4]
+   20:24  off=0x130 sz=4   fl=0x04 cnt=1    PreparedFragmentCnt[4]
+   20:25  off=0x140 sz=4   fl=0x04 cnt=1    BackgroundSendCnt[4]
+   20:26  off=0x160 sz=4   fl=0x04 cnt=1    IacSendCnt[4]
+   20:27  off=0x174 sz=4   fl=0x01 cnt=1    RetryCnt[4]
+   20:28  off=0x178 sz=4   fl=0x01 cnt=1    MultipleRetryCnt[4]
+   20:29  off=0x17c sz=4   fl=0x08 cnt=1    FailCnt[4]
+   20:30  off=0x19c sz=4   fl=0x08 cnt=1    AvgPacketsPerPrio[4]
+   20:31  off=0x1bc sz=4   fl=0x08 cnt=1    AvgRetryPerPrio[4]
+[21] DBG_STAT  (count=5, desc@0x605c2606)
+   21:00  off=0x004 sz=40  fl=0x01 cnt=1    FirstAssert
+   21:01  off=0x02c sz=2   fl=0x01 cnt=3    DiagPort
+   21:02  off=0x02e sz=1   fl=0x01 cnt=3    Command
+   21:03  off=0x030 sz=4   fl=0x01 cnt=3    Address
+   21:04  off=0x034 sz=4   fl=0x01 cnt=3    Data
+[22] DR_PHY_STAT  (count=20, desc@0x605c2624)
+   22:00  off=0x003 sz=1   fl=0x01 cnt=3    ForceRssiThr
+   22:01  off=0x004 sz=1   fl=0x01 cnt=3    AntennaMode
+   22:02  off=0x005 sz=1   fl=0x01 cnt=3    ChipProcess
+   22:03  off=0x006 sz=1   fl=0x01 cnt=3    TemperatureZone
+   22:04  off=0x008 sz=2   fl=0x01 cnt=3    TemperatureOffset
+   22:05  off=0x00a sz=1   fl=0x01 cnt=3    DebugCommand
+   22:06  off=0x00c sz=4   fl=0x01 cnt=3    DebugData
+   22:07  off=0x010 sz=1   fl=0x01 cnt=1    PllErrorCount
+   22:08  off=0x014 sz=4   fl=0x01 cnt=1    HissReadCount
+   22:09  off=0x018 sz=4   fl=0x01 cnt=1    HissReadErrorCount
+   22:10  off=0x01c sz=2   fl=0x01 cnt=1    HissRead_0us
+   22:11  off=0x01e sz=2   fl=0x01 cnt=1    HissRead_2us
+   22:12  off=0x020 sz=2   fl=0x01 cnt=1    HissRead_5us
+   22:13  off=0x022 sz=2   fl=0x01 cnt=1    HissRead_50us
+   22:14  off=0x024 sz=2   fl=0x01 cnt=1    HissRead_400us
+   22:15  off=0x026 sz=2   fl=0x01 cnt=1    HissRead_2ms
+   22:16  off=0x028 sz=4   fl=0x01 cnt=1    HissWriteCount
+   22:17  off=0x02c sz=4   fl=0x01 cnt=1    HissWriteErrorCount
+   22:18  off=0x030 sz=4   fl=0x01 cnt=1    HissWriteTimeMax
+   22:19  off=0x034 sz=4   fl=0x01 cnt=1    HissWriteTimeTotal
+[23] DP_WDS_CONF  (count=2, desc@0x605c269c)
+   23:00  off=0x003 sz=1   fl=0x01 cnt=3    
+   23:01  off=0x006 sz=14  fl=0x02 cnt=1    
+[24] PS_STA_CONF  (count=3, desc@0x605c26a8)
+   24:00  off=0x003 sz=1   fl=0x01 cnt=3    PowerSaveMode
+   24:01  off=0x004 sz=2   fl=0x01 cnt=1    Aid
+   24:02  off=0x006 sz=1   fl=0x01 cnt=3    PsMeasureEnabled
+[25] PS_STA_STAT  (count=7, desc@0x605c26ba)
+   25:00  off=0x003 sz=1   fl=0x01 cnt=1    PowerSaveState
+   25:01  off=0x004 sz=4   fl=0x01 cnt=3    PreventDeepSleep
+   25:02  off=0x008 sz=1   fl=0x01 cnt=1    PsMeasureOngoing
+   25:03  off=0x00c sz=4   fl=0x10 cnt=1    PsTxPerRate[16]
+   25:04  off=0x04c sz=4   fl=0x01 cnt=3    NBOfAddrMismatch
+   25:05  off=0x050 sz=4   fl=0x01 cnt=3    PsPollSentCnt
+   25:06  off=0x054 sz=4   fl=0x01 cnt=1    RxDataPcktCnt
+[26] PS_APIBSS_STAT  (count=15, desc@0x605c26e4)
+   26:00  off=0x004 sz=4   fl=0x01 cnt=3    
+   26:01  off=0x008 sz=4   fl=0x01 cnt=3    
+   26:02  off=0x00c sz=4   fl=0x01 cnt=3    
+   26:03  off=0x010 sz=4   fl=0x01 cnt=3    
+   26:04  off=0x014 sz=4   fl=0x01 cnt=3    
+   26:05  off=0x018 sz=4   fl=0x01 cnt=3    
+   26:06  off=0x01c sz=4   fl=0x01 cnt=3    
+   26:07  off=0x020 sz=4   fl=0x01 cnt=3    
+   26:08  off=0x024 sz=4   fl=0x01 cnt=3    
+   26:09  off=0x028 sz=4   fl=0x01 cnt=3    
+   26:10  off=0x02c sz=4   fl=0x01 cnt=3    
+   26:11  off=0x030 sz=4   fl=0x01 cnt=3    
+   26:12  off=0x034 sz=4   fl=0x01 cnt=3    
+   26:13  off=0x038 sz=4   fl=0x01 cnt=3    
+   26:14  off=0x03c sz=4   fl=0x01 cnt=3    
+[27] HI_MII_STAT  (count=16, desc@0x605c273e)
+   27:00  off=0x004 sz=4   fl=0x01 cnt=1    
+   27:01  off=0x008 sz=4   fl=0x01 cnt=3    
+   27:02  off=0x00c sz=4   fl=0x01 cnt=3    
+   27:03  off=0x010 sz=4   fl=0x01 cnt=3    
+   27:04  off=0x014 sz=4   fl=0x01 cnt=3    
+   27:05  off=0x018 sz=4   fl=0x01 cnt=3    
+   27:06  off=0x01c sz=4   fl=0x01 cnt=3    
+   27:07  off=0x020 sz=4   fl=0x01 cnt=3    
+   27:08  off=0x024 sz=4   fl=0x01 cnt=3    
+   27:09  off=0x028 sz=4   fl=0x01 cnt=3    
+   27:10  off=0x02c sz=4   fl=0x01 cnt=3    
+   27:11  off=0x030 sz=4   fl=0x01 cnt=3    
+   27:12  off=0x034 sz=4   fl=0x01 cnt=3    
+   27:13  off=0x038 sz=4   fl=0x01 cnt=3    
+   27:14  off=0x03c sz=4   fl=0x01 cnt=3    
+   27:15  off=0x040 sz=4   fl=0x01 cnt=3    

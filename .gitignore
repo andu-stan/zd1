@@ -1,0 +1,28 @@
+# Not in git. See CONTRIBUTING.md "What's not in git".
+# Per-unit data: backups, dumps, EEPROM, Wi-Fi settings, MAC. Never commit.
+/units
+# The local agent instructions: AGENTS.md plus this unit's and its owner's rules
+/CLAUDE.md
+# Downloads (untrusted data): on archive.org, fetched by `tools/zeppelin downloads`; only the manifest is tracked
+/downloads/*
+!/downloads/manifest.json
+# Ghidra analyses of the vendor images, their exports and projects (re/ghidra/setup.py rebuilds them from blobs/)
+/re/gen/
+# Binaries carved from the vendor firmware (tools regenerate them)
+/re/netmodule/extracted
+# Emulator: images (nix links, caches, scratch checkouts), run output
+/emu/img
+/emu/traces
+/emu/run
+/emu/renode/dist
+
+# Build output / caches
+result
+result-*
+target/
+*.o
+*.elf
+*.map
+__pycache__/
+.venv/
+.DS_Store

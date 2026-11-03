@@ -1,0 +1,146 @@
+$ os th
+ n                     name    pri state       cnt stackU  stackT stackStart
+ 1         supervisor stack                           636    1024
+ 2        user system stack                           212     384
+ 3                irq stack                           100     352
+ 4                fiq stack                             0      32
+ 5        abort undef stack                             0     128
+
+ 6      System Timer Thread  0/ 0/0 susp    620109    183    1024 0x00403c90
+ 7               coreThread  1/ 1/0 term         3                       
+ 8       CneCacheFlushTimer 24/24/1    q         1    171    4096 0x60a12168
+ 9           CuEngineUpdate 24/24/1    q         1    171    4096 0x60a15d00
+10       PowerManagerThread 24/24/1    q        30    527    4096 0x60a16d10
+11                Inet main 11/10/1  sem     16870   1543    4096 0x60a29be8
+12               clock tick 11/10/1sleep     21450    347    2048 0x60a2abf8
+13         PING application 11/10/1 susp      5520     99     512 0x60a2b408
+14               WlanThread  9/ 9/1  sem    102496   2355    4096 0x60cbe7f0
+15                WlanTimer 15/15/1sleep     13330    167    4096 0x60cbf800
+16       AutoIPStateMachine 24/24/1    q         2    171    3000 0x60d134f0
+17            WpaSupplicant 24/24/1sleep    160087   1483    4096 0x60d140b8
+18WpaSupplicantWlConnection 24/24/1    q        36    683    4096 0x60d15308
+19      StreamDeviceMgrImpl 14/14/1    q        41    987    2048 0x60d16318
+20             Unmute Timer 24/24/1 evsu        20    347*    512 0x60d16b28
+21     StreamDeviceObserver 24/24/1    q         7    203    1024 0x60d16d38
+22        SharedTimerThread  1/ 1/1    q     26057    327    4096 0x60d17148
+23           USBDrvRxThread  4/ 4/1sleep      3988    223    2048 0x00404188
+24            RDMFS Functor 24/24/1    q         5    195    4096 0x60d1a698
+25             USBStackImpl  8/ 8/1    q         2    307    2048 0x60d1b6a8
+26        USBHostController 24/24/1    q         1    171    4096 0x60d24040
+27   UPnP activation thread 24/24/1    q       153   1371    4096 0x60d252c0
+28                 SsdpPort 24/24/1  sem       652   1875    4096 0x60d262d0
+29           ReceiverThread  9/ 9/1    q         1    171    4096 0x60d272e0
+30              ShellThread 24/24/1  rdy     75652   1667    8192 0x60d293a0
+31                PSMThread 24/24/1    q         6    179    3072 0x60d2c3d0
+32                SPI Slave 24/24/1 evsu         1    107    4096 0x60d2cfe0
+33             CardeaThread 24/24/1    q         1    171    3100 0x60d31f38
+34              dmrRegTimer 24/24/1 evsu         2    147     512 0x60d33578
+35              dmrRegTimer 24/24/1 evsu         2    147     512 0x60d33788
+36             dmrProxTimer 24/24/1 evsu         2    147     512 0x60d33998
+37         CardeaRepository 24/24/1sleep     13869    663    3100 0x60d33ba8
+38                     Ssdp 24/24/1sleep      4470    515    1024 0x60d3a1e8
+39         USBAdaptionLayer 24/24/1    q         3    503    4096 0x60d3a5f8
+40            RDMFS_TestApp 10/10/1    q         1    407    4096 0x60d3b608
+41PicturePlayerWorkerThread 24/24/1    q         1    171    4096 0x60d3ca38
+42 PicturePlayerSlideshower 10/10/1 evsu         1    155    4096 0x60d3da48
+43               GenaThread 24/24/1    q         1    171    2048 0x60d3f010
+44          GenaEventThread 24/24/1  sem         1    395    2048 0x60d3f820
+45            CDSRepository 24/24/1sleep     13582    663    3100 0x60d40388
+46      UpnpNotificationSvc 24/24/1 evsu         1    131    4096 0x60d46d28
+47       UpnpContentBrowser 24/24/1    q         5    299    4096 0x60d47d38
+48  NapContentManagerThread 24/24/1    q         1    171   10240 0x60d49238
+49            NapCoreThread 23/23/1    q         2    171    4096 0x60d4ba48
+50         NapManagerThread 24/24/1    q         3    227    4096 0x60d4e5f8
+51          NapOutputThread  9/ 9/1    q   7145034    459    4096 0x60d4f818
+52          Radea Processor 10/10/1    q         1    171    6144 0x60eb3b08
+53          RolloverManager  9/ 9/1    q         1    171    4072 0x60eb5588
+54        RtspSessionThread 24/20/1 susp         0     75    2048 0x60ebef48
+55             ActiveSocket 24/20/1  sem         1    303    4096 0x60ebf758
+56             ActiveSocket 24/20/1  sem         1    303    4096 0x60ec0768
+57             ActiveSocket 24/20/1  sem         1    303    4096 0x60ec1778
+58         RtspSessionTimer 24/24/1 evsu         3    171    1024 0x60ec2788
+59          RDMFS Processor  9/ 9/1    q         1    171    3072 0x60ec4ed0
+60            ROM Processor  9/ 9/1    q         1    171    3072 0x60ec5ae0
+61          OverloadMonitor 23/23/1 evsu         1    107*    256 0x60d4d0ac
+62             SPI Receiver  4/ 4/1  sem       632    267    4096 0x61054d40
+63       SearchFwUrlHandler 24/24/1    q         1    171    5120 0x61056008
+64         AVRPlayerService 22/22/1    q      2053   1847    6144 0x610577e0
+65              Ipodioscomm 24/24/1    q         1    171    8000 0x61058ff0
+66NewSelectedIpProfile_IpSt 26/26/1    q        36   1307    2048 0x61062058
+67    Remote wifi test mode 24/24/1    q         1    171    4096 0x61063d70
+68          Wr2_Application 24/24/1    q      2327   1559   10000 0x61064d80
+69                    JBCTO 24/24/1 evsu         1    131    4096 0x61067a68
+70       PoolAllocCompactor 24/24/1 evsu         1    115    1024 0x61069288
+71                   JBCTO1 24/24/1 evsu         1    131    4096 0x6106acc8
+72                   JBCTO1 24/24/1 evsu         1    131    4096 0x6109de78
+73                   JBCTO1 24/24/1 evsu         1    131    4096 0x6109ee88
+74                   JBCTO1 24/24/1 evsu         1    131    4096 0x610a09b8
+75                   JBCTO1 24/24/1 evsu         1    131    4096 0x610a1c90
+76                   JBCTO1 24/24/1 evsu         1    131    4096 0x610a2ca0
+77                   JBCTO1 24/24/1 evsu         1    131    4096 0x610a4a10
+78                   JBCTO1 24/24/1 evsu         1    131    4096 0x610a5a20
+79                   JBCTO1 24/24/1 evsu         1    131    4096 0x610a6a30
+80                   JBCTO1 24/24/1 evsu         1    131    4096 0x610a7a40
+81                   JBCTO1 24/24/1 evsu         1    131    4096 0x610a8a50
+82                   JBCTO1 24/24/1 evsu         1    131    4096 0x610a9e68
+83UIRemoteControlOnlyModeHa 24/24/1    q         1    171    8000 0x610aae78
+84UIRemoteControlOnlyModeHa 24/24/1    q         1    227    8000 0x610acfd8
+85               SsdpRecUDP 24/24/1  sem         1    851    4096 0x610b5a50
+86           SPI Command Th 21/21/1    q         7    503    6000 0x610b9400
+87                WRCThread 24/24/1  sem      4061    623    7000 0x610bab80
+88         WRCUpdAllowEvtTm 24/24/1 evsu         1    131    4096 0x610bc6e8
+89       PoolAllocCompactor 24/24/1 evsu         1    115    1024 0x60983c18
+90         RemoteCmdHandler 24/24/1    q         1    171    4096 0x610bf070
+91                 cmdTimer 24/24/1 evsu         1    131    4096 0x610c0080
+92             DrcTunneling 24/24/1 susp         0     75    4096 0x610c2730
+93       UPnPMrServerThread 24/24/1    q         5    219    1500 0x610c3f50
+94             UPnP Adapter 24/24/1    q        34    399    4096 0x610c4540
+95             UPnP Adapter 24/24/1    q        32    399    4096 0x610c7560
+96            NtpReqHandler 26/26/1    q         1    171    4096 0x610c8570
+97            USBPlayDirect 26/26/1    q         1    171    2048 0x610c9580
+98         StreamStatusInfo 26/26/1    q         1    171    2048 0x610c9d90
+99            LltdResponder 24/ 0/1 comp         1     75    4096 0x610ca5a0
+100             LltdMainLoop 24/24/1    q         1    251    4096 0x610cb5b0
+101RhapsodySessionManagerThr 12/12/1    q         1    171    5120 0x610ccb38
+102RhapsodyTrackInfoRetrieve 13/13/1    q         1    171    6144 0x61102cf8
+103          IpodSimpleEntry 24/24/1    q         1    171    8000 0x6111b6e8
+104          iPodTelegramRec 21/20/1    q         1    171    4096 0x6114f7d8
+105              Ipodioscomm 24/24/1    q         1    171    4096 0x61153008
+106              iPodControl 22/20/1sleep     26680    519    4096 0x61155ae0
+107                iPodCBSvc 23/23/1    q         1    171    2048 0x61156af0
+108                iPodCBSvc 23/23/1    q         1    171    2048 0x61157300
+109            NetworkStatus 24/24/1    q         3    171    4096 0x61157b10
+110             ipodObserver 24/24/1    q         1    171    4096 0x61158b20
+111             JBLinkThread 24/24/1sleep     13079    247    4096 0x61159b30
+112LastfmImpl functor thread 24/24/1    q         3    203    4096 0x6115add8
+113            NtpReqHandler 26/26/1    q        32    879    4096 0x6115bde8
+114RemoteRegCtrldFileTransfe 24/24/1    q         1    171    2048 0x6115d0c8
+115    AlbumArtFunctorThread 24/24/1    q         1    171    4096 0x6115d8d8
+116          DeviceDiscovery 24/24/1    q         1    315    2048 0x6115e8e8
+117           JBRServiceInit 24/24/1    q         1    171    4096 0x6115f0f8
+118                 testipod 24/24/1 susp         0     75    4096 0x61160108
+119          ConfigureiTunes 24/24/1    q         1    171    4096 0x61161118
+120       JBRemoteCtrlThread 24/24/1  sem      3855    623   10000 0x611640b8
+121       PoolAllocCompactor 24/24/1 evsu         1    115    1024 0x61166be8
+122           JBRJSONService 24/24/1    q        39   1075    6144 0x61166ff8
+123              JBRPairInit 24/24/1    q         1    819    4096 0x61168808
+124                JBRCSInit 24/24/1    q         1    715    4096 0x61169818
+125    JBR_XML_Parser_thread 24/24/1    q         1    171    4096 0x6116a828
+126            JBRGetHandler 24/24/1    q         1    171    4096 0x6116c580
+127             ipodOBServer 24/24/1 susp         0     75    4096 0x6116d7e0
+128       PoolAllocCompactor 24/24/1 evsu         1    115    1024 0x6116ec00
+129ClosedCaptionMetainfoServ 24/24/1    q         1    171    4096 0x6116f010
+130                Webserver 24/24/1  sem      4441   1691    4096 0x61170020
+131           EthernetDetect 26/24/1sleep      1569    791    2400 0x611938f0
+132             TelnetServer 24/24/1  sem      1758    755    4096 0x6119a5a8
+133           ConfigureTunes 24/24/1    q      2982   3407    4096 0x6119d630
+134          UPnP TCP Thread 24/24/1  sem      4016    651    8192 0x6119e640
+135         UPnP Evnt Sender 24/24/1    q         1    131    4096 0x611a0650
+136         UPnP Evnt Thread 24/24/1 evnt        23    179    4096 0x611a1660
+137         UPnP Disc Thread 24/24/1 evnt      2730    667    1024 0x61194c80
+138                  pthread 24/23/1  sem     33816   4035    8192 0x611a7980
+139                  pthread 24/23/1  sem      4125   2971    8192 0x611aa950
+140           iOSServiceInit 24/24/1    q         1    171    4096 0x611ac960
+141                  pthread 24/23/1  sem         1   3315    8192 0x611ba9f0
+                Totals                         63129  532504
+Stack usage warnings:  * = within 200 B of stack size  ** = within 100 B

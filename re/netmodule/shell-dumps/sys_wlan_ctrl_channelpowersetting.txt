@@ -1,0 +1,4 @@
+$ sys wlan ctrl channelPowerSetting
+Channel [0] : Power OFDM: 1 DSSSK: 9
+Channel [1] : Power OFDM: 1 DSSSK: 9
+Channel [2] : Power OFDM: 1 DSSSK: 9

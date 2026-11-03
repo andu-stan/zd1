@@ -1,0 +1,10 @@
+$ net
+Networking "general" commands:
+   help     - help with menus
+   state    - show current station setup
+   delay    - set milliseconds to wait between pings
+   host     - set default active IP host
+   length   - set default ping packet length
+   setip    - set interface IP address
+   setmc    - add mcast address
+   delmc    - remove mcast address

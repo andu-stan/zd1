@@ -1,0 +1,170 @@
+[
+ {
+  "step": 0,
+  "i2c_addr7": 56,
+  "subaddr": "0xe220",
+  "length": 2,
+  "src": ".data+0xd90"
+ },
+ {
+  "step": 1,
+  "i2c_addr7": 56,
+  "subaddr": "0xe228",
+  "length": 2,
+  "src": ".bss(zero)"
+ },
+ {
+  "step": 2,
+  "i2c_addr7": 56,
+  "subaddr": "0x2000",
+  "length": 6804,
+  "src": ".data+0xd94"
+ },
+ {
+  "step": 3,
+  "i2c_addr7": 56,
+  "subaddr": "0xe000",
+  "length": 18,
+  "src": ".data+0x2828"
+ },
+ {
+  "step": 4,
+  "i2c_addr7": 56,
+  "subaddr": "0xe040",
+  "length": 18,
+  "src": ".data+0x283c"
+ },
+ {
+  "step": 5,
+  "i2c_addr7": 56,
+  "subaddr": "0xe049",
+  "length": 2,
+  "src": ".bss(zero)"
+ },
+ {
+  "step": 6,
+  "i2c_addr7": 56,
+  "subaddr": "0xe080",
+  "length": 16,
+  "src": ".data+0x2850"
+ },
+ {
+  "step": 7,
+  "i2c_addr7": 56,
+  "subaddr": "0xe088",
+  "length": 16,
+  "src": ".data+0x2860"
+ },
+ {
+  "step": 8,
+  "i2c_addr7": 56,
+  "subaddr": "0xe090",
+  "length": 24,
+  "src": ".data+0x2870"
+ },
+ {
+  "step": 9,
+  "i2c_addr7": 56,
+  "subaddr": "0xe0c0",
+  "length": 24,
+  "src": ".bss(zero)"
+ },
+ {
+  "step": 10,
+  "i2c_addr7": 56,
+  "subaddr": "0xe100",
+  "length": 4,
+  "src": ".data+0x2888"
+ },
+ {
+  "step": 11,
+  "i2c_addr7": 56,
+  "subaddr": "0xe140",
+  "length": 4,
+  "src": ".data+0x288c"
+ },
+ {
+  "step": 12,
+  "i2c_addr7": 56,
+  "subaddr": "0xe180",
+  "length": 48,
+  "src": ".bss(zero)"
+ },
+ {
+  "step": 13,
+  "i2c_addr7": 56,
+  "subaddr": "0xe1c0",
+  "length": 64,
+  "src": ".bss(zero)"
+ },
+ {
+  "step": 14,
+  "i2c_addr7": 56,
+  "subaddr": "0xe200",
+  "length": 84,
+  "src": ".data+0x2890"
+ },
+ {
+  "step": 15,
+  "i2c_addr7": 56,
+  "subaddr": "0xe240",
+  "length": 26,
+  "src": ".data+0x28e4"
+ },
+ {
+  "step": 16,
+  "i2c_addr7": 56,
+  "subaddr": "0xe280",
+  "length": 2,
+  "src": ".data+0x2900"
+ },
+ {
+  "step": 17,
+  "i2c_addr7": 56,
+  "subaddr": "0x0",
+  "length": 1600,
+  "src": ".data+0x2904"
+ },
+ {
+  "step": 18,
+  "i2c_addr7": 56,
+  "subaddr": "0xe21f",
+  "length": 2,
+  "src": ".data+0x2f44"
+ },
+ {
+  "step": 19,
+  "i2c_addr7": 56,
+  "subaddr": "0x6000",
+  "length": 0,
+  "src": "none"
+ },
+ {
+  "step": 20,
+  "i2c_addr7": 56,
+  "subaddr": "0xe228",
+  "length": 2,
+  "src": ".data+0x2f48"
+ },
+ {
+  "step": 21,
+  "i2c_addr7": 56,
+  "subaddr": "0xe220",
+  "length": 2,
+  "src": ".data+0x2f4c"
+ },
+ {
+  "step": 22,
+  "i2c_addr7": 56,
+  "subaddr": "0xe221",
+  "length": 2,
+  "src": ".bss(zero)"
+ },
+ {
+  "step": 23,
+  "i2c_addr7": 56,
+  "subaddr": "0xe221",
+  "length": 2,
+  "src": ".data+0x2f50"
+ }
+]

@@ -1,0 +1,75 @@
+/* Buttons, in three tiers. Secondary, the default (`button`, `label.button` for a file picker): an outline and its
+ * ink in one colour. `.primary`, the one action a view leads to: filled white, black ink. `.quiet`, a tertiary action:
+ * a link. `.danger`: what can't be undone, the outline and ink red. Disabled: the same drawing, faded. Every control
+ * (segments, switches, selects) is drawn from these. */
+:where(button, .button, select) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--control-height);
+  padding: 0 16px;
+  border: 1px solid var(--control-ink);
+  border-radius: var(--control-radius);
+  background: transparent;
+  color: var(--control-ink);
+  font: var(--weight-medium) var(--text-sm) / 1 var(--font-sans);
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  transition:
+    background var(--fast) var(--ease),
+    border-color var(--fast) var(--ease),
+    color var(--fast) var(--ease);
+}
+:where(button, .button, select):hover {
+  border-color: var(--control-ink-hover);
+  color: var(--control-ink-hover);
+  background-color: var(--control-fill-hover);
+}
+:where(button, .button):active {
+  background-color: var(--control-fill-active);
+}
+:where(button, .button, select):focus-visible {
+  outline: none;
+  box-shadow: var(--control-focus);
+}
+button.primary {
+  border-color: var(--control-strong);
+  background: var(--control-strong);
+  color: var(--control-strong-ink);
+}
+button.primary:hover {
+  border-color: var(--control-strong-hover);
+  background: var(--control-strong-hover);
+  color: var(--control-strong-ink);
+}
+button.primary:active {
+  background: var(--control-ink);
+}
+button.danger {
+  --control-ink: var(--control-danger);
+  --control-ink-hover: var(--control-danger);
+}
+button.quiet {
+  min-height: 0;
+  padding: 4px 0;
+  border-color: transparent;
+  background: none;
+  color: var(--text-link);
+  font-weight: var(--weight-regular);
+}
+button.quiet:hover {
+  border-color: transparent;
+  background: none;
+  color: var(--text-link-hover);
+}
+button:disabled,
+.busy .file {
+  opacity: var(--control-faded);
+  pointer-events: none;
+}
+.file input {
+  display: none;
+}

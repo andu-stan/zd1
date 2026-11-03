@@ -1,0 +1,26 @@
+/* The notice: an outcome in the page (never alert()), its lamp in its tone: `.ok` green, `.warn` red, else white. */
+.notice {
+  --lamp: var(--state-info);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-md);
+  background: var(--surface-raised);
+  color: var(--text-strong);
+  animation: notice-in var(--medium) var(--ease-out);
+}
+.notice.ok {
+  --lamp: var(--state-ok);
+}
+.notice.warn {
+  --lamp: var(--state-warn);
+  color: var(--text-strong);
+}
+@keyframes notice-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}

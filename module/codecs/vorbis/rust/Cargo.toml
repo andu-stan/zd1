@@ -1,0 +1,14 @@
+# The module's Vorbis decoder (../vorbisdec.c) for Rust (zd1-spotify; Warp0 runs the same C: module/warp0).
+[package]
+name = "zd1-vorbis"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+publish = false
+links = "zd1vorbis"
+
+[dependencies]
+zd1-dsp.workspace = true
+
+[build-dependencies]
+cc = "1"

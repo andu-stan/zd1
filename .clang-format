@@ -1,0 +1,11 @@
+# clang-format, for our C (nix/treefmt.nix lists the vendored and generated C it leaves alone)
+BasedOnStyle: LLVM
+IndentWidth: 4
+ColumnLimit: 120
+# include order matters for the ASF headers
+SortIncludes: Never
+# comments stay as written (a reflow isn't stable on trailing comments)
+ReflowComments: Never
+AlignConsecutiveMacros: Consecutive
+# ChaCha's quarter round (module/warp0): a statement without a semicolon
+StatementMacros: [QR]

@@ -1,0 +1,24 @@
+[package]
+name = "zd1-linkd"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+description = "The MCU link under Linux: status ready, the kernel log on SPI reg 0xC0, HCR 0x21 -> BL2"
+
+[features]
+# ZD1LINKD_TRACE: every MCU request on the console (the debug build)
+debug = ["zd1-link/trace"]
+
+[dependencies]
+libc = "0.2"
+dm870 = { workspace = true, features = ["linux"] }
+zd1-hostlink.workspace = true
+zd1-link.workspace = true
+zd1-mdns.workspace = true
+zd1-net.workspace = true
+zd1-persparam.workspace = true
+zd1-settings.workspace = true
+zd1-slot.workspace = true
+zd1-svc.workspace = true
+zd1-sys.workspace = true
+zd1-update.workspace = true

@@ -1,0 +1,20 @@
+$ lltd
+---- OVERVIEW ----
+lltd                 - Lltd responder. Options: -enable -disable -tracelevel <n>
+---- DESCRIPTION ----
+Lltd responder.
+Options:
+-enable           : Enable reception of LLTD packets 
+-disable          : Disable reception of LLTD packets 
+Note that traffic will be generated only if the current MAC has a physical connection.
+A wireless subsystem needs to be connected to an AP or must have opened an IBSS.
+Note also that a wireless unicast to an inexisting address in an an-hoc network will
+cause lots of wireless retries.
+-tracelevel <n>   : Tracing level (n=0-255), (default=0, i.e. No tracing)
+The trace flags are as follows:
+    TRC_BAND    = 0x1
+    TRC_PACKET  = 0x2
+    TRC_CHARGE  = 0x4
+    TRC_TLVINFO = 0x8
+    TRC_STATE   = 0x10
+Note: TRC_ALL == 0x1F or decimal 31; TRC_NONE == 0x00 or decimal 0

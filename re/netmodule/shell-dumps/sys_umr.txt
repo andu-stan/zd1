@@ -1,0 +1,10 @@
+$ sys umr
+---- OVERVIEW ----
+sys umr              - umr priority
+---- DESCRIPTION ----
+  umr show
+  umr <master> <initial> <rise> <fall>
+  - note: <master>  = [DMA0|DMA1|ARM9I|ARM9D|SECWARPI|SECWARPD|ETH|WILD|SOLWARP]
+  -       <initial> = -64..63
+  -       <rise>    =   0..15
+  -       <fall>    =   0..15

@@ -1,0 +1,12 @@
+$ shell
+---- OVERVIEW ----
+shell                - shell [-b|-i|-o|-s] - shell configuration
+---- DESCRIPTION ----
+  usage: shell [-o][-i][-b][-n][-s]
+    -o  set shell to global overwrite mode
+    -i  set shell to global insert mode
+    -b  set error messages to bold
+    -n  set error messages to normal
+    -s  show shell configuration
+  keys & movements: left, rigth, up, down, home, end, insert, delete, backspace    For shell priority boost press CTRL-P
+    For shell switch to this device press CTRL-S

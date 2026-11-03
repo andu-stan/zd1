@@ -1,0 +1,100 @@
+// AT32UC3A1256 SoC (the Zeppelin Air main MCU). Models: emu/renode/avr32/*.cs. Board: zd1.repl.
+sysbus:
+    Endianess: Endianess.BigEndian
+
+cpu: CPU.AVR32UC @ sysbus
+    cpuType: "uc3a"
+    0 -> intc@0
+
+
+sram: Memory.Avr32Ram @ sysbus 0x00000000
+    size: 0x10000
+
+flash: UC3.AT32UC3_FlashArray @ {
+        sysbus 0x80000000;
+        sysbus 0x80040000;
+        sysbus 0x80080000;
+        sysbus 0x800C0000
+    }
+    size: 0x40000
+
+userpage: UC3.AT32UC3_FlashArray @ sysbus 0x80800000
+    size: 0x200
+
+flashc: UC3.AT32UC3_FLASHC @ sysbus 0xFFFE1400
+    array: flash
+    userPage: userpage
+
+intc: UC3.AT32UC3_INTC @ sysbus 0xFFFF0800
+    cpu: cpu
+
+pm: UC3.AT32UC3A_PM @ sysbus 0xFFFF0C00
+    cpu: cpu
+
+gpio: UC3.AT32UC3_GPIO @ sysbus 0xFFFF1000
+    [0-13] -> intc@[64-77]
+
+usart0: UC3.AT32UC3_USART @ sysbus 0xFFFF1400
+    blockName: "USART"
+    0 -> intc@160
+
+usart1: UC3.AT32UC3_USART @ sysbus 0xFFFF1800
+    blockName: "USART"
+    0 -> intc@192
+
+usart2: UC3.AT32UC3_USART @ sysbus 0xFFFF1C00
+    blockName: "USART"
+    0 -> intc@224
+
+usart3: UC3.AT32UC3_USART @ sysbus 0xFFFF2000
+    blockName: "USART"
+    0 -> intc@256
+
+spi0: UC3.AT32UC3_SPI @ sysbus 0xFFFF2400
+    pm: pm
+    blockName: "SPI0"
+    0 -> intc@288
+
+spi1: UC3.UC3Store @ sysbus 0xFFFF2800
+    size: 0x400
+    blockName: "SPI1"
+
+twi: UC3.AT32UC3_TWI @ sysbus 0xFFFF2C00
+    0 -> intc@352
+
+pwm: UC3.AT32UC3_PWM @ sysbus 0xFFFF3000
+
+tc: UC3.AT32UC3_TC @ sysbus 0xFFFF3800
+    pm: pm
+    0 -> intc@448
+
+adc: UC3.AT32UC3_ADC @ sysbus 0xFFFF3C00
+
+hmatrix: UC3.UC3Store @ sysbus 0xFFFE1000
+    size: 0x400
+    blockName: "HMATRIX"
+
+usbb: UC3.AT32UC3_USBB @ sysbus 0xFFFE0000
+    0 -> intc@544
+
+usbfifo: UC3.AT32UC3_USBFifo @ sysbus 0xE0000000
+    usb: usbb
+
+pdca: UC3.AT32UC3_PDCA @ sysbus 0xFFFF0000
+    0 -> intc@96
+
+ssc: UC3.AT32UC3_SSC @ sysbus 0xFFFF3400
+    pdca: pdca
+    gpio: gpio
+
+macb: UC3.UC3Store @ sysbus 0xFFFE1800
+    size: 0x400
+    blockName: "MACB"
+
+smc: UC3.UC3Store @ sysbus 0xFFFE1C00
+    size: 0x400
+    blockName: "SMC"
+
+sdramc: UC3.UC3Store @ sysbus 0xFFFE2000
+    size: 0x400
+    blockName: "SDRAMC"

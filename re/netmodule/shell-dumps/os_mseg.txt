@@ -1,0 +1,31 @@
+$ os mseg
+MEMORY SEGMENT BOUNDARIES
+=========================
+Segment: Heap cached
+         Start  : 0x60900000
+         End    : 0x61ce0000
+         Size   : 0x013e0000
+         Length : 0x00009a6c
+         Limit  : 0x60909a6c
+         ZILimit: 0x60975d28
+Segment: Heap non-cached
+         Start  : 0x71d00000
+         End    : 0x72000000
+         Size   : 0x00300000
+         Length : 0x00000000
+         Limit  : 0x71d00000
+         ZILimit: 0x71d00000
+Segment: UMR0 cached
+         Start  : 0x00400000
+         End    : 0x0040fa00
+         Size   : 0x0000fa00
+         Length : 0x000032f8
+         Limit  : 0x004032f8
+         ZILimit: 0x00404090
+Segment: UMR0 non-cached
+         Start  : 0x00500000
+         End    : 0x0050fa00
+         Size   : 0x0000fa00
+         Length : 0x00000000
+         Limit  : 0x00500000
+         ZILimit: 0x00500000

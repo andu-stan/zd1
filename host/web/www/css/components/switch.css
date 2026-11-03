@@ -1,0 +1,46 @@
+/* The switch (`button.switch[aria-pressed]`, "On" or "Off" in it): off, a secondary outline; on, filled white with
+ * black ink (several can be on: colour is kept for what the LED shows). The checkbox: a small outlined square, filled
+ * white with a black tick when checked. */
+button.switch {
+  min-width: 64px;
+}
+button.switch[aria-pressed="false"] {
+  --control-ink: var(--grey-600);
+}
+button.switch[aria-pressed="true"] {
+  border-color: var(--control-strong);
+  background: var(--control-strong);
+  color: var(--control-strong-ink);
+}
+input[type="checkbox"] {
+  appearance: none;
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  border: 1px solid var(--control-ink);
+  border-radius: 5px;
+  background: transparent;
+  cursor: pointer;
+  transition: background var(--fast) var(--ease);
+}
+input[type="checkbox"]:checked {
+  border-color: var(--control-strong);
+  background:
+    var(--control-strong)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Cpath d='M2.5 6.2 5 8.7l4.5-5' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+    center / 12px no-repeat;
+}
+input[type="checkbox"]:focus-visible {
+  outline: none;
+  box-shadow: var(--control-focus);
+}
+.check {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--text-body);
+  cursor: pointer;
+}

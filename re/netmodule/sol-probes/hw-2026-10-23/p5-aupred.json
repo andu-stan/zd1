@@ -1,0 +1,15 @@
+{
+"u1 l0 mod 3 l1 mod 2":[6,0,0,0],
+"u1 l0 mod 3 l1 none":[0,0,0,0],
+"u1 l1 mod 2, stores too":[6,0,0,0],
+"u1 no load, stores only":[0,0,0,0],
+"u1 l1 mod 2, bitrev":[6,0,0,0],
+"u1 l1 mod 2, lane swap bit 14":[6,0,0,0],
+"u1 l1 mod 2, d601":[6,0,0,0],
+"u1 l1 mod 2, dc01":[6,0,0,0],
+"u1 l1 mod 2, e001":[6,0,0,0],
+"u1 l1 mod 2, e801":[6,0,0,0],
+"u1 l1 mod 2, ea01":[6,0,0,0],
+"u1 l1 mod 2, ec01":[6,0,0,0],
+"u1 l1 mod 2, ee01":[6,0,0,0]
+}

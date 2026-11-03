@@ -1,0 +1,7 @@
+$ sys swmtx
+---- OVERVIEW ----
+sys swmtx            - switch matrix statistic and handling
+---- DESCRIPTION ----
+  loop <fromport> <toport>
+  reset
+  show

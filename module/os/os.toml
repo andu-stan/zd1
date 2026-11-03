@@ -1,0 +1,248 @@
+# The module OS image: what goes into it. `nix build .#os-image` builds it (README.md).
+# Paths are relative to the repo; outputs go to emu/img/os/ (gitignored).
+
+[kernel]
+# Nokia HD-1 Kernel_A (2.6.24.7, mach-sulu), unmodified: re/netmodule/NOKIA_HD1.md, provenance in blobs/README.md.
+image = "blobs/module/nokia-hd1/kernel.bin"
+# mem=31M: the top 1 MB of SDRAM stays out of Linux: the boot stub (0x61F00000, done once the kernel runs) and the
+# Warp1 program window at 0x61FC0000 (wsl.ko maps it; docs/module/warp.md). Not 32512K: this kernel panics in
+# kmem_cache_init with a memory size that is not a whole number of MB (1 MB section mappings).
+# mtdparts (docs/module/storage.md): the vendor area read-only (BL1, PersParam, CnE, BL2, the app and resources
+# partitions, with room for bad blocks: the vendor's addresses are logical), then ours: the two system slots (JFFS2,
+# whole roots, read-only once installed; which one starts is the MCU's choice, the boot stub adds it as the root) and
+# the data partition to the end of the chip (JFFS2: settings).
+# panic=10: a slot whose root doesn't mount restarts the module, and the MCU counts that boot as failed.
+cmdline = "console=ttyS1,115200 mem=31M mtdparts=sulu-nand:32m(vendor)ro,32m(system-a),32m(system-b),32m(data) panic=10"
+
+[vendor]
+# Binary pieces from Nokia's rootfs (blobs/module/nokia-hd1/rootfs) that only work with that kernel: its modules and the
+# Wi-Fi firmware. `load` = insmod order at boot (/etc/modules).
+root = "blobs/module/nokia-hd1/rootfs"
+modules = [
+  "drivers/base/firmware_class",
+  "net/wireless/cfg80211",
+  "net/mac80211/mac80211",
+  "drivers/net/wireless/sulu/sulu_wlan",
+  "arch/arm/mach-sulu/drivers/av-device",
+  "arch/arm/mach-sulu/drivers/warp_debugger",
+  "arch/arm/mach-sulu/drivers/securewarp",
+  "arch/arm/mach-sulu/drivers/wsl",
+  "sound/arm/snd-sulu",
+]
+load = [
+  "drivers/base/firmware_class",
+  "net/wireless/cfg80211",
+  "net/mac80211/mac80211",
+  "drivers/net/wireless/sulu/sulu_wlan",
+  "arch/arm/mach-sulu/drivers/av-device",
+  "sound/arm/snd-sulu",
+]
+firmware = ["lib/firmware/sulu-wlan.fw-rev78512", "lib/firmware/sulu-wlan.fw"]
+
+[busybox]
+# static, musl (nix/module/busybox.nix); busybox.config = our changes on top of `make defconfig`
+version = "1.36.1"
+url = "https://busybox.net/downloads/busybox-1.36.1.tar.bz2"
+sha256 = "b8cc24c9574d809e7279c3be349795c5d5ceb6fdf19ca709f80cde50e47de314"
+config = "module/os/busybox.config"
+# The applets, everything else off (`make oldconfig` drops their options). The system's: what init's services run
+# (udhcpc, ntpd, telnetd, mdev as the hotplug helper), then what a person uses on the console or the debug shell. No
+# servers but telnetd (the debug shell), no init (ours: zd1-init) and no tools that change the vendor's partitions.
+applets = [
+  # the shell and text
+  "ash",
+  "sh",
+  "[",
+  "[[",
+  "test",
+  "echo",
+  "printf",
+  "true",
+  "false",
+  "cat",
+  "tee",
+  "grep",
+  "egrep",
+  "fgrep",
+  "sed",
+  "awk",
+  "cut",
+  "head",
+  "tail",
+  "tr",
+  "wc",
+  "sort",
+  "uniq",
+  "basename",
+  "dirname",
+  "seq",
+  "expr",
+  "env",
+  "xargs",
+  "find",
+  "which",
+  "yes",
+  "sleep",
+  "usleep",
+  "timeout",
+  "readlink",
+  "realpath",
+  "stat",
+  "mountpoint",
+  # files
+  "ls",
+  "cp",
+  "mv",
+  "rm",
+  "mkdir",
+  "rmdir",
+  "ln",
+  "chmod",
+  "chown",
+  "touch",
+  "dd",
+  "df",
+  "du",
+  "cmp",
+  "md5sum",
+  "sha256sum",
+  "strings",
+  "hexdump",
+  "xxd",
+  "od",
+  "vi",
+  "less",
+  "gunzip",
+  "gzip",
+  "zcat",
+  "cpio",
+  "tar",
+  # processes
+  "ps",
+  "top",
+  "free",
+  "uptime",
+  "kill",
+  "killall",
+  "pidof",
+  "setsid",
+  "nice",
+  "chrt",
+  "taskset",
+  # the system
+  "reboot",
+  "poweroff",
+  "halt",
+  "mount",
+  "umount",
+  "mknod",
+  "mdev",
+  "insmod",
+  "rmmod",
+  "lsmod",
+  "dmesg",
+  "hostname",
+  "uname",
+  "sync",
+  "date",
+  "stty",
+  "devmem",
+  # the network
+  "ifconfig",
+  "ip",
+  "route",
+  "udhcpc",
+  "ntpd",
+  "telnetd",
+  "nc",
+  "wget",
+  "ping",
+  "netstat",
+  "nslookup",
+  "traceroute",
+]
+# The rescue's: a look around on its console (zd1-init runs it; zd1-slot writes the slots)
+rescue_applets = [
+  "ash",
+  "sh",
+  "[",
+  "[[",
+  "test",
+  "echo",
+  "printf",
+  "true",
+  "false",
+  "cat",
+  "tee",
+  "grep",
+  "sed",
+  "mkdir",
+  "mv",
+  "rm",
+  "ls",
+  "sleep",
+  "mount",
+  "umount",
+  "mknod",
+  "sync",
+  "dmesg",
+  "reboot",
+  "ps",
+  "free",
+  "uname",
+]
+
+[alsa]
+# alsa-lib + alsa-utils (aplay, speaker-test, amixer), static against musl: the Nokia ALSA driver (snd-sulu on
+# av-device) is the audio output. Hashes: first download, 2026-10-20.
+version = "1.2.12"
+lib = { url = "https://www.alsa-project.org/files/pub/lib/alsa-lib-1.2.12.tar.bz2", sha256 = "4868cd908627279da5a634f468701625be8cc251d84262c7e5b6a218391ad0d2" }
+utils = { url = "https://www.alsa-project.org/files/pub/utils/alsa-utils-1.2.12.tar.bz2", sha256 = "98bc6677d0c0074006679051822324a0ab0879aea558a8f68b511780d30cd924" }
+tools = ["aplay", "speaker-test", "amixer"]
+
+[wpa]
+# wpa_supplicant + wpa_cli for the Wi-Fi core (WPA2-PSK over Wireless Extensions), static against musl, stripped.
+# config = its .config. Hash: w1.fi's release, 2026-10-24 (the same as the copy downloaded 2026-10-23).
+version = "2.11"
+url = "https://w1.fi/releases/wpa_supplicant-2.11.tar.gz"
+sha256 = "912ea06f74e30a8e36fbb68064d6cdff218d8d591db0fc5d75dee6c81ac7fc0a"
+config = "module/os/wpa_supplicant.config"
+
+[apps]
+# Rust crates in module/os/apps (one workspace, std, armv5te-unknown-linux-musleabi). Installed as one executable
+# (apps/zd1, busybox style: one copy of std and the libraries) with a link per program: the core build in the rescue
+# (/bin/zd1, `rescue` in /bin: only what the rescue runs, so it changes only when that does), the full build in the
+# system (/usr/bin/zd1: `core` in /bin, `bins` in /usr/bin), and in the system's debug build `debug` too.
+# `init` is PID 1 (/sbin/init; the rescue's /init).
+workspace = "module/os/apps"
+multicall = "zd1"
+core = [
+  "init",
+  "zd1-linkd",
+  "zd1-ctl",
+  "zd1-board",
+  "zd1-dhcp",
+  "zd1-entropy",
+  "zd1-persparam",
+  "zd1-settings",
+  "zd1-slot",
+  "zd1-update",
+]
+rescue = ["init", "zd1-linkd", "zd1-ctl", "zd1-board", "zd1-persparam", "zd1-settings", "zd1-slot", "zd1-update"]
+bins = ["zd1-snapcast", "zd1-airplay", "zd1-spotify"]
+debug = ["zd1-selftest", "zd1-memsh"]
+
+[boot]
+# module/boot: the bare-metal boot stub in front of the kernel (MCU link, ATAGs). zd1-linkd, the
+# link under Linux, is an app (above); both run the protocol in module/link.
+crate = "module/boot"
+
+[image]
+overlay = "module/os/rootfs" # copied over everything else in the system (/etc: config)
+# The debug variant: system-debug.cpio.gz, the system with the debug tools (zd1's `debug` feature: the self test,
+# zd1-memsh, PersParam's raw reads, the link's request trace), and os-debug.bcd, whose command line has
+# the debug services (init's `debug` service: a telnet shell, zd1-memsh) on by default (zd1.debug). The normal image
+# has them off; either way the MCU switches them (`zd1 debug on|off|default`), nothing on the network can. The
+# emulator's dev boot is the debug system, with zd1.debug.
+[image.debug]
+cmdline = "zd1.debug"

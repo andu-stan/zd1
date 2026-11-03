@@ -1,0 +1,60 @@
+/* The panel: a part of the page, its heading in a column of its own and its content beside it, a hairline above
+ * (the feature lists of a 2012 product page). `<section class="panel"><h2>…</h2><div class="panel-body">…</div>`.
+ * The facts table: label and value rows with hairlines between; values the speaker reports are `.data`. */
+.panel {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: var(--space-6);
+  padding: var(--space-7) 0;
+  border-top: 1px solid var(--line-hair);
+}
+.panel > h2 {
+  font-size: var(--text-xl);
+  font-weight: var(--weight-light);
+  color: var(--text-strong);
+}
+.panel-body {
+  min-width: 0;
+}
+.panel-body > :first-child {
+  margin-top: 0;
+}
+.facts {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  margin: 0 0 var(--space-4);
+}
+.facts dt,
+.facts dd {
+  margin: 0;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--line-hair);
+}
+.facts dt {
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+}
+.facts dd {
+  color: var(--text-strong);
+  overflow-wrap: anywhere;
+}
+.facts > :nth-child(-n + 2) {
+  border-top: 1px solid var(--line-hair);
+}
+@media (max-width: 720px) {
+  .panel {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    padding: var(--space-6) 0;
+  }
+  .facts {
+    grid-template-columns: 1fr;
+  }
+  .facts dt {
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+  .facts > :nth-child(2) {
+    border-top: 0;
+  }
+}

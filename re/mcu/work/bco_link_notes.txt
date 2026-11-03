@@ -1,0 +1,317 @@
+ZD1 MCU <-> BridgeCo DM870 ("Bco") network module link -- notes from static RE of ZD1_v2-04-05 (MCU app)
+=====================================================================================================
+Conf: H = read directly from code/data, M = inferred from strong context, L = guess.
+Cross-ref: the module-side register table is re/netmodule/spi_register_map.txt; the curated version of these notes is
+docs/protocol/spi-registers.md (it wins where the two disagree).
+Register NAMES below come from the module's register table; the MCU-side USE comes from this binary.
+Helper scripts added: re/scripts/dis.py (annotated disasm), ramdump.py, callsites.py, fnnames.py.
+
+Function map (dmhBcoMgr + BcoZD1/BcoWrapper), names recovered from assert strings
+--------------------------------------------------------------------------------
+8000c050 ercBcoSpiBlockWrite (stuffing TX)       8000c154 ercBcoSpiRead (1 byte, unstuff)
+8000c2d4 ercReadRegisterTask (read SM)           8000c6ec voBcoMgrHandleRegisterAccessTask (R/W queue, does writes)
+8000ca5c voBcoMgrHandleModuleIrqTask (IRQ SM)    8000dd58 voActivateModuleTask (power/attach SM)
+8000b860 dmhBcoMgr_ercReadRegister(reg,buf,max,*len)   8000b910 dmhBcoMgr_ercWriteRegister(reg,buf,len)  (len<=0x405)
+8000ba14 dmhBcoMgr_ercWriteRegisterEx(reg,buf,len,timer,ms)  (write with retry 300 ms and post-delay)
+8000bbfc ercSafeSendHcrCode(u16)  8000bb20 ...HcrCodeEx   8000bc64 ercSafeSendDrcCode(u8)  8000bb90 ...DrcCodeEx
+8000b7a0 dmhBcoMgr_boLockRegisterAccess   8000b800 cbRegDacpCmdAckHandler   8000bccc voBcoMgrPlayStatusTask
+8000bea0 voBcoMgrSiteSurveyTask  80009c38 voBcoMgrWifiSetupTask  80009544 ercHandleWpsTask  80009820 ercHandleJbcTask
+8000941c ercSendWpsCommand        8000dbc0 dmhBcoMgr_ercInit    8000e19c dmhBcoMgr_voTask (main-loop tick)
+8000da40 notify observers(id,arg)  8000dac4 register observer (3 slots)
+8001e9f8 observer #1 (BcoWrapper, updates RAM_7afc net/Wifi status, posts system events)
+8001e134 observer #2 voZD1BridgeCoModuleCallback (WPS/JBC/web data)    8001d36c voZD1SetupTask (net settings backup)
+8001dc84 BcoZD1 tick (reg 0x40 volume, 0xDD web data, PersParam MAC0/FPIN/CTRY, Cne NetIF/mode)
+8001e7b8 BcoWrapper tick (calls 8000e19c, 8001dc84, sends reg 0x40 play-state acks)
+8001ed74 / 8001f150  DRC 0xE1/0xE2 and 0xDE/0xDF send-and-wait-ack state machines
+
+1. PHYSICAL LINK
+----------------
+SPI0 master, fixed peripheral NPCS2.                                                          [H]
+  pins: PA13 SCK(A), PA11 MISO(A), PA12 MOSI(A), PA09 NPCS2 (func B) -- table {pin,func} @0x8000d8a5
+  MR   = 0x00030011 (MSTR=1, MODFDIS=1, PS=0 fixed, PCSDEC=0, PCS=0011 -> NPCS2, DLYBCS=0)  .data RAM 0x84
+  CSR2 = 0x00000F09 (CPOL=1, NCPHA=0 => SPI mode 3, CSAAT=1, BITS=8, SCBR=15, DLYBS=0, DLYBCT=0) .data RAM 0x80
+  SCK = PBA/15. CPU "FAST" = 66 MHz (PLL0 12 MHz x11 /2), PBA undivided => ~4.4 MHz.      [M: PBA div not 100% checked]
+  (The "STBY: SPI speed: %d" print at 800100e0 prints 50000/400000 = TWI speeds, not SPI0.)
+  CS is driven manually around each transaction (spi_select 8001a0f8 / unselect 8001a14e).
+Module power enable  = PA04 (gpio 4), active high.                                            [H code, M naming]
+Module reset         = PA17 (gpio 0x11), active low (driven low = reset, high = run; left as input when off). [H/M]
+Module request line ("BCO IRQ") = PA20 (gpio 0x14), LEVEL polled, HIGH = module has queued data.  [H]
+  No pin-change interrupt is used by the app for PA20 (only gpio_get at 8000cc8a/cd1e/cdf6).
+No boot-mode/strap pins are driven by the app.                                                [H, within app]
+
+Power-up (voActivateModuleTask 8000dd58, ticked from dmhBcoMgr_voTask):                        [H]
+  init (8000da88): PA17=0, PA04=0.
+  attach request (8000e160 -> event 0x1000000, state 1):
+   S1: PA04=1 (power on); wait 1200 ms
+   S2: PA17=1 (release reset); gpio pins -> SPI func; write CSR2, MR; SPI enable; wait 200 ms
+   S3: start register-access task, IRQ task (IHS_START), WifiSetup, PlayStatus, SiteSurvey; bus-free=1;
+       notify id 0 (attached); state 4 (RUN)
+  IRQ task start: wait 1000 ms, then wait for PA20=1, then poll reg 0x11 (DM1000Status) until b0 in 0x20..0x25.
+       b0=0x21 -> module app ready (status word 0x2100): notify id 2; WifiSetup proceeds (reads version regs etc).
+       b0=0x23 -> treated like ready, plus notify id 5 (ZD1: LED mode 0x16, ZD1 event 0x40000) [M: update/BSL mode]
+       other / timeout -> retry every 20 / 300 ms.
+  Detach (dd58 state5/6, from 8000e370, 8000db30 path):
+       (graceful: WifiSetup S0x0B writes reg 0xE2 = 00 00, waits <=5 s for module IRQ reg 0xE2 with b0=1)
+       PA17=0; wait 20 ms; PA04=0; SPI pins -> GPIO input; notify id 1 (detached).
+  Emergency off (8000dcdc, used for standby/watchdog reset/UCH): SPI off, pins input, PA17=0, busy-wait 20 ms,
+       PA04=0, PA17 -> input.
+  Supervision (IRQ SM, timer "0x17"): 60 s without a successful transaction -> retry counter; >30 -> error:
+       notify 0x24 (never got status, sys event 0x60000004) / 0x26 (after status) / 0x25 (after first IRQ read);
+       if register access not locked -> power-off sequence. Heartbeat: re-read reg 0x11 every 3 s while idle.
+
+2. SPI FRAMING (8000c050 / 8000c154 / 8000c2d4 / 8000c6ec)
+-----------------------------------------------------------
+Byte stuffing on every byte both ways:  0x27 -> 27 27,  0xFF -> 27 01.  0xFF = idle/no data.        [H]
+MCU clocks 0xFF to receive; a received raw 0xFF = "nothing" (ercBcoSpiRead returns 0x420004).
+Register type table (256 entries 'F'/'V'/'X' @0x8000a27c) decides the command:                     [H]
+  F (fixed, 2 data bytes):  05 06 07 08 0c 11 28 29 2a 2b 30 31 32 34 35 36 37 3b 46 48 49 4a 4d 50 51 52
+                            53 54 56 57 5a 5b 60 6a 6b 74 76 7a c7 c9 ca cc ce e2 e3
+  V (variable length):      00 25 26 27 2c 2d 2e 2f 33 38 39 3a 3c 3d 3e 3f 40 45 47 4b 4c 4e 4f 55 58 59
+                            5c 5d 5e 5f 61 62 63 64 65 66 68 69 6c 75 77 78 79 7b c8 cb cd cf d0 d1 dc dd e4
+WRITE (one CS-low burst, no response read by MCU):                                                 [H]
+  F: CS low, 00 reg b0 b1, CS high                    (b0,b1 = buf[0],buf[1])
+  V: CS low, 02 reg lenLo lenHi data[len], CS high    (len <= 0x405)
+READ:                                                                                              [H]
+  CS low, (01|03) reg 00 00, CS high; wait 5 ms; CS low; clock 0xFF:
+   skip until byte == request type (01/03)  [500 ms timeout]
+   then skip until byte == reg              [500 ms]
+   F: next 2 bytes = b0 b1                   V: lenLo lenHi (LE), then len data bytes (bytes beyond caller max dropped) [5 s]
+  CS high.  Timeout -> 0x420022.  Return codes: 0 ok, 0x420020 queued, 0x420021 busy/pending, 0x420022 timeout.
+  Module-side note: the module ACKs writes too ("type reg ..."); the MCU never reads that ack -- it is skipped
+  by the "scan for type byte" logic of the next read. A replacement module must tolerate CS going high right
+  after a write and must keep responses for reads until polled. [M]
+16-bit values: MCU treats b0 as HIGH byte (e.g. status 0x2100 = b0 0x21, b1 0x00). The module report calls
+  b0 "lo". Always think in wire bytes b0,b1.                                                         [H]
+Concurrency: one access at a time; IRQ SM only runs when the access task is idle (RAM_0078[0]=1) and register
+  access is not locked (RAM_0078[1]=0, dmhBcoMgr_boLockRegisterAccess). API reads/writes are only executed once
+  module status == 0x2100 and the IRQ SM is in its idle state.                                      [H]
+
+IRQ / notification handling (voBcoMgrHandleModuleIrqTask 8000ca5c):                                 [H]
+  while PA20 high: read reg 0x0C (F) -> b0 = number of register with pending data (0 = none);
+  read that register (V, max 0x406 bytes) and dispatch via table @0x8000b2b4 {u8 reg, u32 handler}:
+   reg  handler   action
+   11   8000b684  DM1000Status b0: 21 -> status 0x2100; 23 -> ev 0x10000010 (id 5); 25 -> ev 0x10000002 (id 7);
+                  26 -> ev 0x10000008 (id 0x29); 27 -> ev 0x10000004 (id 8 => MCU powers module off and
+                  watchdog-resets itself after 200 ms, observer #1 8001ebd2)   (only if b1 == 0)
+   29   8000b60c  HCR Status: b0=22 -> ev 0x10010000; 2020/2120 -> ev 0x10004000; 214E ignored; else 0x10008000 (NFU)
+   2a   8000b5e0  DCR Ctrl: 2423 -> ev 0x12000000 (module asks host something; NFU/NetGetFile)
+   2c   80008b40  XModem DM1 chunk accumulator (256-byte chunks, ev 0x10100000 at end)
+   32   8000b518  NetStatus 2 ASCII bytes (see section 7)
+   38   8000d1b4  IP address string (16) -> RAM "0.0.0.0" buffer
+   40   8000b32c  same handler as E4 (AirPlay service callbacks, section 7)
+   45   8000b458  Configuration (XML/Cne) reply ready -> ev 0x10200000
+   58   8000d170  DeviceName (<=63 chars) -> notify 0x28 (ZD1 marks "name changed")
+   5a   8000b470  ActiveWirelessProfile b0-'0' -> RAM_3edf, notify 0x21
+   6a   8000b494  BssAttemptConnection / WPS+JBC progress (section 7)
+   6b   8000be6c  "WiFi Off/On": b0==2 && b1!=0 -> notify 0x27(signed b1)  [L: signal level?]
+   e2   8000b438  RebootDeviceStatus b0==1 -> ev 0x20 (module ready to be powered off)
+   e3   8000b800  AirTunesPlaybackStatus b0 -> service cb3 (DACP command ack, section 3)
+   e4   8000b32c  VolumeHostChange [svc][param][x][val] -> service callbacks
+  Reads that are not in the table are consumed and dropped.
+
+3. HCR / DRC CODES
+------------------
+HCR = write reg 0x28 "HCR Ctrl" (F) with b0=code>>8, b1=code&0xFF; status comes back by IRQ on reg 0x29. [H]
+DRC = write reg 0x48 "DRCCommand" (F) with b0=code, b1=0. (BridgeCo "DRC" remote-control key codes.)       [H]
+ Code         sent by                         trigger / meaning                                        conf
+ HCR 0x2520   80008ba0 (XModem/NetGetFile)     cmd 0x25 = file transfer over XModem regs               H/M
+ HCR 0x2421   WifiSetup S16 (80009cd0)          factory reset (FRS 80026a3e -> 8001e754 -> 800093fc,   H/M
+              then notify 0x19 -> detach        event 0x2000): cmd 0x24 arg 0x21 = reset module settings
+ DRC 0x9D     JBC S6 (8000997e)                 start JBConnect after Cne JBCSSID set                    H/M
+ DRC 0x9F     JBC S7 (8000994a)                 stop JBConnect (on stop request ev 8)                     H/M
+ DRC 0x9E     WifiSetup S17 (80009cb6)          ev 0x10 from main (8002 5cfa/5f96) when NetIF "wireless"  M/L
+              selected -> notify 0xD -> sys event 0x70002000          [L: restart wireless / setup mode]
+ DRC 0xDE     8001f150 (via 8001f00c)            expects AirTunesPlaybackStatus(0xE3) b0=1  [M: AirPlay pause]
+ DRC 0xDF     8001f150 (via 8001f050)            expects 0xE3 b0=0                         [M: AirPlay play/resume]
+ DRC 0xE1     8001ed74 (via 8001ecec)            expects 0xE3 b0=4, then sys event 0x70010000 [L: release/stop session]
+ DRC 0xE2     8001ed74 (via 8001ed30)            expects 0xE3 b0=5                         [L: re-acquire session]
+              (each: send, wait up to 3 s for the ack, resend every 2 s; used on source change away from/to
+               Wifi and on standby entry; main dispatcher 800248bc calls 8001ecec/ed30/f00c/f050)
+ DRC 0xB0     ev 0x10000200 (8000b404, key action 0xB in 800248bc)     [L: HID-style Play]
+ DRC 0xB1     ev 0x10000400 (8000b3e8, key action 0xC)                 [L: Pause]
+ DRC 0xB3     ev 0x14000000 (8000b420, key action 0xA)                 [L: next / FF]
+ DRC 0xB2, 0x13, 0xFA  table entries (ev 0x11000000/0x10800000/0x10400000) -- no setter found in this build.
+ (DRC table: 6 x {u32 event, u8 code} @0x8000d9f0, processed in dmhBcoMgr_voTask 8000e19c; at most one per tick.)
+ Module-side HCR meanings (module app handler 0x602f7310): 0x20 notify, 0x21 reboot to BSL for update, 0x22 check
+ online/USB, 0x23 flash fw in RAM, 0x24 restart/settings, 0x25/0x26 file transfer. HCR status 0x29: 2020 ok, 2121 fail.
+
+4a. REGISTER TABLE (MCU usage)   dir: R = MCU reads, W = MCU writes, N = module notifies (IRQ)
+------------------------------------------------------------------------------------------
+ reg  type name (module)          dir  use on MCU side (evidence)                                         conf
+ 00   V   queue pop               -    not used by MCU                                                    H
+ 0C   F   pending-reg             R    IRQ SM: b0 = reg to read (8000cd66)                                 H
+ 11   F   DM1000Status            R,N  boot/ready status b0: 20..25, 21=ready (8000ceca, 8000d094, b684)    H
+ 25   V   VersionImage (20)       R    WifiSetup S3 (8000a01e) -> RAM_3a74+0x18, spaces stripped;         H
+                                       compared with "%d" of 9112 (0x2398) => "Compatible Bco fw v9112"
+ 26   V   VersionBootld (20)      R    WifiSetup S4 -> +0x38                                              H
+ 27   V   VersionCNE (20)         R    WifiSetup S5 -> +0x04                                              H
+ 28   F   HCR Ctrl                W    see 3                                                               H
+ 29   F   HCR Status              N    see 2                                                               H
+ 2A   F   DCR Ctrl                N    2423 -> ev 0x12000000                                               H
+ 2C   V   XModem DM1 (1030)       R,N  module->MCU XModem frames                                           H
+ 2D   V   XModem Host (1030)      W    MCU->module XModem frames (80008ba0, len 1 = ctrl char)            H
+ 2E   V   WebpagesVersion         R    ZD1 setup backup (8001d88c)                                         H
+ 32   F   NetStatus               R,N  2 ASCII chars, read at WifiSetup S8 into RAM_007a; IRQ updates     H/M
+ 33   V   MacAddress (18)         R    JBC S2: "xx:xx:.." used to fill "ZeppelinAir_Setup_XXXXXX"        H
+ 35   F   ActiveProfile           R    ZD1 setup backup                                                    H
+ 37   F   DHCPClient ("reg 55")   R    ZD1 setup backup; 1 = DHCP else static (strings @0x800338cc..)     H/M
+ 38   V   IP (16)                 R,N  backup; IRQ copies to RAM_0068                                      H
+ 39/3A/3E/3F V Mask/DefGW/DNS1/DNS2 R  backup (16 bytes each)                                             H
+ 3B   F   Proxy                   R    backup                                                              H
+ 3C   V   ProxyServer (128)       R    backup                                                              H
+ 3D   V   ProxyServerPort (8)     R    backup (6 bytes read)                                               H
+ 40   V   (not in module table)   W,N  AirPlay service ctl [svc][param][1][val] (section 7)                H/M
+ 45   V   Configuration (1024)    R/W  Cne/PersParam request (W) and reply (N then R), see section 4b      H
+ 47   V   DRCProtocol (256)       N,R  XML "<update id=status>..<icon id=play>" -> play status (4b)       M/H
+ 48   F   DRCCommand              W    see 3                                                               H
+ 58   V   DeviceName              R,N  backup (30 bytes); IRQ -> notify 0x28                               H
+ 5A   F   ActiveWirelessProfile   R,W,N W [('0'+n),0] after WPS success (8000e30c); backup                  H
+ 5B   F   SelectedWirelessProfile W    ZD1 setup writes before reading per-profile regs                    H
+ 5C/5D/5F/65 V Security/IBSS/WepAuth/WpaCipher (8) R backup                                              H
+ 5E   V   SSID (32)               R    backup                                                              H
+ 60   F   WepKeyIndex             R    backup                                                              H
+ 61-64 V  WepKey0..3 (28)         R    backup                                                              H
+ 66   V   WpaPassphrase (64)      R    backup                                                              H
+ 68   V   BssScan                 W    site survey start, 2 bytes (8000bfa6)                               H
+ 69   V   BssScanResult (256)     N,R  XML site-survey list (bss_lis.count, bss.index, ssid, ibss, channel,
+                                       quality, phytype) -> parser cb 8000d228 -> notify 0x22               M/H
+ 6A   F   BssAttemptConnection    N    WPS/JBC progress (section 7)                                        H
+ 6B   F   WiFi Off/On             N    see 2                                                               M
+ 6C   V   WPSCommand (64)         W    [mode char]["WPS_CFG"|"PB_CFG"]\0 (8000941c)                        H
+ DD   V   (not in module table)   W    "<update id=\"webdata\">...</update>" web status push (8001de1e)  H
+ E2   F   RebootDeviceStatus      W,N  W 00 00 = request shutdown; N b0=1 = ok to cut power              H/M
+ E3   F   AirTunesPlaybackStatus  N    DACP/DRC ack value (0,1,4,5 used)                                   H
+ E4   V   VolumeHostChange (4)    N    [svc][param][x][val], same handler as 0x40                          H
+ Reads by ZD1 setup task are a network-settings backup to flash user page ("CooL" marker) and are restored
+ through Cne/PersParam paths "Networking/..." (8001dac0). Not needed for basic interoperation.
+
+4b. XML / CNE / PERSPARAM LAYER (all over reg 0x45 "Configuration", ASCII, no XMODEM)
+---------------------------------------------------------------------------------
+Request = W reg 0x45 (V): [op][nameLen][name (no leading '/')][value]   (len = strlen, no NUL)        [H]
+ op   function (addr)                         notes                                                       conf
+ 'P'  GetPersParamInteger  8000a9a4           4-char name; reply = hex text (strtoul base 16)              M
+ 'Q'  GetPersParamString   8000a764           reply = raw string <= 0x100                                  M
+ 'R'  GetCneValue          8000d614           e.g. "pssCne/CneId"; 1000 ms timeout                         M
+ 'U'  SetPersParamString   8000a5cc           "FPIN" (8 chars), "CTRY" ("EU"/"US"/"JP")                    M
+ 'V'  SetPersParamIntegerHex 8000a428         "MAC0" = "0x%02lX.." from 00:09:82:xx:xx:xx                 M
+ 'W'  SetCneValue          8000d488           path immediately followed by value                           M
+ Set: no reply expected (MCU waits a fixed time). Get: module raises reg 0x0C -> 0x45; handler 8000b458 sets
+ ev 0x10200000; MCU reads reg 0x45 (V, <=0x100) = answer.                                              [H]
+CNE paths: "SystemHost/HostVersion" (set at attach), "pssCne/CneId" (get), "Application/NetIF/mode" =
+ "wired"|"wireless"|"autosense" (8001cf20 -> 8001dc84), "Networking/JBCONNECT/JBCSSID", and 24 "Networking/..."
+ paths (table RAM 0x628) used to restore the user-page backup (8001dac0).
+XML parser (80008608, magic 0xBAD0DEAF): fed byte-by-byte by the read task only for reg 0x47 (cb 8000d36c, play
+ status) and reg 0x69 (cb 8000d228, site survey); reg 0xDC special-cased in 8000c424 (purpose unknown).
+Web status push: observer #2 id 0x23 {u32 op; char key[12]@4; char value[]@0x10}; key "ALL" builds
+ <update id="webdata">\r\n <value id="%s">%s</value>\r\n ... </update>\r\n  (<=1023 chars) -> W reg 0xDD.
+ Keys (table 8001cd6c): snum macaddr fixpin ccode hostver hblver dspver dsp2ver hwver hwid imgver cnever bslver
+ htmver pwrtemp amptemp (stops at battstat). Settable: snum, macaddr, fixpin, ccode. imgver/bslver/cnever come
+ from regs 0x25/0x26/0x27. "autosense" is a NetIF mode, not a key.
+ OPEN: no code found that raises notify 0x23 (how the module asks for webdata); candidate = reg 0xDC.   [L]
+
+5. NFU / XMODEM / NetGetFile / DFU
+----------------------------------
+XMODEM (voBcoMgrXmodemTask 80008ba0): MCU is RECEIVER, module sends.                                  [H]
+ MCU -> module: 1-byte writes to reg 0x2D: 'C' (CRC start), ACK 06, NAK 15, CAN 18 x3 (300 ms apart).
+ module -> MCU: IRQ-signalled reads of reg 0x2C, accumulated in 256-byte chunks (80008b40); short chunk = end.
+ Packet [SOH|STX][blk][~blk][128|1024][CRC16-CCITT hi lo, init 0] (SOH <= 0x84 bytes: 8-bit sum).
+ EOT: first NAKed, second ACKed. GET_FILE mode first sends HCR 0x2520.
+NFU task (8000aca4/8000af1c): watches HCR status 0x29 and DCR 0x2A=2423 then would call XModemReceive (800091e4),
+ but its callback/size are never set and its start state is never requested => DEAD CODE in this build.  [H]
+ => The app never receives files from the module and never sends firmware TO the module.
+USB DFU "flash-coproc" is NOT in the app (USB = UAC1+HID only; no DFU descriptors/strings). It is in the
+ bootloader (0x80000000..0x80003FFF, docs/mcu/bootloader-dfu.md). App only checks/restores the ISP config word
+ at 0x808001FC (0x929E0870). Module side: flash-coproc uses XModem-1K over regs 0x2D/0x2C
+ then HCR 0x23/0x21 -- i.e. the BOOTLOADER is the XModem sender in that case.                         [H app / M BL]
+
+6. FACTORY UART "UCH" (USART1 PA05 RX / PA06 TX, func A)  -- on this board the same lines are the module's console
+   (UART1: PA06 -> RXD1, TXD1 -> PA05; measured 2026-10-23, docs/hardware/wiring.md)
+-----------------------------------------------------------------------------------------------
+Init 8000f7c0 (called by main SM when factory mode starts): 8N1 (MR 0x8C0); 115200 baud (57600 if
+ 80029454()==1 or 8001248c()==5); SLOW CPU mode: 2400. RX ISR 8000ea44 (IRQ 192) -> buffer RAM_7f50 (50 bytes).
+Request:  [L][op][params...][CK]  L = count of bytes after L (op+params+CK); CK = (sum of L..last param) & 0xFF.
+Reply ack: [04][op][ST][ERR][CK]  ST 00 accepted / FF rejected.  Data reply: [L][op][00][data...][CK].
+Busy (byte arrives while executing): 04 00 FF 03 02 (non-standard CK).  Timeout -> err 9.
+Errors: 3 busy, 4 checksum, 5 invalid opcode, 6 not implemented, 7 param too big, 8 invalid length, 9 timeout.
+ op L  name                         params / action
+ 80 3  Get version number           p0: 6-char string; p1: DSP fw "0509"; p2: protocol "0106"; p3: HW rev 2 ASCII
+ 81 3  Set System Mode              p0: Bco power-off (8000dcdc) + standby; p1: event 0x10000400
+ 82 3  Switch Leds                  p<=0x1F
+ 83 2  Read GPIO                    -> PA/PB/PC PVR (3 x u32 BE)
+ 84 7  Set GPIO bit                 [port][mask u32 BE]  (protected pins skipped)
+ 85 7  Clr GPIO bit                 same
+ 86 2  Perform Selfdiagnostics Test
+ 87 2  Read Selfdiag Status Bits    -> u32
+ 88 6  Clear Selfdiag Status Bits   [mask u32]
+ 89 2  Calculate Checksum           -> u32 BE (flash sum)
+ 8A 2  Set factory defaults
+ 8B 5  DSP Feedthrough - Control    [sub][a][b]
+ 8C 3  Select Input                 0 AUX-analog 1 AUX-digital 2 iPod 3 PC 4 Wifi (Wifi also sys ev 0x70000001)
+ 8D 3  Set Volume level             0..0x47
+ 8E 2  Read ADC values              -> 4 x u16 BE
+ 8F 3  Set output trim levels       <0x15
+ 90 3  Set crossover LF gains       <0x15
+ 91 6  Set dynamic bass settings    u32 BE
+ 92 2  Test primary voltage DSP correction
+ 93 2  Force watchdog reset         Bco off, then WDT reset; no reply
+ Example: get DSP version = 03 80 01 84.  Parser 8000eae0 is only called from main scheduler 80026774. [H]
+
+7. EVENT / MESSAGE FLOW
+-----------------------
+AirPlay service registration: 8000b70c(3, RAM_0c2c) -> service[3] = {cb0=8001e9ec, cb1=0, cb2=8001e774, cb3=8001e98c}.
+Module -> MCU on reg 0x40 / 0xE4 (4 bytes [svc][param][x][val]):                                   [H decode, M meaning]
+  svc 03 param 03 -> cb0(val) = 80013960 AirPlay volume -> MCU step:
+        val 0x00..0xF0: step = 0x47 - ((val+3)*70/240)   (val 0 -> 71 = max, 0xF0 -> 1)
+        val 0xF1..0xFF: step 0 (mute). Applied only when Wifi source active (else stored).
+  svc 03 param 01 -> cb2(val): val 0 -> MCU replies W reg 0x40 = 03 01 01 02; val 3 -> replies 03 01 01 04
+  svc 01 ...      -> second service slot (not registered in this build)
+MCU -> module reg 0x40:
+  03 03 01 vv   volume to AirPlay: vv = v*240/70 for v<=0x46, 0xFF if v>=0x47 (8001cf6c, sent by 8001dc84)
+  03 01 01 02 / 03 01 01 01 / 03 01 01 04   play-state replies (8001e7b8; 01 has no setter found)   [M/L]
+AirTunesPlaybackStatus (0xE3) -> cb3 8001e98c: 0 -> ack for DRC 0xDF; 1 -> ack 0xDE; 4 -> ack 0xE1 + sys 0x70010000;
+  5 -> ack 0xE2.
+Play status task (8000bccc): RAM_3ed4+0x448 set by XML on reg 0x47 (pl=2 play, pa=3 pause, em=1 empty) -> notify 0x16/0x17/0x18 (observer #1: Wifi status 3=playing
+  sets RAM_7afc[8]=1, calls 8001efe4; 2=paused/stopped).                                              [M]
+NetStatus (reg 0x32, b0 b1 ASCII): transitions of b1 '0'<->'1' -> notify 0x1A/0x1B, '0'<->'2' -> 0x1C/0x1D;
+  b0!='0' && b1!='0' -> notify 0x1E (connected; observer #1 sets net state 2) else 0x1F (not connected).
+  [L: b1 = interface '1' wireless / '2' wired, b0 = IP/link state]. WPS/JBC are only started when b1=='1'.
+Wifi setup task after module ready: R 0x25, 0x26, 0x27, Cne GET "pssCne/CneId", Cne SET "SystemHost/HostVersion"
+  (= MCU version string), R 0x32, notify 3, then idle loop reacting to events.                       [H]
+WPS (ercHandleWpsTask): start = W reg 0x6C [RAM_005c[10]]"WPS_CFG" (PIN mode, ev 0x40) or "PB_CFG" (push button,
+  ev 0x80) -> notify 0xE/0xF. Progress via reg 0x6A b1: '0'/'B' -> success (b0 stored, after 1 s notify 0x15 =>
+  ZD1 writes reg 0x5A active profile); '1','2' -> 0x10; '3' -> 0x11; '4' -> 0x12; '5' -> 0x13; '6' -> 0x14;
+  '@' (0x40) -> JBC "connected" event 4.                                                              [H decode, L meaning]
+JBConnect (ercHandleJbcTask): SSID "ZeppelinAir_Setup_XXXXXX" (XXXXXX <- last 6 hex digits of reg 0x33 MAC),
+  Cne SET "Networking/JBCONNECT/JBCSSID" = SSID, DRC 0x9D; wait reg 0x6A '@' or stop; stop = DRC 0x9F.   [H]
+Source switch to Wifi: done locally (UCH op 0x8C p=4 / keys); module is told via DRC 0xE1/0xE2/0xDE/0xDF
+  handshake (section 3); there is no "select input" register.                                         [M]
+Standby: 8001029c -> if Bco enabled 8000dcdc (hard power-off). Network standby / wake from module not seen. [H/M]
+Factory reset: MCU defaults, attach module, HCR 0x2421, notify 0x19 -> graceful detach; next attach restores
+  network settings; user-page backup erased by 8001da70.                                              [M]
+Module-requested reboot: reg 0x11 b0=0x27 -> MCU powers module off and resets itself through the watchdog.  [H]
+
+Observer #1 (8001e9f8) id -> effect (RAM_7afc: [0] net state, [4] Wifi status 0..7, [8] AirPlay playing):
+  0 attached [4]=1 | 1 detached [4]=0, sys 0x70000100 if factory reset pending | 2 ready sys 0x60000002 |
+  3 info ready (fw compare 9112) sys 0x10002000 | 8 module reboot request -> MCU WDT reset | 0x16 playing [4]=3 |
+  0x17/0x18 [4]=2 | 0x19 -> detach | 0x1B [4]=1 | 0x1E connected [0]=2,[4]=2 | 0x1F [0]=1,[4]=4 |
+  0x20 sys 0x70000008 | 0x24 [4]=6 sys 0x60000004 | 0x25 [4]=7 sys 0x70000002 | 0x26 [4]=5 sys 0x70000004
+Observer #2 (8001e134): 0 reset | 1 sys 0x60000040 | 5 LED 0x16 | 9 JBC on sys 0x60000008 | 0xB/0xC JBC off
+  (0xC also sys 0x60000020) | 0xD sys 0x70002000 | 0xE/0xF WPS started (60 s timer) | 0x10-0x13 WPS fail/retry |
+  0x15 WPS ok -> W reg 0x5A | 0x23 web-data request -> build XML -> W reg 0xDD
+
+8. WHAT A REPLACEMENT MCU MUST DO TO DRIVE THE STOCK MODULE (minimum)
+---------------------------------------------------------------------
+- PA04=1, wait 1.2 s, PA17=1 + SPI on, wait 0.2 s + 1 s, then poll PA20 / read reg 0x11 until b0=0x21.
+- SPI mode 3, ~4 MHz, 8-bit, CS low per request; 0x27/0xFF stuffing; read = header, CS high, 5 ms, CS low, clock 0xFF.
+- While PA20 high: read reg 0x0C, then read the register named by b0 (drain queue). Re-read 0x11 every few s.
+- Optional but used by stock: R 0x25/0x26/0x27, Cne set SystemHost/HostVersion, R 0x32; volume via reg 0x40
+  [03 03 01 vv] both ways; play state via reg 0x47 XML and DRC 0xDE/0xDF (+0xE3 ack).
+- Power-down: W 0xE2 = 00 00, wait for IRQ 0xE2 b0=1 (<=5 s), PA17=0, 20 ms, PA04=0.
+
+OPEN QUESTIONS
+- Exact semantics of DRC 0x9E, 0xE1/0xE2, 0xB0/0xB1/0xB3 and reg 0x40 param 01 replies (needs module-side decode
+  of the DRC key table, or a logic-analyser capture).
+- NetStatus (0x32) character meanings; reg 0x6A WPS result codes; reg 0x6B values.
+- Source of observer id 0x23 (webdata request) - reg 0xDC?
+- Whether PBA is really undivided (SPI clock = 66 MHz/15).
+- Bootloader (not in hex.bin) owns USB DFU flash-coproc and the XModem SEND path to the module.

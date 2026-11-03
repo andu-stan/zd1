@@ -1,0 +1,56 @@
+# RGB LED (PWM ch1/2/3 on PB20/PB21/PB22, period 400) -- color table .data 0x0280 (=0x1cc+0xb4), u16 duty R,G,B (assumed order)
+color  0: (400, 0, 0)  ~red
+color  1: (50, 0, 0)  ~dim-red
+color  2: (1, 380, 1)  ~green
+color  3: (1, 1, 380)  ~blue
+color  4: (190, 190, 1)  ~yellow
+color  5: (190, 50, 1)  ~orange
+color  6: (200, 200, 200)  ~white
+color  7: (400, 1, 380)  ~magenta/purple
+color  8: (312, 0, 0)  ~red78%
+color  9: (12, 0, 0)  ~red3%
+color 10: (0, 0, 0)  ~off
+color 11: (0, 0, 0)  ~off
+
+# LED patterns: index used by led_set_pattern(n)=FUN_8001aed8; table of pointers at .data 0x01d8 (0x1cc+0xc)
+# pattern = u16 nsteps (200 => special fade/breathe mode), u16 pad, then steps {u32 color_idx, u16 duration_ms, u16 pad}
+pattern  0 @0x02d0: nsteps=1 [red 100ms]
+pattern  1 @0x02dc: nsteps=1 [dim-red 100ms]
+pattern  2 @0x02e8: nsteps=1 [green 100ms]
+pattern  3 @0x02f4: nsteps=1 [blue 100ms]
+pattern  4 @0x0300: nsteps=1 [yellow 100ms]
+pattern  5 @0x030c: nsteps=1 [orange 100ms]
+pattern  6 @0x0318: nsteps=1 [white 100ms]
+pattern  7 @0x0324: nsteps=1 [magenta/purple 100ms]
+pattern  8 @0x0330: nsteps=1 [red78% 100ms]
+pattern  9 @0x033c: nsteps=1 [red3% 100ms]
+pattern 10 @0x0348: nsteps=1 [off 100ms]
+pattern 11 @0x05a8: nsteps=1 [off 100ms]
+pattern 12 @0x0354: nsteps=2 [red 50ms] [off 50ms]
+pattern 13 @0x0368: nsteps=2 [dim-red 50ms] [off 50ms]
+pattern 14 @0x037c: nsteps=2 [green 50ms] [off 50ms]
+pattern 15 @0x0390: nsteps=2 [blue 50ms] [off 50ms]
+pattern 16 @0x03a4: nsteps=2 [yellow 50ms] [off 50ms]
+pattern 17 @0x03b8: nsteps=2 [orange 50ms] [off 50ms]
+pattern 18 @0x03cc: nsteps=2 [white 50ms] [off 50ms]
+pattern 19 @0x03e0: nsteps=2 [magenta/purple 50ms] [off 50ms]
+pattern 20 @0x03f4: nsteps=2 [red78% 50ms] [off 50ms]
+pattern 21 @0x0408: nsteps=1 [off 100ms]
+pattern 22 @0x0414: nsteps=2 [red 100ms] [off 100ms]
+pattern 23 @0x0464: nsteps=4 [yellow 200ms] [off 200ms] [yellow 200ms] [off 1000ms]
+pattern 24 @0x04ac: nsteps=1 [magenta/purple 50ms]
+pattern 25 @0x043c: nsteps=2 [magenta/purple 400ms] [off 400ms]
+pattern 26 @0x04b8: nsteps=2 [magenta/purple 200ms] [green 200ms]
+pattern 27 @0x0428: nsteps=2 [magenta/purple 200ms] [off 100ms]
+pattern 28 @0x04cc: nsteps=2 [magenta/purple 200ms] [off 100ms]
+pattern 29 @0x04e0: nsteps=10 [magenta/purple 200ms] [off 200ms] [magenta/purple 200ms] [off 200ms] [magenta/purple 200ms] [off 200ms] [magenta/purple 200ms] [off 200ms]
+pattern 30 @0x0534: nsteps=2 [magenta/purple 200ms] [off 200ms]
+pattern 31 @0x0548: nsteps=2 [red 75ms] [off 75ms]
+pattern 32 @0x055c: nsteps=4 [red 200ms] [off 200ms] [red 200ms] [off 1000ms]
+pattern 33 @0x0450: nsteps=200 [red3% 25ms] [red78% 2500ms]
+pattern 34 @0x0594: nsteps=2 [white 100ms] [off 100ms]
+pattern 35 @0x0488: nsteps=4 [magenta/purple 200ms] [off 200ms] [magenta/purple 200ms] [off 1000ms]
+pattern 36 @0x05b4: nsteps=2 [blue 100ms] [off 100ms]
+pattern 37 @0x05c8: nsteps=2 [green 100ms] [off 100ms]
+pattern 38 @0x05dc: nsteps=2 [orange 100ms] [off 100ms]
+pattern 39 @0x05f0: nsteps=2 [magenta/purple 100ms] [off 100ms]

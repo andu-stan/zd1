@@ -1,0 +1,162 @@
+/* This page's own parts, built from the system: the bar on top (2012's global navigation), the speaker with its name
+ * and status, the job strip, the notices, the footer. */
+.nav,
+main,
+.footer {
+  width: min(var(--measure), 100% - 2 * var(--gutter));
+  margin-inline: auto;
+}
+.nav {
+  display: flex;
+  align-items: center;
+  height: 52px;
+  border-bottom: 1px solid var(--line-hair);
+  font-size: var(--text-sm);
+}
+.nav > * {
+  display: flex;
+  align-items: center;
+}
+.wordmark {
+  color: var(--text-strong);
+  font: var(--weight-medium) 15px var(--font-mono);
+  letter-spacing: 0.02em;
+}
+.nav-item {
+  margin-left: var(--space-4);
+  color: var(--text-faint);
+}
+
+/* the speaker, its name, what it does, what it plays */
+.hero {
+  padding: var(--space-8) var(--gutter) var(--space-7);
+  text-align: center;
+}
+.playing {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-2);
+  margin: var(--space-6) auto 0;
+}
+.playing > :not(.segmented) {
+  max-width: 520px;
+}
+.playing .segmented {
+  justify-content: center;
+  margin-bottom: var(--space-4);
+}
+.fader {
+  display: grid;
+  grid-template-columns: 64px 1fr 2.5em;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+}
+.fader label {
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+  text-align: left;
+}
+.playing #now {
+  margin-top: var(--space-3);
+}
+.hero zd-speaker {
+  margin-bottom: 72px; /* the reflection's room */
+}
+.hero h1 {
+  margin-top: 0;
+}
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: var(--space-3) 0 0;
+  color: var(--text-muted);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-light);
+}
+.status .lamp {
+  --lamp: var(--led, var(--grey-500));
+}
+.lead {
+  color: var(--text-strong);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-light);
+  line-height: 1.45;
+}
+.press-lamp {
+  --lamp: var(--state-wait);
+  width: 10px;
+  height: 10px;
+  animation: press-blink 0.2s steps(1) infinite;
+}
+@keyframes press-blink {
+  50% {
+    opacity: 0.15;
+  }
+}
+
+/* the job strip: on top of everything while a flow runs, the page under it */
+.job {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  padding: var(--space-4) max(var(--gutter), (100% - var(--measure)) / 2);
+  border-bottom: 1px solid var(--line-soft);
+  background: rgb(10 10 11 / 0.82);
+  backdrop-filter: blur(14px) saturate(1.4);
+}
+.job .row {
+  margin-top: 0;
+}
+#job-title {
+  color: var(--text-strong);
+  font-weight: var(--weight-medium);
+}
+.job.ok #job-outcome {
+  color: var(--text-strong);
+}
+.job.failed #job-outcome {
+  color: var(--state-warn-text);
+}
+#job-outcome:empty {
+  display: none;
+}
+
+/* the notices: under the hero, newest first */
+#notices {
+  display: grid;
+  gap: var(--space-2);
+  margin-bottom: var(--space-5);
+}
+#notices:empty {
+  display: none;
+}
+main {
+  padding-bottom: var(--space-7);
+}
+#app > .panel:first-child,
+main > .panel:first-of-type {
+  border-top-color: var(--line-soft);
+}
+.footer {
+  padding: var(--space-5) 0 var(--space-7);
+  border-top: 1px solid var(--line-hair);
+  color: var(--text-faint);
+  font-size: var(--text-xs);
+  text-align: center;
+}
+.footer a {
+  color: var(--text-muted);
+}
+@media (max-width: 640px) {
+  .nav-item {
+    display: none;
+  }
+  .hero {
+    padding-top: var(--space-6);
+  }
+  .hero h1 {
+    font-size: var(--text-2xl);
+  }
+}

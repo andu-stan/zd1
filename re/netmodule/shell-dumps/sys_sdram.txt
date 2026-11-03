@@ -1,0 +1,8 @@
+$ sys sdram
+---- OVERVIEW ----
+sys sdram            - sdram commands
+sys sdram perf       - monitor AHB/SDRAM performance
+sys sdram reg        - show registers
+sys sdram stress     - sdram stress test commands
+---- DESCRIPTION ----
+executes 'sdram' command

@@ -1,0 +1,6 @@
+// The main board with the built-in CR870 stand-in on J2 (no module emulator): zemu run none.
+using "zd1.repl"
+
+module: ZD1.ZD1_ModuleStandIn @ spi0 2
+    gpio: gpio
+    spi: spi0

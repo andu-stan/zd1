@@ -1,0 +1,9 @@
+$ sys swx
+---- OVERVIEW ----
+sys swx              - ahb switch commands
+sys swx ahberr       - ahb bus error
+sys swx berr         - generate bus error
+sys swx msu          - msu interrupt
+sys swx reg          - show swx registers
+---- DESCRIPTION ----
+executes 'swx' command

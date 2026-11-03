@@ -1,0 +1,7 @@
+$ sys irq
+---- OVERVIEW ----
+sys irq              - interrupt controller/handling
+---- DESCRIPTION ----
+  table                 show irq table
+  info                  show irq info
+  reg                   show registers

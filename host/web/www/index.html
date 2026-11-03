@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>zd1 · Zeppelin Air</title>
+<meta name="color-scheme" content="dark">
+<link rel="stylesheet" href="style.css">
+<script type="module" src="app.js"></script>
+</head>
+<body>
+<nav class="nav">
+  <span class="wordmark">zd1</span>
+  <span class="nav-item">for the B&amp;W Zeppelin Air</span>
+  <span class="grow"></span>
+  <button type="button" id="disconnect" class="quiet" hidden>Disconnect</button>
+</nav>
+
+<!-- the speaker, drawn by js/zd-speaker.js as it is; its name, what it does, and (running) what it plays -->
+<header class="hero">
+  <zd-speaker id="art" mode="welcome"></zd-speaker>
+  <h1 id="title">Zeppelin Air</h1>
+  <p class="status" role="status"><i class="lamp" id="status-lamp"></i><span id="pill">Not connected</span></p>
+  <div id="playing" class="playing" hidden>
+    <div id="sources" class="segmented"></div>
+    <div class="fader">
+      <label for="volume">Volume</label>
+      <input id="volume" type="range" min="0" max="71">
+      <output id="volume-out"></output>
+    </div>
+    <div class="fader">
+      <label for="bass">Bass</label>
+      <input id="bass" type="range" min="0" max="4">
+      <output id="bass-out"></output>
+    </div>
+    <p id="now" class="small"></p>
+  </div>
+</header>
+
+<!-- the job strip: one, while anything runs; its outcome stays until closed -->
+<section id="job" class="job" hidden aria-live="polite">
+  <div class="row"><strong id="job-title"></strong><span id="job-phase" class="small"></span><span class="grow"></span>
+    <button type="button" id="job-cancel" class="quiet" hidden>Stop</button>
+    <button type="button" id="job-close" class="quiet" hidden>Close</button></div>
+  <progress id="job-bar" max="1" value="0"></progress>
+  <p id="job-outcome"></p>
+  <details><summary class="small">What it did</summary><pre id="job-log" class="log"></pre></details>
+</section>
+
+<main>
+  <div id="notices" aria-live="polite"></div>
+
+  <!-- not connected: a triage -->
+  <section id="welcome" class="panel">
+    <h2>Connect</h2>
+    <div class="panel-body">
+      <p class="lead">Plug the speaker into this computer with a USB cable and connect. The page talks to it over USB
+         only: no network, no account.</p>
+      <p id="nousb" class="warn" hidden>This browser has no WebUSB: open the page in Chrome, Edge, Brave or Opera.</p>
+      <div class="row"><button type="button" id="connect" class="primary">Connect…</button>
+        <span class="small">pick “Zeppelin Air”, or its bootloader, in the browser's list</span></div>
+      <h3>What is the speaker doing?</h3>
+      <details class="triage">
+        <summary>Its light shows what it plays: red breathing as it starts, dim red in standby, white for the network, sky blue for USB</summary>
+        <p>It runs our firmware: connect. Changes need a press of its ON/OFF key the first time (its light flashes
+           purple): a web page can't press it.</p>
+      </details>
+      <details class="triage">
+        <summary>It still runs B&amp;W's own software</summary>
+        <p>B&amp;W's firmware doesn't talk to this page and never shows up in the list. Start it in its bootloader
+           instead: unplug its power, hold ON/OFF, plug the power in while holding it, then connect and pick the
+           bootloader (<span class="data">03EB:2FF8</span>). The page offers the install from there.</p>
+      </details>
+      <details class="triage">
+        <summary>It stopped during an update, or it doesn't start</summary>
+        <p>It waits in its bootloader: connect and pick the bootloader. The page shows how far its firmware got and
+           offers a repair or a backup this browser kept. If it isn't listed, hold ON/OFF while plugging its power in.</p>
+      </details>
+      <details class="triage">
+        <summary>It doesn't appear in the browser's list</summary>
+        <ul>
+          <li>Use a USB cable that carries data (some only charge), straight to the computer.</li>
+          <li>The browser: Chrome, Edge, Brave or Opera, on a desktop or on Android. Safari and Firefox have no WebUSB.</li>
+          <li>Windows can't open the speaker yet: its firmware lacks the descriptors Windows needs (macOS, Linux and Android work).</li>
+          <li>Linux: give your user the device with this rule, then plug the speaker in again:
+            <pre class="copy">sudo tee /etc/udev/rules.d/70-zd1.rules &lt;&lt;'EOF'
+SUBSYSTEM=="usb", ATTR{idVendor}=="03eb", ATTR{idProduct}=="2fe0", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="03eb", ATTR{idProduct}=="2ff8", TAG+="uaccess"
+EOF
+sudo udevadm control --reload-rules</pre></li>
+        </ul>
+      </details>
+    </div>
+  </section>
+
+  <!-- the bootloader: the installer -->
+  <section id="dfu" class="panel" hidden>
+    <h2>Firmware</h2>
+    <div class="panel-body">
+      <p class="lead">Its firmware isn't running: the main board waits in its bootloader for firmware. It gets here when
+         asked to (an install), when ON/OFF is held while it powers up, or when its firmware doesn't start.</p>
+      <dl class="facts">
+        <dt>Last boot</dt><dd id="dfu-boot"></dd>
+        <dt>Network module</dt><dd id="dfu-module"></dd>
+      </dl>
+      <div id="dfu-primary" class="stack"></div>
+      <h3>Backups this browser kept</h3>
+      <div id="dfu-backups" class="list"></div>
+      <details>
+        <summary>Back to B&amp;W's software</summary>
+        <p class="small">The module first (B&amp;W's update file, a .bcd: about 6.5 minutes), then the main board
+           (B&amp;W's firmware .hex, or a backup from before our firmware). The speaker comes up as from the factory;
+           this page sees nothing of it afterwards (B&amp;W's firmware has no link to it).</p>
+        <div class="row"><label class="file button">Module image (.bcd)…<input id="rb-bcd" type="file" accept=".bcd"></label>
+          <span id="rb-bcd-name" class="small data"></span></div>
+        <div class="row"><label class="file button">Main board (.hex, .bin, .tar)…<input id="rb-mcu" type="file" accept=".hex,.bin,.tar"></label>
+          <span id="rb-mcu-name" class="small data"></span></div>
+        <button type="button" id="rb-go" class="danger" disabled>Roll back to B&amp;W's software</button>
+      </details>
+      <details>
+        <summary>Advanced</summary>
+        <div class="row">
+          <button type="button" id="dfu-start">Start the firmware</button>
+          <label class="file button">Install MCU firmware from a file…<input id="dfu-file" type="file" accept=".hex,.bin,.tar"></label>
+        </div>
+        <p class="small">Intel HEX, the app region's .bin, or a backup this page saved (.tar).</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- running: our firmware -->
+  <div id="app" hidden>
+    <!-- only when a release is newer than what runs (software.js drawReleases) -->
+    <section id="update" class="banner" hidden></section>
+
+    <section class="panel">
+      <h2>Network</h2>
+      <div class="panel-body">
+        <dl class="facts">
+          <dt>Wi-Fi</dt><dd id="wifi-now"></dd>
+          <dt>Ethernet</dt><dd id="eth-now"></dd>
+        </dl>
+        <form id="name-form" class="row">
+          <label for="name">Name</label>
+          <input id="name" autocomplete="off" spellcheck="false" maxlength="63">
+          <button type="submit">Save</button>
+        </form>
+        <h3>Known networks</h3>
+        <p class="small">The speaker joins the first of these it sees. Their passphrases stay on the speaker.</p>
+        <div id="known" class="list"></div>
+        <div class="row">
+          <button type="button" id="scan">Add a network…</button>
+          <button type="button" id="hidden-net" class="quiet">A hidden network…</button>
+          <span class="grow"></span>
+          <button type="button" id="wifi-toggle" class="quiet"></button>
+        </div>
+        <div id="scan-list" class="list" hidden></div>
+        <form id="join-form" class="stack" hidden>
+          <div class="row"><label for="ssid">Network</label><input id="ssid" autocomplete="off" spellcheck="false" required maxlength="32"></div>
+          <div class="row" id="pass-row"><label for="pass">Passphrase</label>
+            <input id="pass" type="password" autocomplete="off" minlength="8" maxlength="63"></div>
+          <div class="row" id="open-row"><span class="cap"></span>
+            <label class="check"><input id="open" type="checkbox"> an open network (no passphrase)</label></div>
+          <div class="row"><span class="cap"></span><button type="submit" class="primary">Join</button>
+            <button id="join-cancel" type="button" class="quiet">Cancel</button></div>
+          <p class="small">The passphrase stays on this computer: the page derives the WPA2 key from it, and only the key
+             goes to the speaker.</p>
+        </form>
+        <p class="small">The speaker's radio is 802.11b/g: 2.4 GHz networks only. WPA2 and WPA2/WPA3 networks join;
+           WPA3-only networks can't (its driver has no WPA3).</p>
+        <details>
+          <summary>Addresses</summary>
+          <div id="addr"></div>
+        </details>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Receivers</h2>
+      <div class="panel-body"><div id="receivers" class="stack"></div></div>
+    </section>
+
+    <section class="panel">
+      <h2>Behaviour</h2>
+      <div class="panel-body">
+        <div class="row"><span class="cap">USB</span>
+          <label class="check"><input id="auto-switch" type="checkbox"> a computer that starts playing over USB takes the speaker</label></div>
+        <div class="row"><label for="amp">Amplifier</label>
+          <select id="amp">
+            <option value="auto">comes on with sound</option>
+            <option value="deny">locked: stays off</option>
+          </select>
+          <span id="amp-now" class="small"></span></div>
+        <div class="row"><label for="vol-cap">Volume cap</label>
+          <select id="vol-cap"></select>
+          <span class="small">the loudest the speaker plays, on every source, whatever sets the volume (its keys, the
+            remote, the computer, AirPlay, Spotify, Snapcast)</span></div>
+        <div class="row"><label for="amp-idle">Off after</label>
+          <select id="amp-idle"></select>
+          <span class="small">of silence (it comes back with the sound, the first seconds lost)</span></div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Diagnostics</h2>
+      <div class="panel-body">
+        <details>
+          <summary>Show the internals and the log</summary>
+          <dl id="diag" class="facts data"></dl>
+          <div class="row"><span class="small">The MCU's log</span><span class="grow"></span>
+            <button type="button" id="report">Save a report</button>
+            <button type="button" id="log-clear" class="quiet">Clear</button></div>
+          <pre id="log" class="log"></pre>
+        </details>
+      </div>
+    </section>
+
+    <section id="software" class="panel">
+      <h2>Software</h2>
+      <div class="panel-body">
+        <dl class="facts">
+          <dt>Main board</dt><dd id="fw" class="data"></dd>
+          <dt>Network module</dt><dd id="os" class="data"></dd>
+          <dt>System slots</dt><dd id="slots" class="data"></dd>
+        </dl>
+        <div id="verdict" class="stack"></div>
+        <div id="builds" class="stack" hidden></div>
+        <div id="ways-back" class="row"></div>
+        <details>
+          <summary>Install from a file</summary>
+          <div class="row">
+            <label class="file button">A system image (.gz)…<input id="system-file" type="file" accept=".gz"></label>
+            <label class="file button">MCU firmware (.hex, .bin, .tar)…<input id="mcu-file" type="file" accept=".hex,.bin,.tar"></label>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Advanced</h2>
+      <div class="panel-body">
+        <details>
+          <summary>Debug services, the gate, settings, defaults</summary>
+          <div class="row"><span class="cap">Debug</span><div id="debug" class="segmented"></div></div>
+          <p class="small">A root shell (telnet 2323) and raw memory (23) on the network for anyone on it: off unless
+             needed. Until the speaker powers off.</p>
+          <div class="row"><span class="cap">Changes</span><span id="gate-now"></span><span class="grow"></span>
+            <button type="button" id="gate-btn" class="quiet"></button></div>
+          <div class="row"><span class="cap">Settings</span>
+            <button type="button" id="export">Export…</button>
+            <label class="file button">Import…<input id="import" type="file" accept=".txt,text/plain"></label></div>
+          <div class="row"><span class="cap">Defaults</span>
+            <button type="button" id="reset-settings" class="danger">Settings to their defaults</button>
+            <button type="button" id="reset-all" class="danger">Everything, as from the factory</button></div>
+        </details>
+        <details id="console-pane">
+          <summary>The module's console</summary>
+          <p class="small">The network module's serial console (its boot, BL1's and BL2's menus, our system's shell): a
+             root shell on the module, open while this is unfolded.</p>
+          <pre id="console" class="log"></pre>
+          <div class="row"><input id="console-line" class="grow" autocomplete="off" spellcheck="false"
+              placeholder="A line for the console: Enter sends it">
+            <button type="button" id="console-ctrlc" class="quiet">Ctrl-C</button></div>
+          <div class="row"><span class="cap">Recovery</span>
+            <button type="button" id="console-esc">Into BL2…</button>
+            <button type="button" id="console-restart" class="quiet">Restart the module</button></div>
+        </details>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer class="footer">zd1 · host protocol <span id="proto" class="data"></span> · this browser talks to the speaker over
+  WebUSB: no account, no cloud · <a href="design.html">design</a></footer>
+
+<dialog id="press">
+  <h2><i class="lamp on press-lamp"></i>Press ON/OFF on the speaker</h2>
+  <p>Its light flashes purple: a press there allows this change (and the next ones for 10 minutes). The press does
+     nothing else.</p>
+  <div class="row"><span class="grow"></span><button type="button" id="press-giveup" class="quiet">Give up</button></div>
+</dialog>
+
+<dialog id="grant">
+  <h2>One more device to allow</h2>
+  <p id="grant-what"></p>
+  <p>The browser asks once which device this page may use: pick it in the list.</p>
+  <div class="row"><span class="grow"></span><button type="button" id="grant-ok" class="primary">Allow…</button></div>
+</dialog>
+
+<dialog id="confirm">
+  <h2 id="confirm-title">Confirm</h2>
+  <p id="confirm-text"></p>
+  <div class="row"><span class="grow"></span>
+    <button type="button" id="confirm-no" class="quiet">Cancel</button>
+    <button type="button" id="confirm-yes" class="primary">Go ahead</button></div>
+</dialog>
+</body>
+</html>

@@ -1,0 +1,14 @@
+[package]
+name = "zd1-link"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+description = "Module side of the MCU <-> module SPI link (the stock register protocol) for the DM870, no_std"
+
+[features]
+# the last 32 requests kept for tracing (Link::requests: zd1-linkd's debug build)
+trace = []
+
+[dependencies]
+dm870.workspace = true
+zd1-spi.workspace = true

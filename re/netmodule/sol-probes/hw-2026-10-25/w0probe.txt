@@ -1,0 +1,90 @@
+w0probe.py 169.254.1.1:4523 --core 1 ...   (unit, our OS normal image, zd1-memsh started by hand; Wi-Fi associated)
+
+cop3
+COP3 set to 0x5, then a Warp reset: reads 0x0
+COP3 set to 0x10, then a Warp reset: reads 0x0
+COP3 set to 0x0, then a Warp reset: reads 0x0
+
+cachebit (first run; the kernel panicked in sulu_wlan_isr shortly after, see docs/module/warp.md section 7)
+COP3=0:  101.21 cycles per 5-instruction iteration from SDRAM
+COP3=1:    9.35 cycles per 5-instruction iteration from SDRAM
+COP3=4:    5.22 cycles per 5-instruction iteration from SDRAM
+COP3=5:    5.39 cycles per 5-instruction iteration from SDRAM
+(later: 0 100.24, 4 5.32, 5 5.30; 1 alone 8.84; full again 0 101.62, 1 5.37, 4 5.29, 5 5.69)
+
+localcache
+local RAM code, cache on: wrote 0x1111 then 0x2222 at one address, ran 0x1111 then 0x2222 -> not cached
+SDRAM code (control), cache on: ran 0x3333 then 0x3333 -> cached (stale)
+
+tags (after an invalidate, 32 instructions at 0x61FCA800; non-zero words after)
++0x004=003c3f95 +0x008=003c3f95 +0x00c=003c3f95 +0x010=003c3f80 +0x014=003c3f80 +0x018=003c3f80 +0x01c=003c3f80
++0x030=003c3f80 +0x0e4=003c3f8f +0x0e8=003c3f8f +0x100=003c3f95 +0x104=003c3f80 +0x108=003c3f80 +0x10c=003c3f80
++0x124=003c3f80 +0x128=003c3f80 +0x12c=003c3f80 +0x134=003c3f80, then the same at +0x200 and +0x400
+(0x61FCA800 >> 11 = 0xC3F95; 0x61FC0000 >> 11 = 0xC3F80, the runner; 0x61FC7F00 >> 11 = 0xC3F8F, the invalidate stub)
+
+delay
+next instruction saw 0x61fe6100 (address 0x61fe6100); after it 0xaaaa5555; a write of 5 in the delay slot -> 0x5
+
+bus
+registers only                 5.52 cycles per iteration (5 instructions)
+SRAM store                     5.39
+peripheral load (scratch)     14.19
+peripheral store (scratch)     5.22
+peripheral load (AV block)    14.01
+
+odd ($10 before 0x1111, $11 = 0x2222, $13 = 3)
+movz $10,$11,$12 ($12=0)     $10 = 0x2222
+movz $10,$11,$12 ($12=7)     $10 = 0x2222
+movn $10,$11,$12 ($12=0)     $10 = 0x2222
+movn $10,$11,$12 ($12=7)     $10 = 0x2222
+mul $10,$11,$13              $10 = 0x2222
+clz $10,$11                  $10 = 0x2222
+beql taken: delay slot ran 1, the instruction after it ran 1; bnel not taken: delay slot ran 1, the next ran 1
+
+bit0 (Wi-Fi down: sulu_wlan unloaded), cycles per instruction, loops 0.5 s long
+5 in one line        COP3=1:   1.03  COP3=4:   1.01  COP3=0:  19.50
+5 across two lines   COP3=1:   1.02  COP3=4:   1.00  COP3=0:  19.32
+32 = 4 lines         COP3=1:   1.04  COP3=4:   1.03  COP3=0:  19.57
+128 = 16 lines       COP3=1:   1.02  COP3=4:   1.03  COP3=0:  19.39
+tags after a COP3 = 1 run of 4 lines at 0x61fd8400: 5 entries 0x3c3fb0 (words [32, 33, 34, 35, 36])
+4 lines filled with COP3 = 4, then COP3 = 1 without an invalidate: 1.01, then 1.02 cycles per instruction
+5 in one line        COP3=1 x10: 1.00 1.04 1.04 1.02 1.02 1.05 1.05 1.02 1.02 1.05
+5 across two lines   COP3=1 x10: 1.01 1.01 1.01 1.03 1.05 1.04 1.03 1.02 1.04 1.06
+Wi-Fi up again (after a reboot):
+5 in one line        COP3=1 x6: 1.03 1.04 1.06 1.04 1.00 1.03 / COP3=4 x6: 1.02 1.02 1.00 1.03 1.04 1.05
+5 across two lines   COP3=1 x6: 1.02 1.02 1.05 1.02 1.03 1.02 / COP3=4 x6: 1.00 1.01 1.04 1.02 1.03 1.02
+the old cachebit loop (1,000,000 passes, ~30 ms), cycles per 5 instructions, three runs each:
+COP3=0: 99.12 101.82 99.20 | 1: 5.28 7.83 8.34 | 4: 9.88 5.26 9.29 | 5: 5.19 8.22 5.29  -> polling noise
+
+--- second session (Wi-Fi down: sulu_wlan unloaded) ---
+unaligned (0x44332211 0x88776655 at OUT, 0xCAFEF00D at OUT + 8)
+lw  at +1: 0x44332222 | lw at +2: 0x66556655 | lw at +3: 0x66556666
+lh  at +1: 0x00002222 | lh at +3: 0x00004444 | lhu at +1: 0x00002222 | lhu at +3: 0x00004444
+ll from 0xCAFEF00D: 0x5555 (target unchanged); sc of 0x1234: $11 = 0x1234, memory 0x0
+
+tagbits (line A filled, its code changed in SDRAM, its tag entry rewritten, A called again)
+tag 0x3c3fb2 written as 0x3c3fb2: stale (still valid)
+tag 0x3c3fb2 written as 0x1c3fb2: stale (still valid)
+tag 0x3c3fb2 written as 0x2c3fb2: refetched
+tag 0x3c3fb2 written as 0x000000: refetched
+
+viewread (A then B into set 0, single reads): tag word 0 = 0x3c3fb3 (B) twice, word 64 = 0, word 1 = 0x3c3f80;
+data 0x10000 = B word 0, 0x10004 = B word 1, 0x10008 = B word 2, 0x10800 = B word 0 (stale or alias)
+
+assoc (cycles per pass of a loop calling one-line functions, 2,000,000 passes)
+A alone 16.1 | A, A+1K 29.8 | A, A+2K 29.4 | A, A+4K 29.4 | A, A+8K 29.7 | A, A+2K, A+4K 117.2 | A, A+1K, A+2K 43.1 |
+A..A+3K by 1K 55.3
+
+policy (cycles per pass): AB 30.3 | ABAC 144.2 | ABCB 144.3 | AABC 129.4 | ABACAB 186.1
+
+present (one pass from empty, then is the line cached: c = yes)
+after ABC   A 3/12 .c.....c...c   B 9/12 ccccc.ccc.c.
+after ABAC  A 6/12 ...c..cc.ccc   B 6/12 .cc..cc..cc.
+after AB    A 8/12 cccc.cc..c.c   B 12/12
+
+bigloop (COP3 = 5, cycles per instruction, two ~1 s runs)
+2 KB 1.02 1.03 | 3 KB 1.02 1.02 | 4 KB 1.00 1.02 | 5 KB 2.72 2.73 | 6 KB 3.90 3.90 | 8 KB 4.70 4.72 |
+12 KB 5.07 5.08 | 16 KB 5.31 5.31
+
+Wi-Fi crash reproduction (fresh power cycle, then cop3, the original 1,000,000-pass cachebit, localcache; dmesg
+and a router ping after each step, and 2 minutes later), twice: no fault.

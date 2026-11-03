@@ -1,0 +1,31 @@
+$ os map
+MemPool : Heap Memory at 60941e00
+MemHeader : 60975d40.  total length : 0136A2A8. total free memory : 00B183F8
+ timestamp   address     length      next        owner
+             60984738    00000078    60996380      free
+             60996380    00000058    60a13e80      free
+             60a13e80    00000008    60d516e0      free
+             60d516e0    00000058    610c3e38      free
+             610c3e38    00000110    610cf8c8      free
+             610cf8c8    00000058    6118f0a0      free
+             6118f0a0    00000100    6118fc98      free
+             6118fc98    00000048    61195088      free
+             61195088    000001F0    61199318      free
+             61199318    000003B8    6119a1e8      free
+             6119a1e8    000003B8    6119bf28      free
+             6119bf28    00000500    611c0c98      free
+             611c0c98    00029D50    611f2b98      free
+             611f2b98    00AED468    00000000      free
+Summary : 1597 total blocks, 1583 used blocks, 14 free blocks
+
+MemPool : UMR0 Memory at 60941e40
+MemHeader : 004040a0.  total length : 0000B948. total free memory : 000063C8
+ timestamp   address     length      next        owner
+             00409638    000063C8    00000000      free
+Summary : 30 total blocks, 29 used blocks, 1 free blocks
+
+MemPool : HeapNoCached Memory at 60941dc0
+MemHeader : 71d00000.  total length : 002FFFE8. total free memory : 000F6A70
+ timestamp   address     length      next        owner
+             71f09590    000F6A70    00000000      free
+Summary : 20 total blocks, 19 used blocks, 1 free blocks

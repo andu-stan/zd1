@@ -1,0 +1,18 @@
+$ sys wlan test
+---- OVERVIEW ----
+sys wlan test        - Test commands for Wifi test mode.
+---- DESCRIPTION ----
+  static            Configures the device to a static IP.
+  startTx                      <channel> <rate>.Starts continous Transmission.Give channel number and rate as the parameters
+                               Channel range [1-14] and rate range [0-15]
+  startCarrierTx               <channel> <rate>.Starts continous transmission of unmodulated carrier
+  startRx                      Puts device in Rx mode.
+  stopRx                       Exits the continous Rx mode
+  setupBedge                   Setup the firmware to do the B mode test
+  stopBedge                    Stop the B mode continuous test
+  setChannel                   <channel number> Sets the channel.Enter number b/n 1 and 14.
+Rate parameter is a value between 0 and 11 as follows:
+DSSS_CCK_1MBPS = 0;DSSS_CCK_2MBPS = 1;DSSS_CCK_5_5MBPS = 2
+DSSS_CCK_11MBPS = 3;OFDM_48MBPS = 4;OFDM_24MBPS = 5
+OFDM_12MBPS = 6;OFDM_6MBPS = 7;OFDM_54MBPS = 8
+OFDM_36MBPS = 9;OFDM_18MBPS = 10;OFDM_9MBPS = 11

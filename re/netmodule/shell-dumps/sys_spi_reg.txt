@@ -1,0 +1,17 @@
+$ sys spi reg
+0xb1002000: iSpiCfgSet               = 0x005ef101
+0xb1002008: iSpiDiv                  = 0x0001387e
+0xb100200c: iSpiNop                  = 0x000000ff
+0xb1002010: iSpiWd                   = 0x00000000
+0xb1002020: iSpiStatSet              = 0x00000000
+0xb1002030: iSpiIrqMaskSet           = 0x00000000
+
+0xb1002f10: iFifoFillLevelThdRx      = 0x00000004
+0xb1002f14: iFifoEmptyLevelThdTx     = 0x0000003b
+0xb1002f18: iFifoFillLevelRx         = 0x00000000
+0xb1002f1c: iFifoEmptyLevelTx        = 0x0000003f
+0xb1002f20: iFifoTimer               = 0x00000000
+0xb1002f24: iFifoTimerThd            = 0x00000010
+0xb1002f30: iFifoCfgSet              = 0x00000001
+0xb1002f40: iFifoStatSet             = 0x00000c05
+0xb1002f50: iFifoIrqMaskSet          = 0x00000300
