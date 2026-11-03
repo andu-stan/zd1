@@ -238,14 +238,16 @@ export function drawReleases() {
     );
   } else {
     const [pm, ps] = [position(fw, "mcu"), position(os, "system")];
-    const say = (p, what) =>
+    const say = (p, what, running) =>
       p === 0
         ? `${what} up to date`
         : p > 0
           ? `${what} ${p} release${p > 1 ? "s" : ""} behind`
-          : `${what}: not a released build`;
+          : running
+            ? `${what} on ${running}, a build that isn't a release`
+            : `${what} without our software`;
     const needs = [rel.system && ps !== 0 && "system", rel.mcu && pm !== 0 && "mcu"].filter(Boolean);
-    const where = `${say(pm, "main board")}, ${say(ps, "module")}.`;
+    const where = `${say(pm, "main board", fw)}, ${say(ps, "module", os)}.`;
     const named = `release ${rel.version}${rel.date ? ` (${rel.date})` : ""}`;
     v.append(el("p", { textContent: needs.length ? `Latest ${named}: ${where}` : `Up to date: ${named}.` }));
     if (rel.notes) v.append(el("p", { className: "small notes", textContent: rel.notes }));
