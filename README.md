@@ -1,10 +1,17 @@
 # zd1: new firmware for the B&W Zeppelin Air
 
+<p align="center"><a href="https://pawlowskialex.github.io/zd1/"><img src="docs/img/page-speaker.png" width="600"
+alt="The web page's drawing of the speaker: its outline lit white while it plays AirPlay, sound coming off both ends"></a></p>
+
 The Bowers & Wilkins Zeppelin Air (2011, the one with the 30-pin iPod dock) is a very good speaker that B&W stopped
 updating long ago: AirPlay 1 only, on a network module from 2010. This project replaces the
 firmware on both of its boards, so the same speaker plays **AirPlay 2** (multi-room, in step with your other AirPlay
 speakers) and **Snapcast**, and is set up and updated from a computer over USB. Nothing to open, solder or
 take apart: everything goes in through the USB port on the back, and the stock firmware can go back on the same way.
+
+The [web page](https://pawlowskialex.github.io/zd1/) installs it and then shows the speaker as it is, above: its
+LED's colour and look as a glow on the outline (white for AirPlay, breathing when paused, dim with the amp asleep),
+sound coming off both ends while it plays.
 
 It is a hobby project, reverse-engineered from the stock firmware and developed on **one speaker**. Read
 "Before you start" and "What doesn't work" below before you put it on yours.
@@ -50,7 +57,10 @@ on a 2010 ARM9 for all of this. What works and how it was checked: `docs/status.
   repaired. Our firmware keeps the stock protections, caps the volume (below, Living with it), backs the volume off when the board
   gets hot, and lets the amp sleep. `zd1 amp deny` locks the amp off, across restarts too.
 - **AirPlay is reverse-engineered**, not Apple's: an iOS or macOS update could break something.
-- **One unit tested.** Other board revisions, or the later Lightning-dock Zeppelin Air, may differ; nobody has tried.
+- **One unit tested**, a 30-pin Zeppelin Air. The **Zeppelin Air with Lightning connector** (2013) *might* work: B&W's
+  MCU firmware for it is most likely the same binary, run as its second board variant, with the same network module
+  (`docs/mcu/stock-firmware.md`), but nobody has tried, and its dock is unsupported either way. The **Zeppelin A7**
+  runs another MCU build on other hardware: not without changes.
 - **On your network** the speaker runs an AirPlay receiver like any other AirPlay speaker. Its debug services
   (a shell and memory access) are off and can only be switched on over USB. Requests that change the speaker over
   USB (a flash, settings) need a press of ON/OFF on it first, so a web page you open can't change it on its own (below).
