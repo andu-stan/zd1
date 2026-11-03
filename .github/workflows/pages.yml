@@ -82,6 +82,29 @@ jobs:
           print(json.dumps(out, indent=1))
           PY
       - uses: actions/upload-pages-artifact@v3
+        id: upload
         with: { path: site }
-      - id: deploy
-        uses: actions/deploy-pages@v4
+      # actions/deploy-pages calls a deployment by the commit (GITHUB_SHA; no input changes it): a release tagged on the
+      # commit main deployed last was taken for that deployment and the site stayed as it was. Its API calls, with a
+      # version of this run's own.
+      - name: deploy
+        id: deploy
+        env: { GH_TOKEN: "${{ github.token }}", ARTIFACT_ID: "${{ steps.upload.outputs.artifact_id }}" }
+        run: |
+          set -eu
+          oidc="$(curl -sf -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL" | jq -r .value)"
+          d="$(gh api -X POST "repos/$GITHUB_REPOSITORY/pages/deployments" -F artifact_id="$ARTIFACT_ID" \
+            -f pages_build_version="$GITHUB_SHA-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT" -f oidc_token="$oidc")"
+          id="$(jq -r '.id // (.status_url | split("/") | last)' <<<"$d")"
+          echo "page_url=$(jq -r .page_url <<<"$d")" >>"$GITHUB_OUTPUT"
+          for _ in $(seq 120); do
+            s="$(gh api "repos/$GITHUB_REPOSITORY/pages/deployments/$id" --jq .status)"
+            echo "deployment $id: $s"
+            case "$s" in
+              succeed) exit 0 ;;
+              deployment_failed | deployment_lost | deployment_content_failed | deployment_cancelled) exit 1 ;;
+            esac
+            sleep 5
+          done
+          echo "no final status in 10 minutes"
+          exit 1
