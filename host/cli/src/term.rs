@@ -85,9 +85,10 @@ impl Events for Term {
     fn cancelled(&self) -> bool {
         STOP.load(Ordering::SeqCst)
     }
-    fn wants_device(&self, vid: u16, pid: u16, what: &str) {
+    fn wants_device(&self, vid: u16, pid: u16, what: &str) -> bool {
         self.end_line();
         eprintln!("waiting for {what} ({vid:04X}:{pid:04X})");
+        false
     }
 }
 

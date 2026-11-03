@@ -107,10 +107,16 @@ pub trait Bus {
     }
 }
 
+/// How long a person gets to grant a device the program asked for (the browser's chooser).
+pub const GRANT_MS: u32 = 120_000;
+
 /// Wait up to `ms` of the bus's time for vid:pid to come, then open it. `ev` hears once that the device is wanted
 /// (WebUSB: a device the page hasn't been granted yet; the person picks it in the browser's chooser). A device that
 /// has just come may refuse the open for a moment while the host OS sets it up (WebUSB's open fails then): that is
-/// tried again, and only the last refusal is the error, once the time is up.
+/// tried again, and only the last refusal is the error, once the time is up. Once a person was asked for the device
+/// (`Events::wants_device`), the wait gives them [`GRANT_MS`] from then: the browser's chooser takes a person's time,
+/// and while it is open the browser holds the device (an open fails: "an operation that changes interface state is
+/// in progress").
 pub async fn wait_open<B: Bus>(
     bus: &B,
     vid: u16,
@@ -121,7 +127,7 @@ pub async fn wait_open<B: Bus>(
     what: &str,
 ) -> Result<Option<B::Dev>> {
     const STEP: u32 = 200;
-    let (mut waited, mut asked, mut refused) = (STEP, false, None);
+    let (mut waited, mut asked, mut refused, mut ms) = (STEP, false, None, ms);
     bus.sleep(STEP).await; // what we wait for has just left, or is about to come
     loop {
         match bus.open(vid, pid, iface).await {
@@ -133,7 +139,9 @@ pub async fn wait_open<B: Bus>(
             return refused.map_or(Ok(None), Err);
         }
         if waited >= 1500 && !asked {
-            ev.wants_device(vid, pid, what);
+            if ev.wants_device(vid, pid, what) {
+                ms = ms.max(waited + GRANT_MS);
+            }
             asked = true;
         }
         bus.sleep(STEP).await; // in the bus's time: the emulator's runs at its own pace
@@ -500,6 +508,23 @@ mod tests {
         };
         assert!(matches!(open(2, 15_000), Ok(Some(_))));
         assert!(matches!(open(1000, 1_000), Err(Error::Device(_))));
+    }
+
+    /// A page that asked the person for the device: the browser's chooser holds it meanwhile.
+    struct Asks;
+    impl crate::Events for Asks {
+        fn wants_device(&self, _: u16, _: u16, _: &str) -> bool {
+            true
+        }
+    }
+
+    #[test]
+    fn a_person_asked_for_the_device_gets_time_to_grant_it() {
+        // refused for 40 s of 200 ms steps: past the 15 s, within the grant's time
+        let bus = |n| Refusing { refusals: Cell::new(n) };
+        let open = |n, ev: &dyn crate::Events| now(wait_open(&bus(n), 1, 2, Iface::Number(0), 15_000, ev, "x"));
+        assert!(matches!(open(200, &Asks), Ok(Some(_))));
+        assert!(matches!(open(200, &crate::Quiet), Err(Error::Device(_))));
     }
 
     #[test]

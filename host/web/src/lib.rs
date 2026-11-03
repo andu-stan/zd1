@@ -80,8 +80,9 @@ impl Events for Ev {
     fn cancelled(&self) -> bool {
         self.0.cancelled()
     }
-    fn wants_device(&self, vid: u16, pid: u16, what: &str) {
-        self.0.wants_device(vid, pid, what)
+    fn wants_device(&self, vid: u16, pid: u16, what: &str) -> bool {
+        self.0.wants_device(vid, pid, what);
+        true
     }
 }
 
