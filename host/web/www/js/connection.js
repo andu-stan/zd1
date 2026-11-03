@@ -167,9 +167,11 @@ export async function job(title, stoppable, f) {
         : e?.code === "DENIED"
           ? "Nobody pressed ON/OFF on the speaker in time: nothing changed."
           : `${e?.message ?? e}${
-              e?.code === "GONE" || e?.code === "DEVICE"
+              e?.code === "GONE"
                 ? " The speaker's connection went away: plug it in again and connect; the page shows the state it is in and the way out (in its bootloader: Repair, or a backup)."
-                : ""
+                : e?.code === "DEVICE"
+                  ? " The browser couldn't open the speaker: connect again (or unplug it and plug it in first); the page shows the state it is in and what is left to do."
+                  : ""
             }`;
   } finally {
     jobRunning = false;

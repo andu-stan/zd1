@@ -85,10 +85,51 @@ impl Events for Ev {
     }
 }
 
+/// The WebUSB backend's warnings: nusb logs the browser's own reason ("Unable to open device", ...) and returns
+/// "WebUSB error (see logs)". They go to the console, and the last one into the error the page shows.
+struct ConsoleLog;
+thread_local! {
+    static LAST_WARNING: RefCell<String> = const { RefCell::new(String::new()) };
+}
+impl log::Log for ConsoleLog {
+    fn enabled(&self, m: &log::Metadata) -> bool {
+        m.level() <= log::Level::Warn
+    }
+    fn log(&self, r: &log::Record) {
+        if self.enabled(r.metadata()) {
+            let s = r.args().to_string();
+            console_warn(&s);
+            LAST_WARNING.with(|l| *l.borrow_mut() = s);
+        }
+    }
+    fn flush(&self) {}
+}
+static LOG: ConsoleLog = ConsoleLog;
+
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(js_namespace = console, js_name = warn)]
+    fn console_warn(s: &str);
+}
+
+#[wasm_bindgen(start)]
+fn start_log() {
+    if log::set_logger(&LOG).is_ok() {
+        log::set_max_level(log::LevelFilter::Warn);
+    }
+}
+
 /// An error for JavaScript: its message, and `code` (host/core's `Error::code`: GONE, TIMEOUT, LOCKED, DENIED,
 /// CANCELLED, ARG, ...).
 fn js_err(e: Error) -> JsValue {
-    let err = js_sys::Error::new(&e.to_string());
+    let mut msg = e.to_string();
+    if msg.contains("(see logs)") {
+        let why = LAST_WARNING.with(|l| l.borrow().clone());
+        if !why.is_empty() {
+            msg = msg.replace("(see logs)", &format!("({why})"));
+        }
+    }
+    let err = js_sys::Error::new(&msg);
     let _ = Reflect::set(&err, &"code".into(), &e.code().into());
     err.into()
 }
