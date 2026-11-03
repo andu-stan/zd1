@@ -41,7 +41,9 @@ what an API on the module will serve.
   shown while the supplicant retries: WRONGKEY (`CTRL-EVENT-SSID-TEMP-DISABLED ... reason=WRONG_KEY`, the 4-way
   handshake failed) until a connection completes, NOTFOUND (`CTRL-EVENT-NETWORK-NOT-FOUND`) until the network is
   being joined, FAILED for the rest. The supplicant runs whenever the radio is on (`wifi.mode` not off and `wlan0`
-  there), with no network known too: IDLE then, and it scans when asked; OFF is no supplicant at all. `zd1
+  there), with no network known too: IDLE then, and it scans when asked (the supplicant reports NETWORK-NOT-FOUND
+  after those scans too: without a network IDLE wins, and the host's sentence says "No network known yet" whatever
+  the state [HW 2026-11-03: the first boot after the install said "not in range"]); OFF is no supplicant at all. `zd1
   wifi` prints it in a line ("Home (WPA2): connected to 02:00:00:00:00:0a at -57 dBm, 192.0.2.177").
 - **The slots' stamps** (`stamp_a`, `stamp_b`: what each system slot holds, empty for none) are read by `zd1-linkd`
   in a thread after it starts and after an update (the slot that doesn't run: what `zd1-slot install` recorded in

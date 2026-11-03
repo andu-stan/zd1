@@ -370,7 +370,9 @@ pub fn state_of(wpa_state: &str, reason: Option<WifiState>) -> (WifiState, Optio
             Some(WifiState::WrongKey) => (WifiState::WrongKey, reason),
             _ => (WifiState::Connecting, None),
         },
-        "INACTIVE" => (reason.unwrap_or(WifiState::Idle), reason), // no network configured
+        // no network configured: idle, whatever a scan reported (the supplicant says NETWORK-NOT-FOUND after a scan
+        // with nothing to look for too)
+        "INACTIVE" => (WifiState::Idle, None),
         "INTERFACE_DISABLED" => (reason.unwrap_or(WifiState::Off), reason),
         _ => (reason.unwrap_or(WifiState::Scanning), reason), // SCANNING, DISCONNECTED
     }
@@ -446,6 +448,7 @@ mod tests {
         let r = reason("CTRL-EVENT-NETWORK-NOT-FOUND", None);
         assert_eq!(state_of("SCANNING", r), (NotFound, r));
         assert_eq!(state_of("ASSOCIATING", r), (Connecting, None), "seen now");
+        assert_eq!(state_of("INACTIVE", r), (Idle, None), "no network to find: nothing missing");
         assert_eq!(reason("CTRL-EVENT-SCAN-RESULTS", r), r, "an event that says nothing keeps what was known");
         assert_eq!(reason("CTRL-EVENT-CONNECTED - Connection to 00:11:22:33:44:55 completed", r), None);
         assert_eq!(

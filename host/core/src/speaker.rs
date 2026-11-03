@@ -49,6 +49,10 @@ pub fn wifi(st: &msg::State, known: &[msg::KnownNetwork]) -> (String, Tone) {
     }
     let ssid = |or: &str| if st.wifi_ssid.is_empty() { or.to_string() } else { st.wifi_ssid.clone() };
     let looking = known.iter().map(|n| n.ssid.as_str()).collect::<Vec<_>>().join(", ");
+    // nothing to look for: whatever the radio's last scan said (the supplicant reports "not found" then too)
+    if known.is_empty() && matches!(st.wifi, WifiState::NotFound | WifiState::Scanning | WifiState::Idle) {
+        return ("No network known yet: add one (the radio scans when asked).".into(), Tone::Plain);
+    }
     match st.wifi {
         WifiState::Connected => (
             format!(
@@ -64,7 +68,7 @@ pub fn wifi(st: &msg::State, known: &[msg::KnownNetwork]) -> (String, Tone) {
         WifiState::Scanning => {
             (format!("Looking for {}…", if looking.is_empty() { "a known network" } else { &looking }), Tone::Plain)
         }
-        WifiState::Idle => ("No network known yet: the radio idles (it scans when asked).".into(), Tone::Plain),
+        WifiState::Idle => ("No network to join: the radio idles (it scans when asked).".into(), Tone::Plain),
         WifiState::WrongKey => {
             (format!("{}: the passphrase is wrong; join it again with the right one.", ssid("The network")), Tone::Warn)
         }
