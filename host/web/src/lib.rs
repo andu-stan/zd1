@@ -496,6 +496,19 @@ impl Speaker {
         Ok(o.into())
     }
 
+    /// The module's boot image (our .bcd) through BL2's XModem, for a module in BL2 with no image to start (a boot
+    /// image update that stopped: `install::boot_image_in_bl2`); then the module up on its good slot. The connection
+    /// stays. { os }: what the module runs.
+    #[wasm_bindgen(js_name = updateBootInBl2)]
+    pub async fn update_boot_in_bl2(&self, bcd: Vec<u8>) -> Result<JsValue, JsValue> {
+        let mut m = self.take().await?;
+        let r = install::boot_image_in_bl2(&mut m, &bcd).await;
+        self.put(m);
+        let o = Object::new();
+        set(&o, "os", r.map_err(js_err)?.mod_os);
+        Ok(o.into())
+    }
+
     /// Our MCU firmware onto the speaker: into DFU (the page needs the bootloader granted: wantsDevice), a backup
     /// (events.backup: kept before anything is written), flash, verify, start, check. This connection ends: connect
     /// again afterwards. { fw, built, rcause, stages, matches }.

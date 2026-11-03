@@ -251,9 +251,20 @@ function banner(title, text, label, f, notes) {
 
 /// An install that stopped on the way (the person away, the page closed): the state it left, picked up from there.
 /// Our firmware with the module on the stock software (the boot image never went on): the whole install again. The
-/// module on its rescue: it has no system yet (or none that starts): the system.
+/// module on its rescue: it has no system yet (or none that starts): the system. The module in BL2: an update of its
+/// boot image stopped after BL2 erased the old one: the boot image through BL2's XModem.
 function unfinished(rel) {
   const ms = names(app.S.ModState)[app.info.mod_state];
+  if (ms === "bl2" && rel.bcd?.ours) {
+    banner(
+      "The module's boot image is missing",
+      "The module stopped in its bootloader with no boot image to start: an update of it didn't finish. It goes on " +
+        "again over the speaker's own link (about 5 minutes; keep this tab in front). Its system and settings stay.",
+      `Write ${rel.version}'s boot image`,
+      () => writeBootInBl2(rel),
+    );
+    return true;
+  }
   if (ms === "stock" && rel.mcu && rel.system && rel.bcd) {
     banner(
       "The install isn't finished",
@@ -273,6 +284,14 @@ function unfinished(rel) {
     return true;
   }
   return false;
+}
+
+async function writeBootInBl2(rel) {
+  await job(`Write the module's boot image (${rel.version})`, false, async () => {
+    const r = await app.sp.updateBootInBl2(await fetchImage(rel.bcd));
+    return `Done: the module runs ${r.os}.`;
+  });
+  refresh(true);
 }
 
 async function finishAll(rel) {
@@ -383,7 +402,7 @@ export function drawReleases() {
 export async function updateTo(rel, needs, finishing = false) {
   const parts = {
     system: "the module's system goes into the slot that doesn't run (the old one stays as the way back)",
-    boot: "the module's boot image (its start-up and its rescue) is rewritten through the bootloader, about 5 minutes",
+    boot: "the module's boot image (its start-up and its rescue) is rewritten through the bootloader, about 5 minutes (keep this tab in front: a browser slows a tab in the background)",
     mcu: "the main board's firmware (a backup of it first: a download, and a copy in this browser)",
   };
   const plan = needs.map((k) => parts[k]).join("; then ");

@@ -36,9 +36,10 @@ export async function refresh(all) {
     app.info = await app.sp.call("Info", {});
     const diag = await app.sp.call("Diag", {});
     if (all) {
-      app.state = await app.sp.state();
-      app.known = await app.sp.list("Networks").catch(() => []);
-      drawSettings();
+      // the State record only from a module up as our OS (booting, in BL2 or on the stock software it has none)
+      app.state = moduleUp() ? await app.sp.state() : null;
+      app.known = app.state ? await app.sp.list("Networks").catch(() => []) : [];
+      if (app.state) drawSettings();
       drawSoftware(await app.sp.call("BootState", {}));
     }
     drawDiag(diag);
@@ -52,7 +53,11 @@ export async function refresh(all) {
   }
 }
 
+/// The module up as our OS: what the Network and Receivers sections are about.
+const moduleUp = () => names(app.S.ModState)[app.info?.mod_state] === "ready";
+
 export function draw() {
+  $("network-panel").hidden = $("receivers-panel").hidden = !moduleUp() || !app.state;
   const i = app.info,
     src = SRC()[i.source],
     player = PLAYER()[i.player];

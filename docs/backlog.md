@@ -106,6 +106,7 @@ and what is known. What already works: `status.md`; checks that need a person at
 
 ## Emulator
 Places where the emulator is known to differ from the unit; fix the model when one gets in the way.
+- **A boot image written by BL2's XModem doesn't boot** (`zemu run --mcu --nand --allow-panic`, module in BL2, `zd1 update os.bcd`): all 2077 blocks and the EOT acknowledged, then the BL1 stand-in finds "no bootable type-2 partition"; on the unit the same write boots [HW 2026-11-03]. BL2's NAND writes or the stand-in's partition table read differ from the unit's.
 - **`sulu_eth` "tx DMA queue full" panic** under streaming load (about 1 run in 4 with several sessions in
   parallel), and reliably after a `MEMREADOOB` ioctl at boot (bisected: the ioctl alone; the NAND model has no IRQ).
   The panic is sulu_eth's count of pending block moves (priv +0x1478) reaching 7. Not understood. The unit did 65536

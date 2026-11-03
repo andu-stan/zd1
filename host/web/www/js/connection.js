@@ -162,6 +162,7 @@ export async function job(title, stoppable, f) {
   $("job-outcome").textContent = "";
   $("job-cancel").hidden = !stoppable;
   $("job-close").hidden = true;
+  $("update").hidden = true; // the banner's action is the job now: drawn again (or not) from the state after it
   app.busy++;
   document.body.classList.add("busy");
   try {
@@ -192,5 +193,6 @@ export async function job(title, stoppable, f) {
     heroProgress(1);
     setTimeout(() => jobRunning || heroProgress(null), 1500);
     if (--app.busy === 0) document.body.classList.remove("busy");
+    app.drawnFor = ""; // the releases drawn again at the next refresh: the banner back only if something is behind
   }
 }
