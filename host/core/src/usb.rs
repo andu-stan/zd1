@@ -259,7 +259,31 @@ pub struct NusbBus;
 impl Bus for NusbBus {
     type Dev = NusbDev;
 
+    /// A refused open or claim is tried again for up to [`BUSY_MS`]: a program that just let go of the device (a
+    /// flow's step closing it, the next one opening it) leaves the browser releasing its interface in the
+    /// background, and WebUSB refuses the device meanwhile ("an operation that changes interface state is in
+    /// progress"). A device that isn't there is None at once.
     async fn open(&self, vid: u16, pid: u16, iface: Iface) -> Result<Option<NusbDev>> {
+        let t0 = crate::now_ms();
+        loop {
+            match self.open_once(vid, pid, iface).await {
+                Err(_) if crate::now_ms() - t0 < BUSY_MS => crate::sleep(200).await,
+                r => return r,
+            }
+        }
+    }
+
+    async fn present(&self, vid: u16, pid: u16) -> Result<bool> {
+        let mut l = done(nusb::list_devices()).await.map_err(|e| Error::Device(e.to_string()))?;
+        Ok(l.any(|d| d.vendor_id() == vid && d.product_id() == pid))
+    }
+}
+
+/// How long a refused open is tried again ([`NusbBus`]'s `open`).
+const BUSY_MS: f64 = 3000.0;
+
+impl NusbBus {
+    async fn open_once(&self, vid: u16, pid: u16, iface: Iface) -> Result<Option<NusbDev>> {
         let usb = |e: nusb::Error| Error::Device(format!("{vid:04X}:{pid:04X}: {e}"));
         let Some(info) =
             done(nusb::list_devices()).await.map_err(usb)?.find(|d| d.vendor_id() == vid && d.product_id() == pid)
@@ -289,11 +313,6 @@ impl Bus for NusbBus {
             ))
         })?;
         Ok(Some(NusbDev { device, intf, bulk: RefCell::new(None) }))
-    }
-
-    async fn present(&self, vid: u16, pid: u16) -> Result<bool> {
-        let mut l = done(nusb::list_devices()).await.map_err(|e| Error::Device(e.to_string()))?;
-        Ok(l.any(|d| d.vendor_id() == vid && d.product_id() == pid))
     }
 }
 
