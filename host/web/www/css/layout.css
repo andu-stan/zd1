@@ -1,5 +1,6 @@
 /* Layout primitives: a row of things (`.row`), a column (`.stack`), a spacer (`.grow`), a label column (`.row >
- * label:first-child`, `.cap`), the small print (`.small`) and the tones of text (`.ok`, `.warn`). */
+ * label:first-child`, `.cap`; a file picker's `label.button` stays a button), the small print (`.small`) and the
+ * tones of text (`.ok`, `.warn`). */
 .row {
   display: flex;
   align-items: center;
@@ -14,7 +15,7 @@
 .grow {
   flex: 1;
 }
-.row > label:first-child,
+.row > label:first-child:not(.button),
 .row > .cap:first-child {
   width: var(--label-width);
   color: var(--text-muted);
@@ -34,7 +35,7 @@
   white-space: pre-wrap;
 }
 @media (max-width: 640px) {
-  .row > label:first-child,
+  .row > label:first-child:not(.button),
   .row > .cap:first-child {
     width: 100%;
   }
