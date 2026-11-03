@@ -116,6 +116,8 @@ async fn wait_module<U: crate::usb::Usb>(m: &mut Mcu<U>, ms: f64) -> Result<msg:
             m.events().step(&format!("the module: {}", i.mod_state));
             shown = Some(i.mod_state);
         }
+        m.events()
+            .wait(&format!("the module's first boot ({})", i.mod_state), ((crate::now_ms() - t0) / 1000.0) as u64);
         match i.mod_state {
             ModState::Ready => return Ok(i),
             ModState::Stock => {

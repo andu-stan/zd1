@@ -111,6 +111,7 @@ pub async fn system<U: Usb>(m: &mut Mcu<U>, image: &[u8], o: &Options) -> Result
     e.progress("update", sent as u64, image.len() as u64);
     let t1 = crate::now_ms();
     let r = loop {
+        e.wait("the module writes and checks the system", ((crate::now_ms() - t1) / 1000.0) as u64);
         let r = m.call(&msg::UpdateStatus).await?;
         if matches!(r.state, UpdateState::Done | UpdateState::Failed)
             || crate::now_ms() - t1 > 90_000.0 * m.usb.slow() as f64
@@ -141,6 +142,7 @@ pub async fn start_once<U: Usb>(m: &mut Mcu<U>, slot: Slot) -> Result<Outcome> {
     let t0 = crate::now_ms();
     while crate::now_ms() - t0 < 300_000.0 * m.usb.slow() as f64 {
         m.usb.sleep(1000).await;
+        e.wait(&format!("slot {slot} starting"), ((crate::now_ms() - t0) / 1000.0) as u64);
         let Ok(b) = m.call(&msg::BootState).await else { continue }; // the MCU busy with the module's power: again
         if b.next != Slot::None || b.trial || b.last == Slot::None {
             continue;

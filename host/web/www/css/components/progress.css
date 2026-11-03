@@ -20,3 +20,28 @@ progress::-moz-progress-bar {
   border-radius: 3px;
   background: var(--grey-800);
 }
+/* A wait with nothing to measure (no value): a band runs along the groove. */
+progress:indeterminate {
+  background: linear-gradient(90deg, transparent, var(--grey-900), transparent) 0 0 / 40% 100% no-repeat var(--well);
+  animation: progress-wait 1.6s var(--ease) infinite;
+}
+progress:indeterminate::-webkit-progress-bar {
+  background: transparent;
+}
+progress:indeterminate::-moz-progress-bar {
+  background: transparent;
+}
+@keyframes progress-wait {
+  from {
+    background-position: -70% 0;
+  }
+  to {
+    background-position: 170% 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  progress:indeterminate {
+    animation: none;
+    background-position: 50% 0;
+  }
+}

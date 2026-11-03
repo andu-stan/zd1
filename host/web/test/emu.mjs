@@ -171,6 +171,7 @@ const events = {
   step: (s) => console.log("step:", s),
   phase: (n, of, w) => console.log(`phase ${n}/${of}:`, w),
   progress() {},
+  wait() {},
   cancelled: () => false,
   wantsDevice: (_v, _p, w) => console.log("wants", w),
   backup() {},

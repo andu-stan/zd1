@@ -20,7 +20,9 @@ export const events = {
     $("press").showModal();
   },
   step(s) {
-    if (jobRunning) $("job-log").textContent += `${s}\n`;
+    if (!jobRunning) return;
+    $("job-log").textContent += `${s}\n`;
+    $("job-now").textContent = s;
   },
   phase(n, of, what) {
     if (!jobRunning) return;
@@ -30,6 +32,12 @@ export const events = {
   progress(_what, done, total) {
     $("job-bar").value = total ? done / total : 0;
     if (jobRunning) heroProgress($("job-bar").value);
+  },
+  /// a wait with nothing to measure: the bar runs without a value (the browser animates it), the line says how long
+  wait(what, secs) {
+    if (!jobRunning) return;
+    $("job-bar").removeAttribute("value");
+    $("job-now").textContent = `${what}: ${secs} s`;
   },
   cancelled() {
     return app.cancel;
@@ -137,6 +145,7 @@ export async function job(title, stoppable, f) {
   $("job").className = "job";
   $("job-title").textContent = title;
   $("job-phase").textContent = "";
+  $("job-now").textContent = "";
   $("job-bar").value = 0;
   heroProgress(0);
   $("job-log").textContent = "";

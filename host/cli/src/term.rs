@@ -77,6 +77,11 @@ impl Events for Term {
             *r = None;
         }
     }
+    fn wait(&self, what: &str, secs: u64) {
+        self.end_line();
+        eprint!("\r  {what}: {secs} s ");
+        self.line.set(true);
+    }
     fn cancelled(&self) -> bool {
         STOP.load(Ordering::SeqCst)
     }

@@ -35,6 +35,8 @@ extern "C" {
     #[wasm_bindgen(method)]
     fn progress(this: &JsEvents, what: &str, done: f64, total: f64);
     #[wasm_bindgen(method)]
+    fn wait(this: &JsEvents, what: &str, secs: f64);
+    #[wasm_bindgen(method)]
     fn cancelled(this: &JsEvents) -> bool;
     #[wasm_bindgen(method, js_name = wantsDevice)]
     fn wants_device(this: &JsEvents, vid: u16, pid: u16, what: &str);
@@ -71,6 +73,9 @@ impl Events for Ev {
     }
     fn progress(&self, what: &str, done: u64, total: u64) {
         self.0.progress(what, done as f64, total as f64)
+    }
+    fn wait(&self, what: &str, secs: u64) {
+        self.0.wait(what, secs as f64)
     }
     fn cancelled(&self) -> bool {
         self.0.cancelled()

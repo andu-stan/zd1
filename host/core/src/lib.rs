@@ -120,6 +120,9 @@ pub trait Events {
     fn phase(&self, _n: usize, _of: usize, _what: &str) {}
     /// How far a long transfer is (`what`: "update", "read", "write", "verify", "relay", ...).
     fn progress(&self, _what: &str, _done: u64, _total: u64) {}
+    /// A wait with nothing to measure (a boot, the module writing): what it waits for, and for how long so far. Called
+    /// about once a second while it lasts, so the person sees it go on.
+    fn wait(&self, _what: &str, _secs: u64) {}
     /// The person wants it stopped: flows look at this where stopping is safe.
     fn cancelled(&self) -> bool {
         false

@@ -350,8 +350,9 @@ impl<U: Usb> Dfu<U> {
         self.command(&frame::coproc_init(opts.t1, opts.t2), false).await?;
         let mut last = None;
         let mut ready = false;
-        for _ in 0..opts.wait_s {
+        for s in 0..opts.wait_s {
             self.usb.sleep(1000).await;
+            ev.wait("the module's BL2 starting", s as u64 + 1);
             let st = self.coproc_status().await?;
             if last != Some(st) {
                 ev.step(&format!("module: 0x{st:02x} {}", coproc_status_name(st)));
