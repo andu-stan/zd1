@@ -35,8 +35,8 @@ it in `units/`.
 
 | Broken | Recovery | Status |
 |---|---|---|
-| MCU app | hold ON/OFF at power-up → DFU; `zd1 dfu restore <backup.tar> --yes --start` (or `dfu flash blobs/mcu/zd1-2.04.05.hex --i-have-a-backup --yes --start`) | **unit** |
-| MCU user page (+ EEPROM) | DFU comes up by itself (invalid ISP word); `dfu userpage-write <unit>/user_page.bin --yes`; power-cycle | EMU |
+| MCU app | hold ON/OFF at power-up → DFU; `zd1 dfu restore <backup.tar> --yes --start` (or `zd1 dfu write blobs/mcu/zd1-2.04.05.hex --backup <backup.tar> --yes --start`) | **unit** |
+| MCU user page (+ EEPROM) | DFU comes up by itself (invalid ISP word); `zd1 dfu user-page <unit>/user_page.bin --yes`; power-cycle | EMU |
 | module image, anything (corrupt, erased, hangs, boot-loops) | **`zd1 module esc`** (`Module ESC`): BL1's serial menu over USART1, option 4 → BL2 → install the stock `.bcd` with `bl2web`. Needs our MCU firmware | **unit** (2026-10-23; `Module ESC` 2026-11-02) |
 | module image hangs, the image answers SPI | HCR 0x21 → BL2 (`zd1 module bl2`, or the MCU bootloader's relay) → install | **unit** (both) |
 | module image, with JTAG on the carrier | the BL2 mailbox over JTAG + a PA17 reset pulse (`docs/module/jtag.md`) → install | **unit** |
@@ -47,8 +47,21 @@ it in `units/`.
 | everything but the bootloaders | DFU (by itself) → user page, MCU app (ours, for `zd1 module esc`) → BL2 → `.bcd`, the MAC back | EMU |
 | BL1 | programmer | case 2 |
 
-**Both boards back to stock in one go**: `zd1 rollback STOCK.bcd blobs/mcu/zd1-2.04.05.hex --yes` (the module first
-through the relay, then the stock MCU firmware with a backup of what is on the MCU; `host/core/src/install.rs`).
+**Both boards back to stock in one go**: `zd1 rollback blobs/module/app_DMP.bcd blobs/mcu/zd1-2.04.05.hex --yes` (the
+module first through the relay, then the stock MCU firmware with a backup of what is on the MCU;
+`host/core/src/install.rs`) [HW 2026-11-03]. It rewrites the app partition only: our system slots and `/data` (the
+settings, the Wi-Fi network and its key) stay on the NAND, unused by the stock app.
+
+**As from the factory** (a speaker to give away, or a test of the whole install), with our firmware on both boards
+[HW 2026-11-03, `units/<unit>/logs/`]:
+1. `zd1 slot try rescue --restart`: the rescue, which mounts nothing but `/data`.
+2. `zd1 console run 'umount /data' 'zd1-slot erase system-a' 'zd1-slot erase system-b' 'zd1-slot erase data'`: the
+   three partitions erased (bad blocks left alone), as a stock NAND has them above 32 MB. A rescue older than
+   `zd1-slot erase` gets a new `os.bcd` first (`zd1 bootloader`, `zd1 dfu relay`, `zd1 dfu start`).
+3. Our EEPROM block to the defaults a fresh install writes: `zd1 prefs --auto-switch on --amp-idle 5 --volume-cap 40`,
+   `zd1 amp auto`, `zd1 volume 30`, `zd1 slot good a`, `zd1 slot clear`, last `zd1 gate lock`. The block itself (its
+   magic) stays: nothing on the host link erases the EEPROM.
+4. `zd1 rollback ...` as above (with the gate locked, one press of ON/OFF lets it into DFU).
 
 **Installing the module image**, over USB only: the MCU bootloader's relay, what B&W's updater uses (`zd1
 dfu`, `zd1 dfu relay IMAGE.bcd --yes`, `zd1 dfu start`; ~6.5 min for the stock 9 MB, 85 s for our

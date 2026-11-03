@@ -123,6 +123,9 @@ Places where the emulator is known to differ from the unit; fix the model when o
   module; listening to the emulated DSP output live.
 
 ## Tooling and project
+- **`zd1 rollback` (and the page's Roll back) leaves our partitions behind**: the slots and `/data`, the Wi-Fi key
+  among it. Erase them first from the rescue, as the factory procedure does by hand
+  (`docs/recovery/factory-reset.md`, As from the factory); and a host link request that erases our EEPROM block.
 - **Stereo, level-calibrated probe**: `usprobe` uses the MacBook's single mic and can't run while other audio plays.
 - **`musictest.py sync`'s network-timeline figure** is off by the same ~0.5 s for both devices since senders may stream
   4 MB ahead (its reference assumes the first frame sent is the track's start).
