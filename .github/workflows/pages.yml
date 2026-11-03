@@ -1,6 +1,5 @@
-# The web page on GitHub Pages with the releases (docs/web.md, Releases). Its steps have run locally (actionlint; the
-# builds and `zd1 image` as below; the site's script against a stand-in `gh`), not yet on GitHub. The repo's Pages
-# source must be "GitHub Actions". Nix on the runner builds the MCU firmware with Microchip's x86_64 toolchain, the OS
+# The web page on GitHub Pages with the releases (docs/web.md, Releases). The repo's Pages source is "GitHub
+# Actions". Nix on the runner builds the MCU firmware with Microchip's x86_64 toolchain, the OS
 # image and the page; without a binary cache (CACHIX_NAME) a run builds LLVM too: hours.
 #
 # A release (a tag v*, published on GitHub) gets its three images and a `manifest.json` (from `zd1 image`) as
@@ -69,8 +68,10 @@ jobs:
           out = []
           for r in rel:
               tag = r["tagName"]; v = tag.removeprefix("v"); d = os.path.join("site/images", v)
+              # a release whose images aren't built yet (its own run still going) has no manifest: left out until then
+              assets = json.loads(subprocess.check_output(["gh", "release", "view", tag, "--json", "assets"]))["assets"]
+              if not any(a["name"] == "manifest.json" for a in assets): continue
               subprocess.check_call(["gh", "release", "download", tag, "--dir", d, "--clobber"])
-              if not os.path.exists(os.path.join(d, "manifest.json")): continue
               notes = subprocess.check_output(["gh", "release", "view", tag, "--json", "body", "--jq", ".body"], text=True).strip()
               e = {"version": v, "date": r["publishedAt"][:10], "notes": notes}
               for line in open(os.path.join(d, "manifest.json")):
