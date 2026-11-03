@@ -16,7 +16,7 @@ The flows, the design, what has been measured on the unit, and what is open. Tag
 | When | Path | Time | State |
 |---|---|---|---|
 | **first install** on a stock speaker | **`zd1 install`** (`host/core/src/install.rs`, the page's Install): key-hold DFU → the relay of `os.bcd` (stub, kernel, rescue) → MCU firmware over DFU with a backup → start → the module's first boot (slots A and B empty → the rescue) → the system into a slot, started once. `--no-bcd`: the boot image is there (a repair) | ~5 min (the relay 85 s, the first boot up to ~3, the update ~1.5) | the flow without the relay on the unit (2026-10-31, `--no-bcd`); each step with the relay on the unit (2026-10-26); the whole flow with the relay: not yet |
-| **back to stock** | **`zd1 rollback STOCK.bcd STOCK.hex`**: the same order, the stock `.bcd` through the relay (6.5 min), then the stock MCU firmware (or a backup's `app_flash.bin`) with a backup first; the speaker comes up unconfigured | ~7 min | the pieces on the unit (`docs/recovery/factory-reset.md`); as one flow: not yet |
+| **back to stock** | **`zd1 rollback STOCK.bcd STOCK.hex`**: the same order, the stock `.bcd` through the relay (6.5 min), then the stock MCU firmware (or a backup's `app_flash.bin`) with a backup first; the speaker comes up unconfigured | ~7 min | as one flow on the unit from our firmware (v0.1.0) [HW 2026-11-03]: into DFU by itself, BL2 ready 32.6 s after coproc-init, the stock `.bcd` in 286 s (23.4 KB/s), the backup, the stock MCU firmware verified and started (on USB as B&W's 19B5:0005, version 2.04) |
 | **MCU firmware** | host link `Dfu` → DFU flash → start (`mcu/flash.sh`, a backup into `units/<unit>/mcu/dfu-backups/` first) | ~15 s | in daily use |
 | **module: stub, kernel or rescue** (rare) | `zd1 xmodem IMAGE.bcd`, our firmware driving BL2's XModem, then `zd1 module restart`; or the relay, started from our firmware with `Dfu` (no key-hold): `zd1 bootloader`, `zd1 dfu relay IMAGE.bcd --yes`, `zd1 dfu start` | 305 s (XModem, 2 MB); the relay 85 s | both on the unit: XModem 2026-10-27; the relay's full install 2026-10-26, its handover to BL2 against our OS (2e20f8d on) 2026-10-27 |
 | **module: everything else** (routine) | **`zd1 update`**: the image over the vendor interface's bulk endpoint → MCU → module UART at 1 Mbaud, in frames → `zd1-update` writes the slot that doesn't run → started once, kept if it gets ready | 82 s for 5 MB framed at 1 Mbaud (61 KB/s) | in daily use (2026-10-26 on) |
@@ -149,7 +149,7 @@ Opera on a desktop.
 
 ## Open
 - 1 Mbaud loses ~9 % of the frames (`docs/backlog.md`, Updates and recovery).
-- `zd1 install` with the relay, and `zd1 rollback`, as one flow on the unit (each piece has run there; `install --no-bcd` has).
+- `zd1 install` with the relay as one flow on the unit (each piece has run there; `install --no-bcd` has), and the page's Install and Roll back.
 
 Fallback when the MCU's update path doesn't work: the `.bcd` through BL2's web updater or the bootloader's relay
 puts the rescue back, and `zd1 update` installs a system from it. (`zd1 update --uart`, `zd1-update` fed over the

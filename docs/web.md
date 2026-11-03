@@ -204,7 +204,7 @@ over, the slots' stamps; the snapservers and AirPlay's pairings as records, the 
 time, the page's views [2026-11-02]. Left on the unit (`units/<unit>/hw-checks.md`): the known networks' failure
 cases (a wrong key, none in range, two networks). Next, in order:
 1. The rest of the unit's checks; the page's MCU install on the unit (its backup kept in the browser).
-2. `zd1 install` with the relay and `zd1 rollback` as one flow on the unit (each piece has run there), then the
+2. `zd1 install` with the relay as one flow on the unit (`zd1 rollback` has run as one: 2026-11-03), then the
    page's Install and Roll back on it.
 3. WinUSB (MS OS 2.0) descriptors in the MCU firmware, for Windows.
 4. Later: a small HTTP API on the module for home automation serving `State` as JSON (`docs/backlog.md`).
