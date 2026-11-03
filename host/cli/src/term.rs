@@ -78,8 +78,8 @@ impl Events for Term {
         }
     }
     fn wait(&self, what: &str, secs: u64) {
-        self.end_line();
-        eprint!("\r  {what}: {secs} s ");
+        // the same line each second, over a transfer's line too (\x1b[K: the rest of it cleared)
+        eprint!("\r  {what}: {secs} s\x1b[K");
         self.line.set(true);
     }
     fn cancelled(&self) -> bool {
