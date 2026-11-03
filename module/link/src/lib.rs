@@ -14,7 +14,7 @@ pub use zd1_spi::spec::reg;
 
 use dm870::Mmio;
 use dm870::gpio::{Level, Pin, gpio};
-use dm870::spi_slave::spi_slave;
+use dm870::spi_slave::{TX_DEPTH, spi_slave};
 use dm870::timers::timers;
 use zd1_spi::framing::{self, READ_F, Request, RequestParser, WRITE_F, WRITE_V};
 use zd1_spi::spec::status;
@@ -360,6 +360,12 @@ impl<M: Mmio> Link<M> {
             if let Some(e) = ev {
                 self.push_event(e);
             }
+        }
+        // a reply that starts into an empty TX FIFO goes behind an idle byte: the first byte the slave takes into an
+        // empty FIFO while the MCU clocks can come out with bit 0 set (a V write's echo 02 read as 03 [HW 2026-11-03];
+        // docs/protocol/sequences.md, Our OS, point 6). An idle byte stays one, and every reader skips it.
+        if self.tx.pos == 0 && self.tx.len > 0 && spi_slave(&mut self.m).tx_free() >= TX_DEPTH {
+            spi_slave(&mut self.m).tx(framing::IDLE);
         }
         // an escape pair (27 27 / 27 01) goes into the FIFO whole: split across two refills, the MCU can clock the
         // 0x27 and then the idle 0xFF, a broken escape (the stock firmware asserts in ercBcoSpiRead). Every byte is

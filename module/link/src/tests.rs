@@ -45,10 +45,26 @@ impl Mmio for Fake {
     }
 }
 
+/// What the MCU reads back: the reply without the idle bytes in front of it (the fake's TX FIFO is always empty, so
+/// every reply has one).
 fn ask(l: &mut Link<Fake>, bytes: &[u8]) -> Vec<u8> {
+    let mut t = ask_raw(l, bytes);
+    let idle = t.iter().take_while(|&&b| b == 0xFF).count();
+    t.drain(..idle);
+    t
+}
+
+fn ask_raw(l: &mut Link<Fake>, bytes: &[u8]) -> Vec<u8> {
     l.mmio().rx.extend(bytes);
     l.poll();
     core::mem::take(&mut l.mmio().tx)
+}
+
+#[test]
+fn a_reply_into_an_empty_tx_fifo_goes_behind_an_idle_byte() {
+    // the first byte into an empty FIFO can come out with bit 0 set on the unit: the echo's 02 read as 03
+    let mut l = Link::new(Fake::default());
+    assert_eq!(ask_raw(&mut l, &[0x02, 0x45, 1, 0, 0x51]), [0xFF, 0x02, 0x45, 0, 0]);
 }
 
 #[test]

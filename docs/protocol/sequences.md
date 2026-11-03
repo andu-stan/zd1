@@ -99,6 +99,15 @@ firmware. Registers: `registers.md`.
    anything that waits (the supplicant's requests run in a thread), and the MCU sends a long write to our OS 32 bytes
    per 15 ms: other processes still preempt `zd1-linkd` for a scheduler slice while the services start. BL2 and the bootloader's relay get no echo
    check.
+   **The first byte into an empty TX FIFO.** A reply `zd1-linkd` puts into the slave's TX FIFO while it is empty and
+   the MCU already clocks (the request taken a tick late: right after a setting's write, whose file write holds
+   `zd1-linkd` up) can come out with bit 0 of its first byte set: a V write's echo `02 45 00 00` read as
+   `03 45 00 00`, and the MCU sent the write again (the module had taken it: a setting's read-back answered twice,
+   the second answer replacing the queued first). F- and V-read replies start with `01` / `03`, which that can't
+   change. So `zd1-link` puts an idle byte in front of a reply that starts into an empty FIFO: it stays idle, and
+   every reader skips idle [HW 2026-11-03: `zd1 settings name` 300 times, 4 misses, each `03 45 00 00` with nothing
+   else stray in any reply (an MCU build that logged them); with the idle byte none in 900, nor in 12 Spotify toggles
+   at the page's pace, which had 1 in 12 before; the emulator's model never showed it].
 On the unit [HW 2026-10-28]: the hello at boot and after `zd1-linkd` restarts, volume both ways, keys, play/pause
 (`status.md`). The relay to BL2 against our OS gets BL2-ready [EMU 2026-10-28, `zemu run --mcu`,
 `zd1 dfu relay --handover-only`].
