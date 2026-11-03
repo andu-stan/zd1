@@ -84,18 +84,21 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         id: upload
         with: { path: site }
-      # actions/deploy-pages calls a deployment by the commit (GITHUB_SHA; no input changes it): a release tagged on the
-      # commit main deployed last was taken for that deployment and the site stayed as it was. Its API calls, with a
-      # version of this run's own (40 hex digits, as a commit's: other strings are refused, 404).
+      # Pages takes a deployment for a commit it deployed before as that one: a release tagged on the commit main's run
+      # deployed minutes earlier changed nothing (and actions/deploy-pages always names the deployment by GITHUB_SHA).
+      # Its API calls, named by a commit of this run's own: GITHUB_SHA's tree on top of it, on no branch (Pages refuses
+      # a version that is no commit of the repository: 404).
       - name: deploy
         id: deploy
         env: { GH_TOKEN: "${{ github.token }}", ARTIFACT_ID: "${{ steps.upload.outputs.artifact_id }}" }
         run: |
           set -eu
           oidc="$(curl -sf -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL" | jq -r .value)"
+          tree="$(gh api "repos/$GITHUB_REPOSITORY/git/commits/$GITHUB_SHA" --jq .tree.sha)"
+          v="$(gh api -X POST "repos/$GITHUB_REPOSITORY/git/commits" -f tree="$tree" -f "parents[]=$GITHUB_SHA" \
+            -f message="The web page, run $GITHUB_RUN_ID.$GITHUB_RUN_ATTEMPT" --jq .sha)"
           d="$(gh api -X POST "repos/$GITHUB_REPOSITORY/pages/deployments" -F artifact_id="$ARTIFACT_ID" \
-            -f pages_build_version="$(printf %s "$GITHUB_SHA $GITHUB_RUN_ID $GITHUB_RUN_ATTEMPT" | sha1sum | cut -c1-40)" \
-            -f oidc_token="$oidc")"
+            -f pages_build_version="$v" -f oidc_token="$oidc")"
           id="$(jq -r '.id // (.status_url | split("/") | last)' <<<"$d")"
           echo "page_url=$(jq -r .page_url <<<"$d")" >>"$GITHUB_OUTPUT"
           for _ in $(seq 120); do
