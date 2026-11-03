@@ -6,7 +6,7 @@ import { hero } from "./hero.js";
 import { lampOf, ledLook } from "./led.js";
 import { drawSettings } from "./network.js";
 import { app } from "./shared.js";
-import { drawReleases, drawSoftware } from "./software.js";
+import { drawnKey, drawReleases, drawSoftware } from "./software.js";
 import { $, el, fill, names, segmented } from "./ui.js";
 
 // ---- the state ----------------------------------------------------------------------------------------------------
@@ -102,7 +102,7 @@ export function draw() {
       : ms === "mismatch"
         ? `${i.mod_os}: its link protocol is ${i.mod_proto}, this firmware's ${i.link_proto}: update one of them`
         : i.mod_os || `not running our OS (${ms})`;
-  if (app.drawnFor !== `${i.fw}|${i.mod_os}|${i.mod_state}`) drawReleases();
+  if (app.drawnFor !== drawnKey()) drawReleases();
 }
 // ---- behaviour and advanced ---------------------------------------------------------------------------------------
 

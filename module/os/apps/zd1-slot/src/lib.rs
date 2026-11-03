@@ -58,6 +58,8 @@ pub struct Boot {
     pub running: Option<Slot>,
     pub good: Option<Slot>,
     pub rescue: bool,
+    /// the boot image's identity (`zd1.boot=`: module/os/assemble.py, payload); empty: one from before it had one
+    pub image: String,
 }
 
 impl Boot {
@@ -76,7 +78,8 @@ pub fn boot() -> Boot {
     let c = fs::read_to_string("/proc/cmdline").unwrap_or_default();
     let get = |k: &str| c.split_whitespace().find_map(|w| w.strip_prefix(k)).and_then(Slot::parse);
     let good = fs::read_to_string("/run/zd1/good").ok().and_then(|g| Slot::parse(g.trim())).or(get("zd1.good="));
-    Boot { running: get("zd1.slot="), good, rescue: c.split_whitespace().any(|w| w == "zd1.rescue") }
+    let image = c.split_whitespace().find_map(|w| w.strip_prefix("zd1.boot=")).unwrap_or_default().to_string();
+    Boot { running: get("zd1.slot="), good, rescue: c.split_whitespace().any(|w| w == "zd1.rescue"), image }
 }
 
 /// The MTD number of partition `name` (/proc/mtd), its device nodes made (mdev on 2.6.24 makes neither the character

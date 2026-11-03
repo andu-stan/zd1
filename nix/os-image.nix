@@ -3,6 +3,7 @@
 {
   stdenvNoCC,
   python3,
+  nix,
   src,
   parts,
   test-unit,
@@ -23,7 +24,10 @@ stdenvNoCC.mkDerivation {
     "blobs/module/app_DMP.bcd"
     "blobs/module/nokia-hd1"
   ];
-  nativeBuildInputs = [ python3 ];
+  nativeBuildInputs = [
+    python3
+    nix # nix-hash: the boot image's and the rescue's identity by content (assemble.py, content_id)
+  ];
   buildPhase = ''
     python3 -I module/os/assemble.py assemble --parts ${parts} --base-nand ${test-unit}/nand.bin \
       --version ${version} --built "${built}" --out $out

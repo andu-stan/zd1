@@ -136,6 +136,7 @@ The speaker as the module OS knows it: its settings (the fields marked set: writ
 | `spotify_bitrate` | u16 | `spotify.bitrate`, bitrate, default `320` | Spotify Connect's bitrate, kb/s: 96, 160 or 320 |
 | `stamp_a` | str <= 64 |  | what system slot A holds: its stamp (the version installed, as `Update.id`); empty: no system (or not read yet: the module reads both slots' stamps after it starts and after an update) |
 | `stamp_b` | str <= 64 |  | the same for slot B |
+| `boot` | str <= 12 |  | the boot image the module started from (the app partition: stub, kernel, rescue): its identity, `zd1.boot=` on the kernel command line (`zd1 image` names a .bcd's); empty: a boot image from before it had one |
 
 ### ScanEntry (0x61)
 A Wi-Fi network seen by the module's radio (the `Scan` record, one entry per SSID; hidden networks are left out).

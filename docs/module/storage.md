@@ -44,7 +44,9 @@ Updating the OS means writing the slot that doesn't run, from the running system
    (0x2000) and waits up to 5 s for the MCU's answer on reg 0xC4 (`docs/protocol/registers.md`): b0 slot A, slot B
    or the rescue, b1 the good slot. A slot: the stub adds `root=/dev/mtdblock1` (or 2) `rootfstype=jffs2 ro
    zd1.slot=a|b zd1.good=a|b` to the command line and leaves the initramfs out; the kernel mounts the slot and runs
-   its `/sbin/init` (`zd1-init`, `module/os/README.md`). The rescue: the initramfs, `zd1.rescue zd1.good=...`. No answer (the MCU's
+   its `/sbin/init` (`zd1-init`, `module/os/README.md`). The rescue: the initramfs, `zd1.rescue zd1.good=...`. Either way
+   the command line starts with the boot image's own, which ends in `zd1.boot=ID`: its identity, by content
+   (`module/os/assemble.py`), reported as the State record's `boot`. No answer (the MCU's
    bootloader relaying an image, the stock MCU firmware): the rescue, since without the MCU the good slot is unknown
    and a slot may hold an old system or none; the rescue's `zd1-linkd` takes the bootloader's HCR 0x21 into BL2.
 2. **The MCU answers** a slot to try (once: the try is cleared as it is answered), else the good slot, else the other

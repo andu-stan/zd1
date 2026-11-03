@@ -149,9 +149,10 @@ pub enum Kind {
     Backup(Backup),
     /// The module's system: its version and the stamp its slot gets.
     System { version: String, stamp: String },
-    /// The module's boot image (a BridgeCo `.bcd`): its build string (ours keeps the stock container's), and whether
-    /// it boots our OS (its stage 2 is our boot stub, module/os/mkpayload.py) or the stock app.
-    Bcd { build: String, ours: bool },
+    /// The module's boot image (a BridgeCo `.bcd`): its build string (ours keeps the stock container's), whether it
+    /// boots our OS (its stage 2 is our boot stub, module/os/mkpayload.py) or the stock app, and ours's identity
+    /// (`zd1.boot=` on its kernel command line, as the State record's `boot` reports it; empty: none).
+    Bcd { build: String, ours: bool, boot: String },
 }
 
 /// Which of the files the flows take `data` is (`name` for a HEX file without its first `:`), refused if it is none.
@@ -161,7 +162,8 @@ pub fn identify(name: &str, data: &[u8]) -> Result<Kind> {
     }
     if data.starts_with(b"bCoD") {
         let build = data.get(8..0x18).map_or(String::new(), |b| String::from_utf8_lossy(b).trim().to_string());
-        return Ok(Kind::Bcd { build, ours: bcd_ours(data) });
+        let ours = bcd_ours(data);
+        return Ok(Kind::Bcd { build, ours, boot: if ours { bcd_boot(data) } else { String::new() } });
     }
     if backup::is_tar(data) {
         return Ok(Kind::Backup(Backup::from_tar(data)?));
@@ -179,6 +181,18 @@ fn bcd_ours(data: &[u8]) -> bool {
     };
     let at = sec.saturating_add(0x2000 + 0x40);
     data.get(at..at.saturating_add(4)) == Some(b"ZLB1")
+}
+
+/// Our boot image's identity: `zd1.boot=ID` on the kernel command line, which the payload carries as text
+/// (module/os/assemble.py, payload).
+fn bcd_boot(data: &[u8]) -> String {
+    const KEY: &[u8] = b"zd1.boot=";
+    let Some(at) = data.windows(KEY.len()).position(|w| w == KEY) else {
+        return String::new();
+    };
+    let id = &data[at + KEY.len()..];
+    let n = id.iter().take(16).take_while(|b| b.is_ascii_hexdigit()).count();
+    String::from_utf8_lossy(&id[..n]).into_owned()
 }
 
 /// gzip, inflated (its CRC not checked: the update checks the SHA-256 of the whole).

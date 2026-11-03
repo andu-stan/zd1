@@ -35,10 +35,13 @@ pub fn image_json(path: &Path) -> Result<String> {
             j["version"] = version.into();
             j["stamp"] = stamp.into();
         }
-        Kind::Bcd { build, ours } => {
+        Kind::Bcd { build, ours, boot } => {
             j["kind"] = "bcd".into();
             j["build"] = build.into();
             j["ours"] = ours.into();
+            if !boot.is_empty() {
+                j["version"] = boot.into(); // the boot image's identity (zd1.boot=): what the State record's `boot` says
+            }
         }
         Kind::Backup(b) => {
             j["kind"] = "backup".into();

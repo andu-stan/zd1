@@ -240,7 +240,8 @@ pub fn spec() -> JsValue {
 
 /// What a file is (host/core's `image::identify`): { kind: "mcu", version, built, start, end } (Intel HEX or the app
 /// region's .bin), { kind: "backup", version, when } (an MCU backup: installs as MCU firmware), { kind: "system",
-/// version, stamp, size } (a gzip'd cpio of a slot's root) or { kind: "bcd", build, ours } (the module's boot image: ours or the stock one).
+/// version, stamp, size } (a gzip'd cpio of a slot's root) or { kind: "bcd", build, ours, version } (the module's boot image: ours
+/// or the stock one; version: ours's identity, `zd1.boot=`).
 #[wasm_bindgen(js_name = imageInfo)]
 pub fn image_info(name: &str, data: &[u8]) -> Result<JsValue, JsValue> {
     let o = Object::new();
@@ -251,10 +252,13 @@ pub fn image_info(name: &str, data: &[u8]) -> Result<JsValue, JsValue> {
             set(&o, "stamp", stamp);
             set(&o, "size", data.len() as f64);
         }
-        Kind::Bcd { build, ours } => {
+        Kind::Bcd { build, ours, boot } => {
             set(&o, "kind", "bcd");
             set(&o, "build", build);
             set(&o, "ours", ours);
+            if !boot.is_empty() {
+                set(&o, "version", boot);
+            }
         }
         Kind::Backup(b) => {
             set(&o, "kind", "backup");
@@ -476,6 +480,19 @@ impl Speaker {
         set(&o, "outcome", outcome);
         set(&o, "slot", slot.to_string());
         set(&o, "now", now.map_or(JsValue::UNDEFINED, |n| n.to_string().into()));
+        Ok(o.into())
+    }
+
+    /// The module's boot image (our .bcd: stub, kernel, rescue) through the bootloader's relay, then our firmware
+    /// started again and the module up on its good slot (`install::boot_image`). This connection ends: connect again
+    /// afterwards. { os }: what the module runs.
+    #[wasm_bindgen(js_name = updateBoot)]
+    pub async fn update_boot(&self, bcd: Vec<u8>) -> Result<JsValue, JsValue> {
+        let m = self.take().await?; // it asks for DFU and leaves USB: this connection ends
+        self.closed.set(true);
+        let i = install::boot_image(&NusbBus, Some(m), &bcd, self.ev.clone()).await.map_err(js_err)?;
+        let o = Object::new();
+        set(&o, "os", i.mod_os);
         Ok(o.into())
     }
 

@@ -26,12 +26,11 @@ The images (emu/img/os/; docs/module/storage.md):
 
 import argparse
 import gzip
-import hashlib
 import os
 import shutil
-import stat
 import subprocess
 import sys
+import tempfile
 import tomllib
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -70,21 +69,11 @@ def os_release(version, built):
     return 'NAME="zd1 module OS"\nID=zd1\nVERSION_ID="%s"\nBUILD_DATE="%s"\n' % (version, built)
 
 
-def tree_id(root):
-    """12 hex digits of SHA-256 over a tree: every path, its kind and mode, its contents or link target."""
-    h = hashlib.sha256()
-    for d, dirs, files in os.walk(root):
-        dirs.sort()
-        for n in sorted(dirs + files):
-            p = os.path.join(d, n)
-            st = os.lstat(p)
-            h.update(b"%s\0%o\0" % (os.path.relpath(p, root).encode(), st.st_mode))
-            if stat.S_ISLNK(st.st_mode):
-                h.update(os.readlink(p).encode())
-            elif stat.S_ISREG(st.st_mode):
-                h.update(open(p, "rb").read())
-            h.update(b"\0")
-    return h.hexdigest()[:12]
+def content_id(path):
+    """12 hex digits of what Nix hashes a path by (its NAR's SHA-256: every name, kind, mode and content): an
+    identity that changes only when what is in it does."""
+    out = subprocess.run(["nix-hash", "--type", "sha256", path], check=True, capture_output=True, text=True).stdout
+    return out.strip()[:12]
 
 
 def link_programs(root, target, names):
@@ -98,7 +87,7 @@ def link_programs(root, target, names):
 def make_rescue(cfg, parts, root):
     """The rescue, the app partition's initramfs (docs/module/storage.md): the rescue's busybox, the core build of zd1
     (init, the MCU link, settings, the slot writer, the system image's reader); /init is init (its rescue profile:
-    /etc/os-release says VARIANT_ID=rescue). Its version is its content (tree_id), not the commit or the build date:
+    /etc/os-release says VARIANT_ID=rescue). Its version is its content (content_id), not the commit or the build date:
     the core build holds only what the rescue runs, so a commit that doesn't change that builds the same rescue, and
     the app partition only needs rewriting when it does."""
     a = cfg["apps"]
@@ -111,7 +100,7 @@ def make_rescue(cfg, parts, root):
     link_programs(root, a["multicall"], a["rescue"])
     os.symlink("bin/" + a["multicall"], os.path.join(root, "init"))
     open(os.path.join(root, "etc/os-release"), "w").write(
-        'NAME="zd1 module OS"\nID=zd1\nVERSION_ID="%s"\nVARIANT_ID=rescue\n' % tree_id(root)
+        'NAME="zd1 module OS"\nID=zd1\nVERSION_ID="%s"\nVARIANT_ID=rescue\n' % content_id(root)
     )
 
 
@@ -184,21 +173,20 @@ def cpio(root, out, name, slot=False):
 def payload(cfg, parts, initrd, out, cmdline_extra="", dev=False):
     """The stub + kernel + initramfs as one app payload (mkpayload.py): the rescue's, the stub starting
     a system slot unless the MCU says otherwise (--slots); dev = the emulator's direct boot, the initramfs the system.
-    The kernel goes in deflated (half the size): the stub inflates it."""
+    The kernel goes in deflated (half the size): the stub inflates it. The command line ends in `zd1.boot=ID`, the boot
+    image's identity: the content_id of what goes in (stub, kernel, initramfs, how, the command line before it), so a
+    commit that changes none of them builds the same one. The OS reports it (the State record's `boot`), `zd1 image`
+    reads it from a .bcd, and the page rewrites the app partition only when they differ."""
     k = cfg["kernel"]
     args = (["--initrd-at", "0x61000000"] if dev else ["--slots"]) + ["--deflate-kernel"]
-    sh(
-        PY
-        + [
-            os.path.join(HERE, "mkpayload.py"),
-            os.path.join(parts, "boot", "linuxboot.bin"),
-            os.path.join(REPO, k["image"]),
-            initrd,
-            out,
-        ]
-        + args
-        + ["--cmdline", (k["cmdline"] + " " + cmdline_extra).strip()]
-    )
+    files = [os.path.join(parts, "boot", "linuxboot.bin"), os.path.join(REPO, k["image"]), initrd]
+    cmdline = (k["cmdline"] + " " + cmdline_extra).strip()
+    with tempfile.TemporaryDirectory() as d:
+        for n, p in zip(("stub", "kernel", "initramfs"), files):
+            shutil.copyfile(p, os.path.join(d, n))
+        open(os.path.join(d, "how"), "w").write(" ".join(args) + "\n" + cmdline + "\n")
+        cmdline += " zd1.boot=" + content_id(d)
+    sh(PY + [os.path.join(HERE, "mkpayload.py")] + files + [out] + args + ["--cmdline", cmdline])
 
 
 def wrap(payload_bin, out):

@@ -109,6 +109,7 @@ field 0x60 31 u16 snapcast_latency
 field 0x60 32 u16 spotify_bitrate
 field 0x60 33 str:64 stamp_a
 field 0x60 34 str:64 stamp_b
+field 0x60 35 str:12 boot
 msg 0x61 record ScanEntry
 field 0x61 0 str:32 ssid
 field 0x61 1 u8 signal

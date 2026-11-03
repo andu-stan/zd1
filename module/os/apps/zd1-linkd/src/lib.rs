@@ -155,6 +155,7 @@ struct App {
     greeted: bool,                       // our MCU firmware greeted us (0xC3): out of the stock-safe mode
     ident: String,                       // "zd1-os VERSION KIND"
     slot: Option<zd1_slot::Slot>,        // the slot we run from (none: the rescue, an initramfs)
+    boot: String,                        // the boot image's identity (zd1.boot=; empty: an older one)
     good: Option<zd1_slot::Slot>,        // the good slot, as the MCU said at ready (0xC4 b1)
     mcu: String,                         // the MCU firmware's version (0xC3)
     state_shown: Vec<u8>,                // the State record as the MCU last got it (0xD6)
@@ -306,6 +307,7 @@ impl App {
         let wifi = self.wifi.lock().unwrap();
         let stamps = self.stamps.lock().unwrap().clone();
         v.extend([("stamp_a", Val::from(trim(&stamps[0], 64))), ("stamp_b", Val::from(trim(&stamps[1], 64)))]);
+        v.push(("boot", Val::from(trim(&self.boot, 12))));
         let (st, fst) = self.front;
         let senders = self.sessions.iter().fold(0u8, |m, &(_, p)| m | 1 << p);
         v.extend([
@@ -846,6 +848,7 @@ pub fn main() {
         greeted: false,
         ident: os_ident(),
         slot: zd1_slot::boot().running,
+        boot: zd1_slot::boot().image,
         good: None,
         mcu: String::new(),
         state_shown: Vec::new(),

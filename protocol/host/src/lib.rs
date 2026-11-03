@@ -811,6 +811,9 @@ messages! {
         stamp_a: String[64],
         /// the same for slot B
         stamp_b: String[64],
+        /// the boot image the module started from (the app partition: stub, kernel, rescue): its identity, `zd1.boot=`
+        /// on the kernel command line (`zd1 image` names a .bcd's); empty: a boot image from before it had one
+        boot: String[12],
     }
     /// A Wi-Fi network seen by the module's radio (the `Scan` record, one entry per SSID; hidden networks are left
     /// out).

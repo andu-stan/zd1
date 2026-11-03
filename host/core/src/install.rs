@@ -96,6 +96,32 @@ pub async fn install<B: Bus>(
     }
 }
 
+/// The module's boot image alone (the app partition: stub, kernel, rescue), on a speaker that runs our firmware:
+/// into DFU, the relay, our firmware started again, the module up on its good slot. The system slots, `/data` and
+/// the MCU firmware stay as they are. For a release whose boot image differs from the one the module started from
+/// (the State record's `boot`, the .bcd's `zd1.boot=`).
+pub async fn boot_image<B: Bus>(
+    bus: &B,
+    mcu: Option<Mcu<B::Dev>>,
+    bcd: &[u8],
+    ev: Rc<dyn Events>,
+) -> Result<msg::InfoReply> {
+    match crate::image::identify("", bcd)? {
+        crate::image::Kind::Bcd { ours: true, .. } => {}
+        _ => return Err(Error::Failed("not our module boot image (a .bcd of ours)".into())),
+    }
+    let mut d = flash::enter_dfu(bus, mcu, ev.clone()).await?;
+    d.relay(bcd, &Relay::default(), &*ev).await?;
+    drop(d); // flash::start opens the bootloader again
+    flash::start(bus, ev.clone()).await?;
+    let mut m = Mcu::open(bus, ev.clone(), false)
+        .await?
+        .ok_or_else(|| Error::Device("our firmware left USB right after it answered".into()))?;
+    let i = wait_module(&mut m, FIRST_BOOT_MS).await?;
+    ev.step(&format!("the module runs {}", i.mod_os));
+    Ok(i)
+}
+
 /// The module up as our OS, speaking this firmware's protocol: a slot or the rescue, whichever its first boot ends
 /// on. Anything else it settles on is the reason it can't go on.
 async fn wait_module<U: crate::usb::Usb>(m: &mut Mcu<U>, ms: f64) -> Result<msg::InfoReply> {

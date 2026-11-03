@@ -199,9 +199,10 @@ enum Cmd {
     /// A receiver of the module OS on or off.
     Receiver { name: Receiver, state: OnOff },
     /// The module's system into the slot that doesn't run, then that slot started once: kept if it gets ready, else
-    /// the MCU goes back (docs/module/updater.md).
+    /// the MCU goes back (docs/module/updater.md). A .bcd: the module's boot image instead (stub, kernel, rescue),
+    /// through the bootloader's relay (~5 min), the module then up on its good slot.
     Update {
-        /// A slot's root, gzip'd cpio [default: emu/img/os/system.cpio.gz].
+        /// A slot's root, gzip'd cpio, or our .bcd [default: emu/img/os/system.cpio.gz].
         image: Option<PathBuf>,
         /// Install it, don't start it (`zd1 slot try SLOT --restart` later).
         #[arg(long)]
@@ -496,6 +497,10 @@ async fn run<B: Bus>(bus: &B, cli: Cli) -> Result<i32> {
         }
         Cmd::Update { image, no_start, baud, abort_after, uart } => {
             let image = read(&image.unwrap_or_else(|| repo().join("emu/img/os/system.cpio.gz")))?;
+            if image.starts_with(b"bCoD") {
+                install::boot_image(bus, None, &image, ev).await?;
+                return Ok(0);
+            }
             if uart {
                 return update_uart(bus, cli.wait, &image, baud, !no_start, ev).await;
             }

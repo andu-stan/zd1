@@ -287,10 +287,21 @@ async function finishAll(rel) {
   if (r && app.sp) document.querySelector("#known").scrollIntoView({ behavior: "smooth" });
 }
 
+/// What the releases are drawn for: the versions running, and the boot image's once the module's State record is in.
+export const drawnKey = () => `${app.info?.fw}|${app.info?.mod_os}|${app.info?.mod_state}|${moduleBoot()}`;
+
+/// The boot image the module started from (the State record's `boot`: "" from before it had one), or undefined while
+/// that isn't known: the module not up as our OS, or the record from before it last started (a new `os`).
+function moduleBoot() {
+  const st = app.state;
+  if (names(app.S.ModState)[app.info?.mod_state] !== "ready" || !st || st.os !== app.info.mod_os) return undefined;
+  return st.boot ?? "";
+}
+
 export function drawReleases() {
   const fw = app.info?.fw,
     os = app.info?.mod_os?.split(" ")[1];
-  app.drawnFor = `${app.info?.fw}|${app.info?.mod_os}|${app.info?.mod_state}`;
+  app.drawnFor = drawnKey();
   const v = $("verdict");
   v.replaceChildren();
   $("update").hidden = true;
@@ -303,6 +314,8 @@ export function drawReleases() {
     );
   } else {
     const [pm, ps] = [position(fw, "mcu"), position(os, "system")];
+    // the module starting (after an update, a power-up): not judged until it is up
+    const starting = ["off", "reset", "booting", "up"].includes(names(app.S.ModState)[app.info?.mod_state]);
     const say = (p, what, running) =>
       p === 0
         ? `${what} up to date`
@@ -311,8 +324,18 @@ export function drawReleases() {
           : running
             ? `${what} on ${running}, a build that isn't a release`
             : `${what} without our software`;
-    const needs = [rel.system && ps !== 0 && "system", rel.mcu && pm !== 0 && "mcu"].filter(Boolean);
-    const where = `${say(pm, "main board", fw)}, ${say(ps, "module", os)}.`;
+    // the boot image (stub, kernel, rescue): rewritten only when the release's differs from the one the module
+    // started from, by content (module/os/assemble.py, payload)
+    const boot = moduleBoot();
+    const bootBehind = !!rel.bcd?.version && boot !== undefined && boot !== rel.bcd.version;
+    const needs = [
+      rel.system && !starting && ps !== 0 && "system",
+      bootBehind && "boot",
+      rel.mcu && pm !== 0 && "mcu",
+    ].filter(Boolean);
+    const where =
+      `${say(pm, "main board", fw)}, ${starting ? "module starting" : say(ps, "module", os)}` +
+      `${bootBehind ? `, its boot image ${boot ? "older" : "from before boot images had a version"}` : ""}.`;
     const named = `release ${rel.version}${rel.date ? ` (${rel.date})` : ""}`;
     v.append(el("p", { textContent: needs.length ? `Latest ${named}: ${where}` : `Up to date: ${named}.` }));
     if (rel.notes) v.append(el("p", { className: "small notes", textContent: rel.notes }));
@@ -355,24 +378,29 @@ export function drawReleases() {
   $("builds").hidden = !rows.length;
 }
 
-/// Both boards to a release: the system, then the MCU firmware (either order works; this one keeps the page
-/// connected longest), each only if it isn't there already.
+/// The speaker to a release: the system, the module's boot image (through the bootloader: the connection ends), then
+/// the MCU firmware (this order keeps the page connected longest), each only if it isn't there already.
 export async function updateTo(rel, needs, finishing = false) {
+  const parts = {
+    system: "the module's system goes into the slot that doesn't run (the old one stays as the way back)",
+    boot: "the module's boot image (its start-up and its rescue) is rewritten through the bootloader, about 5 minutes",
+    mcu: "the main board's firmware (a backup of it first: a download, and a copy in this browser)",
+  };
+  const plan = needs.map((k) => parts[k]).join("; then ");
   if (
     !finishing &&
     !(await ask(
       `Update to ${rel.version}?`,
-      `${needs.includes("system") ? "The module's system goes into the slot that doesn't run (the old one stays as the way back)" : ""}` +
-        `${needs.length === 2 ? "; then " : ""}${needs.includes("mcu") ? "the main board's firmware (a backup of it first: a download, and a copy in this browser)" : ""}` +
-        ". A few minutes; sound stops meanwhile.",
+      `${plan[0].toUpperCase()}${plan.slice(1)}. A few minutes${needs.includes("boot") ? " more" : ""}; sound stops meanwhile.`,
       "Update",
     ))
   )
     return;
   const r = await job(`Update to ${rel.version}`, false, async () => {
     const said = [];
+    let n = 0;
     if (needs.includes("system")) {
-      events.phase(1, needs.length, "the module's system");
+      events.phase(++n, needs.length, "the module's system");
       const r = await app.sp.updateSystem(await fetchImage(rel.system), true);
       if (r.outcome === "fellBack")
         throw new Error(
@@ -380,8 +408,20 @@ export async function updateTo(rel, needs, finishing = false) {
         );
       said.push(`system ${rel.system.version} in slot ${r.slot.toUpperCase()}`);
     }
+    if (needs.includes("boot")) {
+      events.phase(++n, needs.length, "the module's boot image");
+      const bcd = await fetchImage(rel.bcd);
+      const sp = app.sp;
+      app.sp = null; // through the bootloader: this connection ends
+      await sp.updateBoot(bcd);
+      said.push(`boot image ${rel.bcd.version}`);
+      if (needs.includes("mcu")) {
+        await connect(false);
+        if (!app.sp) throw new Error("The speaker didn't come back after its boot image: connect again, then update.");
+      }
+    }
     if (needs.includes("mcu")) {
-      events.phase(needs.length, needs.length, "the main board's firmware");
+      events.phase(++n, needs.length, "the main board's firmware");
       const r = await app.sp.flashMcu(rel.mcu.file, await fetchImage(rel.mcu));
       app.sp = null;
       said.push(r.matches ? `MCU firmware ${r.fw}` : `MCU firmware: ${r.fw} runs, not the one written`);

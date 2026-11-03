@@ -20,7 +20,10 @@ images offered under `images/` instead (`index.json` names them). The three view
   and MCU image as files), and Advanced (start, an MCU file).
 - **Running**: what people reach for first. On top, under the speaker's drawing and name: Playing (the sources,
   volume, bass, the amp's sentence). A banner when a release is newer than what runs, with its notes and one
-  **Update** that brings the boards that are behind to it, the system then the MCU; nothing when up to date. Then
+  **Update** that brings what is behind to it: the system, the module's boot image (when the release's differs from
+  the one the module started from: the State record's `boot` against the `.bcd`'s `zd1.boot=`, both by content;
+  through the bootloader's relay, ~5 min), then the MCU; nothing when up to date, and the module not judged while it
+  starts. Then
   Network (the Wi-Fi and Ethernet as sentences from the State record with the plain reason when it failed, the name,
   the known networks in their order with Prefer and Forget, Add a network from a scan or by hand, the radio's limits,
   each interface's addresses), Receivers (a row each: on/off, its status, its options: AirPlay's PIN and pairings,
@@ -110,8 +113,11 @@ direction.
 ## Releases
 A release is a pair, built from one tag by CI (nix on Linux runners, with a binary cache: the MCU needs Microchip's
 x86_64 toolchain, the OS image Linux): the MCU firmware (`zd1.hex`), the system image (`system.cpio.gz`), and the
-`.bcd` (stub, kernel, rescue: changes rarely, so most releases point at an earlier one), with notes. Versions are
-commits and don't order: the page compares by position in the list, never by value.
+`.bcd` (stub, kernel, rescue), with notes. Versions are commits and don't order: the page compares by position in the
+list, never by value. The `.bcd`'s version is its content: `zd1.boot=` on its kernel command line, 12 hex digits of
+SHA-256 over the stub, kernel and rescue (whose own version is its content too) and the command line
+(`module/os/assemble.py`, payload); a release whose boot image is the same as the one the module started from
+(State's `boot`) doesn't rewrite it.
 
 The Pages workflow (`.github/workflows/pages.yml`) attaches a tag's
 three images and their `manifest.json` (`zd1 image`) to the GitHub release, then builds the page, copies every
