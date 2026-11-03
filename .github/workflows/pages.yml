@@ -1,6 +1,7 @@
 # The web page on GitHub Pages with the releases (docs/web.md, Releases). The repo's Pages source is "GitHub
 # Actions". Nix on the runner builds the MCU firmware with Microchip's x86_64 toolchain, the OS
-# image and the page; without a binary cache (CACHIX_NAME) a run builds LLVM too: hours.
+# image and the page, and pushes what it builds to the Cachix cache (vars.CACHIX_NAME, pawlowskialex-zd1; the token in
+# secrets.CACHIX_AUTH_TOKEN), so later runs fetch what hasn't changed.
 #
 # A release (a tag v*, published on GitHub) gets its three images and a `manifest.json` (from `zd1 image`) as
 # assets. Then, and on every push to main, the site is rebuilt from EVERY published release: the page beside

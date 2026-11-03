@@ -62,6 +62,10 @@ time, and the binaries follow it; `flake.nix`). The MCU needs Linux too: Microch
 Linux binary (LLVM has no AVR32). On a Mac nix hands both to a Linux builder (nix-darwin's `nix.linux-builder` or a
 remote one, aarch64 and x86_64). Nix sees the files git tracks: `git add` a new source file before building.
 
+CI pushes what it builds (x86_64-linux) to a public cache: add it to your nix configuration to skip those builds
+(`extra-substituters = https://pawlowskialex-zd1.cachix.org`, `extra-trusted-public-keys =
+pawlowskialex-zd1.cachix.org-1:fAJlCZ696sXLcIrYO9EZWCVLkw0T90T6gsjUoR6TOv8=`, or `cachix use pawlowskialex-zd1`).
+
 | `nix build .#…` | What |
 |---|---|
 | `os-image` | the module OS images: `os.bcd`, `os-debug.bcd`, the system images, the emulator's payloads and NAND (`module/os/README.md`) |
