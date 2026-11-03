@@ -76,7 +76,9 @@ firmware and tools meet: `docs/protocol/host.md`, Compatibility); `HelloReply` l
 **The gate.** Anything on the computer can reach the USB port, a web page the user lets at it included, so the
 requests that change the speaker (flashing, settings, the debug services, memory, the module's power, the source
 and volume) need a press of ON/OFF on the speaker: `Unlock` waits 30 s for it (the LED flashes purple, the press does
-nothing else), then they run until 10 minutes after the last one. `zd1` asks for the press by itself. Reads
+nothing else), then they run until 10 minutes after the last one. A new firmware's first start (its version isn't the
+one the EEPROM's second page recorded: it was just flashed) is unlocked the same way, so an install goes on without a
+press: whoever could flash it could change anything already (`hostif_first_start`). `zd1` asks for the press by itself. Reads
 (`Hello`, `Info`, `Diag`, `GetSetting`, `ModRead`) are free. For a unit tools drive unattended, the gate can be opened
 for good (`zd1 gate open`, itself behind a press; kept in the EEPROM flags byte; `gate lock` closes it).
 Emulator runs with our firmware have it open (zemu sets the flag in the run's EEPROM). The host tools claim the vendor

@@ -43,7 +43,8 @@
 //! The gate: a request that changes the speaker (`Message::gated`: flashing, the debug services, settings, memory,
 //! the module's power, the source and volume, the bulk pipe, the module's console) needs a press at the speaker. Locked, it is answered `Error
 //! LOCKED`; `Unlock` waits for a press of the ON/OFF key (the LED flashes purple), then gated requests run for 10
-//! minutes after the last one. Reads (`Hello`, `Info`, `Diag`, `GetSetting`, `ModRecord`, `ModRead`) are never gated. `Lock` opens the gate
+//! minutes after the last one. A firmware's first start after it was flashed is unlocked the same way (whoever could
+//! flash it could change anything already), so an install goes on without a press. Reads (`Hello`, `Info`, `Diag`, `GetSetting`, `ModRecord`, `ModRead`) are never gated. `Lock` opens the gate
 //! for good (kept in the MCU's EEPROM: a lab unit driven by tools unattended) or closes it again. Anything on the
 //! computer can use the USB port, a web page the user lets at it included: the gate is the speaker's own check.
 

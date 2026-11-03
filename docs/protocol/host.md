@@ -29,7 +29,9 @@ of another version.
 
 Requests marked gated change the speaker (or read its RAM). With the gate locked they get `Error LOCKED`; `Unlock`
 waits up to 30 s for a press of ON/OFF on the speaker (its LED flashes purple; the press does nothing else), after
-which gated requests run until 10 minutes after the last one. `Lock` closes it, or opens it for good (kept in the
+which gated requests run until 10 minutes after the last one. A firmware's first start after it was flashed (its version
+isn't the one the EEPROM recorded) is unlocked the same way: whoever could flash it could change anything already, and
+an install goes on without a press. `Lock` closes it, or opens it for good (kept in the
 EEPROM, for a unit tools drive unattended). The device can't tell which program or web page is talking to it: the
 press is its own check. `zd1` and the web page ask for the press and unlock by themselves when a request needs it.
 

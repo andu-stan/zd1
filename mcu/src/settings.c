@@ -9,10 +9,10 @@
 #define EE_MAGIC0 'Z'
 #define EE_MAGIC1 'D'
 #define EE_VER    1
-#define EE_ADDR2  0x88 /* the second page: [Z][E][ver][amp idle min][volume cap][0][0][crc] */
+#define EE_ADDR2  0x88 /* the second page: [Z][E][ver][amp idle min][volume cap][firmware seen, LE 16][crc] */
 #define EE_MAGIC2 'E'
 
-#define DEFAULTS {SETTINGS_DEFAULT_VOL, 0, 0, 0, SETTINGS_AMP_IDLE_DEFAULT, SETTINGS_VOL_CAP_DEFAULT}
+#define DEFAULTS {SETTINGS_DEFAULT_VOL, 0, 0, 0, SETTINGS_AMP_IDLE_DEFAULT, SETTINGS_VOL_CAP_DEFAULT, 0}
 settings_t g_settings = DEFAULTS;
 static const settings_t defaults = DEFAULTS;
 static bool dirty;
@@ -46,6 +46,7 @@ bool settings_load(void) {
             g_settings.amp_idle_min = b[3];
         if (b[4] >= 1 && b[4] <= VOL_MAX)
             g_settings.vol_cap = b[4];
+        g_settings.fw_seen = (uint16_t)(b[5] | b[6] << 8);
     }
     if (g_settings.vol_step > g_settings.vol_cap)
         g_settings.vol_step = g_settings.vol_cap; /* the one limit, at boot too */
@@ -71,7 +72,14 @@ bool settings_save_now(void) {
                     g_settings.flags, 0};
     b[7] = crc8(b, 7);
     bool ok = i2c_write(I2C_EEPROM, EE_ADDR, 1, b, 8) == 0 && ee_written();
-    uint8_t c[8] = {EE_MAGIC0, EE_MAGIC2, EE_VER, g_settings.amp_idle_min, g_settings.vol_cap, 0, 0, 0};
+    uint8_t c[8] = {EE_MAGIC0,
+                    EE_MAGIC2,
+                    EE_VER,
+                    g_settings.amp_idle_min,
+                    g_settings.vol_cap,
+                    (uint8_t)g_settings.fw_seen,
+                    (uint8_t)(g_settings.fw_seen >> 8),
+                    0};
     c[7] = crc8(c, 7);
     ok = i2c_write(I2C_EEPROM, EE_ADDR2, 1, c, 8) == 0 && ee_written() && ok;
     dirty = !ok;

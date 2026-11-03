@@ -81,6 +81,7 @@ int main(void) {
     led_poll(tick_ms()); /* the boot look (breathing red) from the start */
     audio_init();        /* CS2000, DSP download, codec; amp stays off */
     settings_load();
+    hostif_first_start();
     inputs_init();
     ir_init();
     protect_init();

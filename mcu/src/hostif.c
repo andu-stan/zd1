@@ -87,6 +87,22 @@ uint8_t hostif_gate(uint16_t *secs_left) {
     return ZD1H_GATE_UNLOCKED;
 }
 
+void hostif_first_start(void) {
+    uint32_t c = ~crc32_add(0xFFFFFFFFu, (const uint8_t *)g_fw_version, strlen(g_fw_version));
+    uint16_t h = (uint16_t)(c ^ c >> 16);
+    if (h == 0)
+        h = 1; /* 0: no firmware recorded (a blank EEPROM, or one written before this field) */
+    if (g_settings.fw_seen == h)
+        return;
+    g_settings.fw_seen = h;
+    settings_changed();
+    if (g_settings.flags & SETTINGS_GATE_OPEN)
+        return;
+    unlocked = true;
+    unlock_until = tick_ms() + GATE_MS;
+    log_puts("[gate] this firmware's first start: unlocked for 10 minutes (it was just flashed)\n");
+}
+
 bool hostif_key(uint8_t key) {
     if (confirm_wait && key == KEY_ONOFF) {
         confirmed = true;

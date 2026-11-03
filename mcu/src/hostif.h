@@ -12,6 +12,9 @@ void hostif_poll(uint32_t now); /* main loop: run a request that came in */
  * for (and its release), taken: the source manager doesn't see it. */
 bool hostif_key(uint8_t key);
 uint8_t hostif_gate(uint16_t *secs_left); /* ZD1H_GATE_* */
+/* At boot, after settings_load: the first start of this firmware version (it was just flashed) opens the gate for
+ * GATE_MS, so an install goes on without a press: whoever could flash it could change anything already. */
+void hostif_first_start(void);
 
 /* the firmware's identification (version.c; the build stamps it: mcu/stamp.py) */
 extern const char *const g_fw_version, *const g_fw_built, *const g_fw_board;
