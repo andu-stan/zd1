@@ -104,6 +104,18 @@ and what is known. What already works: `status.md`; checks that need a person at
 - **The UART path at 2 Mbaud**: the MCU's USART1 by DMA (PDCA) both ways and the host's side in blocks, not bytes (at 2
   Mbaud the module side is clean, ours drops: `docs/hardware/cr870-module.md`, UART speed).
 
+## Other models
+- **The Zeppelin Air with Lightning** (`docs/mcu/stock-firmware.md`): our MCU firmware ignores the board variant, and
+  BL2's SPI XModem (the relay, `zd1 xmodem`) takes our image whatever HWID the module has (`docs/module/boot-chain.md`)
+  [EMU]. Open: its MCU bootloader, in no `.fw`, whose relay our installer needs. Before a first install on one: the
+  module's PersParam on the stock console and a DFU backup of the MCU; the way back is the stock module image inside
+  `zd1lv20435.fw` (HWID 0xBE).
+- **The A7**: the module program is the Zeppelin's, its MCU app (`AZ1_v2-04-77.dmb`, booting on the ZD1 board model) is
+  another build of the same code; a port means its pins, DSP, amp and keys from that binary, and an A7 to try it on.
+- **BL2 and B&W's `.fw`**: what it does with the MCU part after the module image, and why it read the wrapper a byte
+  late in the emulator (`docs/module/boot-chain.md`, Web updater). The A7's and Lightning model's bootloaders would
+  show how their LAN update goes on from USB DFU.
+
 ## Emulator
 Places where the emulator is known to differ from the unit; fix the model when one gets in the way.
 - **A boot image written by BL2's XModem doesn't boot** (`zemu run --mcu --nand --allow-panic`, module in BL2, `zd1 update os.bcd`): all 2077 blocks and the EOT acknowledged, then the BL1 stand-in finds "no bootable type-2 partition"; on the unit the same write boots [HW 2026-11-03]. BL2's NAND writes or the stand-in's partition table read differ from the unit's.

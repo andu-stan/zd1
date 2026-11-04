@@ -30,7 +30,9 @@ Where the models are known to be thin (a result there means nothing for the unit
   also get the SmartMedia codes the unit has there. Missing: bad blocks, bit errors, timing.
 - **UARTs**: no line rate. Bytes from a socket or the MCU arrive at once and queue (4 KB on the module's side); what
   the kernel's tty layer does with them is the guest's own.
-- **Wi-Fi**: the WILD core's 128 KB SRAM is there, the core isn't. `sulu_wlan` times out waiting for its firmware.
+- **Wi-Fi**: the WILD core's 128 KB SRAM is there, the core isn't. `sulu_wlan` times out waiting for its firmware;
+  the stock module app takes a data abort when it starts Wi-Fi (after `wpa_driver_sulu_init`), so stock on both
+  boards needs the boot source trick below.
 - **Warp / Sol**: Sol is KnOS's reference model, which differs from the hardware (`docs/module/warp.md` section 8).
   The Warp cores follow section 3 (memory maps, hangs, ISA quirks, the 2-way random-replacement I-cache, measured
   cycle costs, the Warps slowing each other's SDRAM loads) without the ARM's and DMA's contention
@@ -144,6 +146,15 @@ From Python (a longer sequence, a loop): `emu/zemu/rig.py`, `Session` with `star
   `--nand --real-bl1`; BL1's 2 s serial window wants a key held through it: `--keep` and `emu/tools/expect.py` on
   the console socket (`khold:01:3` = BL1's menu, `02` = BL2; it also sends files with XModem). Warp1/Sol from the Mac side: `zemu run --fwd 4557:23
   --host 'python3 -I tools/zeppelin/warp/warprun.py 127.0.0.1:4557 selftest'` (`docs/module/warp.md`).
+- **Stock on both boards** (`zemu run X.bcd --mcu stock`, or another model's `.fw` cut by `tools/zeppelin/fw/bwfw.py`
+  into `module.bcd` and `--mcu OUTDIR/mcu_flash.bin`, B&W's A7 and Lightning images: `docs/mcu/stock-firmware.md`):
+  the test unit's user page is blank, so the stock MCU app runs its Wi-Fi setup on the first boot (DRC 0x9E: the
+  module resets its network settings, restarts into Wi-Fi and crashes). With AUX as the boot source it doesn't: copy
+  a run's `eeprom.bin` (the app's own record), set the word at +0x18 to 2 in both copies (0x00, 0x28), the checksum at
+  +0 = the sum of bytes 4..0x27, and `--renode "zd1:twi.eeprom File @THAT"` (the run writes into the file). The
+  record's +6 is the app's version by identity (0x0005 ZD1, 0x0035 ZD1L): a record from the other identity counts as
+  invalid. Board variant 2: `--renode 'zd1:board Adc "2:0x300"'`. The module's PersParam HWID (BL2's web updater
+  checks it) is the 4 bytes after the reversed key "DIWH" in NAND block 1 of a `--nand-image`.
 - **Where host time goes** (a slow boot): `ZEMU_SAMPLE=cr870 ZEMU_SAMPLE_STEP=0.01 zemu run ...`, then
   `emu/tools/prof_samples.py emu/run/NAME/samples.txt` (`ZEMU_SAMPLE_FROM=S` starts later, `ZEMU_SAMPLE_REGS=0,1`).
 - **Any other model knob** on the monitor: `core` (module: `Patch`, `TraceOnly`, `DelayLoops`, `TimerWaitPcs`, ...),

@@ -62,13 +62,24 @@ the SPI link and:
   - The status page keeps the previous update's verdict while the next burn runs: after a failed update in the
     same BL2 session the next upload shows "100 % / failed" at once while the burn succeeds and BL2 resets the board
     [HW, EMU]. `bl2web` waits out a "failed" page for the reset.
+  - It also takes B&W's over-the-air `.fw` (`docs/mcu/stock-firmware.md`) [EMU]: it reads the `.fw`'s 32-byte header
+    as BridgeCo's encryption wrapper ("version = 2", "encryption mode = 0": not encrypted) and checks the `.bcd`
+    inside. The A7's on the test unit (0xBD): refused, "HWID(0xbd), bcd HWID(0xa7)". With PersParam's HWID patched
+    to 0xA7, every upload of it in that BL2 session failed the header CRC instead: BL2 read the wrapper one byte late
+    ("total of 367 bytes in buffer"; the first upload of the first session read 366, correctly) [EMU, not
+    understood]. What BL2 does with the MCU part after the module image is not seen.
 - TFTP server, XModem over UART1 or SPI (the MCU bootloader's relay, `zd1 xmodem` [HW]), and a serial menu on UART1 ("Bootloader Level
   2 Menu") [RE, EMU]: 1 download image + CnE, 2 image only, 3 resource pages, **4 start image**, 5 print image info,
   **6 mark image as invalid**, 7 CnE to factory default, 8 program MAC0, 9 program GUID, a set start mode, b exit to
   shell. `zd1 module esc` stops sending after BL1's menu, so it never reaches these.
-- Image check (`checkBCDAndFlashStatus`) [RE]: header CRC32, HWID = 0xBD (expert mode skips it), each section's
-  CRC32, a version compare. **No signature.** Optional Blowfish with BridgeCo's placeholder key, off. Keep the version
-  ≥ stock.
+- Image check (`checkBCDAndFlashStatus`, 0x60040de4) [RE]: header CRC32, the `.bcd`'s HWID against PersParam's
+  (expert mode skips it), each section's CRC32, a version compare. **No signature.** Optional Blowfish with
+  BridgeCo's placeholder key, off. Keep the version ≥ stock. **Only the web updater runs it**: its one call (0x60040c56)
+  is in `WebFirmwareUpdate::closeBinData`; the SPI XModem (the relay, `zd1 xmodem`) hands the data to the
+  FlashUpdateService without it, and BL2 reads PersParam's HWID nowhere else but its banner and the CnE value
+  `HardwareID`. An `os.bcd` with its header's HWID set to 0xBE (CRC recomputed) went on a unit whose PersParam says
+  0xBD through `zd1 xmodem`: "doFirmwareUpdate() OK", the partitions' CRCs right [EMU 2026-11-04: `zemu run --nand
+  --mcu --allow-panic --until 'waiting for a system' --host 'zd1 xmodem IMAGE'`].
 - "a) Set Start Mode" asks "enable JTAG start mode [y/n]" and writes **BLDb** (y = 1): BL1 then forces BL2 at every
   boot, which parks the module where a debugger can attach. It is not a hardware JTAG enable [RE, EMU].
 - HCR 0x2421 (factory reset of the user settings) is handled like the app does [RE, EMU].
@@ -116,7 +127,11 @@ the SPI link and:
 
 ### Partition header (first 0x80 bytes)
 `char date[16]; u32 modelId, swVersion, partitionId, partitionLength, baseAddress (= partition + 0x80), imageLength,
-crc32, eFlag (0x7F = valid); "MetaInfo"` (+ the resource table for type 7).
+crc32, eFlag (0x7F = valid); "MetaInfo"`; for type 7 (resources) at 0x38: 0x48, 0, 8 container start addresses
+(unused = the end) and their 8 sizes (the `.bcd`'s words at 0x90: the FFS directory, its files, the language
+container). The app finds its resource containers through this table: with another image's table it reads garbage
+(B&W's A7 image: resource errors; the Lightning model's: a hang in ResourceManagerService) [EMU].
+`tools/zeppelin/fw/bcd.py` `partition()` writes it as BL2 does (byte-identical after an emulated SPI XModem).
 
 ### Boot header (at partition + 0x80)
 ```
@@ -134,9 +149,9 @@ App stage-2 checksum: 16-bit LE words, a = b = 0xFFFF, folded every 360 words, r
 | 0x00 | `bCoD`; 0x04 container version 1 |
 | 0x08 | build date/time, 16 chars |
 | 0x18 / 0x1C | model id (0x69) / software version (0x2398 = build 9112) |
-| 0x20 | low 16 bits = HWID (0xBD) |
+| 0x20 | low 16 bits = HWID: 0xBD (also BL2's PersParam default) in B&W's Zeppelin Air, A5 and Z2 images; 0xBE in the Zeppelin Air with Lightning's (2.01.04, 2.04.35); 0xA7 in the A7's |
 | 0x28 / 0x2C | header version (2 = 0xB0-byte header) / **header CRC32** (zlib, over the header with this field zeroed) |
-| 0x30 + 0x20·i | sections {file offset, NAND address, size, CRC32, partition size}: 0 app (→ 0x240000), 1 factory CnE, 2 resources (→ 0xC40000; 0x90-0x9B = resource table) |
+| 0x30 + 0x20·i | sections {file offset, NAND address, size, CRC32, partition size}: 0 app (→ 0x240000), 1 factory CnE, 2 resources (→ 0xC40000; 0x90 + 4·i = the sizes of its containers, 8 words, 3 used) |
 | 0xB0 | "DMP 3.x" |
 
 No signature. Tools: `python3 tools/zeppelin bcd` (parse, check, extract), `mkbcd` (wrap a custom stage 2 with the

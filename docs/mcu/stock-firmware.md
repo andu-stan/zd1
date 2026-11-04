@@ -24,28 +24,54 @@ The A7's 2.04.77 is the same March 2015 release: B&W's notes for 2.04.05 (`relea
 the same text. This binary has no A7 variant (both variants are Zeppelins with a dock); the A7's MCU app is
 `AZ1_v2-04-77.dmb` in `a7v20477.fw`, another build of the same code ("Dec 12 2014", 191 KB, ~147k bytes differ).
 
-A B&W OTA `.fw` (A7, ZD1L; the A5 and Z2 too) is a 32-byte header, u32 LE: 2, the module image's length, 0, the MCU
-part's length, then a checksum and a smaller sum (not yet checked), 0, 0; then a module image (`bCoD`, as
-`app_DMP.bcd`), then the MCU part. On the A7 and the ZD1L the MCU part is a `.dmb`: a 24-byte header (`00 01 00 80`, a
-word, the app's length, 0x80000000 + a sum), its name at +24, the app at +128, loaded at 0x80008000. The A5's and Z2's
-MCU part (63 KB, "B&WAZ2LITEON~", "B&WMA1LITEON~") is another MCU. B&W's manifest marks ZD1 2.04.05 `usb` (desktop app
-only) and ZD1L 2.04.35 and A7 2.04.77 `ota` (the iOS app too).
+A B&W OTA `.fw` (A7, ZD1L; the A5 and Z2 too) is BridgeCo's encryption wrapper, unencrypted, around a module image,
+then the MCU part: a 32-byte header, u32 LE: 2 (the wrapper's version), the module image's length, 0 (encryption mode:
+none), the MCU part's length, a checksum and a smaller sum (not yet checked), 0, 0; then the `.bcd` (`bCoD`, as
+`app_DMP.bcd`); then the MCU part. BL2's web updater reads the wrapper (`docs/module/boot-chain.md`) [EMU]. On the A7
+and the ZD1L the MCU part is a `.dmb`: a 24-byte header (`00 01 00 80`, a word, the app's length, 0x80000000 + a sum),
+its name at +24, the app at +128, loaded at 0x80008000. The A5's and Z2's MCU part (63 KB, "B&WAZ2LITEON~",
+"B&WMA1LITEON~") is another MCU, and their module images name a CX870. B&W's manifest marks ZD1 2.04.05 `usb` (desktop
+app only) and ZD1L 2.04.35 and A7 2.04.77 `ota` (the iOS app too).
 
-How a `.fw` gets in [RE, not traced end to end]:
-- The module app takes `.bcd` and `.fw` (`FirmwareDownload/FirmwareExt = 'bcd/fw'`, `re/netmodule/cne_attr.txt`): B&W's
-  Control app POSTs it as multipart `appFirmware` / `firmware.fw`
-  (`downloads/bw-zeppelin-air-software/control-app/firmware-manifests/SOURCES.md`; BL2's web updater takes the same
-  field, `docs/module/boot-chain.md`); also its own online check (`GetLatestFwUrl`, `FirmwareIndexPage` = BridgeCo's
-  dead `bridgeco-jukeblox.net/download/index.xml`), a USB stick (`Firmware_update_prepare_for_usb.asp`) and the iOS app
-  over the dock (`JBLinkPacket_UpgradeFirmware`). It keeps the file in RAM and writes the module image. BCD images may
-  be Blowfish-encrypted (`FirmwareUpdate/BCDEncryption_BFKey = 'FEDCBA9876543210'`, IV `12345678`; not mandatory).
-- Its way to the MCU: an XModem sender on register 0x2D ("XModem Host", 1030-byte frames) and the update request 0x11 =
-  0x27 (`docs/protocol/spi-registers.md`).
-- This MCU app has an XModem receiver and a network-update task (`dmhBcoMgr_Nfu.c`, `voBcoMgrNetFwUpdateTask`), dead
-  code in 2.04.05 (spi-registers, HCR 0x2520); on 0x27 it reboots a variant-2 board into USB DFU, whose bootloader
-  can't take an image from the module (`docs/mcu/bootloader-dfu.md`). So a ZD1's MCU is never updated over the network.
-  The ZD1L and A7 builds have the same task; whether they reach it, or have another bootloader, is open. The A7's
-  2.00.28 was `a7v20028-bsl.fw` (not recovered).
+**The three models' module images** (`tools/zeppelin/fw/bcd.py`, `cne2txt.py`, `ffsres_extract.py`): the module app
+(section 0) is byte-identical in ZD1 2.04.05, ZD1L 2.04.35 and A7 2.04.77. They differ in the header's HWID (0xBD,
+0xBE, 0xA7), the factory CnE (`TCPIPTunnel`, the TCP-to-SPI-registers tunnel on port 50001: `REMOTE_REGISTERS` on the
+ZD1, `OFF` on the others; the A7's names and its own certificate for the setup page) and the resources: only the
+ZD1L's and A7's setup page has the "Prepare for Firmware" panel.
+
+**B&W's update over the LAN** (the ZD1L's and A7's setup page, `scripts/device_base.js`) [EMU 2026-11-04, the stock
+images, `zemu run` below]: `GET /1000/firmware_prepare.asp`, then
+`/goform/formPrepareFirmwareUpdateHandler?FUOption=LAN&button=++++++Ok++++++` (redirects to `firmware_reboot.asp`,
+which answers the speaker's IP). The module app prints "Sending control to host" (the request 0x11 = 0x27), the page
+counts down 35 s and opens `http://IP/`, expecting BL2's web updater there. The MCU app:
+
+| MCU app | board variant | says it is | on 0x27 |
+|---|---|---|---|
+| ZD1 2.04.05 | 1 | ZD1 | (not tried: per the code, nothing) |
+| ZD1 2.04.05 | 2 | ZD1L | ISP_FORCE, the module held in reset, a watchdog reset: the bootloader |
+| ZD1L 2.04.35 | 1 | ZD1 | nothing |
+| ZD1L 2.04.35 | 2 | ZD1L | as 2.04.05 on variant 2 |
+| A7 2.04.77 | the ZD1 board's ADC2 (0x100) | AZ1 | as 2.04.05 on variant 2 |
+
+The ZD1's bootloader (0514, the one we have) then waits in USB DFU with the module off, so with it the LAN update
+ends there. The ZD1L's and A7's bootloaders, which no `.fw` carries, must start the module into BL2 instead
+[INF]; the A7's 2.00.28 was `a7v20028-bsl.fw` (not recovered). Each app writes its identity's version into the
+EEPROM record (+6: 0x0005 for ZD1, 0x0035 for ZD1L, 0x0077 for the A7) and takes a record with another version as
+invalid (its defaults). The A7 app boots on the ZD1 board model ("PSS AZ1", DSP firmware v01.00, finds its DSP, codec
+and EEPROM, reaches RUN); the ZD1L app looks like 2.04.05 throughout (the -4 differences changed nothing seen).
+
+Other ways a `.fw` might get in, from the module app's strings [RE, untried]: its own online check (`GetLatestFwUrl`,
+`FirmwareIndexPage` = BridgeCo's dead `bridgeco-jukeblox.net/download/index.xml`), a USB stick
+(`Firmware_update_prepare_for_usb.asp`), the iOS app over the dock (`JBLinkPacket_UpgradeFirmware`); its way to the
+MCU besides 0x27: an XModem sender on register 0x2D ("XModem Host", 1030-byte frames). This MCU app's XModem receiver
+and network-update task (`dmhBcoMgr_Nfu.c`, `voBcoMgrNetFwUpdateTask`) are dead code in 2.04.05 (spi-registers, HCR
+0x2520); the ZD1L and A7 builds have them too. BCD images may be Blowfish-encrypted
+(`FirmwareUpdate/BCDEncryption_BFKey = 'FEDCBA9876543210'`, IV `12345678`; not mandatory).
+
+The runs: `python3 tools/zeppelin/fw/bwfw.py FW OUTDIR` cuts a `.fw` into `module.bcd` and a 256 KB MCU flash image,
+then `zemu run OUTDIR/module.bcd --mcu OUTDIR/mcu_flash.bin` (variant 2: `--renode 'zd1:board Adc "2:0x300"'`; the
+first boot's Wi-Fi setup crashes the module: `emu/README.md`, Recipes, Stock on both boards), the requests above with
+`--fwd` and `--host`.
 
 ## Image layout
 
