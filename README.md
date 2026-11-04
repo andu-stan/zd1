@@ -58,9 +58,9 @@ on a 2010 ARM9 for all of this. What works and how it was checked: `docs/status.
   gets hot, and lets the amp sleep. `zd1 amp deny` locks the amp off, across restarts too.
 - **AirPlay is reverse-engineered**, not Apple's: an iOS or macOS update could break something.
 - **One unit tested**, a 30-pin Zeppelin Air. The **Zeppelin Air with Lightning connector** (2013) *might* work: B&W's
-  MCU firmware for it is most likely the same binary, run as its second board variant, with the same network module
-  (`docs/mcu/stock-firmware.md`), but nobody has tried, and its dock is unsupported either way. The **Zeppelin A7**
-  runs another MCU build on other hardware: not without changes.
+  MCU firmware for it is a near-twin build of the 2.04.05 ours follows (which also runs as its board variant), with the
+  same network module (`docs/mcu/stock-firmware.md`), but nobody has tried, and its dock is unsupported either way.
+  The **Zeppelin A7** runs another MCU build on other hardware: not without changes.
 - **On your network** the speaker runs an AirPlay receiver like any other AirPlay speaker. Its debug services
   (a shell and memory access) are off and can only be switched on over USB. Requests that change the speaker over
   USB (a flash, settings) need a press of ON/OFF on it first, so a web page you open can't change it on its own (below).

@@ -5,6 +5,11 @@
    "title": "B&W Zeppelin Air (ZD1) software and firmware, and the B&W AirPlay range around it",
    "url": "https://archive.org/details/bw-zeppelin-air-software"
   },
+  "bw-dds-bwfirmware-sparkle": {
+   "title": "Bowers & Wilkins firmware server dds.bwfirmware.com/sparkle (snapshot 2026-11-04)",
+   "url": "https://archive.org/details/bw-dds-bwfirmware-sparkle",
+   "note": "the whole server as served that day; its speaker firmware is also in bw-zeppelin-air-software, so no files are listed here"
+  },
   "bridgeco-jukeblox-firmware": {
    "title": "BridgeCo/SMSC JukeBlox (DM860/DM870) device firmware collection",
    "url": "https://archive.org/details/bridgeco-jukeblox-firmware"
@@ -160,9 +165,9 @@
   },
   {
    "path": "bw-zeppelin-air-software/control-app/firmware-manifests/SOURCES.md",
-   "size": 3046,
-   "sha256": "8f0e896c4aaf0d8f3ef6cb1a1990444375f422b4ec8b35c6f73c632ede657ee7",
-   "md5": "da22008fded4de337c021c2636f0992e"
+   "size": 3650,
+   "sha256": "dbb7669b91c43d56ac1922e23e30ae3b4b682bd8222dc05310e7aea146a6b2f2",
+   "md5": "714705eb2d090c1e3d62303a6a30a15d"
   },
   {
    "path": "bw-zeppelin-air-software/control-app/firmware-manifests/firmware.xml.Control-1.2.0",
@@ -185,15 +190,27 @@
   },
   {
    "path": "bw-zeppelin-air-software/a5/SOURCES.md",
-   "size": 1001,
-   "sha256": "a3b608423778cdefa25cfb4085b35187cacb03d9fabe7c1fa484f9d6473c1877",
-   "md5": "1a2ebaababc2c79fd9f6f3468e87fe91"
+   "size": 2129,
+   "sha256": "50d6a89bf7b5480704012c9aceda46d9fde22ac213d0d177ac3dd6d464019d46",
+   "md5": "73a816cac94856061c473de2afcee738"
+  },
+  {
+   "path": "bw-zeppelin-air-software/a5/a5v4852.fw",
+   "size": 5112993,
+   "sha256": "8cfdb7646c20d07d1b4eb55a01f4594ea563258a7b6728eb155d63ec0205918b",
+   "md5": "b1a14d7c733d4dbc70b5a30410a86c16"
   },
   {
    "path": "bw-zeppelin-air-software/a7/SOURCES.md",
-   "size": 1528,
-   "sha256": "3b89d01b8411509011bcb4c42119b6c13db54d7cae8ea3aa8ee525328f531906",
-   "md5": "041b5e86580d026e84628227582a3d31"
+   "size": 2483,
+   "sha256": "78c91841c921c5a6076dbe260c414d10e8966eed966a924577e748cdd847a017",
+   "md5": "e47efae93e6c3f1a9d7e05e7bb510921"
+  },
+  {
+   "path": "bw-zeppelin-air-software/a7/a7v20477.fw",
+   "size": 7036805,
+   "sha256": "d5a9f948420fbbd822b8a97291b9bb735c21c2d887271505ebe29b4fb8cb0970",
+   "md5": "6ef68a0ef106579e718e52ce74e96cc3"
   },
   {
    "path": "bw-zeppelin-air-software/a7/release_notes_id62_v2.04.77.html",
@@ -204,15 +221,33 @@
   },
   {
    "path": "bw-zeppelin-air-software/z2/SOURCES.md",
-   "size": 594,
-   "sha256": "d9d9e5023da255510452b5d2dd3eca3d9b44e52560d25a54281022b1439c304e",
-   "md5": "5a7e86403fb959f1b4f4c53bf283cbef"
+   "size": 1738,
+   "sha256": "2b34003511a01b2666e9f3571e86930d025dc5b0198c01ea4ea7907fb812047a",
+   "md5": "d1125f7a72ebeee2b766d0a94a4a192d"
+  },
+  {
+   "path": "bw-zeppelin-air-software/z2/z2v4919.fw",
+   "size": 5095585,
+   "sha256": "f9cca7c65cd12718285358ca45b8bbb077190eb6d58951f501a7505e5ce5e310",
+   "md5": "cffb2024b0ee96e76326dbfc39652c81"
   },
   {
    "path": "bw-zeppelin-air-software/zeppelin-air-lightning/SOURCES.md",
-   "size": 941,
-   "sha256": "bf7cfea5abff9298d5c12720989921441ba8d6d0d7d446f87901f855a0f23e9a",
-   "md5": "ca8f0b4acfdf9f1eee432ad09d0044fb"
+   "size": 2253,
+   "sha256": "8a5895a789dd726734384563d7af45c04e54643287f7aaec6de72b950df42a84",
+   "md5": "6735d9cb221d5f9b86904a54c4b8f1bf"
+  },
+  {
+   "path": "bw-zeppelin-air-software/zeppelin-air-lightning/ZD1Lv20104.fw",
+   "size": 7041661,
+   "sha256": "0dd9c106dc3f0906f79ba073eb68222f9ba3990d12f7ac22abaed3cc90d5f1aa",
+   "md5": "babbd8bb48babc1520711f78b0fa403a"
+  },
+  {
+   "path": "bw-zeppelin-air-software/zeppelin-air-lightning/zd1lv20435.fw",
+   "size": 7047573,
+   "sha256": "757a48bbf6fd7b531eedb56aee64f6799ce225874649ead179e7e00c2006d6c9",
+   "md5": "d71a10be2222a6fe8bb7e6167c0d16b0"
   },
   {
    "path": "bw-zeppelin-air-software/zeppelin-air-lightning/release_notes_id64_v2.04.35.html",

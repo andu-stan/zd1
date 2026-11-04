@@ -10,17 +10,42 @@ The same binary prints "2.04.05" on board variant 1 (model FP30570, ours) and "2
 the variant is ADC2 (PA23) at boot. Also embedded: DSP release v05.09, factory protocol v01.06, EEPROM version 0x0204.
 
 Variant 2 is almost certainly the Zeppelin Air with Lightning connector (ZD1L), whose last release B&W calls 2.04.35
-(March 2015, OTA `zd1lv20435.fw`, md5 d71a10be…; the file itself is lost: `downloads/bw-zeppelin-air-software/
-zeppelin-air-lightning/SOURCES.md`). On variant 2 the binary reports model FP35548 and no video out over iAP (variant 1:
+(March 2015, OTA `zd1lv20435.fw`, md5 d71a10be…: `downloads/bw-zeppelin-air-software/zeppelin-air-lightning/
+SOURCES.md`). On variant 2 the binary reports model FP35548 and no video out over iAP (variant 1:
 FP30570, video on), and only variant 2 honours the module's request to enter DFU (`docs/protocol/spi-registers.md`,
 0x27). That doesn't bring the image over the network: the MCU then waits in USB DFU for a computer on the rear port
-(`docs/mcu/bootloader-dfu.md`). So the ZD1L's MCU app 2.04.35 is most likely this same binary. The archive.org module NAND (item `20230115_20230115_1916`, a ZZ34088 board)
-supports this. Its module app and resources are byte-identical to the 2.04.05 `app_DMP.bcd` sections 0 and 2, and its
-user settings record HostVersion "2.04.05" and "2.04.35" alternately (19 records, last one 2.04.05). So one module image
-ran under MCUs that reported both versions. Unconfirmed: the `.fw` could still carry a different module build.
-The A7's 2.04.77 (also lost) is the same March 2015 release: B&W's notes for 2.04.05 (`release_id=81`), 2.04.35 and
-2.04.77 have the same text. This binary has no A7 variant (both variants are Zeppelins with a dock), so the A7's MCU
-app is another build.
+(`docs/mcu/bootloader-dfu.md`). The ZD1L's MCU app 2.04.35 (`ZD1L_v2-04-35.dmb` in the `.fw`) is a near-twin of this
+binary, not the same bytes: the same size (0x80008000-0x800380F4), build date ("Dec 1 2014") and model strings, but
+39132 bytes differ, almost all by exactly -4, most of them in 0x80028000-0x80037FFF (a data offset moved by 4). The
+archive.org module NAND (item `20230115_20230115_1916`, a ZZ34088 board) fits this. Its module app and resources are
+byte-identical to the 2.04.05 `app_DMP.bcd` sections 0 and 2, and its user settings record HostVersion "2.04.05" and
+"2.04.35" alternately (19 records, last one 2.04.05). So one module image ran under MCUs that reported both versions.
+The A7's 2.04.77 is the same March 2015 release: B&W's notes for 2.04.05 (`release_id=81`), 2.04.35 and 2.04.77 have
+the same text. This binary has no A7 variant (both variants are Zeppelins with a dock); the A7's MCU app is
+`AZ1_v2-04-77.dmb` in `a7v20477.fw`, another build of the same code ("Dec 12 2014", 191 KB, ~147k bytes differ).
+
+A B&W OTA `.fw` (A7, ZD1L; the A5 and Z2 too) is a 32-byte header, u32 LE: 2, the module image's length, 0, the MCU
+part's length, then a checksum and a smaller sum (not yet checked), 0, 0; then a module image (`bCoD`, as
+`app_DMP.bcd`), then the MCU part. On the A7 and the ZD1L the MCU part is a `.dmb`: a 24-byte header (`00 01 00 80`, a
+word, the app's length, 0x80000000 + a sum), its name at +24, the app at +128, loaded at 0x80008000. The A5's and Z2's
+MCU part (63 KB, "B&WAZ2LITEON~", "B&WMA1LITEON~") is another MCU. B&W's manifest marks ZD1 2.04.05 `usb` (desktop app
+only) and ZD1L 2.04.35 and A7 2.04.77 `ota` (the iOS app too).
+
+How a `.fw` gets in [RE, not traced end to end]:
+- The module app takes `.bcd` and `.fw` (`FirmwareDownload/FirmwareExt = 'bcd/fw'`, `re/netmodule/cne_attr.txt`): B&W's
+  Control app POSTs it as multipart `appFirmware` / `firmware.fw`
+  (`downloads/bw-zeppelin-air-software/control-app/firmware-manifests/SOURCES.md`; BL2's web updater takes the same
+  field, `docs/module/boot-chain.md`); also its own online check (`GetLatestFwUrl`, `FirmwareIndexPage` = BridgeCo's
+  dead `bridgeco-jukeblox.net/download/index.xml`), a USB stick (`Firmware_update_prepare_for_usb.asp`) and the iOS app
+  over the dock (`JBLinkPacket_UpgradeFirmware`). It keeps the file in RAM and writes the module image. BCD images may
+  be Blowfish-encrypted (`FirmwareUpdate/BCDEncryption_BFKey = 'FEDCBA9876543210'`, IV `12345678`; not mandatory).
+- Its way to the MCU: an XModem sender on register 0x2D ("XModem Host", 1030-byte frames) and the update request 0x11 =
+  0x27 (`docs/protocol/spi-registers.md`).
+- This MCU app has an XModem receiver and a network-update task (`dmhBcoMgr_Nfu.c`, `voBcoMgrNetFwUpdateTask`), dead
+  code in 2.04.05 (spi-registers, HCR 0x2520); on 0x27 it reboots a variant-2 board into USB DFU, whose bootloader
+  can't take an image from the module (`docs/mcu/bootloader-dfu.md`). So a ZD1's MCU is never updated over the network.
+  The ZD1L and A7 builds have the same task; whether they reach it, or have another bootloader, is open. The A7's
+  2.00.28 was `a7v20028-bsl.fw` (not recovered).
 
 ## Image layout
 
