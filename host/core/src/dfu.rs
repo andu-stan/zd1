@@ -428,7 +428,7 @@ impl Default for Relay {
     }
 }
 
-/// Read the app region and the user page (the way back before a flash).
+/// Read the app region and the user page (the way back before a flash), and the bootloader for the record.
 pub async fn backup<U: Usb>(d: &mut Dfu<U>, ev: &dyn Events) -> Result<Backup> {
     ev.step(&format!("reading the app flash 0x{BOOTLOADER_END:06x}..0x{FLASH_SIZE:06x}"));
     let app = d.read(BOOTLOADER_END, FLASH_SIZE, MEM_FLASH, ev).await?;
@@ -439,7 +439,15 @@ pub async fn backup<U: Usb>(d: &mut Dfu<U>, ev: &dyn Events) -> Result<Backup> {
             None
         }
     };
-    Ok(Backup::new(app, user))
+    ev.step(&format!("reading the bootloader 0x000000..0x{BOOTLOADER_END:06x}"));
+    let bootloader = match d.read(0, BOOTLOADER_END, MEM_FLASH, ev).await {
+        Ok(b) => Some(b),
+        Err(e) => {
+            ev.step(&format!("the bootloader didn't read: {e}"));
+            None
+        }
+    };
+    Ok(Backup::new(app, user, bootloader))
 }
 
 /// Erase, program flash offsets [start, start + len), read it back; `data` is the image's bytes for that span.

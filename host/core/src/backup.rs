@@ -1,7 +1,9 @@
 //! The MCU's backup before a flash, as one file for the command line and the page alike: a tar of `app_flash.bin`
-//! (0x80004000..0x8003FFFF, the app region), `user_page.bin` (0x80800000, 512 bytes) and `manifest.json` (when it
-//! was read, the firmware it holds, each file's size and SHA-256). Taken back as MCU firmware it is its app region
-//! (`McuImage::parse`); `tar x` gives the files.
+//! (0x80004000..0x8003FFFF, the app region), `user_page.bin` (0x80800000, 512 bytes), `bootloader.bin`
+//! (0x80000000..0x80003FFF: BOOTPROT keeps DFU from writing it, not from reading it; B&W's other models may have
+//! another, and only JTAG puts one back) and `manifest.json` (when it was read, the firmware it holds, each file's
+//! size and SHA-256). Backups from before the bootloader was kept have no `bootloader.bin`. Taken back as MCU firmware
+//! it is its app region (`McuImage::parse`); `tar x` gives the files.
 
 use crate::image::{BOOTLOADER_END, FLASH_SIZE, USER_PAGE_SIZE, ident};
 use crate::{Error, Result};
@@ -11,18 +13,21 @@ use crate::{Error, Result};
 pub struct Backup {
     pub app: Vec<u8>,
     pub user: Option<Vec<u8>>,
+    /// The bootloader region, read only (nothing here writes it back).
+    pub bootloader: Option<Vec<u8>>,
     /// When it was read, UTC (`2026-11-01T19:30:00Z`).
     pub when: String,
 }
 
 const APP: &str = "app_flash.bin";
 const USER: &str = "user_page.bin";
+const BOOT: &str = "bootloader.bin";
 const MANIFEST: &str = "manifest.json";
 
 impl Backup {
     /// A backup read now.
-    pub fn new(app: Vec<u8>, user: Option<Vec<u8>>) -> Backup {
-        Backup { app, user, when: crate::utc_now() }
+    pub fn new(app: Vec<u8>, user: Option<Vec<u8>>, bootloader: Option<Vec<u8>>) -> Backup {
+        Backup { app, user, bootloader, when: crate::utc_now() }
     }
 
     /// The firmware in it: our identification's version, or "unknown" (B&W's firmware, an empty app region).
@@ -45,15 +50,17 @@ impl Backup {
             "when": self.when,
             "holds": self.holds(),
             "files": files,
-            "notes": format!("{APP} = 0x80004000..0x8003FFFF (the app region); {USER} = 0x80800000, 512 bytes. The \
-                      bootloader (0x80000000..0x80003FFF) is BOOTPROT write-protected but DFU-readable: `zd1 dfu dump \
-                      0x0 0x4000 OUT`. Our tools never write fuses."),
+            "notes": format!("{APP} = 0x80004000..0x8003FFFF (the app region); {USER} = 0x80800000, 512 bytes; {BOOT} = \
+                      0x80000000..0x80003FFF, the bootloader: BOOTPROT write-protected, read for the record (only JTAG \
+                      writes it). Our tools never write fuses."),
         });
         serde_json::to_string_pretty(&m).unwrap_or_default() + "\n"
     }
 
     fn files(&self) -> impl Iterator<Item = (&'static str, &[u8])> {
-        [(APP, Some(self.app.as_slice())), (USER, self.user.as_deref())].into_iter().filter_map(|(n, d)| Some((n, d?)))
+        [(APP, Some(self.app.as_slice())), (USER, self.user.as_deref()), (BOOT, self.bootloader.as_deref())]
+            .into_iter()
+            .filter_map(|(n, d)| Some((n, d?)))
     }
 
     /// The tar.
@@ -84,7 +91,8 @@ impl Backup {
     }
 
     /// A tar this program wrote (or one with the same files): `app_flash.bin` the size of the app region,
-    /// `user_page.bin` 512 bytes if it is there, each as the manifest says when it says.
+    /// `user_page.bin` 512 bytes and `bootloader.bin` the bootloader region's size if they are there, each as the
+    /// manifest says when it says.
     pub fn from_tar(data: &[u8]) -> Result<Backup> {
         let bad = |why: String| Error::Failed(format!("not a backup: {why}"));
         let files = untar(data).map_err(|e| bad(e.into()))?;
@@ -101,16 +109,23 @@ impl Backup {
         if user.as_ref().is_some_and(|u| u.len() != USER_PAGE_SIZE as usize) {
             return Err(bad(format!("{USER} isn't 512 bytes")));
         }
+        let bootloader = get(BOOT);
+        if bootloader.as_ref().is_some_and(|b| b.len() != BOOTLOADER_END as usize) {
+            return Err(bad(format!(
+                "{BOOT} has {} bytes, not the bootloader region's {BOOTLOADER_END}",
+                bootloader.as_ref().map_or(0, Vec::len)
+            )));
+        }
         let manifest: serde_json::Value =
             get(MANIFEST).and_then(|m| serde_json::from_slice(&m).ok()).unwrap_or(serde_json::Value::Null);
-        for (name, d) in [(APP, Some(&app)), (USER, user.as_ref())] {
+        for (name, d) in [(APP, Some(&app)), (USER, user.as_ref()), (BOOT, bootloader.as_ref())] {
             let (Some(d), Some(want)) = (d, manifest["files"][name]["sha256"].as_str()) else { continue };
             if crate::hex(&crate::sha256(d)) != want {
                 return Err(bad(format!("{name}'s SHA-256 isn't the manifest's")));
             }
         }
         let when = manifest["when"].as_str().unwrap_or("").to_string();
-        Ok(Backup { app, user, when })
+        Ok(Backup { app, user, bootloader, when })
     }
 }
 
@@ -152,7 +167,12 @@ mod tests {
     fn round_trip() {
         let mut app = vec![0xFF; (FLASH_SIZE - BOOTLOADER_END) as usize];
         app[..4].copy_from_slice(&[1, 2, 3, 4]);
-        let b = Backup { app, user: Some(vec![7; 512]), when: "2026-11-01T19:30:05Z".into() };
+        let b = Backup {
+            app,
+            user: Some(vec![7; 512]),
+            bootloader: Some(vec![9; BOOTLOADER_END as usize]),
+            when: "2026-11-01T19:30:05Z".into(),
+        };
         let t = b.tar();
         assert!(is_tar(&t) && t.len() % 512 == 0);
         assert_eq!(Backup::from_tar(&t).unwrap(), b);
@@ -161,5 +181,11 @@ mod tests {
         bad[512 + 1] ^= 1; // app_flash.bin's second byte
         assert!(Backup::from_tar(&bad).is_err());
         assert!(Backup::from_tar(b"no tar at all").is_err());
+        // a backup from before the bootloader was kept still reads
+        let old = Backup { bootloader: None, ..b.clone() };
+        assert_eq!(Backup::from_tar(&old.tar()).unwrap(), old);
+        // a bootloader.bin of the wrong size is refused
+        let short = Backup { bootloader: Some(vec![9; 100]), ..b };
+        assert!(Backup::from_tar(&short.tar()).is_err());
     }
 }

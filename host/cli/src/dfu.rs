@@ -16,8 +16,8 @@ use zd1_host::{Error, Events, Result, flash};
 pub enum DfuCmd {
     /// The bootloader's state and the module's, as it sees it.
     Info,
-    /// The app region and the user page as a backup (a tar: app_flash.bin, user_page.bin, manifest.json) into OUT,
-    /// a file or a directory [default: the unit's mcu/dfu-backups/].
+    /// The app region, the user page and the bootloader as a backup (a tar: app_flash.bin, user_page.bin,
+    /// bootloader.bin, manifest.json) into OUT, a file or a directory [default: the unit's mcu/dfu-backups/].
     Backup {
         out: Option<PathBuf>,
         #[arg(long)]

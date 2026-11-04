@@ -111,5 +111,8 @@ BL2 then answers XModem 'C' on register 0x2C and the bootloader streams the imag
 ## Rules
 - Never write the bootloader region, the ISP word (except with a factory image) or the fuses other than ISP_FORCE.
   The tools refuse.
+- Every backup (`zd1 dfu backup`, and the one `zd1 flash`, the installs and the page take first) reads the bootloader
+  region too, as `bootloader.bin` in the tar: for the record, since another unit's (B&W's other models) may differ
+  from `blobs/mcu/bootloader.bin` and only JTAG could put one back [EMU: byte-identical to it].
 - After a `flash`, `restore` or `userpage-write`, the tool reads back and verifies.
 - A raw `.bin` app image is based at 0x80004000; a verify must read back independently of the map that wrote it.
