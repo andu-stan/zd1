@@ -92,7 +92,9 @@ def module_image(name, nand_boot):
     if not os.path.isfile(path):
         sys.exit("no such image: %s (os, stock, none, a .bcd, a NAND image or a stage-2 .bin)" % name)
     if path.endswith(".bcd"):
-        out = os.path.join(IMG, "bcd-%s.nand" % hashlib.sha1(open(path, "rb").read()).hexdigest()[:12])
+        # keyed on the install code too: a fix to it must not reuse a NAND it installed before
+        key = open(path, "rb").read() + open(os.path.join(ZTOOLS, "fw", "bcd.py"), "rb").read()
+        out = os.path.join(IMG, "bcd-%s.nand" % hashlib.sha1(key).hexdigest()[:12])
         if not os.path.exists(out):
             bcd_nand(path, out)
         return {"nand": out, "stage2": None, "stock": False}

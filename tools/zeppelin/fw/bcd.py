@@ -131,26 +131,31 @@ def partition(f, sec, part=None):
 
 def install(nand, f, log=lambda s: None):
     """.bcd `f` into the NAND image `nand` (a bytearray, changed in place) the way BL2's flasher leaves it: per
-    section the partition's MetaInfo gets the new length and CRC (a blank partition the header BL2 writes), the data
-    goes at partition + 0x80 and the rest of the partition is erased; the factory CnE section (no NAND address in the
-    container) erases the user settings instead, like BL2."""
+    section the partition gets the MetaInfo BL2 writes (partition(): the image's date and versions, the new length and
+    CRC, the resources' entry table; byte-identical to what the emulated BL2 left after an SPI XModem of os.bcd), the
+    data goes at partition + 0x80 and the rest of the partition is erased; the factory CnE section (no NAND address in
+    the container) erases the user settings instead, like BL2. An existing MetaInfo only has to agree with the
+    layout: keeping its entry table sent another image's resources to the old containers' addresses."""
     for s in sections(f):
         part, data = s["nand"], s["data"]
         if part == 0:
             nand[USER_CNE[0] : USER_CNE[1]] = b"\xff" * (USER_CNE[1] - USER_CNE[0])
             log("section %d (CnE): user settings 0x%x..0x%x erased" % ((s["idx"],) + USER_CNE))
             continue
+        hdr = partition(f, s)
         if nand[part + 0x30 : part + 0x38] != b"MetaInfo":
-            nand[part : part + PART_HDR] = partition(f, s)
             log("section %d: no MetaInfo at 0x%x, header generated" % (s["idx"], part))
-        plen, base = struct.unpack_from("<2I", nand, part + 0x1C)
-        if base != part + PART_HDR:
-            raise ValueError("section %d: the MetaInfo at 0x%x has base 0x%x" % (s["idx"], part, base))
+        elif nand[part + 0x1C : part + 0x24] != hdr[0x1C:0x24]:
+            raise ValueError(
+                "section %d: the MetaInfo at 0x%x has length/base %s, the image %s"
+                % (s["idx"], part, nand[part + 0x1C : part + 0x24].hex(), hdr[0x1C:0x24].hex())
+            )
+        plen, base = struct.unpack_from("<2I", hdr, 0x1C)
         if len(data) > plen - PART_HDR:
             raise ValueError("section %d: %d B > partition %d B" % (s["idx"], len(data), plen - PART_HDR))
+        nand[part : part + PART_HDR] = hdr
         nand[base : part + plen] = b"\xff" * (part + plen - base)
         nand[base : base + len(data)] = data
-        struct.pack_into("<2I", nand, part + 0x24, len(data), crc32(data))
         log("section %d -> partition 0x%x: %d B" % (s["idx"], part, len(data)))
 
 
