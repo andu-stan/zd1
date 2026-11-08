@@ -12,14 +12,21 @@
 //!   zd1-ctl watch                         print zd1-linkd's events (key ..., audio on|off, volume N, net ...)
 //!   zd1-ctl as SOURCE [STATE]             be a receiver with a sender connected (a test stand-in): `session on`,
 //!                                         the state (default paused), then print what it is told until killed
+//!   zd1-ctl serve PORT                    a read-only status page over HTTP (init's `status` service runs it in
+//!                                         stock-MCU mode, which has no USB host link): status, the slots, the end of
+//!                                         each service's log. No actions, never the settings file (it holds the
+//!                                         Wi-Fi passphrase)
 //! Which slot starts is the MCU's (`zd1 slot`); writing one: `zd1-slot install`.
 
-use std::io::{BufRead, BufReader, Write};
+use std::io::{BufRead, BufReader, Read, Write};
+use std::net::TcpListener;
 use std::os::unix::net::UnixStream;
+use std::time::Duration;
 use zd1_slot::Slot;
 
 const USAGE: &str = "usage: zd1-ctl [status] | start|stop|restart SERVICE | debug on|off|default | changed KEY... | \
-                     state playing|paused|stopped [SOURCE] | volume N | log TEXT | watch | as SOURCE [STATE]";
+                     state playing|paused|stopped [SOURCE] | volume N | log TEXT | watch | as SOURCE [STATE] | \
+                     serve PORT";
 
 pub fn main() {
     let args: Vec<String> = std::env::args().skip(1).collect();
@@ -33,6 +40,10 @@ pub fn main() {
             out(&init(&args.join(" ")))
         }
         ["state" | "volume" | "log" | "watch" | "as", ..] => linkd(&a),
+        ["serve", port] => match port.parse::<u16>() {
+            Ok(p) => serve(p),
+            Err(_) => zd1_sys::die("zd1-ctl", "serve PORT"),
+        },
         _ => {
             eprintln!("{USAGE}");
             std::process::exit(2);
@@ -67,6 +78,60 @@ fn slots() -> String {
     let mut o = format!("\nrunning: {running}\ngood:    {}{trial}\n", name(b.good));
     for s in [Slot::A, Slot::B] {
         o += &format!("slot {}:  {}\n", s.name(), zd1_slot::stamp(s).unwrap_or_else(|| "no system".into()));
+    }
+    o
+}
+
+/// The status page: one connection at a time, whatever is asked (it reads the request only to let the client finish
+/// sending), the page built at each request. Read-only: nothing here changes the system.
+fn serve(port: u16) {
+    let l = TcpListener::bind(("0.0.0.0", port)).unwrap_or_else(|e| zd1_sys::die("zd1-ctl", &format!("port {port}: {e}")));
+    for c in l.incoming() {
+        let Ok(mut c) = c else { continue };
+        let _ = c.set_read_timeout(Some(Duration::from_secs(2)));
+        let _ = c.set_write_timeout(Some(Duration::from_secs(5)));
+        let mut req = [0u8; 2048];
+        let mut n = 0;
+        while n < req.len() {
+            match c.read(&mut req[n..]) {
+                Ok(0) | Err(_) => break,
+                Ok(k) => n += k,
+            }
+            if req[..n].windows(4).any(|w| w == b"\r\n\r\n") {
+                break;
+            }
+        }
+        let body = page();
+        let head = format!(
+            "HTTP/1.0 200 OK\r\nContent-Type: text/plain; charset=utf-8\r\nCache-Control: no-store\r\n\
+             Content-Length: {}\r\nConnection: close\r\n\r\n",
+            body.len()
+        );
+        let _ = c.write_all(head.as_bytes()).and_then(|_| c.write_all(body.as_bytes()));
+    }
+}
+
+/// The page: what `zd1-ctl status` prints, then the end of each service's log (/var/log/NAME.log).
+fn page() -> String {
+    let read = |p: &str| std::fs::read_to_string(p).unwrap_or_default();
+    let release = read("/run/os-release");
+    let uptime = read("/proc/uptime");
+    let pretty = release.lines().find(|l| l.starts_with("PRETTY_NAME=")).unwrap_or("PRETTY_NAME=?");
+    let mut o = format!("{pretty}\nuptime: {} s\n\n", uptime.split(' ').next().unwrap_or("?"));
+    o += &zd1_svc::request("status").unwrap_or_else(|e| format!("init: {e}\n"));
+    o += &slots();
+    let mut logs: Vec<_> = std::fs::read_dir("/var/log")
+        .map(|d| d.filter_map(Result::ok).map(|e| e.path()).filter(|p| p.extension().is_some_and(|x| x == "log")).collect())
+        .unwrap_or_default();
+    logs.sort();
+    for p in logs {
+        let t = std::fs::read_to_string(&p).unwrap_or_default();
+        let lines: Vec<&str> = t.lines().collect();
+        o += &format!("\n== {} (last {} of {} lines)\n", p.display(), lines.len().min(60), lines.len());
+        for l in &lines[lines.len().saturating_sub(60)..] {
+            o.push_str(l);
+            o.push('\n');
+        }
     }
     o
 }

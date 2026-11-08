@@ -250,11 +250,45 @@ def lightning(cfg, parts, out, fw_path, base_nand):
     image = os.path.join(out, "os-zd1l.bcd")
     open(image, "wb").write(mkbcd.build(zd1l_template(fw_path), open(p, "rb").read()))
     log("  os-zd1l.bcd %d B" % os.path.getsize(image))
+    zd1l_fw(fw_path, image, os.path.join(out, "os-zd1l.fw"))
     install(base_nand, image, os.path.join(out, "nand_os_zd1l.bin"))
     # the emulator's: the same with zd1-linkd logging every MCU request (zd1.linktrace), never for a unit
     pt = os.path.join(out, "payload_zd1l_trace.bin")
     payload(cfg, parts, os.path.join(out, "rescue-zd1l.cpio"), pt, ZD1L_CMDLINE + " zd1.linktrace", initrd_at=ZD1L_INITRD_AT)
     open(os.path.join(out, "os-zd1l-trace.bcd"), "wb").write(mkbcd.build(zd1l_template(fw_path), open(pt, "rb").read()))
+
+
+def zd1l_fw(fw_path, image, out):
+    """os-zd1l.fw, what a unit takes through BL2's web updater: B&W's zd1lv20435.fw (the file this unit has taken
+    there) with its .bcd replaced by `image`. BridgeCo's 32-byte wrapper: version 2, the .bcd's length, encryption
+    mode 0, the MCU part's length, a CRC-32 over the .bcd and the MCU part, the MCU app's version as a number (20435),
+    two zero words; then the .bcd, B&W's MCU part and its trailing byte, unchanged. Only the .bcd, its length and the
+    CRC differ from B&W's file, and that is checked here: the CRC rule on B&W's own file first, then that our .bcd
+    differs from B&W's only where mkbcd writes (the section table and CRCs, stage 2 and its fields)."""
+    f = open(fw_path, "rb").read()
+    w = list(struct.unpack_from("<8I", f, 0))
+    theirs, mcu = f[32 : 32 + w[1]], f[32 + w[1] : 32 + w[1] + w[3]]
+    tail = f[32 + w[1] + w[3] :]
+    if w[4] != bcd.crc32(theirs + mcu) or tail != b"\n" or w[6:] != [0, 0]:
+        raise SystemExit("%s: not the wrapper this was made for (CRC-32 over .bcd + MCU part, one '\\n' after)" % fw_path)
+    ours = open(image, "rb").read()
+    bcd.sections(ours)  # every CRC
+    h, secs = bcd.parse(ours)
+    h0, secs0 = bcd.parse(theirs)
+    same = ("version", "build", "verA", "verB", "hwid", "u24", "u28", "tag")
+    if any(h[k] != h0[k] for k in same) or ours[0x90 : bcd.HDR_LEN + 8] != theirs[0x90 : bcd.HDR_LEN + 8]:
+        raise SystemExit("%s: its header differs from B&W's beyond the section table" % image)
+    if [s["data"] for s in secs[1:]] != [s["data"] for s in secs0[1:]]:
+        raise SystemExit("%s: the factory CnE or the resources differ from B&W's" % image)
+    a, a0 = bytearray(secs[0]["data"][: bcd.STAGE2_OFF]), bytearray(secs0[0]["data"][: bcd.STAGE2_OFF])
+    for b in (a, a0):  # mkbcd writes these: stage 1's CRC, stage 2's NAND address, length and checksum
+        b[0x14:0x18] = bytes(4)
+        b[0x24:0x30] = bytes(12)
+    if a != a0 or [(s["nand"], s["psize"]) for s in secs] != [(s["nand"], s["psize"]) for s in secs0]:
+        raise SystemExit("%s: the boot header, stage 1 or a partition differs from B&W's" % image)
+    w[1], w[4] = len(ours), bcd.crc32(ours + mcu)
+    open(out, "wb").write(struct.pack("<8I", *w) + ours + mcu + tail)
+    log("  %s %d B (B&W's MCU part %d B, CRC-32 0x%08x)" % (os.path.basename(out), os.path.getsize(out), len(mcu), w[4]))
 
 
 def install(base_nand, image, out):

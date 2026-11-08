@@ -29,7 +29,7 @@ jobs:
           mkdir out
           os="$(nix build .#os-image -L --print-out-paths)"
           ls -la "$os"
-          cp -L "$os"/os*.bcd "$os"/system*.cpio.gz "$os"/rescue*.cpio.gz "$os"/payload*.bin out/
+          cp -L "$os"/os*.bcd "$os"/os*.fw "$os"/system*.cpio.gz "$os"/rescue*.cpio.gz "$os"/payload*.bin out/
           sha256sum out/*
       - uses: actions/upload-artifact@v4
         with:
@@ -102,10 +102,13 @@ jobs:
             --sh 'zd1-ctl state playing airplay' --sleep 20 \
             --sh 'zd1-ctl volume 40' --sleep 20 \
             --sh 'zd1-ctl state stopped airplay' --sleep 20 \
-            --sh 'cat /proc/mounts; zd1-ctl status' || echo "zemu exit $?"
+            --sh 'cat /proc/mounts; zd1-ctl status' --sleep 5 \
+            --sh 'printf "GET / HTTP/1.0\\r\\n\\r\\n" | nc 127.0.0.1 80 | head -40' || echo "zemu exit $?"
           cp emu/run/zd1l/user_page.bin "$RUNNER_TEMP/up/3-run-b-rundir.bin" || true
           echo "== module console: our lines"
           grep -a -h -E "rescue|stock|slot|linkd|DRC|panic|Oops|error" emu/run/zd1l/module_uart1.log | grep -a -v -E "MCU (read|write) " | tail -80 || true
+          echo "== the status page (zd1-ctl serve on port 80)"
+          grep -a -A40 "PRETTY_NAME=" emu/run/zd1l/module_uart1.log | head -45 || true
           echo "== the MCU's requests (zd1-linkd's log)"
           grep -a -h -o -E "MCU (read|write) [FV] 0x[0-9a-f]{2}" emu/run/zd1l/module_uart1.log | sort | uniq -c | sort -k4 | head -80 || true
           echo "== MCU log (run B)"; cat emu/run/zd1l/mcu_log.txt || true

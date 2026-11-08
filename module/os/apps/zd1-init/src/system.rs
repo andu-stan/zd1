@@ -107,6 +107,15 @@ pub const SERVICES: &[Service] = &[
         settings: &[],
     },
     Service {
+        name: "status",
+        about: "a read-only status page on http port 80 (zd1-ctl serve), in stock-MCU mode only: no USB link there",
+        start: status,
+        stop: None,
+        lifetime: daemon(2000),
+        output: Output::Log,
+        settings: &[],
+    },
+    Service {
         name: "console",
         about: "a shell on the console",
         start: shell,
@@ -346,6 +355,16 @@ fn debug(c: &Ctx) -> Start {
         procs.push(command(&[&memsh, "23"]));
     }
     Start::Run(procs)
+}
+
+fn status(c: &Ctx) -> Start {
+    if c.boot.arg("zd1.mcu") != Some("stock") {
+        return Start::Off("off (stock-MCU mode only)".into());
+    }
+    match installed("zd1-ctl") {
+        Some(p) => Start::Run(vec![command(&[&p, "serve", "80"])]),
+        None => Start::Off("not in this image".into()),
+    }
 }
 
 fn selftest(c: &Ctx) -> Start {
