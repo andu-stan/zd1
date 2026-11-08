@@ -32,6 +32,8 @@ use std::os::unix::net::{UnixListener, UnixStream};
 use std::time::{Duration, Instant};
 use zd1_link::Link;
 
+mod stock;
+
 const SOCKET: &str = "/run/zd1link";
 use std::sync::{Arc, Mutex};
 use zd1_hostlink::codec::{self, Val};
@@ -163,6 +165,9 @@ struct App {
     servers: Arc<Mutex<Servers>>,        // the snapservers found over mDNS, and whether a look runs
     stamps: Arc<Mutex<[String; 2]>>,     // what slots A and B hold (zd1-slot's stamps; read in a thread)
     update: Option<std::process::Child>, // zd1-update while it runs
+    stock: bool,                         // stock-MCU mode (the Lightning, B&W's MCU firmware: stock.rs)
+    restore: stock::Restore,             // stock-MCU mode: the Wi-Fi the MCU restores
+    play_shown: Vec<u8>,                 // stock-MCU mode: the DRC XML the MCU last got (0x47)
 }
 
 /// Both slots' stamps, read in a thread (the slot that doesn't run is mounted to read it: seconds of JFFS2 scan).
@@ -269,6 +274,13 @@ impl App {
     /// An app's volume (0-100 % of the speaker's 0..cap) to the MCU (0xD4) and the other apps.
     fn set_volume(&mut self, id: u64, p: u32) {
         let p = p.min(100);
+        if self.stock {
+            // the stock MCU takes an attenuation on 0xE4 (VolumeHostChange) and applies it while Wi-Fi is its source
+            self.volume = Some(p);
+            self.notify(reg::VOLUME_HOST, &stock::volume_message(p));
+            self.event_except(id, &format!("volume {p}"));
+            return;
+        }
         let Some(sp) = self.speaker else { return self.say("[zd1-linkd] volume before the MCU's hello: dropped\n") };
         self.volume = Some(p);
         self.notify(reg::VOLUME_SET, &[native::step_from_percent(p as u8, sp.cap), 0]);
@@ -510,6 +522,15 @@ impl App {
             self.shown = p;
             self.notify(reg::PLAYER, &p);
         }
+        if self.stock {
+            // the stock MCU's play state: `pl` makes it switch to Wi-Fi (and wake), `pa` / `em` when it stops
+            let state = if self.front.0 == player::NONE { player::STOPPED } else { self.front.1 };
+            let x = stock::play_xml(stock::play_of(state));
+            if x != self.play_shown {
+                self.notify(reg::DRC_XML, &x);
+                self.play_shown = x;
+            }
+        }
     }
     fn set_front(&mut self, p: (u8, u8)) {
         self.front = p;
@@ -648,6 +669,16 @@ impl App {
     /// A write from the MCU.
     fn mcu(&mut self, e: zd1_link::Event) {
         match (e.reg, e.v) {
+            (reg::VOLUME, true) if self.stock => {
+                // the speaker's volume changed on the speaker (keys, remote): 03 03 01 vv
+                if let Some(v) = stock::percent_of(e.payload())
+                    && self.volume != Some(v)
+                {
+                    self.volume = Some(v);
+                    self.event(&format!("volume {v}"));
+                }
+            }
+            (reg::DRC, false) if self.stock => self.stock_drc((e.value >> 8) as u8),
             (reg::SPEAKER, true) => self.speaker(e.payload()),
             (reg::KEY, false) => match native::key_name((e.value >> 8) as u8) {
                 Some(k) => self.key(k),
@@ -755,10 +786,70 @@ impl App {
             }
             return;
         }
+        if self.stock {
+            return self.stock_config(req.op.is_read(), &name, &value);
+        }
         // not ours (the stock MCU firmware's Cne paths): its value never in the log, a read gets "!"
         self.say(&format!("[zd1-linkd] config {name}: not a zd1/ setting\n"));
         if req.op.is_read() {
             self.notify(reg::CONFIG, format!("!not a zd1/ setting: {name}").as_bytes());
+        }
+    }
+
+    /// Stock-MCU mode: a DRC command (0x48), acknowledged on 0xE3 where the stock MCU waits for one (it resends
+    /// after 3 s without).
+    fn stock_drc(&mut self, code: u8) {
+        let Some((cmd, ack)) = stock::drc(code) else {
+            return self.say(&format!("[zd1-linkd] DRC 0x{code:02x}?\n"));
+        };
+        match cmd {
+            stock::Command::Key(k) => self.key(k),
+            stock::Command::Audio(on) => {
+                if self.audio_on != on {
+                    self.audio_on = on;
+                    self.event(if on { "audio on" } else { "audio off" });
+                }
+            }
+            stock::Command::WirelessApply => {
+                self.say("[zd1-linkd] DRC: the MCU asks for the wireless settings again\n");
+                zd1_settings::apply("wifi.add");
+            }
+            stock::Command::Ignored(what) => self.say(&format!("[zd1-linkd] DRC {what}: not ours, ignored\n")),
+        }
+        if let Some(a) = ack {
+            self.notify(reg::DRC_ACK, &[a, 0]);
+        }
+    }
+
+    /// Stock-MCU mode: the stock MCU's configuration requests (0x45; docs/protocol/spi-registers.md §3.7). Values are
+    /// never logged (the restore carries the Wi-Fi passphrase). Reads we have no answer for get none: the MCU's read
+    /// times out and it goes on.
+    fn stock_config(&mut self, read: bool, name: &str, value: &str) {
+        if read {
+            if name == "pssCne/CneId" {
+                self.notify(reg::CONFIG, stock::CNE_ID);
+            } else {
+                self.say(&format!("[zd1-linkd] stock config read {name}: no answer\n"));
+            }
+            return;
+        }
+        if name == "SystemHost/HostVersion" {
+            let _ = std::fs::create_dir_all("/run/zd1");
+            let _ = std::fs::write("/run/zd1/mcu-version", format!("{value}\n"));
+            self.say(&format!("[zd1-linkd] stock MCU firmware {value}\n"));
+            self.mcu = value.to_string();
+        } else if self.restore.take(name, value) {
+            if let Some(n) = self.restore.network() {
+                match zd1_settings::act("wifi.add", &n) {
+                    Ok(()) => {
+                        self.say("[zd1-linkd] the MCU's Wi-Fi network restored into our settings\n");
+                        zd1_settings::apply("wifi.add");
+                    }
+                    Err(e) => self.say(&format!("[zd1-linkd] the MCU's Wi-Fi network: {e}\n")),
+                }
+            }
+        } else {
+            self.say(&format!("[zd1-linkd] stock config write {name}: noted, not used\n"));
         }
     }
 
@@ -856,16 +947,31 @@ pub fn main() {
         servers: Arc::default(),
         stamps: Arc::default(),
         update: None,
+        stock: stock::mode(),
+        restore: stock::Restore::default(),
+        play_shown: Vec::new(),
     };
     read_stamps(&app.stamps);
     app.say("[zd1-linkd] MCU link up (SPI slave via /dev/mem)\n");
     let ident = app.ident.clone();
-    app.link.set_value(reg::VERSION_IMAGE, &cstr(&ident));
+    if app.stock {
+        // B&W's MCU firmware reads the stock app's versions and gates on "9112" (stock.rs); ours goes to the log
+        app.link.set_value(reg::VERSION_IMAGE, stock::VERSION_IMAGE);
+        app.link.set_value(stock::VERSION_BOOT.0, stock::VERSION_BOOT.1);
+        app.link.set_value(stock::VERSION_CNE.0, stock::VERSION_CNE.1);
+        app.say("[zd1-linkd] stock-MCU mode: B&W's MCU firmware, its dialect (docs/stock-mcu.md)\n");
+    } else {
+        app.link.set_value(reg::VERSION_IMAGE, &cstr(&ident));
+    }
     app.link.set_reg(reg::LINK_PROTO, native::PROTO as u16);
     app.say(&format!("[zd1-linkd] {ident}\n"));
     app.publish_name();
     let mut settings_mtime = mtime(zd1_settings::FILE);
     app.notify(reg::PLAYER, &[player::NONE, player::STOPPED, 0]);
+    if app.stock {
+        app.notify(reg::VOLUME, &[0, 0]); // as the stock app does right after ready
+        app.publish_player(); // the play state: em
+    }
     let n = net_state();
     app.publish_net(n);
     let mut last_activity = timers(app.link.mmio()).now();

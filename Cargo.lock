@@ -4145,6 +4145,8 @@ version = "0.1.0"
 dependencies = [
  "dm870",
  "libc",
+ "pbkdf2",
+ "sha1",
  "zd1-hostlink",
  "zd1-link",
  "zd1-mdns",

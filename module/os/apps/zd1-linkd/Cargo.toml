@@ -11,6 +11,9 @@ debug = ["zd1-link/trace"]
 
 [dependencies]
 libc = "0.2"
+# stock-MCU mode: the Wi-Fi key from the passphrase the stock MCU restores (as host/core does)
+pbkdf2 = { version = "0.12", default-features = false, features = ["hmac"] }
+sha1 = { version = "0.10", default-features = false }
 dm870 = { workspace = true, features = ["linux"] }
 zd1-hostlink.workspace = true
 zd1-link.workspace = true

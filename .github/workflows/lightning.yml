@@ -1,9 +1,10 @@
-# The Lightning (ZD1L) stock-MCU work: builds the module image on every push to its branch, reading the upstream
-# Cachix cache (pawlowskialex-zd1) so unchanged parts are fetched, not rebuilt. Nothing is pushed to any cache and
-# nothing is released; the images are kept as the run's artifacts.
+# The Lightning (ZD1L) stock-MCU work (docs/stock-mcu.md): builds the module images and runs the crates' tests on
+# every push to its branch, reading the upstream Cachix cache (pawlowskialex-zd1) so unchanged parts are fetched, not
+# rebuilt. Nothing is pushed to any cache and nothing is released; the images are kept as the run's artifacts.
 name: lightning
 on:
-  push: { branches: [lightning-stock-mcu] }
+  push:
+    branches: [lightning-stock-mcu]
   workflow_dispatch:
 permissions:
   contents: read
@@ -19,14 +20,35 @@ jobs:
       - uses: actions/checkout@v4
       - uses: DeterminateSystems/nix-installer-action@v16
       - uses: cachix/cachix-action@v15
-        with: { name: pawlowskialex-zd1, skipPush: true }
-      - name: build the module image
+        with:
+          name: pawlowskialex-zd1
+          skipPush: true
+      - name: build the module images
         run: |
           set -eu
           mkdir out
           os="$(nix build .#os-image -L --print-out-paths)"
           ls -la "$os"
-          cp -L "$os"/* out/
+          cp -L "$os"/os*.bcd "$os"/system*.cpio.gz "$os"/rescue*.cpio.gz "$os"/payload*.bin out/
           sha256sum out/*
       - uses: actions/upload-artifact@v4
-        with: { name: os-image, path: out/, retention-days: 30 }
+        with:
+          name: os-image
+          path: out/
+          retention-days: 30
+
+  tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/nix-installer-action@v16
+      - uses: cachix/cachix-action@v15
+        with:
+          name: pawlowskialex-zd1
+          skipPush: true
+      - name: the crates' tests (host-tests, zd1-linkd's among them on Linux)
+        run: nix build .#checks.x86_64-linux.host-tests -L
+      - name: formatting (informational)
+        continue-on-error: true
+        run: nix build .#checks.x86_64-linux.format -L
