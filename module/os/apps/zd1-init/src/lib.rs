@@ -16,6 +16,7 @@
 
 mod services;
 mod start;
+mod stock;
 mod supervisor;
 #[cfg(feature = "full")]
 mod system;
@@ -60,5 +61,8 @@ pub fn main() {
     let profile = Profile::here();
     let _ = TAG.set(profile.tag());
     let boot = start::early(profile);
+    if profile == Profile::Rescue && stock::mode(&boot.cmdline) {
+        stock::take_over(); // the Lightning's image: into the system, back here only when that failed
+    }
     supervisor::run(profile, boot)
 }

@@ -22,11 +22,19 @@ The images (emu/img/os/; docs/module/storage.md):
     nand_os.bin             the emulator's test unit with os.bcd installed, slots empty (`zemu run os --nand --mcu`:
                             the rescue; then `--host 'zd1 update --uart'`)
     os-debug.bcd            os.bcd with the debug services on by default (os.toml [image.debug]), for the unit
+    os-zd1l.bcd             (with --zd1l-fw) the Zeppelin Air with Lightning, B&W's MCU firmware kept ("stock-MCU
+                            mode", zd1.mcu=stock): wrapped like the Lightning's stock app (HWID 0xBE, its CnE and
+                            resources) for BL2's web updater, the system inside the initramfs (the rescue installs it
+                            into slot A and switches to it: zd1-init, stock.rs)
+    nand_os_zd1l.bin        the test unit with os-zd1l.bcd installed, slots empty (the emulator, --mcu with the
+                            Lightning's MCU app)
 """
 
 import argparse
 import gzip
+import hashlib
 import os
+import struct
 import shutil
 import subprocess
 import sys
@@ -170,15 +178,18 @@ def cpio(root, out, name, slot=False):
     log("  %s %d B (%d B gzip)" % (name, len(raw), os.path.getsize(c + ".gz")))
 
 
-def payload(cfg, parts, initrd, out, cmdline_extra="", dev=False):
+def payload(cfg, parts, initrd, out, cmdline_extra="", dev=False, initrd_at=None):
     """The stub + kernel + initramfs as one app payload (mkpayload.py): the rescue's, the stub starting
     a system slot unless the MCU says otherwise (--slots); dev = the emulator's direct boot, the initramfs the system.
     The kernel goes in deflated (half the size): the stub inflates it. The command line ends in `zd1.boot=ID`, the boot
     image's identity: the content_id of what goes in (stub, kernel, initramfs, how, the command line before it), so a
     commit that changes none of them builds the same one. The OS reports it (the State record's `boot`), `zd1 image`
-    reads it from a .bcd, and the page rewrites the app partition only when they differ."""
+    reads it from a .bcd, and the page rewrites the app partition only when they differ. `initrd_at`: a lower home for
+    a big initramfs (the stub's default 0x61800000 leaves 7 MB below it)."""
     k = cfg["kernel"]
     args = (["--initrd-at", "0x61000000"] if dev else ["--slots"]) + ["--deflate-kernel"]
+    if initrd_at is not None and not dev:
+        args += ["--initrd-at", "0x%08x" % initrd_at]
     files = [os.path.join(parts, "boot", "linuxboot.bin"), os.path.join(REPO, k["image"]), initrd]
     cmdline = (k["cmdline"] + " " + cmdline_extra).strip()
     with tempfile.TemporaryDirectory() as d:
@@ -197,6 +208,51 @@ def wrap(payload_bin, out):
     log("  %s %d B" % (os.path.basename(out), os.path.getsize(out)))
 
 
+ZD1L_CMDLINE = "zd1.mcu=stock"  # stock-MCU mode: init (stock.rs), zd1-slot, zd1-linkd read it
+ZD1L_INITRD_AT = 0x61000000  # the rescue with the system (~6 MB) doesn't fit below the stub at the default
+
+
+def zd1l_template(fw_path):
+    """The Lightning model's stock module image out of B&W's OTA `.fw` (zd1lv20435.fw: BridgeCo's wrapper, 32 bytes:
+    version 2, the .bcd's length, encryption mode 0, the MCU part's length; then the .bcd, then the MCU part;
+    docs/mcu/stock-firmware.md). Its header's HWID is 0xBE, the Lightning's, which BL2's web updater checks against
+    PersParam (docs/module/boot-chain.md)."""
+    f = open(fw_path, "rb").read()
+    ver, mlen, enc = struct.unpack_from("<3I", f, 0)
+    if ver != 2 or enc != 0 or f[32:36] != b"bCoD":
+        raise SystemExit("%s: not an unencrypted B&W .fw with a .bcd inside" % fw_path)
+    t = f[32 : 32 + mlen]
+    hwid = bcd.parse(t)[0]["hwid"] & 0xFFFF
+    if hwid != 0xBE:
+        raise SystemExit("%s: HWID 0x%x, not the Lightning's 0xBE" % (fw_path, hwid))
+    return t
+
+
+def lightning(cfg, parts, out, fw_path, base_nand):
+    """os-zd1l.bcd: the Zeppelin Air with Lightning, B&W's MCU firmware kept (docs/stock-mcu.md). Its MCU bootloader
+    takes no image over USB, so the module is installed through BL2's web updater alone, and the system comes along:
+    the initramfs is the rescue plus system.cpio.gz and its stamp (system.id). On a stock MCU the stub gets no slot
+    answer and boots the rescue; with zd1.mcu=stock the rescue installs the system into slot A when slot A holds
+    another one, then switches its root to slot A (zd1-init, stock.rs). The initramfs goes in uncompressed: the system
+    image is gzip already."""
+    log("rescue-zd1l")
+    root = os.path.join(out, ".rescue-zd1l")
+    make_rescue(cfg, parts, root)
+    system = os.path.join(out, "system.cpio.gz")
+    shutil.copyfile(system, os.path.join(root, "system.cpio.gz"))
+    stamp = "zd1l-" + hashlib.sha256(open(system, "rb").read()).hexdigest()[:16]
+    open(os.path.join(root, "system.id"), "w").write(stamp + "\n")
+    cpio(root, out, "rescue-zd1l")
+    shutil.rmtree(root)
+    log("  system stamp %s" % stamp)
+    p = os.path.join(out, "payload_zd1l.bin")
+    payload(cfg, parts, os.path.join(out, "rescue-zd1l.cpio"), p, ZD1L_CMDLINE, initrd_at=ZD1L_INITRD_AT)
+    image = os.path.join(out, "os-zd1l.bcd")
+    open(image, "wb").write(mkbcd.build(zd1l_template(fw_path), open(p, "rb").read()))
+    log("  os-zd1l.bcd %d B" % os.path.getsize(image))
+    install(base_nand, image, os.path.join(out, "nand_os_zd1l.bin"))
+
+
 def install(base_nand, image, out):
     """The test unit's NAND with `image` installed the way BL2 leaves it."""
     nand = bytearray(open(base_nand, "rb").read())
@@ -204,8 +260,9 @@ def install(base_nand, image, out):
     open(out, "wb").write(nand)
 
 
-def assemble(cfg, parts, out, version, built, base_nand):
-    """Every image of os.toml into `out` (the nix build runs this)."""
+def assemble(cfg, parts, out, version, built, base_nand, zd1l_fw=None):
+    """Every image of os.toml into `out` (the nix build runs this); with `zd1l_fw` (B&W's Lightning .fw) the
+    Lightning's stock-MCU image too."""
     os.makedirs(out, exist_ok=True)
     log("system")
     sysroot = os.path.join(out, ".system")
@@ -229,6 +286,8 @@ def assemble(cfg, parts, out, version, built, base_nand):
         payload(cfg, parts, os.path.join(out, "rescue.cpio.gz"), p, cmdline)
         wrap(p, os.path.join(out, "os%s.bcd" % suffix))
     install(base_nand, os.path.join(out, "os.bcd"), os.path.join(out, "nand_os.bin"))
+    if zd1l_fw:
+        lightning(cfg, parts, out, zd1l_fw, base_nand)
     # the emulator's dev boot: the debug system as one plain initramfs loaded straight into SDRAM, its init as /init
     log("initramfs-dev")
     os.symlink("sbin/init", os.path.join(sysroot, "init"))
@@ -274,10 +333,11 @@ def main():
     ap.add_argument("--version", help="assemble: the version in /etc/os-release")
     ap.add_argument("--built", default="", help="assemble: the build date in /etc/os-release")
     ap.add_argument("--out", help="assemble: where the images go")
+    ap.add_argument("--zd1l-fw", help="assemble: B&W's Lightning .fw (zd1lv20435.fw): also os-zd1l.bcd")
     a = ap.parse_args()
     cfg = tomllib.load(open(os.path.join(HERE, "os.toml"), "rb"))
     if a.cmd[:1] == ["assemble"]:
-        assemble(cfg, a.parts, a.out, a.version, a.built, a.base_nand)
+        assemble(cfg, a.parts, a.out, a.version, a.built, a.base_nand, a.zd1l_fw)
     elif a.cmd[:1] == ["mini"] and len(a.cmd) == 2:
         log(os.path.relpath(mini(a.cmd[1]), REPO))
     else:

@@ -190,6 +190,8 @@ rescue_applets = [
   "ps",
   "free",
   "uname",
+  # stock-MCU mode (the Lightning's image): the rescue hands PID 1 over to the system it installed (zd1-init stock.rs)
+  "switch_root",
 ]
 
 [alsa]
