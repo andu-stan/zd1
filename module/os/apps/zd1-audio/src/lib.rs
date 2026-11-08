@@ -8,6 +8,7 @@ pub mod app;
 pub mod device;
 pub mod output;
 mod queue;
+mod resample;
 pub mod speaker;
 
 pub use app::Args;

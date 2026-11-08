@@ -21,6 +21,7 @@
 
 use super::device::{Device, PERIOD, frames_ns, mono_ns};
 use super::queue::{Queue, Sample};
+use super::resample::{Resampler, fixed_rate};
 use super::speaker::Speaker;
 use std::collections::VecDeque;
 use std::sync::{Arc, Condvar, Mutex};
@@ -74,6 +75,7 @@ struct State {
     marks: VecDeque<(u64, u64)>,
     flushes: u64, // flush() calls: running dry after one (pause, seek) is not a network stall
     stream: u64,  // the current stream's number
+    rs: Option<Resampler>, // stock-MCU mode: the stream's rate to the fixed one (resample.rs); `rate` is the fixed one
 }
 
 impl State {
@@ -138,6 +140,24 @@ impl State {
             *v = v.scale((i + 1) as i64, n as i64);
         }
         faded
+    }
+
+    /// A push's samples (already at the output's rate), with their play time if the stream is timed.
+    fn push_timed<T: Sample>(&mut self, samples: &[T], play_at: Option<u64>) {
+        let mut faded = Vec::new();
+        let samples = match play_at {
+            None => samples,
+            Some(t) => {
+                let samples = self.fill_gap(samples, t, &mut faded);
+                if samples.is_empty() {
+                    return;
+                }
+                let f = self.pushed;
+                self.marks.push_back((f, t));
+                samples
+            }
+        };
+        self.append(samples);
     }
 
     /// Samples onto the queue; past MAX_QUEUE the oldest go.
@@ -229,6 +249,7 @@ impl Output {
                     marks: VecDeque::new(),
                     flushes: 0,
                     stream: 0,
+                    rs: None,
                 }),
                 Condvar::new(),
             )),
@@ -257,6 +278,16 @@ impl Output {
         }
         s.rate = if ok { rate } else { 44100 };
         s.channels = if ok { channels } else { 2 };
+        // stock-MCU mode: the output runs at the fixed rate, the stream converted on its way in (resample.rs)
+        s.rs = None;
+        if let Some(fixed) = fixed_rate()
+            && ok
+            && rate != fixed
+        {
+            tracing::info!(from = rate, to = fixed, "stream resampled (stock-MCU mode)");
+            s.rs = Some(Resampler::new(rate, fixed, s.channels));
+            s.rate = fixed;
+        }
         s.active = ok;
         (s.pushed, s.taken) = (0, 0);
         s.marks.clear();
@@ -273,20 +304,11 @@ impl Output {
         if !s.active || s.stream != stream.0 {
             return;
         }
-        let mut faded = Vec::new();
-        let samples = match play_at {
-            None => samples,
-            Some(t) => {
-                let samples = s.fill_gap(samples, t, &mut faded);
-                if samples.is_empty() {
-                    return;
-                }
-                let f = s.pushed;
-                s.marks.push_back((f, t));
-                samples
-            }
-        };
-        s.append(samples);
+        let converted = s.rs.as_mut().map(|rs| rs.run(samples));
+        match converted {
+            Some(converted) => s.push_timed(&converted, play_at),
+            None => s.push_timed(samples, play_at),
+        }
         cvar.notify_all();
     }
 
@@ -307,7 +329,11 @@ impl Output {
             }
             s = cvar.wait_timeout(s, Duration::from_millis(50)).unwrap().0;
         }
-        s.append(samples);
+        let converted = s.rs.as_mut().map(|rs| rs.run(samples));
+        match converted {
+            Some(converted) => s.append(&converted),
+            None => s.append(samples),
+        }
         cvar.notify_all();
         true
     }
@@ -320,6 +346,9 @@ impl Output {
             s.taken = s.pushed;
             s.marks.clear();
             s.flushes += 1;
+            if let Some(rs) = s.rs.as_mut() {
+                rs.reset();
+            }
         }
     }
 
