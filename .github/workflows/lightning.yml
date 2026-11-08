@@ -52,3 +52,47 @@ jobs:
       - name: formatting (informational)
         continue-on-error: true
         run: nix build .#checks.x86_64-linux.format -L
+
+  # Both boards in Renode: os-zd1l.bcd installed in the test unit's NAND (booted through BL1), the main board running
+  # B&W's Lightning MCU app (zd1lv20435.fw cut by bwfw.py; the ZD1's bootloader in front of it: the ZD1L's is in no
+  # .fw) as board variant 2. What to look for: the rescue installing the system and switching to slot A, zd1-linkd in
+  # stock-MCU mode, the MCU's setup task through the "9112" gate (HostVersion written), its DRC commands acked, and
+  # no system error in mcu_log.txt. The logs are the run's artifact.
+  emulator:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/nix-installer-action@v16
+      - uses: cachix/cachix-action@v15
+        with:
+          name: pawlowskialex-zd1
+          skipPush: true
+      - name: Renode and the test unit
+        run: python3 emu/zemu setup
+      - name: B&W's Lightning firmware, cut into its module and MCU images
+        run: |
+          set -eu
+          curl -sSL --fail -o "$RUNNER_TEMP/zd1l.fw" \
+            https://archive.org/download/bw-zeppelin-air-software/zeppelin-air-lightning/zd1lv20435.fw
+          echo "757a48bbf6fd7b531eedb56aee64f6799ce225874649ead179e7e00c2006d6c9  $RUNNER_TEMP/zd1l.fw" | sha256sum -c
+          python3 -I tools/zeppelin/fw/bwfw.py "$RUNNER_TEMP/zd1l.fw" "$RUNNER_TEMP/zd1l"
+          ls -la "$RUNNER_TEMP/zd1l"
+      - name: our Lightning image with the stock Lightning MCU (variant 2)
+        run: |
+          set -u
+          os="$(nix build .#os-image --print-out-paths)"
+          python3 emu/zemu run "$os/os-zd1l.bcd" --nand --mcu "$RUNNER_TEMP/zd1l/mcu_flash.bin" \
+            --renode 'zd1:board Adc "2:0x300"' --name zd1l -q --timeout 1500 \
+            --until 'stock MCU firmware' --sleep 90 || echo "zemu exit $?"
+          ls -la emu/run/zd1l || true
+          echo "== module console (stock-MCU lines)"; grep -a -h -E "stock|slot A|switch|linkd|panic|error" emu/run/zd1l/*console* 2>/dev/null | tail -60 || true
+          echo "== MCU log (tail)"; tail -80 emu/run/zd1l/mcu_log.txt 2>/dev/null || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: emulator-zd1l
+          path: |
+            emu/run/zd1l/*.txt
+            emu/run/zd1l/*.log
+          retention-days: 30

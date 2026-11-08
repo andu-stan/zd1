@@ -46,6 +46,18 @@ Per `docs/protocol/spi-registers.md` §4.2:
 - **0xE2** shutdown.
 - **Audio** at 44.1 kHz only: the stock Wi-Fi path's rate.
 
+## Open before any unit
+- **The stock MCU's network-settings backup.** It keeps the stock app's network settings in its user page
+  (`BCO.ZD1: Save network settings in user page`), reads them from the module in its sync task (0x8001d36c: regs
+  0x35, 0x37–0x3F, 0x58, 0x5A–0x66), and restores them with 24 `Networking/…` writes. BL2's updater erases the
+  module's user settings with every update, so this backup is how a speaker going back to stock gets its Wi-Fi back.
+  What decides "back up" versus "restore", and what it stores when those reads time out (we answer none of them yet),
+  must be seen in the emulator with a user page that holds a backup. **A run that overwrites the backup with
+  nothing is a blocker.**
+- The DRC timing (DE/DF/E1/E2 resent after 3 s without an ack), the play state's auto-switch, and the volume path,
+  against the stock MCU app in the emulator.
+- 44.1 kHz output (not done yet).
+
 ## Recovery
 The image writes only the app partition: BL1, BL2 and PersParam are never touched. ON/OFF held at power-up brings
 up BL2's web updater on Ethernet, where B&W's `zd1lv20435.fw` puts the stock app back. That restore is not yet seen
