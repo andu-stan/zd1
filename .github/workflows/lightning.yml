@@ -5,8 +5,11 @@ name: lightning
 on:
   push: { branches: [lightning-stock-mcu] }
   workflow_dispatch:
-permissions: { contents: read }
-concurrency: { group: lightning-${{ github.ref }}, cancel-in-progress: true }
+permissions:
+  contents: read
+concurrency:
+  group: "lightning-${{ github.ref }}"
+  cancel-in-progress: true
 
 jobs:
   os-image:
