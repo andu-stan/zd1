@@ -1,0 +1,29 @@
+# The Lightning (ZD1L) stock-MCU work: builds the module image on every push to its branch, reading the upstream
+# Cachix cache (pawlowskialex-zd1) so unchanged parts are fetched, not rebuilt. Nothing is pushed to any cache and
+# nothing is released; the images are kept as the run's artifacts.
+name: lightning
+on:
+  push: { branches: [lightning-stock-mcu] }
+  workflow_dispatch:
+permissions: { contents: read }
+concurrency: { group: lightning-${{ github.ref }}, cancel-in-progress: true }
+
+jobs:
+  os-image:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/nix-installer-action@v16
+      - uses: cachix/cachix-action@v15
+        with: { name: pawlowskialex-zd1, skipPush: true }
+      - name: build the module image
+        run: |
+          set -eu
+          mkdir out
+          os="$(nix build .#os-image -L --print-out-paths)"
+          ls -la "$os"
+          cp -L "$os"/* out/
+          sha256sum out/*
+      - uses: actions/upload-artifact@v4
+        with: { name: os-image, path: out/, retention-days: 30 }
