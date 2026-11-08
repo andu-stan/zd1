@@ -78,16 +78,45 @@ jobs:
           echo "757a48bbf6fd7b531eedb56aee64f6799ce225874649ead179e7e00c2006d6c9  $RUNNER_TEMP/zd1l.fw" | sha256sum -c
           python3 -I tools/zeppelin/fw/bwfw.py "$RUNNER_TEMP/zd1l.fw" "$RUNNER_TEMP/zd1l"
           ls -la "$RUNNER_TEMP/zd1l"
-      - name: our Lightning image with the stock Lightning MCU (variant 2)
+      - name: "run A: B&W's firmware on both boards (the MCU builds its network-settings backup in its user page)"
+        run: |
+          set -u
+          python3 emu/zemu run "$RUNNER_TEMP/zd1l/module.bcd" --nand --mcu "$RUNNER_TEMP/zd1l/mcu_flash.bin" \
+            --renode 'zd1:board Adc "2:0x300"' --name stockA -q --timeout 600 --sleep 150 || echo "zemu exit $?"
+          mkdir -p "$RUNNER_TEMP/up"
+          cp emu/img/test-unit/user_page.bin "$RUNNER_TEMP/up/0-blank.bin"
+          cp emu/run/stockA/user_page.bin "$RUNNER_TEMP/up/1-after-stock.bin"
+          cp emu/run/stockA/user_page.bin "$RUNNER_TEMP/up/2-run-b.bin"     # run B's page, written in place
+          cp emu/run/stockA/eeprom.bin "$RUNNER_TEMP/up/eeprom-b.bin"
+          echo "== MCU log (run A)"; tail -40 emu/run/stockA/mcu_log.txt || true
+      - name: "run B: our Lightning image (request log on) with B&W's Lightning MCU and run A's backup"
         run: |
           set -u
           os="$(nix build .#os-image --print-out-paths)"
-          python3 emu/zemu run "$os/os-zd1l.bcd" --nand --mcu "$RUNNER_TEMP/zd1l/mcu_flash.bin" \
-            --renode 'zd1:board Adc "2:0x300"' --name zd1l -q --timeout 1500 \
-            --until 'stock MCU firmware' --sleep 90 || echo "zemu exit $?"
-          ls -la emu/run/zd1l || true
-          echo "== module console (stock-MCU lines)"; grep -a -h -E "stock|slot A|switch|linkd|panic|error" emu/run/zd1l/*console* 2>/dev/null | tail -60 || true
-          echo "== MCU log (tail)"; tail -80 emu/run/zd1l/mcu_log.txt 2>/dev/null || true
+          python3 emu/zemu run "$os/os-zd1l-trace.bcd" --nand --mcu "$RUNNER_TEMP/zd1l/mcu_flash.bin" \
+            --renode 'zd1:board Adc "2:0x300"' \
+            --renode "zd1:userpage Load @$RUNNER_TEMP/up/2-run-b.bin" \
+            --renode "zd1:twi.eeprom File @$RUNNER_TEMP/up/eeprom-b.bin" \
+            --name zd1l -q --timeout 1500 \
+            --until 'stock MCU firmware' --sleep 150 \
+            --sh 'zd1-ctl state playing airplay' --sleep 20 \
+            --sh 'zd1-ctl volume 40' --sleep 20 \
+            --sh 'zd1-ctl state stopped airplay' --sleep 20 \
+            --sh 'cat /proc/mounts; zd1-ctl status' || echo "zemu exit $?"
+          cp emu/run/zd1l/user_page.bin "$RUNNER_TEMP/up/3-run-b-rundir.bin" || true
+          echo "== module console: our lines"
+          grep -a -h -E "rescue|stock|slot|linkd|DRC|panic|Oops|error" emu/run/zd1l/module_uart1.log | grep -a -v -E "MCU (read|write) " | tail -80 || true
+          echo "== the MCU's requests (zd1-linkd's log)"
+          grep -a -h -o -E "MCU (read|write) [FV] 0x[0-9a-f]{2}" emu/run/zd1l/module_uart1.log | sort | uniq -c | sort -k4 | head -80 || true
+          echo "== MCU log (run B)"; cat emu/run/zd1l/mcu_log.txt || true
+      - name: the user page (the Wi-Fi backup) before and after
+        run: |
+          cd "$RUNNER_TEMP/up"
+          sha256sum *.bin
+          for f in 1-after-stock.bin 2-run-b.bin 3-run-b-rundir.bin; do
+            printf '%s CooL at 0x1F7: ' "$f"; dd if="$f" bs=1 skip=503 count=4 2>/dev/null; echo
+          done
+          if cmp -s 1-after-stock.bin 2-run-b.bin; then echo "BACKUP UNCHANGED by run B"; else echo "BACKUP CHANGED by run B"; cmp -l 1-after-stock.bin 2-run-b.bin | head -40; fi
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -95,4 +124,7 @@ jobs:
           path: |
             emu/run/zd1l/*.txt
             emu/run/zd1l/*.log
+            emu/run/stockA/*.txt
+            emu/run/stockA/*.log
+            ${{ runner.temp }}/up/
           retention-days: 30

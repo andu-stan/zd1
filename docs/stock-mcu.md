@@ -56,7 +56,9 @@ Per `docs/protocol/spi-registers.md` §4.2:
   nothing is a blocker.**
 - The DRC timing (DE/DF/E1/E2 resent after 3 s without an ack), the play state's auto-switch, and the volume path,
   against the stock MCU app in the emulator.
-- 44.1 kHz output (not done yet).
+- 44.1 kHz output (not done yet). Not by offering senders only 44.1 kHz formats: an Apple TV doesn't convert its
+  48 kHz lossy items then, it sends empty frames (docs/streaming.md, Formats). So a resampler in zd1-audio's output,
+  the device fixed at 44.1 kHz in this mode.
 
 ## Recovery
 The image writes only the app partition: BL1, BL2 and PersParam are never touched. ON/OFF held at power-up brings

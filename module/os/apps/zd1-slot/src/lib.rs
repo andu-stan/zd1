@@ -79,7 +79,8 @@ pub fn boot() -> Boot {
     let get = |k: &str| c.split_whitespace().find_map(|w| w.strip_prefix(k)).and_then(Slot::parse);
     let good = fs::read_to_string("/run/zd1/good").ok().and_then(|g| Slot::parse(g.trim())).or(get("zd1.good="));
     let image = c.split_whitespace().find_map(|w| w.strip_prefix("zd1.boot=")).unwrap_or_default().to_string();
-    let mut b = Boot { running: get("zd1.slot="), good, rescue: c.split_whitespace().any(|w| w == "zd1.rescue"), image };
+    let mut b =
+        Boot { running: get("zd1.slot="), good, rescue: c.split_whitespace().any(|w| w == "zd1.rescue"), image };
     // Stock-MCU mode (the Lightning's image, docs/stock-mcu.md): the stub always boots the rescue, which switches its
     // root to a slot (zd1-init stock.rs). The command line still says rescue: the root mount says where we run, and
     // with no MCU keeping a good slot, the one that runs is the good one.

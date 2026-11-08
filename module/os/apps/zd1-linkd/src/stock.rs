@@ -153,10 +153,7 @@ mod tests {
         assert!(r.take("Networking/WlanCfg/Profile1/SSID", "IEEE"));
         assert!(r.take("Networking/WlanCfg/Profile1/WPAPSK/Passphrase", "password"));
         assert!(!r.take("Networking/IpCfg/DeviceName", "x"));
-        assert_eq!(
-            r.network().unwrap(),
-            "wpa2 f42c6fc52df0ebef9ebb4b90b38a5f902e83fe1b135a70e23aed762e9710a12e IEEE"
-        );
+        assert_eq!(r.network().unwrap(), "wpa2 f42c6fc52df0ebef9ebb4b90b38a5f902e83fe1b135a70e23aed762e9710a12e IEEE");
         assert!(r.network().is_none(), "forgotten once handed over");
     }
 }

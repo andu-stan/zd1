@@ -399,7 +399,11 @@ fn where_we_run(boot: &Boot) -> String {
     match (boot.arg("zd1.slot"), boot.arg("zd1.good")) {
         (Some(s), Some(g)) if s != g => format!("slot {s}, on trial (good: {g})"),
         (Some(s), _) => format!("slot {s}"),
-        (None, _) => "no slot (an initramfs)".into(),
+        (None, _) => match zd1_slot::boot().running {
+            // stock-MCU mode: the rescue switched to the slot (stock.rs); the command line still says rescue
+            Some(s) => format!("slot {} (stock-MCU mode)", s.name()),
+            None => "no slot (an initramfs)".into(),
+        },
     }
 }
 

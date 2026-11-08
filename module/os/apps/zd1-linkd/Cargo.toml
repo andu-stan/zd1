@@ -16,7 +16,7 @@ pbkdf2 = { version = "0.12", default-features = false, features = ["hmac"] }
 sha1 = { version = "0.10", default-features = false }
 dm870 = { workspace = true, features = ["linux"] }
 zd1-hostlink.workspace = true
-zd1-link.workspace = true
+zd1-link = { workspace = true, features = ["trace"] }
 zd1-mdns.workspace = true
 zd1-net.workspace = true
 zd1-persparam.workspace = true

@@ -802,6 +802,7 @@ impl App {
         let Some((cmd, ack)) = stock::drc(code) else {
             return self.say(&format!("[zd1-linkd] DRC 0x{code:02x}?\n"));
         };
+        self.say(&format!("[zd1-linkd] DRC 0x{code:02x}{}\n", ack.map(|a| format!(", ack {a}")).unwrap_or_default()));
         match cmd {
             stock::Command::Key(k) => self.key(k),
             stock::Command::Audio(on) => {
@@ -976,8 +977,11 @@ pub fn main() {
     app.publish_net(n);
     let mut last_activity = timers(app.link.mmio()).now();
     let mut last_net = Instant::now();
-    #[cfg(feature = "debug")]
-    let mut trace = std::env::var_os("ZD1LINKD_TRACE").map(|_| 0usize); // every MCU request on the console
+    // every MCU request on the console: ZD1LINKD_TRACE (the debug build), or zd1.linktrace on the command line
+    // (stock-MCU mode's emulator image: what B&W's MCU app asks, docs/stock-mcu.md)
+    let mut trace = (std::env::var_os("ZD1LINKD_TRACE").is_some()
+        || std::fs::read_to_string("/proc/cmdline").is_ok_and(|c| c.split_whitespace().any(|w| w == "zd1.linktrace")))
+    .then_some(0usize);
     loop {
         let before = app.link.activity();
         app.link.poll();
@@ -988,7 +992,6 @@ pub fn main() {
         while let Some(e) = app.link.next_event() {
             app.mcu(e);
         }
-        #[cfg(feature = "debug")]
         if let Some(traced) = &mut trace {
             let (n, log) = app.link.requests();
             for k in (*traced).max(n.saturating_sub(32))..n {

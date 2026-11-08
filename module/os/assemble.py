@@ -34,8 +34,8 @@ import argparse
 import gzip
 import hashlib
 import os
-import struct
 import shutil
+import struct
 import subprocess
 import sys
 import tempfile
@@ -251,6 +251,10 @@ def lightning(cfg, parts, out, fw_path, base_nand):
     open(image, "wb").write(mkbcd.build(zd1l_template(fw_path), open(p, "rb").read()))
     log("  os-zd1l.bcd %d B" % os.path.getsize(image))
     install(base_nand, image, os.path.join(out, "nand_os_zd1l.bin"))
+    # the emulator's: the same with zd1-linkd logging every MCU request (zd1.linktrace), never for a unit
+    pt = os.path.join(out, "payload_zd1l_trace.bin")
+    payload(cfg, parts, os.path.join(out, "rescue-zd1l.cpio"), pt, ZD1L_CMDLINE + " zd1.linktrace", initrd_at=ZD1L_INITRD_AT)
+    open(os.path.join(out, "os-zd1l-trace.bcd"), "wb").write(mkbcd.build(zd1l_template(fw_path), open(pt, "rb").read()))
 
 
 def install(base_nand, image, out):
