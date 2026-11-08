@@ -6,6 +6,11 @@ license.workspace = true
 description = "The running system from a shell: init's services, the MCU link (zd1-linkd), the slots"
 
 [dependencies]
+# the status page's Wi-Fi form: the key from the passphrase (as zd1-linkd's stock restore and host/core make it)
+pbkdf2 = { version = "0.12", default-features = false, features = ["hmac"] }
+sha1 = { version = "0.10", default-features = false }
+zd1-net.workspace = true
+zd1-settings.workspace = true
 zd1-slot.workspace = true
 zd1-svc.workspace = true
 zd1-sys.workspace = true

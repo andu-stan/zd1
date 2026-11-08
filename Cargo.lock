@@ -4066,6 +4066,10 @@ dependencies = [
 name = "zd1-ctl"
 version = "0.1.0"
 dependencies = [
+ "pbkdf2",
+ "sha1",
+ "zd1-net",
+ "zd1-settings",
  "zd1-slot",
  "zd1-svc",
  "zd1-sys",

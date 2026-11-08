@@ -108,7 +108,7 @@ pub const SERVICES: &[Service] = &[
     },
     Service {
         name: "status",
-        about: "a read-only status page on http port 80 (zd1-ctl serve), in stock-MCU mode only: no USB link there",
+        about: "the status page on http port 80 (zd1-ctl serve: read-only, and /wifi over Ethernet), stock-MCU mode only",
         start: status,
         stop: None,
         lifetime: daemon(2000),

@@ -12,14 +12,14 @@
 //!   zd1-ctl watch                         print zd1-linkd's events (key ..., audio on|off, volume N, net ...)
 //!   zd1-ctl as SOURCE [STATE]             be a receiver with a sender connected (a test stand-in): `session on`,
 //!                                         the state (default paused), then print what it is told until killed
-//!   zd1-ctl serve PORT                    a read-only status page over HTTP (init's `status` service runs it in
-//!                                         stock-MCU mode, which has no USB host link): status, the slots, the end of
-//!                                         each service's log. No actions, never the settings file (it holds the
-//!                                         Wi-Fi passphrase)
+//!   zd1-ctl serve PORT                    the status page over HTTP (init's `status` service runs it in stock-MCU
+//!                                         mode, which has no USB host link): `/` status, the slots, the end of each
+//!                                         service's log (read-only, never the settings file); `/wifi` a network to
+//!                                         join, taken over Ethernet only
 //! Which slot starts is the MCU's (`zd1 slot`); writing one: `zd1-slot install`.
 
 use std::io::{BufRead, BufReader, Read, Write};
-use std::net::TcpListener;
+use std::net::{IpAddr, TcpListener, TcpStream};
 use std::os::unix::net::UnixStream;
 use std::time::Duration;
 use zd1_slot::Slot;
@@ -82,33 +82,159 @@ fn slots() -> String {
     o
 }
 
-/// The status page: one connection at a time, whatever is asked (it reads the request only to let the client finish
-/// sending), the page built at each request. Read-only: nothing here changes the system.
+/// The status page, one connection at a time, built at each request: `/` the status (read-only), `/wifi` B&W's
+/// setup page's one job, a Wi-Fi network to join (SSID and passphrase: WPA2, or open without one), taken only over
+/// Ethernet (the connection's local address is eth0's), as `wifi.add` (the passphrase never stored or shown: its
+/// key, as host/core and the stock restore make it).
 fn serve(port: u16) {
     let l = TcpListener::bind(("0.0.0.0", port)).unwrap_or_else(|e| zd1_sys::die("zd1-ctl", &format!("port {port}: {e}")));
     for c in l.incoming() {
         let Ok(mut c) = c else { continue };
-        let _ = c.set_read_timeout(Some(Duration::from_secs(2)));
+        let _ = c.set_read_timeout(Some(Duration::from_secs(3)));
         let _ = c.set_write_timeout(Some(Duration::from_secs(5)));
-        let mut req = [0u8; 2048];
-        let mut n = 0;
-        while n < req.len() {
-            match c.read(&mut req[n..]) {
-                Ok(0) | Err(_) => break,
-                Ok(k) => n += k,
-            }
-            if req[..n].windows(4).any(|w| w == b"\r\n\r\n") {
-                break;
-            }
-        }
-        let body = page();
+        let Some(r) = request(&mut c) else { continue };
+        let local = c.local_addr().ok().map(|a| a.ip());
+        let (code, kind, body) = respond(&r, local);
         let head = format!(
-            "HTTP/1.0 200 OK\r\nContent-Type: text/plain; charset=utf-8\r\nCache-Control: no-store\r\n\
+            "HTTP/1.0 {code}\r\nContent-Type: {kind}; charset=utf-8\r\nCache-Control: no-store\r\n\
              Content-Length: {}\r\nConnection: close\r\n\r\n",
             body.len()
         );
         let _ = c.write_all(head.as_bytes()).and_then(|_| c.write_all(body.as_bytes()));
     }
+}
+
+struct Request {
+    method: String,
+    path: String,
+    body: Vec<u8>,
+}
+
+/// The request line, the headers (8 KB at most) and a body of up to 4 KB (Content-Length).
+fn request(c: &mut TcpStream) -> Option<Request> {
+    let mut buf = Vec::new();
+    let mut tmp = [0u8; 1024];
+    let end = loop {
+        if let Some(p) = buf.windows(4).position(|w| w == b"\r\n\r\n") {
+            break p + 4;
+        }
+        if buf.len() > 8192 {
+            return None;
+        }
+        let n = c.read(&mut tmp).ok()?;
+        if n == 0 {
+            return None;
+        }
+        buf.extend_from_slice(&tmp[..n]);
+    };
+    let head = String::from_utf8_lossy(&buf[..end]).to_string();
+    let mut words = head.lines().next()?.split(' ');
+    let (method, path) = (words.next()?.to_string(), words.next()?.to_string());
+    let len = head
+        .lines()
+        .filter_map(|l| l.split_once(':'))
+        .find(|(k, _)| k.trim().eq_ignore_ascii_case("content-length"))
+        .and_then(|(_, v)| v.trim().parse::<usize>().ok())
+        .unwrap_or(0)
+        .min(4096);
+    let mut body = buf[end..].to_vec();
+    while body.len() < len {
+        let n = c.read(&mut tmp).ok()?;
+        if n == 0 {
+            break;
+        }
+        body.extend_from_slice(&tmp[..n]);
+    }
+    body.truncate(len);
+    Some(Request { method, path, body })
+}
+
+fn respond(r: &Request, local: Option<IpAddr>) -> (&'static str, &'static str, String) {
+    let path = r.path.split('?').next().unwrap_or("");
+    match (r.method.as_str(), path) {
+        ("GET", "/wifi") => ("200 OK", "text/html", wifi_page("")),
+        ("POST", "/wifi") => {
+            let eth = zd1_net::Iface::open("eth0").ok().and_then(|i| i.ipv4()).map(IpAddr::V4);
+            if eth.is_none() || local != eth {
+                return ("403 Forbidden", "text/plain", "Wi-Fi setup is taken over Ethernet only.\n".into());
+            }
+            let f = form(&r.body);
+            let field = |k: &str| f.iter().find(|(n, _)| n == k).map(|(_, v)| v.as_str()).unwrap_or("");
+            match add_wifi(field("ssid"), field("pass")) {
+                Ok(ssid) => ("200 OK", "text/html", wifi_page(&format!("Saved: the speaker joins {} now.", esc(&ssid)))),
+                Err(e) => ("400 Bad Request", "text/html", wifi_page(&esc(&e))),
+            }
+        }
+        _ => ("200 OK", "text/plain", page()),
+    }
+}
+
+/// A network to join: `wpa2 KEY SSID` (KEY: PBKDF2-SHA1 of the passphrase, 4096 rounds, salted with the SSID) or
+/// `open SSID`, then init told (it restarts what uses it).
+fn add_wifi(ssid: &str, pass: &str) -> Result<String, String> {
+    let ssid = ssid.trim_end_matches(['\r', '\n']);
+    if ssid.is_empty() || ssid.len() > 32 || ssid.chars().any(char::is_control) {
+        return Err("The network name must be 1 to 32 bytes.".into());
+    }
+    let v = if pass.is_empty() {
+        format!("open {ssid}")
+    } else {
+        if !(8..=63).contains(&pass.len()) || !pass.bytes().all(|b| (0x20..0x7f).contains(&b)) {
+            return Err("A WPA2 passphrase is 8 to 63 printable ASCII characters.".into());
+        }
+        let mut k = [0u8; 32];
+        pbkdf2::pbkdf2_hmac::<sha1::Sha1>(pass.as_bytes(), ssid.as_bytes(), 4096, &mut k);
+        format!("wpa2 {} {ssid}", zd1_sys::hex(&k))
+    };
+    zd1_settings::act("wifi.add", &v)?;
+    zd1_settings::apply("wifi.add");
+    Ok(ssid.to_string())
+}
+
+fn wifi_page(note: &str) -> String {
+    format!(
+        "<!doctype html><html><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width\">\
+         <title>Wi-Fi</title></head><body style=\"font-family:sans-serif;max-width:28em;margin:2em auto;padding:0 1em\">\
+         <h1>Wi-Fi</h1><p>{note}</p><form method=\"post\" action=\"/wifi\">\
+         <p><label>Network name<br><input name=\"ssid\" maxlength=\"32\" required></label></p>\
+         <p><label>Passphrase (empty for an open network)<br><input name=\"pass\" type=\"password\" maxlength=\"63\"></label></p>\
+         <p><button>Join</button></p></form><p><a href=\"/\">Status</a></p></body></html>\n"
+    )
+}
+
+/// application/x-www-form-urlencoded: `+` a space, `%XX` a byte.
+fn form(body: &[u8]) -> Vec<(String, String)> {
+    let dec = |s: &str| {
+        let b = s.as_bytes();
+        let mut o = Vec::with_capacity(b.len());
+        let mut i = 0;
+        while i < b.len() {
+            match b[i] {
+                b'+' => o.push(b' '),
+                b'%' if i + 2 < b.len() => {
+                    match u8::from_str_radix(std::str::from_utf8(&b[i + 1..i + 3]).unwrap_or("x"), 16) {
+                        Ok(v) => {
+                            o.push(v);
+                            i += 2;
+                        }
+                        Err(_) => o.push(b'%'),
+                    }
+                }
+                x => o.push(x),
+            }
+            i += 1;
+        }
+        String::from_utf8_lossy(&o).to_string()
+    };
+    String::from_utf8_lossy(body)
+        .split('&')
+        .filter_map(|kv| kv.split_once('='))
+        .map(|(k, v)| (dec(k), dec(v)))
+        .collect()
+}
+
+fn esc(s: &str) -> String {
+    s.replace('&', "&amp;").replace('<', "&lt;").replace('>', "&gt;").replace('"', "&quot;")
 }
 
 /// The page: what `zd1-ctl status` prints, then the end of each service's log (/var/log/NAME.log).
@@ -156,5 +282,30 @@ fn linkd(a: &[&str]) {
         for l in BufReader::new(s).lines().map_while(Result::ok) {
             out(&format!("zd1-ctl: {l}\n"));
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn a_form_is_decoded() {
+        let f = form(b"ssid=My+Net%21&pass=a%25b+c%2");
+        assert_eq!(f, vec![("ssid".into(), "My Net!".into()), ("pass".into(), "a%b c%2".into())]);
+    }
+
+    #[test]
+    fn markup_is_escaped() {
+        assert_eq!(esc("<a href=\"x\">&"), "&lt;a href=&quot;x&quot;&gt;&amp;");
+    }
+
+    #[test]
+    fn bad_networks_are_refused_before_anything_is_written() {
+        assert!(add_wifi("", "password").is_err());
+        assert!(add_wifi(&"x".repeat(33), "password").is_err());
+        assert!(add_wifi("net", "short").is_err());
+        assert!(add_wifi("net", &"p".repeat(64)).is_err());
+        assert!(add_wifi("net", "pass\u{7f}word").is_err());
     }
 }
